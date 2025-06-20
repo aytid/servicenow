@@ -50,7 +50,7 @@
       background: white;
       padding: 20px;
       margin: 20px 0;
-      border-left: 4px solid #0077cc;
+      border-left: 4px solid #69a2ca;
       box-shadow: 0 2px 5px rgba(0,0,0,0.05);
     }
 
@@ -149,6 +149,32 @@
   transform: scale(1.05);
 }
 
+
+
+
+.typed-text {
+  font-weight: bold;
+  /*color: #0074D9;*/
+  color: #2386cd;
+  font-size: 1.1em;
+}
+
+.cursor {
+  display: inline-block;
+  background-color: #0074D9;
+  width: 2px;
+  height: 1em;
+  animation: blink 0.8s infinite;
+  vertical-align: bottom;
+  margin-left: 4px;
+}
+
+@keyframes blink {
+  0%, 50%, 100% { opacity: 1; }
+  25%, 75% { opacity: 0; }
+}
+
+
   </style>
 </head>
 <body>
@@ -182,16 +208,44 @@
     </div>-->
   </section>
 
-  <section id="about" class="section">
-    <h2>About Me</h2>
-    <div class="responsive-about">
-      <p>Yes, that guy is ME! <br> I’m Rohan Aditya, a ServiceNow developer at <a style="font-style: italic; color: black;" href="https://kaptius.com/" target="_blank">Kaptius - We make WorkFlow</a>.</p>
+<!--<section id="about" class="section">
+  <h2>About Me</h2>
+  <div class="responsive-about">
+    <div class="about-text">
+      <p>You guessed it — that’s me.<br>
+        I’m Rohan Aditya, a ServiceNow developer at 
+        <a style="font-style: italic; color: black;" href="https://kaptius.com/" target="_blank">
+          Kaptius - We make WorkFlow
+        </a>.
+      </p>
+    </div>
+    <div class="about-image">
       <img src="rohanaditya.jpeg" alt="Rohan Aditya">
     </div>
-  </section>
+  </div>
+</section>-->
+<section id="about" class="section">
+  <h2>About Me</h2>
+  <div class="responsive-about">
+    <div class="about-text">
+      <p>Hi, I'm Rohan Aditya</p>
+      <p>Platform Developer at <a href="https://kaptius.com/" target="_blank" style="font-style: italic; color: black;">Kaptius - We make WorkFlow</a> <br></p>
+      <p>
+        <span class="typed-text"></span>
+        <span class="cursor">|</span>
+      </p>
+      <p>ServiceNow Certified System Administrator <br>Certified Application Developer <br> Certified Implementation Specialist - IT Service Management</p>
+    </div>
+    <div class="about-image">
+      <img src="rohanaditya.jpeg" alt="Rohan Aditya">
+    </div>
+  </div>
+</section>
+
+
 
 <section id="contact" class="section">
-  <h2>📬 Let’s Talk!</h2>
+  <h2>Let’s Talk!</h2>
   <p>Got a question, an idea, or just wanna say hi? Drop me a message below</p>
 
   <form action="https://formspree.io/f/mldnwlbw" method="POST" class="fun-form">
@@ -212,5 +266,42 @@
   <footer>
     <p>&copy; 2025 Rohan Aditya. All rights reserved.</p>
   </footer>
+  <script>
+  const textArray = [
+    "ServiceNow Certified System Administrator",
+    "Certified Application Developer",
+    "Certified Implementation Specialist - IT Service Management",
+  ];
+
+  const typedText = document.querySelector(".typed-text");
+  let textIndex = 0;
+  let charIndex = 0;
+
+  function type() {
+    if (charIndex < textArray[textIndex].length) {
+      typedText.textContent += textArray[textIndex].charAt(charIndex);
+      charIndex++;
+      setTimeout(type, 70);
+    } else {
+      setTimeout(erase, 1800);
+    }
+  }
+
+  function erase() {
+    if (charIndex > 0) {
+      typedText.textContent = textArray[textIndex].substring(0, charIndex - 1);
+      charIndex--;
+      setTimeout(erase, 50);
+    } else {
+      textIndex = (textIndex + 1) % textArray.length;
+      setTimeout(type, 500);
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    if (textArray.length) setTimeout(type, 500);
+  });
+</script>
+
 </body>
 </html>
