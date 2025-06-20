@@ -76,13 +76,88 @@
       <li><a href="#client">Client Script</a></li>
     </ul>
 
-    <h2 id="html">🛠️ HTML Template</h2>
-    <pre><code>&lt;div class="quicklink-container"&gt;
+<h2 id="html">🛠️ HTML Template</h2>
+<pre><code>&lt;!-- Basic Centered Cards --&gt;
+&lt;div class="quicklink-container"&gt;
   &lt;div class="link-card" ng-repeat="link in c.data.links" ng-style="{'background-color': link.color}"&gt;
     &lt;a ng-href="{{link.url}}" target="_blank"&gt;{{link.title}}&lt;/a&gt;
   &lt;/div&gt;
 &lt;/div&gt;
+
+&lt;!-- Thumbnail Cards Centered --&gt;
+&lt;div class="all-card-container" 
+     ng-if="c.data.card_type == 'Thumbnail' &amp;&amp; c.data.text_alignment == 'Center'"&gt;
+  &lt;a ng-repeat="item in data.json_data" 
+     class="card quick-links card-thumbnail-align-center {{c.data.card_size}}"
+     aria-labelledby="{{data.instanceId}}-item-{{$index}}"
+     id="{{data.instanceId}}-item-{{$index}}"
+     ng-href="{{item.url}}"
+     ng-click="clicked(item)"
+     ng-attr-target="{{item.target}}"
+     ng-class="getCustomColor('background')" 
+     ng-style="getStyle(item, 'background')"
+     ng-keydown="c.keyboardAction($event,item)"
+     tabindex="0"&gt;
+
+    &lt;div class="overlay"&gt;&lt;/div&gt;
+
+    &lt;div class="circle"&gt;
+      &lt;div class="icon" 
+           ng-if="[item.icon.length] != 0 &amp;&amp; c.data.show_icon === 'true'"
+           style="background-image: url({{item.icon}});"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;p&gt;{{item.title}}&lt;/p&gt;
+
+    &lt;!-- Short Description
+    &lt;span class="card-description text-center-align text-ellipsis"
+          id="{{data.instanceId}}-card-desc-{{$index}}"
+          ng-class="{[getTextEllipsisClassForIE(item)] : true, [getCustomColor('text')] : true}"
+          ng-style="getStyle(item,'text')"
+          ng-if="c.data.show_description === 'true' &amp;&amp; c.data.card_size != 'card-small'"&gt;
+      {{item.shortDescription}}
+    &lt;/span&gt;
+    --&gt;
+
+  &lt;/a&gt;
+&lt;/div&gt;
+
+&lt;!-- Thumbnail Cards Left Aligned --&gt;
+&lt;div ng-class="{'all-card-container-left' : (c.data.card_size === 'card-medium'),'all-card-container' : (c.data.card_size === 'card-small')}" 
+     ng-if="c.data.card_type=='Thumbnail' &amp;&amp; c.data.text_alignment=='Left'"&gt;
+  &lt;a ng-repeat="item in data.json_data" 
+     class="card quick-links card-thumbnail-align-left {{c.data.card_size}}"
+     aria-labelledby="{{data.instanceId}}-item-{{$index}}"
+     ng-href="{{item.url}}"
+     id="{{data.instanceId}}-item-{{$index}}"
+     ng-attr-target="{{item.target}}" 
+     ng-class="getCustomColor('background')" 
+     ng-style="getStyle(item, 'background')"&gt;
+
+    &lt;div class="overlay"&gt;&lt;/div&gt;
+
+    &lt;div class="circle"&gt;
+      &lt;div class="icon" 
+           ng-if="[item.icon.length] != 0 &amp;&amp; c.data.show_icon === 'true'"
+           style="background-image: url({{item.icon}});"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;p&gt;{{item.title}}&lt;/p&gt;
+
+    &lt;!-- Short Description 
+    &lt;span class="card-description text-left-align text-ellipsis"
+          id="{{data.instanceId}}-card-desc-{{$index}}"
+          ng-class="{[getTextEllipsisClassForIE(item)] : true, [getCustomColor('text')] : true}"
+          ng-style="getStyle(item,'text')"
+          ng-if="c.data.show_description === 'true' &amp;&amp; c.data.card_size != 'card-small'"&gt;
+      {{item.shortDescription}}
+    &lt;/span&gt;  
+    --&gt;
+
+  &lt;/a&gt;
+&lt;/div&gt;
 </code></pre>
+
 
     <h2 id="css">🎨 CSS Styling</h2>
     <pre><code>.quicklink-container {
