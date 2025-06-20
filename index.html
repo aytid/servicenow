@@ -17,15 +17,16 @@
       color: #333;
       scroll-behavior: smooth;
     }
+
     header {
-  background: #181a1f;
-  color: white;
-  padding: 20px 0;
-  text-align: center;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
+      background: #181a1f;
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
 
     nav a {
       margin: 0 15px;
@@ -56,6 +57,39 @@
       margin-top: 0;
     }
 
+    .responsive-about {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .responsive-about p {
+      flex: 1 1 60%;
+      font-size: 1.1rem;
+    }
+
+    .responsive-about img {
+      flex: 1 1 35%;
+      max-width: 300px;
+      height: auto;
+      border-radius: 12px;
+    }
+
+    @media (max-width: 768px) {
+      .responsive-about {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .responsive-about p,
+      .responsive-about img {
+        flex: 1 1 100%;
+      }
+    }
+
     footer {
       text-align: center;
       padding: 20px;
@@ -63,7 +97,13 @@
       color: white;
       margin-top: 40px;
     }
-    
+    .section {
+  padding: 40px 20px;
+  max-width: 900px;
+  margin: auto;
+  scroll-margin-top: 150px;
+}
+
   </style>
 </head>
 <body>
@@ -98,7 +138,10 @@
 
   <section id="about" class="section">
     <h2>About Me</h2>
-    <p>I'm Rohan Aditya, a ServiceNow developer who loves automating workflows and occasionally breaking things</p>
+    <div class="responsive-about">
+      <p>I'm Rohan Aditya, a ServiceNow developer who loves automating workflows and occasionally breaking things.</p>
+      <img src="rohanaditya.jpeg" alt="Rohan Aditya">
+    </div>
   </section>
 
   <section id="contact" class="section">
