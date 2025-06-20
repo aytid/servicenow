@@ -6,57 +6,35 @@
   <title>Quick Links Widget – ServiceNow</title>
   <style>
     body {
+      margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       line-height: 1.6;
-      margin: 0;
-      padding: 0;
       background-color: #f8f9fa;
       color: #333;
     }
 
     header {
-      background-color: #181a1f;
+      background: #181a1f;
       color: white;
-      padding: 16px 0;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
+      padding: 20px 0;
+      text-align: center;
     }
 
-    header .nav-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    header h1 {
-      font-size: 24px;
-      margin: 0;
-    }
-
-    header nav a {
-      color: white;
-      margin-left: 20px;
+    nav a {
+      margin: 0 15px;
+      color: #f8f9fa;
       text-decoration: none;
       font-weight: 500;
     }
 
-    header nav a:hover {
+    nav a:hover {
       text-decoration: underline;
     }
 
-    .container {
+    .section {
+      padding: 40px 20px;
       max-width: 900px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
-
-    h1 {
-      color: #0077cc;
-      margin-bottom: 10px;
+      margin: auto;
     }
 
     code, pre {
@@ -77,14 +55,6 @@
       text-decoration: underline;
     }
 
-    footer {
-      text-align: center;
-      padding: 20px;
-      background: #181a1f;
-      color: white;
-      margin-top: 40px;
-    }
-
     ul.quick-links {
       padding-left: 20px;
       margin-bottom: 30px;
@@ -93,25 +63,31 @@
     ul.quick-links li {
       margin-bottom: 8px;
     }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #181a1f;
+      color: white;
+      margin-top: 40px;
+    }
   </style>
 </head>
 <body>
 
-  <!-- Header -->
+  <!-- Consistent Header -->
   <header>
-    <div class="nav-container">
-      <h1>Rohan's ServiceNow Blog</h1>
-      <nav>
-        <a href="#home">Home</a>
-        <a href="#blogs">Blogs</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-      </nav>
-    </div>
+    <h1>Rohan's ServiceNow Blog</h1>
+    <nav>
+      <a href="index.html#home">Home</a>
+      <a href="index.html#blogs">Blogs</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
   </header>
 
-  <!-- Main Content -->
-  <div class="container">
+  <!-- Main Blog Content -->
+  <section class="section">
     <h1>Quick Links – Card Color from Center (Custom Widget)</h1>
     <p><strong>Author:</strong> Rohan Aditya</p>
     <p>This blog covers how I created a custom ServiceNow widget called <em>“Quick Links – Card Color from Center”</em> that displays visually styled link cards aligned to the center with colored backgrounds.</p>
@@ -171,7 +147,7 @@
 
     <h2>✅ Final Result</h2>
     <p>You’ll get a responsive set of colorful cards centered on the page. Each card links to a different ServiceNow page or resource. This widget works great on Employee Center portals or custom dashboards.</p>
-  </div>
+  </section>
 
   <!-- Footer -->
   <footer>
