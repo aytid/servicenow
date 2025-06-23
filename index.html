@@ -2,635 +2,290 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Rohan Aditya</title>
-  <link rel="icon" href="r-letter-logo.png" type="image/x-icon" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;700&display=swap" rel="stylesheet"/>
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"/>
-  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="r.png" type="image/x-icon">
+  <title>Rohan's blog</title>
   <style>
-body {
-  font-family: "Poppins", sans-serif;
-  margin: 0;
-  padding: 0;
-}
-
-.navbar {
-  z-index: 10;
-}
-
-.navbar .nav-link {
-  color: white !important;
-}
-
-.profile {
-  position: relative;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #f8f9fa;
-  overflow: hidden;
-}
-
-#particles-js {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  z-index: 0;
-  opacity: 0.4;
-}
-
-.profile-content {
-  z-index: 1;
-  width: 100%;
-}
-
-.p1,
-.p2 {
-  padding: 20px;
-}
-
-.p1 h1 {
-  font-size: 3rem;
-  margin-bottom: 10px;
-  color: #000;
-}
-
-.p1 p {
-  font-size: 1.2rem;
-  color: #000;
-}
-
-.p2 img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 12px;
-  max-height: 400px;
-  object-fit: cover;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-  margin: 0 auto;
-  display: block;
-}
-
-.scale-on-hover {
-  display: inline-block;
-  transition: transform 0.6s ease, color 0.3s ease;
-  cursor: pointer;
-}
-
-.scale-on-hover:hover {
-  transform: rotate(360deg);
-  color: red;
-}
-
-.skill-card {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.skill-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
-}
-
-.badge {
-  font-size: 0.9rem;
-  font-weight: 500;
-}
-
-.certification-card {
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-  text-align: center;
-  max-width: 320px;
-  min-width: 320px;
-  margin: 0 auto;
-  padding: 16px;
-}
-
-.certification-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
-}
-
-.certification-card img {
-  border-radius: 10px;
-  max-height: 160px;
-  object-fit: contain;
-  width: 100%;
-}
-
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-  width: 24px;
-  height: 24px;
-}
-
-.carousel-control-prev,
-.carousel-control-next {
-  width: 5%;
-}
-
-.project-card {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.project-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
-}
-
-@media (max-width: 768px) {
-  .profile-content {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .p1 h1 {
-    font-size: 2.2rem;
-  }
-
-  .p1 p {
-    font-size: 1rem;
-  }
-
-  .p2 img {
-    max-height: 300px;
-    width: auto;
-  }
-
-  .row.profile-content {
-    flex-direction: column-reverse;
-  }
-
-  .certification-card {
-    margin-bottom: 16px;
-    max-width: 90%;
-    min-width: auto;
-  }
-}
-</style>
-
-
-</head>
-
-<body>
-  <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
-    <button style="border: none;margin-top: 10px;" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
-      <img src="menu.png" alt="Menu" />
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
-        <li class="nav-item">
-        <a class="nav-link" href="https://aytid.github.io/servicenow/" target="_blank">Blog</a></li>
-        <li class="nav-item"><a class="nav-link" href="#education">Education</a></li>
-        <li class="nav-item"><a class="nav-link" href="#experience">Experience</a></li>
-        <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
-        <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
-        <li class="nav-item"><a class="nav-link" href="#contact">Say hello!</a></li>
-      </ul>
-    </div>
-  </nav>
-
-  <div id="home" class="profile">
-    <div id="particles-js"></div>
-    <div class="container">
-      <div class="row align-items-center profile-content d-flex">
-        <div class="col-md-6 p1 text-md-left text-center">
-          <h1>Rohan <span class="scale-on-hover">A</span>ditya</h1>
-          <p>Programming is thinking</p>
-        </div>
-        <div class="col-md-6 p2 text-center">
-          <img src="rohanaditya.jpeg" alt="Rohan Aditya" />
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Place this directly below the home section -->
-<section id="education" class="py-5 bg-light">
-  <div class="container">
-    <h2 class="text-center mb-4">Education</h2>
-    <div class="row justify-content-center">
-
-      <div class="col-md-10">
-        <div class="card mb-4 shadow-sm">
-          <div class="card-body">
-            <h5 class="card-title">B.Tech in Computer Science and Engineering</h5>
-            <h6 class="card-subtitle mb-2 text-muted">Kakatiya Institute of Technology and Science, Warangal</h6>
-            <p class="card-text">2020 - 2024 | CGPA: 8.25</p>
-          </div>
-        </div>
-
-        <div class="card mb-4 shadow-sm">
-          <div class="card-body">
-            <h5 class="card-title">Intermediate (MPC)</h5>
-            <h6 class="card-subtitle mb-2 text-muted">Sri Chaitanya Junior College, Hyderabad</h6>
-            <p class="card-text">2018 - 2020 | Score: 971/1000</p>
-          </div>
-        </div>
-
-        <div class="card mb-4 shadow-sm">
-          <div class="card-body">
-            <h5 class="card-title">Schooling</h5>
-            <h6 class="card-subtitle mb-2 text-muted">St. Francis De Sales High School, Korutla</h6>
-            <p class="card-text">2006 - 2018 | CGPA: 9.8</p>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- Place this below the education section -->
-<section id="experience" class="py-5 bg-white">
-  <div class="container">
-    <h2 class="text-center mb-4">Experience</h2>
-    <div class="row justify-content-center">
-
-        <div class="card mb-4 shadow-sm">
-          <div class="card-body">
-            <h5 class="card-title">Platform Developer</h5>
-            <h6 class="card-subtitle mb-2 text-muted">Kaptius, Hyderabad</h6>
-            <p class="card-text">Oct 2024 – Nov 2024</p>
-            <p class="card-text">Worked on platform enhancements, ServiceNow development, and internal tool integration.</p>
-          </div>
-        </div>
-
-        <div class="card mb-4 shadow-sm">
-          <div class="card-body">
-            <h5 class="card-title">Associate Developer</h5>
-            <h6 class="card-subtitle mb-2 text-muted">Kaptius, Hyderabad</h6>
-            <p class="card-text">Jan 2024 – Sep 2024</p>
-            <p class="card-text">Contributed to ServiceNow modules, widgets, and backend scripts to support customer needs.</p>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-  </div>
-</section>
-<section id="skills" class="py-5" style="background: #f0f2f5;">
-  <div class="container">
-    <h2 class="text-center mb-5">Skills</h2>
-    <div class="row justify-content-center">
-
-      <!-- Frontend Skills -->
-      <div class="col-md-4 mb-4">
-        <div class="card shadow-sm border-0 h-100 text-center p-3 skill-card">
-          <div class="mb-3">            <img src="html.png" alt="Frontend" style="height: 60px;" />
-            <img src="css-3.png" alt="Frontend" style="height: 60px;" />
-            <img src="js.png" alt="Frontend" style="height: 60px;" />
-            <img src="bootstrap.png" alt="Frontend" style="height: 60px;" />
-          </div>
-          <h5 class="mb-3">Frontend</h5>
-          <div class="d-flex flex-wrap justify-content-center gap-2">
-            <span class="badge badge-pill badge-primary p-2 px-3 m-1">HTML</span>
-            <span class="badge badge-pill badge-primary p-2 px-3 m-1">CSS</span>
-            <span class="badge badge-pill badge-primary p-2 px-3 m-1">JavaScript</span>
-            <span class="badge badge-pill badge-primary p-2 px-3 m-1">Bootstrap</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Backend Skills -->
-      <div class="col-md-4 mb-4">
-        <div class="card shadow-sm border-0 h-100 text-center p-3 skill-card">
-          <div class="mb-3">
-            <img src="java.png" alt="Backend" style="height: 60px;" />
-            <img src="python.png" alt="Backend" style="height: 60px;" />
-            <img src="php.png" alt="Backend" style="height: 60px;" />
-            <img src="mysql-logo-1.png" alt="Backend" style="height: 60px;" />
-          </div>
-          <h5 class="mb-3">Backend</h5>
-          <div class="d-flex flex-wrap justify-content-center gap-2">
-            <span class="badge badge-pill badge-success p-2 px-3 m-1">Java</span>
-            <span class="badge badge-pill badge-success p-2 px-3 m-1">Python</span>
-            <span class="badge badge-pill badge-success p-2 px-3 m-1">PHP</span>
-            <span class="badge badge-pill badge-success p-2 px-3 m-1">MySQL</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Tools -->
-      <div class="col-md-4 mb-4">
-        <div class="card shadow-sm border-0 h-100 text-center p-3 skill-card">
-          <!--<div class="mb-3">
-            <img src="servicenow-header-logo.svg" alt="Tools" style="height: 60px;" />
-          </div>-->
-          <h5 class="mb-3">Tools & Platforms</h5>
-          <div class="d-flex flex-wrap justify-content-center gap-2">
-            <span class="badge badge-pill badge-dark p-2 px-3 m-1">Streamlit</span>
-            <span class="badge badge-pill badge-dark p-2 px-3 m-1">GitHub</span>
-            <span class="badge badge-pill badge-dark p-2 px-3 m-1">ServiceNow</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-<!-- Certifications Section -->
-<section id="certifications" class="py-5" style="background: #f0f2f5;">
-  <div class="container">
-    <h2 class="text-center mb-5" style="color: #000;">Certifications</h2>
-    <div class="row">
-
-      <!-- Mainline Carousel -->
-      <div class="col-md-6 mb-4">
-        <h5 class="text-center mb-4">Mainline ServiceNow Certifications(3)</h5>
-        <div id="mainlineCarousel" class="carousel slide" data-ride="carousel">
-          <div class="carousel-inner">
-
-            <div class="carousel-item active">
-              <div class="d-flex justify-content-center">
-                <div class="certification-card p-3">
-                  <img src="csa.png" alt="CIS – ITSM" class="img-fluid rounded">
-                  <p class="mt-3 font-weight-bold">ServiceNow Certified System Administrator</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="carousel-item">
-              <div class="d-flex justify-content-center">
-                <div class="certification-card p-3">
-                  <img src="cad.png" alt="CIS – HRSD" class="img-fluid rounded">
-                  <p class="mt-3 font-weight-bold">ServiceNow Certified Application Developer</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="carousel-item">
-              <div class="d-flex justify-content-center">
-                <div class="certification-card p-3">
-                  <img src="itsm.png" alt="CIS – CSM" class="img-fluid rounded">
-                  <p class="mt-3 font-weight-bold">Certified Implementation Specialist <br> IT Service Management</p>
-                </div>
-              </div>
-            </div>
-
-          </div>
-          <a class="carousel-control-prev" href="#mainlineCarousel" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true" style="filter: invert(1);"></span>
-          </a>
-          <a class="carousel-control-next" href="#mainlineCarousel" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true" style="filter: invert(1);"></span>
-          </a>
-        </div>
-      </div>
-
-      <!-- Micro-Cert Carousel -->
-      <div class="col-md-6 mb-4">
-        <h5 class="text-center mb-4">ServiceNow Micro-Certifications(9)</h5>
-        <div id="microCarousel" class="carousel slide" data-ride="carousel">
-<div class="carousel-inner">
-  <div class="carousel-item active">
-    <div class="d-flex justify-content-center">
-      <div class="certification-card p-3">
-        <img src="ui-builder-micro.png" alt="Micro 1" class="img-fluid rounded">
-        <p class="mt-3 font-weight-bold text-center">UI Builder</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="carousel-item">
-    <div class="d-flex justify-content-center">
-      <div class="certification-card p-3">
-        <img src="integration-hub-micro.png" alt="Micro 2" class="img-fluid rounded">
-        <p class="mt-3 font-weight-bold text-center">Integration Hub</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="carousel-item">
-    <div class="d-flex justify-content-center">
-      <div class="certification-card p-3">
-        <img src="virtual-agent-micro.png" alt="Micro 3" class="img-fluid rounded">
-        <p class="mt-3 font-weight-bold text-center">Virtual Agent</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="carousel-item">
-    <div class="d-flex justify-content-center">
-      <div class="certification-card p-3">
-        <img src="devops-velocity-micro.png" alt="Micro 4" class="img-fluid rounded">
-        <p class="mt-3 font-weight-bold text-center">DevOps Change Velocity</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="carousel-item">
-    <div class="d-flex justify-content-center">
-      <div class="certification-card p-3">
-        <img src="platform-analytics-micro.png" alt="Micro 5" class="img-fluid rounded">
-        <p class="mt-3 font-weight-bold text-center">Platform Analytics</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="carousel-item">
-    <div class="d-flex justify-content-center">
-      <div class="certification-card p-3">
-        <img src="predictive-intelligence-micro.png" alt="Micro 6" class="img-fluid rounded">
-        <p class="mt-3 font-weight-bold text-center">Predictive Intelligence</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="carousel-item">
-    <div class="d-flex justify-content-center">
-      <div class="certification-card p-3">
-        <img src="service-portal-micro.png" alt="Micro 7" class="img-fluid rounded">
-        <p class="mt-3 font-weight-bold text-center">Service Portal</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="carousel-item">
-    <div class="d-flex justify-content-center">
-      <div class="certification-card p-3">
-        <img src="flow-designer-micro.png" alt="Micro 8" class="img-fluid rounded">
-        <p class="mt-3 font-weight-bold text-center">Flow Designer</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="carousel-item">
-    <div class="d-flex justify-content-center">
-      <div class="certification-card p-3">
-        <img src="welcome-to-servicenow-micro.png" alt="Micro 9" class="img-fluid rounded">
-        <p class="mt-3 font-weight-bold text-center">Welcome to ServiceNow</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-          <a class="carousel-control-prev" href="#microCarousel" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true" style="filter: invert(1);"></span>
-          </a>
-          <a class="carousel-control-next" href="#microCarousel" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true" style="filter: invert(1);"></span>
-          </a>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-
-<section id="projects" class="py-5 bg-light">
-  <div class="container">
-    <h2 class="text-center mb-4">Projects</h2>
-    <div class="row">
-      <div class="col-md-4 mb-4">
-        <div class="card h-100 shadow-sm project-card">
-          <div class="card-body">
-            <h5 class="card-title">e-Buddy</h5>
-            <p class="card-text">Academic companion for attendance tracking and SGPA estimation. Built with Python and Streamlit.</p>
-            <a href="https://rohan-aditya-ebuddy.streamlit.app/" class="btn btn-outline-primary btn-sm mt-2">Click here to visit</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 mb-4">
-        <div class="card h-100 shadow-sm project-card">
-          <div class="card-body">
-            <h5 class="card-title">Stock Price Prediction</h5>
-            <p class="card-text">Forecasting app using machine learning. Technologies used: Python, Streamlit, sklearn.</p>
-            <a href="https://github.com/aytid/Stock-price-prediction" class="btn btn-outline-primary btn-sm mt-2">Click here to view details</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 mb-4">
-        <div class="card h-100 shadow-sm project-card">
-          <div class="card-body">
-            <h5 class="card-title">Student Mark Management System</h5>
-            <p class="card-text">Full-stack solution for digitizing student marks using HTML, CSS, JS, PHP, and MySQL.</p>
-            <a href="https://aytid.github.io/zphs/index.html" class="btn btn-outline-primary btn-sm mt-2">Click here to visit</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 mb-4">
-        <div class="card h-100 shadow-sm project-card">
-          <div class="card-body">
-            <h5 class="card-title">Urban-Utopia</h5>
-            <p class="card-text">E-commerce website for shopping items built using HTML, CSS, Bootstrap, and JavaScript.</p>
-            <a href="https://aytid.github.io/Urban-Utopia/home.html" class="btn btn-outline-primary btn-sm mt-2">Click here to visit</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 mb-4">
-        <div class="card h-100 shadow-sm project-card">
-          <div class="card-body">
-            <h5 class="card-title">KITS Navigation</h5>
-            <p class="card-text">Campus block-to-block navigation web app using HTML, CSS, and JavaScript.</p>
-            <a href="https://aytid.github.io/kitsNavigation/index.html" class="btn btn-outline-primary btn-sm mt-2">Click here to visit</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-</section>
-<section id="contact" class="py-5 bg-light">
-  <div class="container">
-    <h2 class="text-center mb-5" style="font-weight: 400; font-size: 2.5rem; color: #333;">Say hello!</h2>
-    <div class="row justify-content-center">
-      <div class="col-md-8">
-        <div class="card shadow-lg border-0">
-          <div class="card-body">
-            <h5 class="card-title mb-4" style="font-size: 1.5rem; color: #000000;">Connect with me and stay updated</h5>
-            <ul class="list-unstyled" style="font-size: 1.1rem;">
-              <li class="mb-3">
-                <a href="https://www.linkedin.com/in/rohan-aditya-thirumala-6b8228264/" target="_blank" class="text-decoration-none text-dark">
-                  <strong>LinkedIn</strong> – Let's network and connect professionally!
-                </a>
-              </li>
-              <li class="mb-3">
-                <a href="https://github.com/aytid" target="_blank" class="text-decoration-none text-dark">
-                  <strong>GitHub</strong> – Check out my projects and contributions to the tech community.
-                </a>
-              </li>
-              <li class="mb-3">
-                <a href="https://www.instagram.com/rohanaditya._?utm_source=qr" target="_blank" class="text-decoration-none text-dark">
-                  <strong>Instagram</strong> – Follow my journey and personal updates.
-                </a>
-              </li>
-              <li>
-                <a href="mailto:adityathirumala20@gmail.com" class="text-decoration-none text-dark">
-                  <strong>Email</strong> – Drop me a message anytime!
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-</section>
-
-  <script>
-  particlesJS("particles-js", {
-    particles: {
-      number: { value: 100, density: { enable: true, value_area: 800 } },
-      color: { value: "#000000" },
-      shape: { type: "circle", stroke: { width: 0, color: "#000000" } },
-      opacity: { value: 1 }, // Fully visible particles
-      size: { value: 3, random: true },
-      line_linked: { enable: true, distance: 200, color: "#000000", opacity: 1, width: 1 }, // Fully visible lines
-      move: { enable: true, speed: 6 }
-    },
-    interactivity: {
-      detect_on: "canvas",
-      events: {
-        onhover: { enable: true, mode: "grab" },
-        onclick: { enable: true, mode: "push" },
-        resize: true
-      },
-      modes: {
-        grab: { distance: 140, line_linked: { opacity: 1 } },
-        bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
-        repulse: { distance: 200, duration: 0.4 },
-        push: { particles_nb: 4 },
-        remove: { particles_nb: 2 }
-      }
-    },
-    retina_detect: true
-  });
-
-
-document.querySelectorAll('.nav-link').forEach(link => {
-  link.addEventListener('click', function (e) {
-    const href = this.getAttribute('href');
-
-    // If it's an external link, don't interfere
-    if (href.startsWith('http') || href.startsWith('mailto')) return;
-
-    // Otherwise, apply smooth scroll
-    e.preventDefault();
-    document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
-
-    if (window.innerWidth < 768) {
-      document.getElementById('navbarNav').classList.remove('show');
+    html {
+      scroll-behavior: smooth;
     }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      background-color: #f8f9fa;
+      color: #333;
+      scroll-behavior: smooth;
+    }
+
+    header {
+      background: #181a1f;
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    nav a {
+      margin: 0 15px;
+      color: #f8f9fa;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .section {
+      padding: 40px 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .blog-card {
+      background: white;
+      padding: 20px;
+      margin: 20px 0;
+      border-left: 4px solid #69a2ca;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .blog-card h3 {
+      margin-top: 0;
+    }
+
+    .responsive-about {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .responsive-about p {
+      flex: 1 1 60%;
+      font-size: 1.1rem;
+    }
+
+    .responsive-about img {
+      flex: 1 1 35%;
+      max-width: 300px;
+      height: auto;
+      border-radius: 12px;
+    }
+
+    @media (max-width: 768px) {
+      .responsive-about {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .responsive-about p,
+      .responsive-about img {
+        flex: 1 1 100%;
+      }
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #181a1f;
+      color: white;
+      margin-top: 40px;
+    }
+    .section {
+  padding: 40px 20px;
+  max-width: 900px;
+  margin: auto;
+  scroll-margin-top: 150px;
+}
+.fun-form {
+  max-width: 500px;
+  margin-top: 1em;
+}
+
+.fun-form label {
+  display: block;
+  margin: 12px 0 6px;
+  font-weight: 600;
+  color: #444;
+}
+
+.fun-form input,
+.fun-form textarea {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  font-size: 1em;
+  transition: border-color 0.3s ease;
+}
+
+.fun-form input:focus,
+.fun-form textarea:focus {
+  border-color: #0074D9;
+  outline: none;
+}
+
+.fun-form button {
+  margin-top: 15px;
+  padding: 12px 20px;
+  background-color: #ff6b81;
+  color: #fff;
+  font-size: 1em;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.fun-form button:hover {
+  background-color: #ff4757;
+  transform: scale(1.05);
+}
+
+
+
+
+.typed-text {
+  font-weight: bold;
+  /*color: #0074D9;*/
+  color: #2386cd;
+  font-size: 1.1em;
+}
+
+.cursor {
+  display: inline-block;
+  background-color: #0074D9;
+  width: 2px;
+  height: 1em;
+  animation: blink 0.8s infinite;
+  vertical-align: bottom;
+  margin-left: 4px;
+}
+
+@keyframes blink {
+  0%, 50%, 100% { opacity: 1; }
+  25%, 75% { opacity: 0; }
+}
+
+
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Rohan's ServiceNow Blog</h1>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#blogs">Blogs</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section id="home" class="section">
+    <p><i>Don’t Try This in Prod. Rohan did. Here's what happened.</i></p>
+    <h2>Welcome!</h2>
+    <p>I build, I automate, I break, I fix (in that order). 🔧💣</p>
+  </section>
+
+  <section id="blogs" class="section">
+    <h2>Latest Blog Posts</h2>
+    <div class="blog-card">
+      <h3>Custom Widget in ServiceNow</h3>
+      <p>I made a quick link widget for a client. Spent more time naming it than building it.</p>
+      <a href="quicklink.html">Read more →</a>
+    </div>
+    <!--<div class="blog-card">
+      <h3>Understanding GlideRecord</h3>
+      <p>Deep dive into querying records and best practices in scripting.</p>
+      <a href="#">Read more →</a>
+    </div>-->
+  </section>
+  
+<section id="about" class="section">
+  <h2>About Me</h2>
+  <div class="responsive-about">
+    <div class="about-text">
+      <p>Hi, I'm Rohan Aditya</p>
+      <p>Platform Developer at <a href="https://kaptius.com/" target="_blank" style="font-style: italic; color: black;">Kaptius - We make WorkFlow</a> <br></p>
+      <p>
+        <span class="typed-text"></span>
+        <span class="cursor">|</span>
+      </p>
+      <p>ServiceNow Certified System Administrator <br>Certified Application Developer <br> Certified Implementation Specialist - IT Service Management</p>
+    </div>
+    <div class="about-image">
+      <img src="rohanaditya.jpeg" alt="Rohan Aditya">
+    </div>
+  </div>
+</section>
+
+
+
+<section id="contact" class="section">
+  <h2>Let’s Talk!</h2>
+  <p>Got a question, an idea, or just wanna say hi? Drop me a message below</p>
+
+  <form action="https://formspree.io/f/mldnwlbw" method="POST" class="fun-form">
+    <label for="name">What’s your name?</label>
+    <input type="text" id="name" name="name" placeholder="e.g., Padmanabasimha" required>
+
+    <label for="email">Your email (I promise no spam!)</label>
+    <input type="email" id="email" name="_replyto"  required>
+
+    <label for="message">What’s on your mind?</label>
+    <textarea id="message" name="message" rows="5" required></textarea>
+
+    <button type="submit">Send It!</button>
+  </form>
+</section>
+
+
+  <footer>
+    <p>&copy; 2025 Rohan Aditya. All rights reserved.</p>
+  </footer>
+  <script>
+  const textArray = [
+    "ServiceNow Certified System Administrator",
+    "Certified Application Developer",
+    "Certified Implementation Specialist - IT Service Management",
+  ];
+
+  const typedText = document.querySelector(".typed-text");
+  let textIndex = 0;
+  let charIndex = 0;
+
+  function type() {
+    if (charIndex < textArray[textIndex].length) {
+      typedText.textContent += textArray[textIndex].charAt(charIndex);
+      charIndex++;
+      setTimeout(type, 70);
+    } else {
+      setTimeout(erase, 1800);
+    }
+  }
+
+  function erase() {
+    if (charIndex > 0) {
+      typedText.textContent = textArray[textIndex].substring(0, charIndex - 1);
+      charIndex--;
+      setTimeout(erase, 50);
+    } else {
+      textIndex = (textIndex + 1) % textArray.length;
+      setTimeout(type, 500);
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    if (textArray.length) setTimeout(type, 500);
   });
-});
+</script>
 
-  </script>
-
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
