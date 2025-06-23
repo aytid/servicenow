@@ -2,234 +2,117 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" href="r-letter-logo.png" type="image/x-icon">
-  <title>Rohan's blog</title>
-  <style>
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      line-height: 1.6;
-      background-color: #f8f9fa;
-      color: #333;
-      scroll-behavior: smooth;
-    }
-
-    header {
-      background: #181a1f;
-      color: white;
-      padding: 20px 0;
-      text-align: center;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-
-    nav a {
-      margin: 0 15px;
-      color: #f8f9fa;
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    nav a:hover {
-      text-decoration: underline;
-    }
-
-    .section {
-      padding: 40px 20px;
-      max-width: 900px;
-      margin: auto;
-    }
-
-    .blog-card {
-      background: white;
-      padding: 20px;
-      margin: 20px 0;
-      border-left: 4px solid #69a2ca;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    }
-
-    .blog-card h3 {
-      margin-top: 0;
-    }
-
-    .responsive-about {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-      gap: 30px;
-      flex-wrap: wrap;
-    }
-
-    .responsive-about p {
-      flex: 1 1 60%;
-      font-size: 1.1rem;
-    }
-
-    .responsive-about img {
-      flex: 1 1 35%;
-      max-width: 300px;
-      height: auto;
-      border-radius: 12px;
-    }
-
-    @media (max-width: 768px) {
-      .responsive-about {
-        flex-direction: column;
-        text-align: center;
-      }
-
-      .responsive-about p,
-      .responsive-about img {
-        flex: 1 1 100%;
-      }
-    }
-
-    footer {
-      text-align: center;
-      padding: 20px;
-      background: #181a1f;
-      color: white;
-      margin-top: 40px;
-    }
-    .section {
-  padding: 40px 20px;
-  max-width: 900px;
-  margin: auto;
-  scroll-margin-top: 150px;
-}
-.fun-form {
-  max-width: 500px;
-  margin-top: 1em;
-}
-
-.fun-form label {
-  display: block;
-  margin: 12px 0 6px;
-  font-weight: 600;
-  color: #444;
-}
-
-.fun-form input,
-.fun-form textarea {
-  width: 100%;
-  padding: 12px;
-  border: 2px solid #ddd;
-  border-radius: 10px;
-  font-size: 1em;
-  transition: border-color 0.3s ease;
-}
-
-.fun-form input:focus,
-.fun-form textarea:focus {
-  border-color: #0074D9;
-  outline: none;
-}
-
-.fun-form button {
-  margin-top: 15px;
-  padding: 12px 20px;
-  background-color: #ff6b81;
-  color: #fff;
-  font-size: 1em;
-  border: none;
-  border-radius: 25px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.fun-form button:hover {
-  background-color: #ff4757;
-  transform: scale(1.05);
-}
-
-
-
-
-.typed-text {
-  font-weight: bold;
-  /*color: #0074D9;*/
-  color: #2386cd;
-  font-size: 1.1em;
-}
-
-.cursor {
-  display: inline-block;
-  background-color: #0074D9;
-  width: 2px;
-  height: 1em;
-  animation: blink 0.8s infinite;
-  vertical-align: bottom;
-  margin-left: 4px;
-}
-
-@keyframes blink {
-  0%, 50%, 100% { opacity: 1; }
-  25%, 75% { opacity: 0; }
-}
-
-
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rohan Aditya</title>
+  <link rel="icon" href="r-letter-logo.png" type="image/x-icon" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;700&display=swap" rel="stylesheet"/>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <link rel="stylesheet" href="portfolio.css">
 </head>
-<body>
-  <header>
-    <h1>Rohan's ServiceNow Blog</h1>
-    <nav>
-      <a href="#home">Home</a>
-      <a href="#blogs">Blogs</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
 
-  <section id="home" class="section">
-    <p><i>Don’t Try This in Prod. Rohan did. Here's what happened.</i></p>
+<body>
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
+    <button style="border: none;margin-top: 10px;" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+      <img src="menu.png" alt="Menu" />
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#experience">Blogs</a></li>
+        <a class="nav-link" href="https://aytid.github.io/Portfolio/">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div id="home" class="profile">
+    <div id="particles-js"></div>
+    <div class="container">
+      <div class="row align-items-center profile-content d-flex">
+        <div class="col-md-6 p1 text-md-left text-center">
+ <p><i>Don’t Try This in Prod. <span style="color: red;"><b>Rohan</b></span> did. Here's what happened😂</i></p>
     <h2>Welcome!</h2>
     <p>I build, I automate, I break, I fix (in that order). 🔧💣</p>
-  </section>
+        </div>
+        <!--<div class="col-md-6 p2 text-center">
+          <img src="rohanaditya.jpeg" alt="Rohan Aditya" />
+        </div>-->
+      </div>
+    </div>
+  </div>
 
-  <section id="blogs" class="section">
-    <h2>Latest Blog Posts</h2>
-    <div class="blog-card">
-      <h3>Custom Widget in ServiceNow</h3>
-      <p>I made a quick link widget for a client. Spent more time naming it than building it.</p>
-      <a href="quicklink.html">Read more →</a>
-    </div>
-    <!--<div class="blog-card">
-      <h3>Understanding GlideRecord</h3>
-      <p>Deep dive into querying records and best practices in scripting.</p>
-      <a href="#">Read more →</a>
-    </div>-->
-  </section>
-  
-<section id="about" class="section">
-  <h2>About Me</h2>
-  <div class="responsive-about">
-    <div class="about-text">
-      <p>Hi, I'm Rohan Aditya</p>
-      <p>Platform Developer at <a href="https://kaptius.com/" target="_blank" style="font-style: italic; color: black;">Kaptius - We make WorkFlow</a> <br></p>
-      <p>
-        <span class="typed-text"></span>
-        <span class="cursor">|</span>
-      </p>
-      <p>ServiceNow Certified System Administrator <br>Certified Application Developer <br> Certified Implementation Specialist - IT Service Management</p>
-    </div>
-    <div class="about-image">
-      <img src="rohanaditya.jpeg" alt="Rohan Aditya">
+<!-- Experience section -->
+<section id="experience" class="py-5 bg-white">
+  <div class="container">
+    <h2 class="text-center mb-5">What I wrote so far</h2>
+    <div class="timeline-box">
+
+      <div class="timeline-step">
+        <div class="timeline-circle filled">
+<svg viewBox="0 0 16 16" fill="currentColor" height="16" width="16" xmlns="http://www.w3.org/2000/svg">
+  <path d="M2.5 3A1.5 1.5 0 0 0 1 4.5v6A1.5 1.5 0 0 0 2.5 12H0v1a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-1h-2.5A1.5 1.5 0 0 0 15 10.5v-6A1.5 1.5 0 0 0 13.5 3h-11zM2 4.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 .5.5V10a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-5.5z"/>
+</svg>
+        </div>
+        <div class="timeline-line"></div>
+        <div class="timeline-content">
+          <h5 class="mb-1">Custom Widget in ServiceNow</h5>
+          <h6 class="text-muted mb-1">I made a quick link widget for a client. Spent more time naming it than building it.</h6>
+          <div class="timeline-status completed">July 2024</div>
+          <a href="q.html" class="timeline-status pending">Have a look</a>
+        </div>
+      </div>
+
+      <!--<div class="timeline-step">
+          <div class="timeline-circle filled">
+
+                      <svg viewBox="0 0 16 16" fill="currentColor" height="16" width="16" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z"/>
+          </svg>
+        </div>
+        <div class="timeline-circle">1</div>
+        <div class="timeline-line"></div>
+        <div class="timeline-content">
+          <h5 class="mb-1">Associate Developer</h5>
+          <h6 class="text-muted mb-1">Kaptius, Hyderabad</h6>
+          <div class="timeline-status pending">Jan 2024 – Sep 2024</div>
+        </div>
+      </div> -->
+
     </div>
   </div>
 </section>
 
-
-
-<section id="contact" class="section">
-  <h2>Let’s Talk!</h2>
+<section id="contact" class="py-5 bg-light">
+  <div  class="container">
+    <h2 class="text-center mb-5" style="font-weight: 400; font-size: 2.5rem; color: #333;">More about me</h2>
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card shadow-lg border-0">
+          <div class="card-body">
+            <h5 class="card-title mb-4" style="font-size: 1.5rem; color: #000000;">Connect with me and stay updated</h5>
+            <ul class="list-unstyled" style="font-size: 1.1rem;">
+              <li class="mb-3">
+                <a href="https://www.linkedin.com/in/rohan-aditya-thirumala-6b8228264/" target="_blank" class="text-decoration-none text-dark">
+                  <strong>LinkedIn</strong> 
+                </a> – Let's network and connect professionally!
+              </li>
+              <li class="mb-3">
+                <a href="https://github.com/aytid" target="_blank" class="text-decoration-none text-dark">
+                  <strong>GitHub</strong>
+                </a> – Check out my projects and contributions to the tech community.
+              </li>
+              <li class="mb-3">
+                <a href="https://www.instagram.com/rohanaditya._?utm_source=qr" target="_blank" class="text-decoration-none text-dark">
+                  <strong>Instagram</strong>
+                </a> – Follow my journey and personal updates.
+              </li>
+              <li>
+                <a href="mailto:adityathirumala20@gmail.com" class="text-decoration-none text-dark">
+                  <strong>Email</strong>
+                </a> – Drop me a message anytime!
+              </li>
+            </ul> <br>
   <p>Got a question, an idea, or just wanna say hi? Drop me a message below</p>
 
   <form action="https://formspree.io/f/mldnwlbw" method="POST" class="fun-form">
@@ -244,48 +127,66 @@
 
     <button type="submit">Send It!</button>
   </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
 </section>
 
 
-  <footer>
-    <p>&copy; 2025 Rohan Aditya. All rights reserved.</p>
-  </footer>
   <script>
-  const textArray = [
-    "ServiceNow Certified System Administrator",
-    "Certified Application Developer",
-    "Certified Implementation Specialist - IT Service Management",
-  ];
-
-  const typedText = document.querySelector(".typed-text");
-  let textIndex = 0;
-  let charIndex = 0;
-
-  function type() {
-    if (charIndex < textArray[textIndex].length) {
-      typedText.textContent += textArray[textIndex].charAt(charIndex);
-      charIndex++;
-      setTimeout(type, 70);
-    } else {
-      setTimeout(erase, 1800);
-    }
-  }
-
-  function erase() {
-    if (charIndex > 0) {
-      typedText.textContent = textArray[textIndex].substring(0, charIndex - 1);
-      charIndex--;
-      setTimeout(erase, 50);
-    } else {
-      textIndex = (textIndex + 1) % textArray.length;
-      setTimeout(type, 500);
-    }
-  }
-
-  document.addEventListener("DOMContentLoaded", () => {
-    if (textArray.length) setTimeout(type, 500);
+  particlesJS("particles-js", {
+    particles: {
+      number: { value: 100, density: { enable: true, value_area: 800 } },
+      color: { value: "#000000" },
+      shape: { type: "circle", stroke: { width: 0, color: "#000000" } },
+      opacity: { value: 1 }, // Fully visible particles
+      size: { value: 3, random: true },
+      line_linked: { enable: true, distance: 200, color: "#000000", opacity: 1, width: 1 }, // Fully visible lines
+      move: { enable: true, speed: 6 }
+    },
+    interactivity: {
+      detect_on: "canvas",
+      events: {
+        onhover: { enable: true, mode: "grab" },
+        onclick: { enable: true, mode: "push" },
+        resize: true
+      },
+      modes: {
+        grab: { distance: 140, line_linked: { opacity: 1 } },
+        bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
+        repulse: { distance: 200, duration: 0.4 },
+        push: { particles_nb: 4 },
+        remove: { particles_nb: 2 }
+      }
+    },
+    retina_detect: true
   });
-</script>
 
+
+document.querySelectorAll('.nav-link').forEach(link => {
+  link.addEventListener('click', function (e) {
+    const href = this.getAttribute('href');
+
+    // If it's an external link, don't interfere
+    if (href.startsWith('http') || href.startsWith('mailto')) return;
+
+    // Otherwise, apply smooth scroll
+    e.preventDefault();
+    document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
+
+    if (window.innerWidth < 768) {
+      document.getElementById('navbarNav').classList.remove('show');
+    }
+  });
+});
+
+  </script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
