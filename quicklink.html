@@ -4,47 +4,41 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Quick Links Widget – ServiceNow</title>
+  <link rel="icon" href="r-letter-logo.png" type="image/x-icon" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;700&display=swap" rel="stylesheet"/>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"/>
   <style>
     html {
       scroll-behavior: smooth;
     }
     body {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      line-height: 1.6;
-      background-color: #f8f9fa;
-      color: #333;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(to bottom right, #f8f9fa, #e8ebf0);
+      color: #212529;
     }
-    header {
-      background: #181a1f;
-      color: white;
-      padding: 20px 0;
-      text-align: center;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-    nav a {
-      margin: 0 15px;
-      color: #f8f9fa;
-      text-decoration: none;
-      font-weight: 500;
-    }
-    nav a:hover {
-      text-decoration: underline;
+    section {
+      scroll-margin-top: 10px;
     }
     .section {
-      padding: 40px 20px;
+      padding: 60px 20px;
       max-width: 900px;
       margin: auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+    }
+    h1, h2 {
+      font-weight: 400;
     }
     code, pre {
-      background: #eee;
-      padding: 10px;
+      background: #f1f3f5;
+      padding: 12px;
       display: block;
       white-space: pre-wrap;
       border-left: 4px solid #0077cc;
       overflow-x: auto;
+      border-radius: 6px;
     }
     .code-container.collapsed {
       max-height: 100px;
@@ -55,44 +49,67 @@
     .code-container.expanded {
       max-height: none;
     }
-    #toggleBtn {
+    button {
       background-color: #0077cc;
       color: white;
       border: none;
-      padding: 8px 16px;
+      padding: 10px 20px;
       margin-top: 10px;
       cursor: pointer;
       font-weight: 500;
-      border-radius: 4px;
+      border-radius: 24px;
+      transition: all 0.3s ease;
+    }
+    button:hover {
+      background-color: #005fa3;
+      transform: translateY(-2px);
+    }
+    .quick-links li {
+      margin-bottom: 8px;
+    }
+    .quick-links a {
+      color: #0077cc;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .quick-links a:hover {
+      text-decoration: underline;
+    }
+    .quicklinkimg img {
+      width: 100%;
+      border: 1px solid #dee2e6;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
     }
     footer {
       text-align: center;
       padding: 20px;
       background: #181a1f;
       color: white;
-      margin-top: 40px;
+      margin-top: 60px;
     }
   </style>
 </head>
 <body>
+  <nav style="color: white;" class="navbar navbar-expand-md navbar-dark bg-dark sticky-top shadow-sm">
+    <button style="border: none;margin-top: 10px;" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+      <img src="menu.png" alt="Menu" />
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html#home">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="index.html#blogs">Blogs</a></li>
+        <li class="nav-item"><a class="nav-link" href="https://aytid.github.io/Portfolio/">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="index.html#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
 
-  <!-- Header -->
-  <header>
-    <h1>Rohan's ServiceNow Blog</h1>
-    <nav>
-      <a href="index.html#home">Home</a>
-      <a href="index.html#blogs">Blogs</a>
-      <a href="index.html#about">About</a>
-      <a href="index.html#contact">Contact</a>
-    </nav>
-  </header>
-
-  <!-- Blog Section -->
   <section class="section">
-    <h1>Quick Link Custom Widget</h1>
+    <h1 class="mb-4">Quick Link Custom Widget</h1>
     <p><strong>Author:</strong> Me. Blame me if it breaks.</p>
-    <p>Here’s how I built a custom ServiceNow widget that transforms ordinary links into vibrant, center-aligned cards. <br> Stylish? Absolutely. <br> Overengineered? Maybe.</p>
-    <h2>🔗 Quick Navigation</h2>
+    <p>Here’s how I built a custom ServiceNow widget that transforms ordinary links into vibrant, center-aligned cards. <br> Stylish? Absolutely. <br> <span style="color: red;" >Overengineered?</span> Maybe.</p>
+    <h2 class="mt-5">Quick Navigation</h2>
     <ul class="quick-links">
       <li><a href="#html">HTML Template</a></li>
       <li><a href="#css">CSS Styling</a></li>
@@ -100,10 +117,10 @@
       <li><a href="#client">Client Script</a></li>
     </ul>
 
-    <!-- HTML Template Section -->
-    <h2 id="html">🛠️ HTML Template</h2>
+    <h2 id="html" class="mt-5">HTML Template</h2>
     <div id="code-html" class="code-container collapsed">
-        <pre><code>&lt;!-- Thumbnail Cards Centered --&gt;
+        <pre>
+          <code>&lt;!-- Thumbnail Cards Centered --&gt;
 &lt;div class="all-card-container" 
      ng-if="c.data.card_type == 'Thumbnail' &amp;&amp; c.data.text_alignment == 'Center'"&gt;
   &lt;a ng-repeat="item in data.json_data" 
@@ -173,14 +190,13 @@
   &lt;/a&gt;
 &lt;/div&gt;
 </code></pre>
-
     </div>
     <button onclick="toggleCode('code-html', this)">Read more ↓</button>
 
-    <!-- CSS Styling Section -->
-    <h2 id="css">🎨 CSS Styling</h2>
+    <h2 id="css" class="mt-5">CSS Styling</h2>
     <div id="code-css" class="code-container collapsed">
-      <pre><code>$background-primary: #FFFFFF !default;
+      <pre>
+        <code>$background-primary: #FFFFFF !default;
 $sp-panel-box-shadow: 0 4px 8px 0 rgba(23, 40, 52, 0.08) !default;
 $border-primary: #8790A1 !default;
 $border-secondary: #B3B7BC !default;
@@ -680,10 +696,10 @@ a:hover {
     </div>
     <button onclick="toggleCode('code-css', this)">Read more ↓</button>
 
-    <!-- Server Script Section -->
-    <h2 id="server">📡 Server Script</h2>
+    <h2 id="server" class="mt-5">Server Script</h2>
     <div id="code-server" class="code-container collapsed">
-      <pre><code>(function() {
+            <pre>
+        <code>(function() {
     data.load_config = options.load_config;
     if (data.load_config === "async" && !input)
         return;
@@ -747,10 +763,10 @@ a:hover {
     </div>
     <button onclick="toggleCode('code-server', this)">Read more ↓</button>
 
-    <!-- Client Script Section -->
-    <h2 id="client">🧠 Client Script</h2>
+    <h2 id="client" class="mt-5">Client Script</h2>
     <div id="code-client" class="code-container collapsed">
-      <pre><code>api.controller = function($scope, $timeout, $window, snAnalytics) {
+            <pre>
+        <code>api.controller = function($scope, $timeout, $window, snAnalytics) {
     /* widget controller */
 
     var c = this;
@@ -965,21 +981,18 @@ a:hover {
     </div>
     <button onclick="toggleCode('code-client', this)">Read more ↓</button>
 
-    <!-- Final Note -->
-<h2>✅ Final Result</h2>
-<p>You’ll get a responsive set of colorful cards centered on the page. Each card links to a different ServiceNow page or resource. This widget works great on Employee Center portals.</p>
-<div style="display: flex; flex-direction: column; gap: 20px; align-items: center;" class="quicklinkimg">
-  <img src="ref-icon.png" alt="" style="width: 100%; border: 0.5px solid black; border-radius: 8px;" />
-  <img src="ref-icon2.png" alt="" style="width: 100%; border: 0.5px solid black; border-radius: 8px;" />
-</div>
+    <h2 class="mt-5">Final Result</h2>
+    <p>You’ll get a responsive set of colorful cards centered on the page. Each card links to a different ServiceNow page or resource. This widget works great on Employee Center portals.</p>
+    <div class="quicklinkimg" style="display: flex; flex-direction: column; gap: 20px; align-items: center;">
+      <img src="ref-icon.png" alt="Quick Link Reference 1" />
+      <img src="ref-icon2.png" alt="Quick Link Reference 2" />
+    </div>
+  </section>
 
-
-  <!-- Footer -->
   <footer>
     <p>&copy; 2025 Rohan Aditya. All rights reserved.</p>
   </footer>
 
-  <!-- Toggle Script -->
   <script>
     function toggleCode(id, btn) {
       const code = document.getElementById(id);
@@ -994,6 +1007,8 @@ a:hover {
       }
     }
   </script>
-
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
