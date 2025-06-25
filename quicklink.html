@@ -216,7 +216,7 @@
 </code></pre>
     </div>
     <button onclick="toggleCode('code-html', this)">Read more ↓</button>
-
+    <button id="html-copy-button" onclick="copyHTMLCode()">Copy</button>
     <h2 id="css" class="mt-5">CSS Styling</h2>
     <div id="code-css" class="code-container collapsed">
       <pre>
@@ -719,6 +719,7 @@ a:hover {
 }</code></pre>
     </div>
     <button onclick="toggleCode('code-css', this)">Read more ↓</button>
+    <button id="css-copy-button" onclick="copyCSSCode()">Copy</button>
 
     <h2 id="server" class="mt-5">Server Script</h2>
     <div id="code-server" class="code-container collapsed">
@@ -786,6 +787,7 @@ a:hover {
 })();</code></pre>
     </div>
     <button onclick="toggleCode('code-server', this)">Read more ↓</button>
+    <button id="server-copy-button" onclick="copyServerCode()">Copy</button>
 
     <h2 id="client" class="mt-5">Client Script</h2>
     <div id="code-client" class="code-container collapsed">
@@ -1004,6 +1006,7 @@ a:hover {
 };</code></pre>
     </div>
     <button onclick="toggleCode('code-client', this)">Read more ↓</button>
+    <button id="client-side-copy-button" onclick="copyClientSideCode()">Copy</button>
 
     <h2 class="mt-5">Final Result</h2>
     <p>You’ll get a responsive set of colorful cards centered on the page. Each card links to a different ServiceNow page or resource. This widget works great on Employee Center portals.</p>
@@ -1018,6 +1021,8 @@ a:hover {
   </footer>
 
   <script>
+
+
     function toggleCode(id, btn) {
       const code = document.getElementById(id);
       if (code.classList.contains("expanded")) {
@@ -1030,6 +1035,8 @@ a:hover {
         btn.innerText = "Show less ↑";
       }
     }
+
+
     function forceDownload() {
   const url = "https://raw.githubusercontent.com/aytid/servicenow/main/custom-quick-link.xml";
   fetch(url)
@@ -1043,6 +1050,47 @@ a:hover {
       document.body.removeChild(a);
     })
     .catch(() => alert("Download failed. Please check the file URL."));
+}
+
+
+function copyHTMLCode() {
+  const code = document.getElementById("code-html").innerText;
+  navigator.clipboard.writeText(code).then(() => {
+    document.getElementById('html-copy-button').innerHTML = 'Copied';
+    //alert("HTML code copied to clipboard!");
+  }).catch(err => {
+    //alert("Failed to copy: " + err);
+  });
+}
+
+function copyCSSCode() {
+  const code = document.getElementById("code-css").innerText;
+  navigator.clipboard.writeText(code).then(() => {
+    document.getElementById('css-copy-button').innerHTML = 'Copied';
+    //alert("HTML code copied to clipboard!");
+  }).catch(err => {
+    //alert("Failed to copy: " + err);
+  });
+}
+
+function copyServerCode() {
+  const code = document.getElementById("code-server").innerText;
+  navigator.clipboard.writeText(code).then(() => {
+    document.getElementById('server-copy-button').innerHTML = 'Copied';
+    //alert("HTML code copied to clipboard!");
+  }).catch(err => {
+    //alert("Failed to copy: " + err);
+  });
+}
+
+function copyClientSideCode() {
+  const code = document.getElementById("code-client").innerText;
+  navigator.clipboard.writeText(code).then(() => {
+    document.getElementById('client-side-copy-button').innerHTML = 'Copied';
+    //alert("HTML code copied to clipboard!");
+  }).catch(err => {
+    //alert("Failed to copy: " + err);
+  });
 }
   </script>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
