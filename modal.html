@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Modal in ServiceNow</title>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      background-color: #f8f9fa;
+      color: #333;
+    }
+    header {
+      background: #181a1f;
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    nav a {
+      margin: 0 15px;
+      color: #f8f9fa;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    .section {
+      padding: 40px 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+    code, pre {
+      background: #eee;
+      padding: 10px;
+      display: block;
+      white-space: pre-wrap;
+      border-left: 4px solid #0077cc;
+      overflow-x: auto;
+    }
+    .code-container.collapsed {
+      max-height: 100px;
+      overflow: hidden;
+      position: relative;
+      transition: max-height 0.3s ease;
+    }
+    .code-container.expanded {
+      max-height: none;
+    }
+    #toggleBtn {
+      background-color: #0077cc;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      margin-top: 10px;
+      cursor: pointer;
+      font-weight: 500;
+      border-radius: 4px;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #181a1f;
+      color: white;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Rohan's ServiceNow Blog</h1>
+    <nav>
+      <a href="index.html#home">Home</a>
+      <a href="index.html#blogs">Blogs</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section class="section">
+    <h1>Show Table Data in Modal – Native UI</h1>
+    <p><strong>Author:</strong> Yep, again it’s me — Rohan Aditya. Who else? 😆</p>
+    <p>This guide shows you how to build a UI Action that lets you pick any table and display its data dynamically in a modal using a UI Page, Script Include, and GlideAjax — all inside the native UI, without leaving the current page!</p>
+
+    <h2>🔗 Quick Navigation</h2>
+    <ul class="quick-links">
+      <li><a href="#uiaction">UI Action</a></li>
+      <li><a href="#uipage">UI Page</a></li>
+      <li><a href="#scriptinclude">Script Include</a></li>
+      <li><a href="#howitworks">How It Works</a></li>
+      <li><a href="#result">Result</a></li>
+    </ul>
+
+    <h2 id="uiaction">✅ Create the UI Action</h2>
+    <p><strong>Navigation:</strong> <code>All &gt; System UI &gt; UI Actions &gt; New</code></p>
+    <ul>
+      <li><strong>Name:</strong> Show table data</li>
+      <li><strong>Table:</strong> Any table (or Global)</li>
+      <li><strong>Action name:</strong> show_pop_up</li>
+      <li><strong>Onclick:</strong> openModal();</li>
+    </ul>
+    <h3>Script</h3>
+    <div class="code-container">
+<pre><code>function openModal() {
+  var gm = new GlideModal("list_on_popup_page");
+  gm.setTitle("Table Data");
+  gm.render();
+}</code></pre>
+    </div>
+
+    <h2 id="uipage">✅ Create the UI Page</h2>
+    <p><strong>Navigation:</strong> <code>All &gt; System UI &gt; UI Pages &gt; New</code></p>
+    <ul>
+      <li><strong>Name:</strong> list_on_popup_page</li>
+      <li><strong>Application:</strong> Global (or your scoped app)</li>
+      <li><strong>Category:</strong> General</li>
+    </ul>
+    <h3>📄 HTML</h3>
+    <div class="code-container">
+<pre><code>&lt;?xml version="1.0" encoding="utf-8" ?&gt;
+&lt;j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide"&gt;
+  &lt;html&gt;
+  &lt;head&gt;
+    &lt;style&gt;
+      table { border-collapse: collapse; width: 100%; }
+      th, td { border: 1px solid #ddd; padding: 8px; }
+      th { background-color: #f2f2f2; }
+    &lt;/style&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;p id="err_message" style="display:none; color:red;"&gt;&lt;/p&gt;
+    &lt;label&gt;Select a Table&lt;/label&gt;
+    &lt;g:ui_reference name="target_table_pick" table="sys_db_object" /&gt;
+    &lt;button onclick="return onShowList();"&gt;Show List&lt;/button&gt;
+    &lt;div id="listContainer" style="margin-top: 20px;"&gt;&lt;/div&gt;
+  &lt;/body&gt;
+  &lt;/html&gt;
+&lt;/j:jelly&gt;</code></pre>
+    </div>
+
+    <h3>📄 Client Script</h3>
+    <div class="code-container">
+<pre><code>function onShowList() {
+  clearErr();
+  var sysId = gel('target_table_pick').value.trim();
+  if (!sysId) {
+    $j("#err_message").html("Please select a table.").show();
+    return false;
+  }
+  var ga = new GlideAjax('GetTableRecordsAJAX');
+  ga.addParam('sysparm_name', 'getRecords');
+  ga.addParam('sysparm_table_sysid', sysId);
+  ga.getXMLAnswer(function(response) {
+    $j('#listContainer').html(response);
+  });
+  return false;
+}
+
+function clearErr() {
+  $j("#err_message").hide().html("");
+}</code></pre>
+    </div>
+
+    <h2 id="scriptinclude">✅ Create the Script Include</h2>
+    <p><strong>Navigation:</strong> <code>All &gt; System Definition &gt; Script Includes &gt; New</code></p>
+    <ul>
+      <li><strong>Name:</strong> GetTableRecordsAJAX</li>
+      <li><strong>Client Callable:</strong> ✅ True</li>
+    </ul>
+    <div class="code-container">
+<pre><code>var GetTableRecordsAJAX = Class.create();
+GetTableRecordsAJAX.prototype = Object.extendsObject(AbstractAjaxProcessor, {
+  getRecords: function() {
+    var sysId = this.getParameter('sysparm_table_sysid');
+    var gr = new GlideRecord('sys_db_object');
+    if (!gr.get(sysId)) {
+      return "&lt;p&gt;Invalid sys_id.&lt;/p&gt;";
+    }
+    var tableName = gr.getValue('name');
+    var grData = new GlideRecord(tableName);
+    grData.setLimit(5);
+    grData.query();
+    var html = "&lt;table&gt;&lt;tr&gt;";
+    if (grData.isValidField('number')) html += "&lt;th&gt;number&lt;/th&gt;";
+    if (grData.isValidField('name')) html += "&lt;th&gt;name&lt;/th&gt;";
+    if (grData.isValidField('short_description')) html += "&lt;th&gt;short_description&lt;/th&gt;";
+    if (grData.isValidField('state')) html += "&lt;th&gt;State&lt;/th&gt;";
+    html += "&lt;/tr&gt;";
+    while (grData.next()) {
+      html += "&lt;tr&gt;";
+      if (grData.isValidField('number')) html += "&lt;td&gt;" + grData.getValue('number') + "&lt;/td&gt;";
+      if (grData.isValidField('name')) html += "&lt;td&gt;" + grData.getValue('name') + "&lt;/td&gt;";
+      if (grData.isValidField('short_description')) html += "&lt;td&gt;" + grData.getValue('short_description') + "&lt;/td&gt;";
+      if (grData.isValidField('state')) html += "&lt;td&gt;" + grData.getDisplayValue('state') + "&lt;/td&gt;";
+      html += "&lt;/tr&gt;";
+    }
+    html += "&lt;/table&gt;";
+    return html;
+  }
+});</code></pre>
+    </div>
+
+    <h2 id="howitworks">✅ How It Works</h2>
+    <p>✔️ Click the UI Action → opens a GlideModal with your UI Page.<br>
+    ✔️ Pick any table → Click Show List → Data displays inside the modal dynamically.<br>
+    ✔️ No page reloads. All done using GlideAjax + Jelly + Client Script!</p>
+
+    <h2 id="result">✅ Result</h2>
+    <p>Here’s how the final modal looks when you run it in ServiceNow:</p>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
+  <img src="modal1.png" alt="Result Screenshot 1" style="max-width: 400px; width: 100%; border: 1px solid #ddd; border-radius: 4px;">
+  <img src="modal2.png" alt="Result Screenshot 2" style="max-width: 400px; width: 100%; border: 1px solid #ddd; border-radius: 4px;">
+  <img src="modal3.png" alt="Result Screenshot 3" style="max-width: 400px; width: 100%; border: 1px solid #ddd; border-radius: 4px;">
+  <img src="modal4.png" alt="Result Screenshot 4" style="max-width: 400px; width: 100%; border: 1px solid #ddd; border-radius: 4px;">
+</div>
+
+  </section>
+
+  <footer>
+    &copy; 2025 Rohan's ServiceNow Blog
+  </footer>
+
+</body>
+</html>
