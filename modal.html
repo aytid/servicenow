@@ -96,7 +96,7 @@
     <p><strong>Author:</strong> Yep, again it’s me — Rohan Aditya. Who else? 😆</p>
     <p>This guide shows you how to build a UI Action that lets you pick any table and display its data dynamically in a modal using a UI Page, Script Include, and GlideAjax — all inside the native UI, without leaving the current page!</p>
 
-    <h2>🔗 Quick Navigation</h2>
+    <h2>Quick Navigation</h2>
     <ul class="quick-links">
       <li><a href="#uiaction">UI Action</a></li>
       <li><a href="#uipage">UI Page</a></li>
@@ -105,7 +105,7 @@
       <li><a href="#result">Result</a></li>
     </ul>
 
-    <h2 id="uiaction">✅ Create the UI Action</h2>
+    <h2 id="uiaction">Create the UI Action</h2>
     <p><strong>Navigation:</strong> <code>All &gt; System UI &gt; UI Actions &gt; New</code></p>
     <ul>
       <li><strong>Name:</strong> Show table data</li>
@@ -120,7 +120,7 @@
   gm.render();
 }</code></pre>
 
-    <h2 id="uipage">✅ Create the UI Page</h2>
+    <h2 id="uipage">Create the UI Page</h2>
     <p><strong>Navigation:</strong> <code>All &gt; System UI &gt; UI Pages &gt; New</code></p>
     <ul>
       <li><strong>Name:</strong> list_on_popup_page</li>
@@ -169,11 +169,11 @@ function clearErr() {
   $j("#err_message").hide().html("");
 }</code></pre>
 
-    <h2 id="scriptinclude">✅ Create the Script Include</h2>
+    <h2 id="scriptinclude">Create the Script Include</h2>
     <p><strong>Navigation:</strong> <code>All &gt; System Definition &gt; Script Includes &gt; New</code></p>
     <ul>
       <li><strong>Name:</strong> GetTableRecordsAJAX</li>
-      <li><strong>Client Callable:</strong> ✅ True</li>
+      <li><strong>Client Callable:</strong> True</li>
     </ul>
     <pre><code>var GetTableRecordsAJAX = Class.create();
 GetTableRecordsAJAX.prototype = Object.extendsObject(AbstractAjaxProcessor, {
