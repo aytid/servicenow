@@ -106,12 +106,12 @@
     </ul>
 
     <h2 id="uiaction">Create the UI Action</h2>
-    <p><strong>Navigation:</strong> <code>All &gt; System UI &gt; UI Actions &gt; New</code></p>
+    <p>Navigation: <code>All &gt; System UI &gt; UI Actions &gt; New</code></p>
     <ul>
-      <li><strong>Name:</strong> Show table data</li>
-      <li><strong>Table:</strong> Any table (or Global)</li>
-      <li><strong>Action name:</strong> show_pop_up</li>
-      <li><strong>Onclick:</strong> openModal();</li>
+      <li>Name:</strong> Show table data</li>
+      <li>Table:</strong> Any table (or Global)</li>
+      <li>Action name:</strong> show_pop_up</li>
+      <li>Onclick:</strong> openModal();</li>
     </ul>
     <h3>Script</h3>
     <pre><code>function openModal() {
@@ -121,13 +121,13 @@
 }</code></pre>
 
     <h2 id="uipage">Create the UI Page</h2>
-    <p><strong>Navigation:</strong> <code>All &gt; System UI &gt; UI Pages &gt; New</code></p>
+    <p>Navigation: <code>All &gt; System UI &gt; UI Pages &gt; New</code></p>
     <ul>
-      <li><strong>Name:</strong> list_on_popup_page</li>
-      <li><strong>Application:</strong> Global (or your scoped app)</li>
-      <li><strong>Category:</strong> General</li>
+      <li>Name:</strong> list_on_popup_page</li>
+      <li>Application:</strong> Global (or your scoped app)</li>
+      <li>Category:</strong> General</li>
     </ul>
-    <h3>📄 HTML</h3>
+    <h3>HTML</h3>
     <pre><code>&lt;?xml version="1.0" encoding="utf-8" ?&gt;
 &lt;j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide"&gt;
   &lt;html&gt;
@@ -148,7 +148,7 @@
   &lt;/html&gt;
 &lt;/j:jelly&gt;</code></pre>
 
-    <h3>📄 Client Script</h3>
+    <h3>Client Script</h3>
     <pre><code>function onShowList() {
   clearErr();
   var sysId = gel('target_table_pick').value.trim();
@@ -170,10 +170,10 @@ function clearErr() {
 }</code></pre>
 
     <h2 id="scriptinclude">Create the Script Include</h2>
-    <p><strong>Navigation:</strong> <code>All &gt; System Definition &gt; Script Includes &gt; New</code></p>
+    <p>Navigation: <code>All &gt; System Definition &gt; Script Includes &gt; New</code></p>
     <ul>
-      <li><strong>Name:</strong> GetTableRecordsAJAX</li>
-      <li><strong>Client Callable:</strong> True</li>
+      <li>Name:</strong> GetTableRecordsAJAX</li>
+      <li>Client Callable:</strong> True</li>
     </ul>
     <pre><code>var GetTableRecordsAJAX = Class.create();
 GetTableRecordsAJAX.prototype = Object.extendsObject(AbstractAjaxProcessor, {
