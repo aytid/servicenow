@@ -33,7 +33,6 @@
       border-left: 4px solid #0077cc;
       overflow-x: auto;
       border-radius: 6px;
-      font-size: 10px;
     }
     .quick-links li {
       margin-bottom: 8px;
@@ -93,10 +92,10 @@
 
   <!-- Main Section -->
   <section class="section">
-    <h1>Show Table Data in Modal – Native UI</h1>
-    <p><strong>Author:</strong> Yep, again it’s me — Rohan Aditya. Who else? 😆</p>
+    <h1>Show Table Data in Modal – Native UI</h1> <br>
+    <p><strong>Author:</strong> Yep, again it’s me — Rohan Aditya. Who else? 😆</p> <br>
     <p>This guide shows you how to build a UI Action that lets you pick any table and display its data dynamically in a modal using a UI Page, Script Include, and GlideAjax — all inside the native UI, without leaving the current page!</p>
-
+    <br>
     <h2>Quick Navigation</h2>
     <ul class="quick-links">
       <li><a href="#uiaction">UI Action</a></li>
@@ -105,7 +104,7 @@
       <li><a href="#howitworks">How It Works</a></li>
       <li><a href="#result">Result</a></li>
     </ul>
-
+    <br>
     <h2 id="uiaction">Create the UI Action</h2>
     <p>Navigation: <code>All &gt; System UI &gt; UI Actions &gt; New</code></p>
     <ul>
@@ -114,13 +113,14 @@
       <li>Action name:</strong> show_pop_up</li>
       <li>Onclick:</strong> openModal();</li>
     </ul>
+    <br>
     <h3>Script</h3>
     <pre><code>function openModal() {
   var gm = new GlideModal("list_on_popup_page");
   gm.setTitle("Table Data");
   gm.render();
 }</code></pre>
-
+    <br>
     <h2 id="uipage">Create the UI Page</h2>
     <p>Navigation: <code>All &gt; System UI &gt; UI Pages &gt; New</code></p>
     <ul>
@@ -128,6 +128,7 @@
       <li>Application:</strong> Global (or your scoped app)</li>
       <li>Category:</strong> General</li>
     </ul>
+    <br>
     <h3>HTML</h3>
     <pre><code>&lt;?xml version="1.0" encoding="utf-8" ?&gt;
 &lt;j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide"&gt;
@@ -148,7 +149,7 @@
   &lt;/body&gt;
   &lt;/html&gt;
 &lt;/j:jelly&gt;</code></pre>
-
+    <br>
     <h3>Client Script</h3>
     <pre><code>function onShowList() {
   clearErr();
@@ -168,7 +169,8 @@
 
 function clearErr() {
   $j("#err_message").hide().html("");
-}</code></pre>
+}</code></pre> 
+<br>
 
     <h2 id="scriptinclude">Create the Script Include</h2>
     <p>Navigation: <code>All &gt; System Definition &gt; Script Includes &gt; New</code></p>
@@ -206,12 +208,12 @@ GetTableRecordsAJAX.prototype = Object.extendsObject(AbstractAjaxProcessor, {
     return html;
   }
 });</code></pre>
-
+    <br>
     <h2 id="howitworks">How It Works</h2>
     <p>✔️ Click the UI Action → opens a GlideModal with your UI Page.<br>
     ✔️ Pick any table → Click Show List → Data displays inside the modal dynamically.<br>
     ✔️ No page reloads. All done using GlideAjax + Jelly + Client Script!</p>
-
+    <br>
     <h2 id="result">Result</h2>
     <p>Here’s how the final modal looks when you run it:</p>
     <div style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
