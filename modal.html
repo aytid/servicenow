@@ -3,98 +3,94 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Modal in ServiceNow</title>
+  <title>Show Table Data in Modal – ServiceNow</title>
   <link rel="icon" href="images/r-letter-logo.png" type="image/x-icon" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;700&display=swap" rel="stylesheet"/>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"/>
   <style>
     html {
       scroll-behavior: smooth;
     }
     body {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      line-height: 1.6;
-      background-color: #f8f9fa;
-      color: #333;
-    }
-    header {
-      background: #181a1f;
-      color: white;
-      padding: 20px 0;
-      text-align: center;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-    nav a {
-      margin: 0 15px;
-      color: #f8f9fa;
-      text-decoration: none;
-      font-weight: 500;
-    }
-    nav a:hover {
-      text-decoration: underline;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(to bottom right, #f8f9fa, #e8ebf0);
+      color: #212529;
     }
     .section {
-      padding: 40px 20px;
+      padding: 60px 20px;
       max-width: 900px;
-      margin: auto;
+      margin: 40px auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
     }
     code, pre {
-      background: #eee;
-      padding: 10px;
+      background: #f1f3f5;
+      padding: 12px;
       display: block;
       white-space: pre-wrap;
       border-left: 4px solid #0077cc;
       overflow-x: auto;
+      border-radius: 6px;
     }
-    .code-container.collapsed {
-      max-height: 100px;
-      overflow: hidden;
-      position: relative;
-      transition: max-height 0.3s ease;
+    .quick-links li {
+      margin-bottom: 8px;
     }
-    .code-container.expanded {
-      max-height: none;
+    .quick-links a {
+      color: #0077cc;
+      text-decoration: none;
+      font-weight: 500;
     }
-    #toggleBtn {
+    .quick-links a:hover {
+      text-decoration: underline;
+    }
+    button {
       background-color: #0077cc;
       color: white;
       border: none;
-      padding: 8px 16px;
+      padding: 10px 20px;
       margin-top: 10px;
       cursor: pointer;
       font-weight: 500;
-      border-radius: 4px;
+      border-radius: 24px;
+      transition: all 0.3s ease;
+    }
+    button:hover {
+      background-color: #005fa3;
+      transform: translateY(-2px);
     }
     footer {
       text-align: center;
       padding: 20px;
       background: #181a1f;
       color: white;
-      margin-top: 40px;
+      margin-top: 60px;
+    }
+    .navbar-dark .navbar-nav .nav-link {
+      color: white !important;
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>Rohan's ServiceNow Blog</h1>
-      <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top shadow-sm">
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top shadow-sm">
     <button style="border: none;margin-top: 10px;" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
       <img src="images/menu.png" alt="Menu" />
     </button>
     <h5 style="color: white;">Rohan's blog</h5>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-        <!--<li class="nav-item"><a class="nav-link" href="index.html#blogs">Blogs</a></li>-->
-        <!--<li class="nav-item"><a class="nav-link" href="https://aytid.github.io/Portfolio/">About</a></li>-->
+        <li class="nav-item"><a class="nav-link" href="index.html#home">Home</a></li>
+        <!--<li class="nav-item"><a class="nav-link" href="index.html#blogs">Blogs</a></li>
+        <li class="nav-item"><a class="nav-link" href="index.html#about">About</a></li>-->
         <li class="nav-item"><a class="nav-link" href="index.html#contact">Contact</a></li>
       </ul>
     </div>
   </nav>
-  </header>
 
+  <!-- Main Section -->
   <section class="section">
     <h1>Show Table Data in Modal – Native UI</h1>
     <p><strong>Author:</strong> Yep, again it’s me — Rohan Aditya. Who else? 😆</p>
@@ -118,13 +114,11 @@
       <li><strong>Onclick:</strong> openModal();</li>
     </ul>
     <h3>Script</h3>
-    <div class="code-container">
-<pre><code>function openModal() {
+    <pre><code>function openModal() {
   var gm = new GlideModal("list_on_popup_page");
   gm.setTitle("Table Data");
   gm.render();
 }</code></pre>
-    </div>
 
     <h2 id="uipage">✅ Create the UI Page</h2>
     <p><strong>Navigation:</strong> <code>All &gt; System UI &gt; UI Pages &gt; New</code></p>
@@ -134,8 +128,7 @@
       <li><strong>Category:</strong> General</li>
     </ul>
     <h3>📄 HTML</h3>
-    <div class="code-container">
-<pre><code>&lt;?xml version="1.0" encoding="utf-8" ?&gt;
+    <pre><code>&lt;?xml version="1.0" encoding="utf-8" ?&gt;
 &lt;j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide"&gt;
   &lt;html&gt;
   &lt;head&gt;
@@ -154,11 +147,9 @@
   &lt;/body&gt;
   &lt;/html&gt;
 &lt;/j:jelly&gt;</code></pre>
-    </div>
 
     <h3>📄 Client Script</h3>
-    <div class="code-container">
-<pre><code>function onShowList() {
+    <pre><code>function onShowList() {
   clearErr();
   var sysId = gel('target_table_pick').value.trim();
   if (!sysId) {
@@ -177,7 +168,6 @@
 function clearErr() {
   $j("#err_message").hide().html("");
 }</code></pre>
-    </div>
 
     <h2 id="scriptinclude">✅ Create the Script Include</h2>
     <p><strong>Navigation:</strong> <code>All &gt; System Definition &gt; Script Includes &gt; New</code></p>
@@ -185,8 +175,7 @@ function clearErr() {
       <li><strong>Name:</strong> GetTableRecordsAJAX</li>
       <li><strong>Client Callable:</strong> ✅ True</li>
     </ul>
-    <div class="code-container">
-<pre><code>var GetTableRecordsAJAX = Class.create();
+    <pre><code>var GetTableRecordsAJAX = Class.create();
 GetTableRecordsAJAX.prototype = Object.extendsObject(AbstractAjaxProcessor, {
   getRecords: function() {
     var sysId = this.getParameter('sysparm_table_sysid');
@@ -216,7 +205,6 @@ GetTableRecordsAJAX.prototype = Object.extendsObject(AbstractAjaxProcessor, {
     return html;
   }
 });</code></pre>
-    </div>
 
     <h2 id="howitworks">How It Works</h2>
     <p>✔️ Click the UI Action → opens a GlideModal with your UI Page.<br>
@@ -225,15 +213,15 @@ GetTableRecordsAJAX.prototype = Object.extendsObject(AbstractAjaxProcessor, {
 
     <h2 id="result">Result</h2>
     <p>Here’s how the final modal looks when you run it:</p>
-<div style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
-  <img src="images/modal1.png" alt="Result Screenshot 1" style="max-width: 400px; width: 100%; border: 1px solid #ddd; border-radius: 4px;">
-  <img src="images/modal2.png" alt="Result Screenshot 2" style="max-width: 400px; width: 100%; border: 1px solid #ddd; border-radius: 4px;">
-  <img src="images/modal3.png" alt="Result Screenshot 3" style="max-width: 400px; width: 100%; border: 1px solid #ddd; border-radius: 4px;">
-  <img src="images/modal4.png" alt="Result Screenshot 4" style="max-width: 400px; width: 100%; border: 1px solid #ddd; border-radius: 4px;">
-</div>
-
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
+      <img src="images/modal1.png" alt="Result Screenshot 1" style="max-width: 400px; width: 100%; border: 1px solid #ddd; border-radius: 12px;">
+      <img src="images/modal2.png" alt="Result Screenshot 2" style="max-width: 400px; width: 100%; border: 1px solid #ddd; border-radius: 12px;">
+      <img src="images/modal3.png" alt="Result Screenshot 3" style="max-width: 400px; width: 100%; border: 1px solid #ddd; border-radius: 12px;">
+      <img src="images/modal4.png" alt="Result Screenshot 4" style="max-width: 400px; width: 100%; border: 1px solid #ddd; border-radius: 12px;">
+    </div>
   </section>
 
+  <!-- Footer -->
   <footer>
     &copy; 2025 Rohan's ServiceNow Blog
   </footer>
