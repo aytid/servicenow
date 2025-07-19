@@ -49,12 +49,94 @@
   <div class="container">
     <h2 class="text-center mb-5">What I wrote so far</h2>
     <div class="timeline-box">
+      
+
+            <div class="timeline-step">
+        <div class="timeline-circle filled">
+          <style>
+  .fade-in-path {
+    opacity: 0;
+    animation: fadeIn 2s ease-out forwards;
+  }
+
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+    }
+  }
+</style>
+
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <path
+    class="fade-in-path"
+    d="M19.744 21.158c-2.09 1.77-4.79 2.842-7.744 2.842-6.627 0-12-5.373-12-12 0-6.29 4.842-11.44 11-11.95v12.364l8.744 8.744zm-6.744-19.107c5.046.503 9 4.772 9 9.949 0 2.397-.85 4.6-2.262 6.324l1.42 1.42c1.77-2.09 2.842-4.79 2.842-7.744 0-6.29-4.842-11.44-11-11.95v2.001z"
+  />
+</svg>
+
+        </div>
+        <div class="timeline-line"></div>
+        <div class="timeline-content">
+          <h5 class="mb-1">Scripting in Reports</h5>
+          <h6 class="text-muted mb-1">Unchecked box, Unlimited chaos</h6>
+          <div class="timeline-status completed">17th July 2025</div>
+          <a href="reportscript.html" class="timeline-status pending">Have a look</a>
+        </div>
+      </div>
 
       <div class="timeline-step">
         <div class="timeline-circle filled">
-          <svg viewBox="0 0 16 16" fill="currentColor" height="16" width="16" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z"/>
-          </svg>
+            <style>
+  .table-animated {
+    width: 25px;
+    height: 25px;
+    stroke: #333;
+    stroke-width: 2;
+    fill: none;
+  }
+
+  .animate-path {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    animation: draw 1s ease forwards;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+  }
+
+  .row-1 { animation-delay: 0s; }
+  .row-2 { animation-delay: 0.2s; }
+  .col-1 { animation-delay: 0.6s; }
+  .col-2 { animation-delay: 0.8s; }
+
+  /* Rectangle animation separately (optional) */
+  .rect-border {
+    stroke-dasharray: 200;
+    stroke-dashoffset: 200;
+    animation: draw 1s ease forwards;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-delay: 0s;
+  }
+
+  @keyframes draw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+</style>
+
+<svg class="table-animated" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <!-- Outer border -->
+  <rect x="3" y="3" width="18" height="18" rx="2" ry="2" class="rect-border" />
+
+  <!-- Rows -->
+  <line x1="3" y1="9" x2="21" y2="9" class="animate-path row-1" />
+  <line x1="3" y1="15" x2="21" y2="15" class="animate-path row-2" />
+
+  <!-- Columns -->
+  <line x1="9" y1="3" x2="9" y2="21" class="animate-path col-1" />
+  <line x1="15" y1="3" x2="15" y2="21" class="animate-path col-2" />
+</svg>
+
         </div>
         <div class="timeline-line"></div>
           <div class="timeline-content">
@@ -68,9 +150,26 @@
 
       <div class="timeline-step">
         <div class="timeline-circle filled">
-          <svg viewBox="0 0 16 16" fill="currentColor" height="16" width="16" xmlns="http://www.w3.org/2000/svg">
-            <path d="M2.5 3A1.5 1.5 0 0 0 1 4.5v6A1.5 1.5 0 0 0 2.5 12H0v1a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-1h-2.5A1.5 1.5 0 0 0 15 10.5v-6A1.5 1.5 0 0 0 13.5 3h-11zM2 4.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 .5.5V10a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-5.5z"/>
-          </svg>
+
+          <style>
+  .spinning-gear {
+    animation: spin 2s linear infinite;
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+</style>
+
+<svg class="spinning-gear" xmlns="http://www.w3.org/2000/svg"
+     width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+  <path d="M24 13.616v-3.232c-1.651-.587-2.694-.752-3.219-2.019v-.001c-.527-1.271.1-2.134.847-3.707l-2.285-2.285c-1.561.742-2.433 1.375-3.707.847h-.001c-1.269-.526-1.435-1.576-2.019-3.219h-3.232c-.582 1.635-.749 2.692-2.019 3.219h-.001c-1.271.528-2.132-.098-3.707-.847l-2.285 2.285c.745 1.568 1.375 2.434.847 3.707-.527 1.271-1.584 1.438-3.219 2.02v3.232c1.632.58 2.692.749 3.219 2.019.53 1.282-.114 2.166-.847 3.707l2.285 2.286c1.562-.743 2.434-1.375 3.707-.847h.001c1.27.526 1.436 1.579 2.019 3.219h3.232c.582-1.636.75-2.69 2.027-3.222h.001c1.262-.524 2.12.101 3.698.851l2.285-2.286c-.744-1.563-1.375-2.433-.848-3.706.527-1.271 1.588-1.44 3.221-2.021zm-12 2.384c-2.209 0-4-1.791-4-4s1.791-4 4-4 4 1.791 4 4-1.791 4-4 4z"/>
+</svg>
+
         </div>
         <div class="timeline-line"></div>
         <div class="timeline-content">
