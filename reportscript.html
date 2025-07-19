@@ -63,7 +63,6 @@
     <p><strong>Author:</strong> Rohan Aditya – breaking Condition Builder limits.</p>
     <h3>Before You Begin</h3>
     <p>Role required: <code>admin</code></p>
-    <p><strong>Warning:</strong> If <strong>Sandbox</strong> isn’t checked, your script won't work and you’ll start questioning every life choice that led to this moment.</p>
     <h3>Steps</h3>
     <ul style="margin-left: -20px;">
       <li>Go to <code>System Definition > Script Includes</code></li>
@@ -72,7 +71,6 @@
       <li>Make sure name of Script include and method name in Script are same</li>
       <li>Paste the following script that return Active P1 incidents</li>
     </ul>
-
     <pre><code>function ReportsAJAX() {
     var incGr = new GlideRecord('incident');
     incGr.addActiveQuery();
@@ -84,6 +82,7 @@
     }
     return incidentArray;
 }</code></pre>
+        <p style="color: red;">If Sandbox isn’t checked, your script won't work and you’ll start questioning every life choice that led to this moment.</p>
 
     <h3>How to Use It in a Filter</h3>
     <p>When you're filtering incidents, do this:</p>
