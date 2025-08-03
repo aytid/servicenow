@@ -43,7 +43,9 @@ body, html {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  min-height: calc(100vh - 60px); 
+  padding-top: 20px; 
+  padding-bottom: 20px;
   position: relative;
   z-index: 1;
   text-align: center;
@@ -143,5 +145,11 @@ footer {
 
   .section-title {
     font-size: 1.4rem;
+  }
+}
+@media (max-width: 576px) {
+  .profile .container {
+    padding-top: 40px;
+    min-height: calc(100vh - 80px);
   }
 }
