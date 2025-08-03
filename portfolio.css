@@ -24,6 +24,9 @@ section {
   justify-content: center;
   background: #f8f9fa;
   overflow: hidden;
+  text-align:center;
+  width:95%;
+  margin:auto;
 }
 
 #particles-js {
