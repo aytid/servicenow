@@ -7,173 +7,91 @@
   <link rel="icon" href="images/r-letter-logo.png" type="image/x-icon" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;700&display=swap" rel="stylesheet"/>
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"/>
-	<style>
-	body {
-  font-family: 'Poppins', sans-serif;
-  font-size: 1rem;
-  margin: 0;
-  padding: 0;
-  background: #f5f5f5;
-  line-height: 1.6;
-  color: #222;
-}
-
-.container {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-h1 {
-  font-size: 2rem;
-  font-weight: 600;
-  margin-bottom: 0.5em;
-  color: #181a1f;
-}
-
-h2 {
-  font-size: 1.6rem;
-  font-weight: 600;
-  margin-bottom: 0.5em;
-  color: #181a1f;
-}
-
-h3, h4 {
-  font-size: 1.3rem;
-  font-weight: 600;
-  margin-bottom: 0.5em;
-  color: #181a1f;
-}
-
-p {
-  font-size: 1rem;
-  margin-bottom: 1em;
-}
-
-code {
-  background: #f2f2f2;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-size: 0.95rem;
-  font-family: Consolas, monospace;
-}
-
-pre {
-  background: #f2f2f2;
-  padding: 12px;
-  border-radius: 6px;
-  overflow-x: auto;
-  font-size: 0.95rem;
-  line-height: 1.5;
-  font-family: Consolas, monospace;
-  margin-bottom: 1em;
-}
-
-a {
-  color: #007bff;
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-.btn,
-button {
-  font-size: 1rem;
-  padding: 10px 16px;
-  border: none;
-  border-radius: 4px;
-  background: #007bff;
-  color: white;
-  cursor: pointer;
-}
-
-.quick-links.card {
-  background: white;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  padding: 20px;
-  margin-bottom: 20px;
-}
-
-.timeline-box {
-  border-left: 4px solid #007bff;
-  padding: 20px;
-  margin-bottom: 20px;
-  background: #fff;
-  border-radius: 6px;
-}
-
-.timeline-content {
-  font-size: 1rem;
-}
-
-.timeline-status {
-  font-weight: 600;
-}
-
-.fun-form input,
-.fun-form button {
-  font-size: 1rem;
-  padding: 10px 16px;
-  margin: 8px 0;
-}
-
-.fun-form button {
-  background: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-/* 📱 Responsive adjustments for mobile (simulate 80% zoom) */
-@media (max-width: 576px) {
-  body {
-    font-size: 13px;
-  }
-
-  .container {
-    padding: 16px;
-  }
-
-  h1 {
-    font-size: 1.4rem;
-  }
-
-  h2 {
-    font-size: 1.3rem;
-  }
-
-  h3, h4 {
-    font-size: 1.1rem;
-  }
-
-  .panel-title {
-    font-size: 1.2rem !important;
-  }
-
-  p, code, pre, a, button {
-    font-size: 0.875rem;
-  }
-
-  .btn, button {
-    padding: 8px 14px;
-  }
-
-  .quick-links.card,
-  .timeline-box,
-  .fun-form {
-    padding: 10px;
-    margin-bottom: 12px;
-  }
-
-  .timeline-box {
-    margin-inline: 0;
-  }
-}
-<style>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(to bottom right, #f8f9fa, #e8ebf0);
+      color: #212529;
+    }
+    section {
+      scroll-margin-top: 10px;
+    }
+    .section {
+      padding: 60px 20px;
+      max-width: 900px;
+      margin: 40px auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+    }
+    h1, h2 {
+      font-weight: 400;
+    }
+    code, pre {
+      background: #f1f3f5;
+      padding: 12px;
+      display: block;
+      white-space: pre-wrap;
+      border-left: 4px solid #0077cc;
+      overflow-x: auto;
+      border-radius: 6px;
+    }
+    .code-container.collapsed {
+      max-height: 100px;
+      overflow: hidden;
+      position: relative;
+      transition: max-height 0.3s ease;
+    }
+    .code-container.expanded {
+      max-height: none;
+    }
+    button {
+      background-color: #0077cc;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin-top: 10px;
+      cursor: pointer;
+      font-weight: 500;
+      border-radius: 24px;
+      transition: all 0.3s ease;
+    }
+    button:hover {
+      background-color: #005fa3;
+      transform: translateY(-2px);
+    }
+    .quick-links li {
+      margin-bottom: 8px;
+    }
+    .quick-links a {
+      color: #0077cc;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .quick-links a:hover {
+      text-decoration: underline;
+    }
+    .quicklinkimg img {
+      width: 100%;
+      border: 1px solid #dee2e6;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #181a1f;
+      color: white;
+      margin-top: 60px;
+    }
+    .navbar-dark .navbar-nav .nav-link {
+  color: white !important;
+    }
+  </style>
 </head>
 <body>
   <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top shadow-sm">
