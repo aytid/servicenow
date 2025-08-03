@@ -92,6 +92,37 @@
     .navbar-dark .navbar-nav .nav-link {
   color: white !important;
     }
+	  @media (max-width: 576px) {
+  :is(body, .p1, .timeline-content, .timeline-status) {
+    font-size: 0.8rem;
+    line-height: 1.2;
+  }
+
+  .container {
+    padding: 10px;
+    margin: 0 auto;
+  }
+
+  :is(.card, .timeline-box, .fun-form) {
+    padding: 10px;
+    margin-bottom: 12px;
+  }
+
+  :is(.card h3, .timeline-box h4) {
+    font-size: 1rem;
+  }
+
+  .fun-form :is(input, button, select, textarea),
+  :is(button, .btn) {
+    font-size: 0.8rem;
+    padding: 6px 8px;
+  }
+
+  .timeline-box {
+    margin-inline: 0;
+  }
+}
+
   </style>
 </head>
 <body>
