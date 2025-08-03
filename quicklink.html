@@ -7,91 +7,139 @@
   <link rel="icon" href="images/r-letter-logo.png" type="image/x-icon" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;700&display=swap" rel="stylesheet"/>
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"/>
-  <style>
-    html {
-      scroll-behavior: smooth;
-    }
+ <style>
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(to bottom right, #f8f9fa, #e8ebf0);
+    color: #212529;
+  }
+
+  section {
+    scroll-margin-top: 10px;
+  }
+
+  .section {
+    padding: 60px 20px;
+    max-width: 900px;
+    margin: 40px auto;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  h1, h2, h3, h4 {
+    font-weight: 600;
+    color: #181a1f;
+    line-height: 1.4;
+    margin-bottom: 20px;
+  }
+
+  h3, h4 {
+    font-size: 1.25rem;
+  }
+
+  code, pre {
+    background: #f1f3f5;
+    padding: 12px;
+    display: block;
+    white-space: pre-wrap;
+    border-left: 4px solid #0077cc;
+    overflow-x: auto;
+    border-radius: 6px;
+    font-family: "Courier New", Courier, monospace;
+  }
+
+  .code-container.collapsed {
+    max-height: 100px;
+    overflow: hidden;
+    position: relative;
+    transition: max-height 0.3s ease;
+  }
+
+  .code-container.expanded {
+    max-height: none;
+  }
+
+  button {
+    background-color: #0077cc;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    font-weight: 500;
+    border-radius: 24px;
+    transition: all 0.3s ease;
+  }
+
+  button:hover {
+    background-color: #005fa3;
+    transform: translateY(-2px);
+  }
+
+  .quick-links li {
+    margin-bottom: 8px;
+  }
+
+  .quick-links a {
+    color: #0077cc;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .quick-links a:hover {
+    text-decoration: underline;
+  }
+
+  .quicklinkimg img {
+    width: 100%;
+    border: 1px solid #dee2e6;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  }
+
+  footer {
+    text-align: center;
+    padding: 32px 20px 8px;
+    background: #181a1f;
+    color: white;
+    margin-top: 60px;
+    font-weight: 400;
+  }
+
+  .navbar-dark .navbar-nav .nav-link {
+    color: white !important;
+  }
+
+  @media (max-width: 576px) {
     body {
-      margin: 0;
-      font-family: "Poppins", sans-serif;
-      background: linear-gradient(to bottom right, #f8f9fa, #e8ebf0);
-      color: #212529;
+      font-size: 0.8rem;
     }
-    section {
-      scroll-margin-top: 10px;
-    }
+
     .section {
-      padding: 60px 20px;
-      max-width: 900px;
-      margin: 40px auto;
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+      padding: 30px 15px;
     }
+
     h1, h2 {
-      font-weight: 400;
+      font-size: 1.4rem;
     }
-    code, pre {
-      background: #f1f3f5;
-      padding: 12px;
-      display: block;
-      white-space: pre-wrap;
-      border-left: 4px solid #0077cc;
-      overflow-x: auto;
-      border-radius: 6px;
+
+    h3, h4 {
+      font-size: 1.2rem;
     }
-    .code-container.collapsed {
-      max-height: 100px;
-      overflow: hidden;
-      position: relative;
-      transition: max-height 0.3s ease;
-    }
-    .code-container.expanded {
-      max-height: none;
-    }
-    button {
-      background-color: #0077cc;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      margin-top: 10px;
-      cursor: pointer;
-      font-weight: 500;
-      border-radius: 24px;
-      transition: all 0.3s ease;
-    }
-    button:hover {
-      background-color: #005fa3;
-      transform: translateY(-2px);
-    }
-    .quick-links li {
-      margin-bottom: 8px;
-    }
-    .quick-links a {
-      color: #0077cc;
-      text-decoration: none;
-      font-weight: 500;
-    }
-    .quick-links a:hover {
-      text-decoration: underline;
-    }
+
     .quicklinkimg img {
-      width: 100%;
-      border: 1px solid #dee2e6;
-      border-radius: 12px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+      max-width: 100%;
+      height: auto;
     }
-    footer {
-      text-align: center;
-      padding: 20px;
-      background: #181a1f;
-      color: white;
-      margin-top: 60px;
-    }
-    .navbar-dark .navbar-nav .nav-link {
-  color: white !important;
-    }
-  </style>
+  }
+</style>
+
 </head>
 <body>
   <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top shadow-sm">
