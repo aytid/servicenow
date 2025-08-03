@@ -77,7 +77,6 @@ section {
 .scale-on-hover:hover {
   transform: rotate(360deg);
   color: red;
-  font-weight: 400;
 }
 
 .skill-card {
@@ -107,9 +106,7 @@ section {
   justify-content: flex-start;
   align-items: center;
   margin: 0 auto;
-  /* height: 370px; */
 }
-
 
 .certification-card:hover {
   transform: scale(1.05);
@@ -232,61 +229,6 @@ section {
   color: #64748b;
 }
 
-/* Responsive Tweaks */
-@media (max-width: 768px) {
-  .profile-content {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .p1 h1 {
-    font-size: 2.2rem;
-  }
-
-  .p1 p {
-    font-size: 1rem;
-  }
-
-  .p2 img {
-    max-height: 300px;
-    width: auto;
-  }
-
-  .row.profile-content {
-    flex-direction: column-reverse;
-  }
-
-  .certification-card {
-    width: 90%;
-    height: auto;
-    padding: 20px;
-  }
-
-  .certification-card img {
-    height: 180px;
-  }
-}
-
-@media (max-width: 576px) {
-  .timeline-box {
-    padding: 20px 16px;
-  }
-
-  .timeline-step {
-    flex-direction: row;
-    align-items: flex-start;
-  }
-
-  .timeline-content {
-    padding-left: 0;
-  }
-
-  .timeline-line {
-    left: 19px;
-    top: 40px;
-    bottom: -24px;
-  }
-}
 /* Contact Form Styling */
 .section {
   background-color: #fff;
@@ -354,10 +296,76 @@ section {
   background-color: #0056b3;
   transform: translateY(-2px);
 }
-.col-md-6 h1 {
-  font-weight: 300;
-}
 
-.col-md-6 p{
-  font-weight: 400;
+/* --- MOBILE SCALE DOWN --- */
+@media (max-width: 576px) {
+  html {
+    font-size: 14px;
+  }
+
+  .profile-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .p1 h1 {
+    font-size: 2rem;
+  }
+
+  .p1 p {
+    font-size: 0.95rem;
+  }
+
+  .p2 img {
+    max-height: 280px;
+  }
+
+  .timeline-box {
+    padding: 20px 12px;
+  }
+
+  .timeline-content h5 {
+    font-size: 1rem;
+  }
+
+  .timeline-content h6 {
+    font-size: 0.9rem;
+  }
+
+  .timeline-status {
+    font-size: 0.8rem;
+    padding: 3px 8px;
+  }
+
+  .fun-form input,
+  .fun-form textarea {
+    font-size: 0.9rem;
+    padding: 10px 14px;
+  }
+
+  .fun-form button {
+    font-size: 0.95rem;
+    padding: 10px 20px;
+  }
+
+  .certification-card {
+    width: 90%;
+    padding: 16px;
+  }
+
+  .certification-card img {
+    height: 160px;
+  }
+
+  .card-title {
+    font-size: 1.2rem;
+  }
+
+  .section h2 {
+    font-size: 1.6rem;
+  }
+
+  .section p {
+    font-size: 1rem;
+  }
 }
