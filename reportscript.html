@@ -120,13 +120,11 @@
     <p>Role required: <code>admin</code></p>
 
     <h3>Steps</h3>
-    <ul>
       <li>Go to <code>System Definition &gt; Script Includes</code></li>
       <li>Click <strong>New</strong></li>
       <li>Fill out the form: Name as <code>ReportsAJAX</code> and check <strong>Sandbox ✔️</strong></li>
       <li>Ensure the Script Include name and method name match</li>
       <li>Paste the following script that returns Active P1 incidents:</li>
-    </ul>
 
     <pre><code>function ReportsAJAX() {
   var incGr = new GlideRecord('incident');
