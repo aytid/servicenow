@@ -192,74 +192,56 @@
 
     <h2 id="html" class="mt-5">HTML Template</h2>
     <div id="code-html" class="code-container collapsed">
-        <pre>
-          <code>&lt;!-- Thumbnail Cards Centered --&gt;
-&lt;div class="all-card-container" 
-     ng-if="c.data.card_type == 'Thumbnail' &amp;&amp; c.data.text_alignment == 'Center'"&gt;
-  &lt;a ng-repeat="item in data.json_data" 
-     class="card quick-links card-thumbnail-align-center {{c.data.card_size}}"
-     aria-labelledby="{{data.instanceId}}-item-{{$index}}"
-     id="{{data.instanceId}}-item-{{$index}}"
-     ng-href="{{item.url}}"
-     ng-click="clicked(item)"
-     ng-attr-target="{{item.target}}"
-     ng-class="getCustomColor('background')" 
-     ng-style="getStyle(item, 'background')"
-     ng-keydown="c.keyboardAction($event,item)"
-     tabindex="0"&gt;
+        <pre><code>&lt;!-- Thumbnail Cards Centered --&gt; 
+&lt;div class=&quot;all-card-container&quot; 
+     ng-if=&quot;c.data.card_type == 'Thumbnail' &amp;&amp; c.data.text_alignment == 'Center'&quot;&gt;
+  &lt;a ng-repeat=&quot;item in data.json_data&quot; 
+     class=&quot;card quick-links card-thumbnail-align-center {{c.data.card_size}}&quot;
+     aria-labelledby=&quot;{{data.instanceId}}-item-{{$index}}&quot;
+     id=&quot;{{data.instanceId}}-item-{{$index}}&quot;
+     ng-href=&quot;{{item.url}}&quot;
+     ng-click=&quot;clicked(item)&quot;
+     ng-attr-target=&quot;{{item.target}}&quot;
+     ng-class=&quot;getCustomColor('background')&quot; 
+     ng-style=&quot;getStyle(item, 'background')&quot;
+     ng-keydown=&quot;c.keyboardAction($event,item)&quot;
+     tabindex=&quot;0&quot;&gt;
 
-    &lt;div class="overlay"&gt;&lt;/div&gt;
+    &lt;div class=&quot;overlay&quot;&gt;&lt;/div&gt;
 
-    &lt;div class="circle"&gt;
-      &lt;div class="icon" 
-           ng-if="[item.icon.length] != 0 &amp;&amp; c.data.show_icon === 'true'"
-           style="background-image: url({{item.icon}});"&gt;&lt;/div&gt;
+    &lt;div class=&quot;circle&quot;&gt;
+      &lt;div class=&quot;icon&quot; 
+           ng-if=&quot;[item.icon.length] != 0 &amp;&amp; c.data.show_icon === 'true'&quot;
+           style=&quot;background-image: url({{item.icon}});&quot;&gt;&lt;/div&gt;
     &lt;/div&gt;
 
-    &lt;p&gt;{{item.title}}&lt;/p&gt;
-
-    &lt;!-- Short Description
-    &lt;span class="card-description text-center-align text-ellipsis"
-          id="{{data.instanceId}}-card-desc-{{$index}}"
-          ng-class="{[getTextEllipsisClassForIE(item)] : true, [getCustomColor('text')] : true}"
-          ng-style="getStyle(item,'text')"
-          ng-if="c.data.show_description === 'true' &amp;&amp; c.data.card_size != 'card-small'"&gt;
-      {{item.shortDescription}}
-    &lt;/span&gt;
- --&gt;
+    &lt;p style=&quot;font-size: 1.5rem;text-align:center;color:black;&quot;&gt;{{item.title}}&lt;/p&gt;
+    &lt;p style=&quot;font-size: 1.3rem; margin-top: 1px; text-align:center;color:#9e9e9e;&quot;&gt;{{item.shortDescription}}&lt;/p&gt;
   &lt;/a&gt;
 &lt;/div&gt;
 
 &lt;!-- Thumbnail Cards Left Aligned --&gt;   
-&lt;div ng-class="{'all-card-container-left' : (c.data.card_size === 'card-medium'),'all-card-container' : (c.data.card_size === 'card-small')}" 
-     ng-if="c.data.card_type=='Thumbnail' &amp;&amp; c.data.text_alignment=='Left'"&gt;
-  &lt;a ng-repeat="item in data.json_data" 
-     class="card quick-links card-thumbnail-align-left {{c.data.card_size}}"
-     aria-labelledby="{{data.instanceId}}-item-{{$index}}"
-     ng-href="{{item.url}}"
-     id="{{data.instanceId}}-item-{{$index}}"
-     ng-attr-target="{{item.target}}" 
-     ng-class="getCustomColor('background')" 
-     ng-style="getStyle(item, 'background')"&gt;
+&lt;div ng-class=&quot;{'all-card-container-left' : (c.data.card_size === 'card-medium'),'all-card-container' : (c.data.card_size === 'card-small')}&quot; 
+     ng-if=&quot;c.data.card_type=='Thumbnail' &amp;&amp; c.data.text_alignment=='Left'&quot;&gt;
+  &lt;a ng-repeat=&quot;item in data.json_data&quot; 
+     class=&quot;card quick-links card-thumbnail-align-left {{c.data.card_size}}&quot;
+     aria-labelledby=&quot;{{data.instanceId}}-item-{{$index}}&quot;
+     ng-href=&quot;{{item.url}}&quot;
+     id=&quot;{{data.instanceId}}-item-{{$index}}&quot;
+     ng-attr-target=&quot;{{item.target}}&quot; 
+     ng-class=&quot;getCustomColor('background')&quot; 
+     ng-style=&quot;getStyle(item, 'background')&quot;&gt;
 
-    &lt;div class="overlay"&gt;&lt;/div&gt;
+    &lt;div class=&quot;overlay&quot;&gt;&lt;/div&gt;
 
-    &lt;div class="circle"&gt;
-      &lt;div class="icon" 
-           ng-if="[item.icon.length] != 0 &amp;&amp; c.data.show_icon === 'true'"
-           style="background-image: url({{item.icon}});"&gt;&lt;/div&gt;
+    &lt;div class=&quot;circle&quot;&gt;
+      &lt;div class=&quot;icon&quot; 
+           ng-if=&quot;[item.icon.length] != 0 &amp;&amp; c.data.show_icon === 'true'&quot;
+           style=&quot;background-image: url({{item.icon}});&quot;&gt;&lt;/div&gt;
     &lt;/div&gt;
 
-    &lt;p&gt;{{item.title}}&lt;/p&gt;
-
-    &lt;!-- Short Description 
-    &lt;span class="card-description text-left-align text-ellipsis"
-          id="{{data.instanceId}}-card-desc-{{$index}}"
-          ng-class="{[getTextEllipsisClassForIE(item)] : true, [getCustomColor('text')] : true}"
-          ng-style="getStyle(item,'text')"
-          ng-if="c.data.show_description === 'true' &amp;&amp; c.data.card_size != 'card-small'"&gt;
-      {{item.shortDescription}}
-    &lt;/span&gt;  --&gt;
+    &lt;p style=&quot;font-size: 1.5rem;text-align:center;color:black;&quot;&gt;{{item.title}}&lt;/p&gt;
+    &lt;p style=&quot;font-size: 1.3rem; margin-top: 1px; text-align:center;color:#9e9e9e;&quot;&gt;{{item.shortDescription}}&lt;/p&gt;
   &lt;/a&gt;
 &lt;/div&gt;
 </code></pre>
@@ -269,15 +251,18 @@
     <h2 id="css" class="mt-5">CSS Styling</h2>
     <div id="code-css" class="code-container collapsed">
       <pre>
-        <code>$background-primary: #FFFFFF !default;
+        <code>
+		$background-primary: #FFFFFF !default;
 $sp-panel-box-shadow: 0 4px 8px 0 rgba(23, 40, 52, 0.08) !default;
 $border-primary: #8790A1 !default;
 $border-secondary: #B3B7BC !default;
 $border-tertiary: #DADDE2 !default;
 $text-primary: #1D2223 !default;
 $color-sp-separator: #EAEAEA !default;
-$link-hover-color : #354ECA !default;
-$link-color : #3C59E7 !default;
+//$link-hover-color : #354ECA !default;
+$link-hover-color : #000000 !default;
+//$link-color : #3C59E7 !default;
+$link-color : #000000 !default;
 $sp-space--xxs: 2px !default;
 $rm: $sp-space--xxs;
 
@@ -352,11 +337,12 @@ $rm: $sp-space--xxs;
 .all-card-container,
 .all-card-container-left,
 .all-card-container-simple {
-	display: grid;
+	display: flex;
 	padding: $rm * 12;
 	grid-template-columns: 1fr;
 	grid-gap: $rm * 12;
-  
+  width:250px;
+  margin:auto;
 }
 
 .card-thumbnail-align-left {
@@ -671,11 +657,11 @@ a:hover {
 }
 
 .quick-links.card {
-  width: 220px;
+  width: 250px;
   height: 321px;
-  //background: #fff;
-  background: transparent;
-	border:none;
+  background: #fff;
+  //background: transparent;
+  border:none;
   border-top-right-radius: 10px;
   overflow: hidden;
   display: flex;
@@ -695,7 +681,9 @@ a:hover {
 }
 
 .quick-links.card:hover .overlay {
-  transform: scale(4) translateZ(0);
+  //transform: scale(12) translateZ(0);
+    //transform: scale(20) translateX(10px) translateY(10px);
+  transform: scale(30);
 }
 
 .quick-links.card:hover .circle {
@@ -711,17 +699,18 @@ a:hover {
   color: var(--text-color-hover);
 }
 
+/*
 .quick-links.card:active {
   transform: scale(1) translateZ(0);
-  box-shadow: 0 15px 24px rgba(0,0,0,0.11),
-    0 15px 24px var(--box-shadow-color);
-}
+    //box-shadow: 0 15px 24px rgba(0,0,0,0.11), 0 15px 24px var(--box-shadow-color);
+  		box-shadow: #ffffff;
+}*/
 
 .quick-links.card p {
   font-size: 17px;
   color: #4C5656;
   margin-top: 30px;
-  z-index: 1000;
+  z-index: 1;
   transition: color 0.3s ease-out;
 }
 
@@ -756,16 +745,19 @@ a:hover {
 }
 
 .quick-links .overlay {
-  width: 118px;
+  //width: 118px;
+  width: 20px;
   position: absolute;
-  height: 118px;
+  //height: 118px;
+  height: 20px;
   border-radius: 50%;
   background: var(--bg-color);
-  top: 70px;
-  left: 50px;
+  top: 100px;
+  left: 100px;
   z-index: 0;
   transition: transform 0.3s ease-out;
-}</code></pre>
+}
+	</code></pre>
     </div>
     <button onclick="toggleCode('code-css', this)">Read more ↓</button>
     <button id="css-copy-button" onclick="copyCSSCode()">Copy</button>
@@ -798,7 +790,7 @@ a:hover {
     stats.textPrefix = 'Quick Links';
     stats.startTime = startTime;
     stats.shortDesc = 'Load Data';
-    new sn_ex_sp.PerformanceIndicatorUtil().postInstanceHotspot(stats);
+    //new sn_ex_sp.PerformanceIndicatorUtil().postInstanceHotspot(stats);
 
     function setOptions(customOptions) {
         var cardSizes = {
@@ -832,7 +824,7 @@ a:hover {
         data.pageId = $sp.getParameter('id') ? $sp.getParameter('id') : data.portal.homepage.getDisplayValue();
         data.guidedHelpResponse = new sn_ex_sp.QuickLinkUtil().handleGuidedHelpClick(input.guidedHelpId, data.pageId, "quick_link");
     }
-
+		
 })();</code></pre>
     </div>
     <button onclick="toggleCode('code-server', this)">Read more ↓</button>
