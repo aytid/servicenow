@@ -9,6 +9,55 @@
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"/>
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   <link rel="stylesheet" href="portfolio.css">
+
+  <style>
+    .fade-in-path {
+      opacity: 0;
+      animation: fadeIn 2s ease-out forwards;
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+    .table-animated {
+      width: 32px;
+      height: 32px;
+      stroke: #333;
+      stroke-width: 2;
+      fill: none;
+    }
+    .animate-path {
+      stroke-dasharray: 100;
+      stroke-dashoffset: 100;
+      animation: draw 1s ease forwards infinite alternate;
+    }
+    .row-1 { animation-delay: 0s; }
+    .row-2 { animation-delay: 0.2s; }
+    .col-1 { animation-delay: 0.6s; }
+    .col-2 { animation-delay: 0.8s; }
+    .rect-border {
+      stroke-dasharray: 200;
+      stroke-dashoffset: 200;
+      animation: draw 1s ease forwards infinite alternate;
+    }
+    @keyframes draw {
+      to { stroke-dashoffset: 0; }
+    }
+    .spinning-gear {
+      animation: spin 2s linear infinite;
+      width: 32px;
+      height: 32px;
+      display: inline-block;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.9);
+      transition: all 0.3s ease;
+    }
+  </style>
 </head>
 
 <body>
@@ -21,7 +70,6 @@
       <ul class="navbar-nav ml-auto">
         <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
         <li class="nav-item"><a class="nav-link" href="#experience">Blogs</a></li>
-        <!--<a class="nav-link" href="https://aytid.github.io/Portfolio/">About</a></li>-->
         <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
       </ul>
     </div>
@@ -50,20 +98,10 @@
     <h2 class="text-center mb-5">What I wrote so far</h2>
     <div class="row" >
 
-      <!-- Card 1 -->
+      <!-- Scripting in Reports -->
       <div class="col-md-4 mb-4">
         <div class="card h-100 shadow-sm border-0 text-center">
           <div class="card-body">
-            <!-- Fade-in SVG -->
-            <style>
-              .fade-in-path {
-                opacity: 0;
-                animation: fadeIn 2s ease-out forwards;
-              }
-              @keyframes fadeIn {
-                to { opacity: 1; }
-              }
-            </style>
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="mb-3">
               <path
                 class="fade-in-path"
@@ -78,37 +116,10 @@
         </div>
       </div>
 
-      <!-- Card 2 -->
+      <!-- Show Table Data in Modal – Native UI -->
       <div class="col-md-4 mb-4">
         <div class="card h-100 shadow-sm border-0 text-center">
           <div class="card-body">
-            <!-- Table SVG Animation -->
-            <style>
-              .table-animated {
-                width: 32px;
-                height: 32px;
-                stroke: #333;
-                stroke-width: 2;
-                fill: none;
-              }
-              .animate-path {
-                stroke-dasharray: 100;
-                stroke-dashoffset: 100;
-                animation: draw 1s ease forwards infinite alternate;
-              }
-              .row-1 { animation-delay: 0s; }
-              .row-2 { animation-delay: 0.2s; }
-              .col-1 { animation-delay: 0.6s; }
-              .col-2 { animation-delay: 0.8s; }
-              .rect-border {
-                stroke-dasharray: 200;
-                stroke-dashoffset: 200;
-                animation: draw 1s ease forwards infinite alternate;
-              }
-              @keyframes draw {
-                to { stroke-dashoffset: 0; }
-              }
-            </style>
             <svg class="table-animated mb-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <rect x="3" y="3" width="18" height="18" rx="2" ry="2" class="rect-border" />
               <line x1="3" y1="9" x2="21" y2="9" class="animate-path row-1" />
@@ -124,30 +135,10 @@
         </div>
       </div>
 
-      <!-- Card 3 -->
+      <!-- Custom Quick link Widget in ServiceNow -->
       <div class="col-md-4 mb-4">
         <div class="card h-100 shadow-sm border-0 text-center">
           <div class="card-body">
-            <!-- Spinning gear SVG -->
-            <style>
-              .spinning-gear {
-                animation: spin 2s linear infinite;
-                width: 32px;
-                height: 32px;
-                display: inline-block;
-              }
-              @keyframes spin {
-                0% { transform: rotate(0deg); }
-                100% { transform: rotate(360deg); }
-              }
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.9); /* strong, tight shadow */
-  transition: all 0.3s ease;
-}
-
-
-            </style>
             <svg class="spinning-gear mb-3" xmlns="http://www.w3.org/2000/svg"
                  viewBox="0 0 24 24" fill="currentColor">
               <path d="M24 13.616v-3.232c-1.651-.587-2.694-.752-3.219-2.019v-.001c-.527-1.271.1-2.134.847-3.707l-2.285-2.285c-1.561.742-2.433 1.375-3.707.847h-.001c-1.269-.526-1.435-1.576-2.019-3.219h-3.232c-.582 1.635-.749 2.692-2.019 3.219h-.001c-1.271.528-2.132-.098-3.707-.847l-2.285 2.285c.745 1.568 1.375 2.434.847 3.707-.527 1.271-1.584 1.438-3.219 2.02v3.232c1.632.58 2.692.749 3.219 2.019.53 1.282-.114 2.166-.847 3.707l2.285 2.286c1.562-.743 2.434-1.375 3.707-.847h.001c1.27.526 1.436 1.579 2.019 3.219h3.232c.582-1.636.75-2.69 2.027-3.222h.001c1.262-.524 2.12.101 3.698.851l2.285-2.286c-.744-1.563-1.375-2.433-.848-3.706.527-1.271 1.588-1.44 3.221-2.021zm-12 2.384c-2.209 0-4-1.791-4-4s1.791-4 4-4 4 1.791 4 4-1.791 4-4 4z"/>
@@ -168,7 +159,6 @@
 <section id="contact" class="py-5 bg-light">
   <div  class="container">
     <h2 class="text-center mb-5">More about me</h2>
-    <!--<h2 class="text-center mb-5" style="font-weight: 400; font-size: 2.5rem; color: #333;">More about me</h2>-->
     <div class="row justify-content-center">
 
       <div class="col-md-8">
@@ -232,9 +222,9 @@
       number: { value: 100, density: { enable: true, value_area: 800 } },
       color: { value: "#000000" },
       shape: { type: "circle", stroke: { width: 0, color: "#000000" } },
-      opacity: { value: 1 }, // Fully visible particles
+      opacity: { value: 1 },
       size: { value: 3, random: true },
-      line_linked: { enable: true, distance: 200, color: "#000000", opacity: 1, width: 1 }, // Fully visible lines
+      line_linked: { enable: true, distance: 200, color: "#000000", opacity: 1, width: 1 },
       move: { enable: true, speed: 6 }
     },
     interactivity: {
@@ -259,11 +249,8 @@
 document.querySelectorAll('.nav-link').forEach(link => {
   link.addEventListener('click', function (e) {
     const href = this.getAttribute('href');
-
-    // If it's an external link, don't interfere
     if (href.startsWith('http') || href.startsWith('mailto')) return;
 
-    // Otherwise, apply smooth scroll
     e.preventDefault();
     document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
 
