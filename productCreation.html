@@ -245,14 +245,14 @@
                             <li>If Yes is selected, show a question to select accounts to be linked to the Sold Product.</li>
                         </ul>
                     </li>
-                    <img src="catalog-item-1.png" alt="Screenshot of Catalog Item setup in ServiceNow" style="max-width:100%; height:auto; margin:10px 0;" />
+                    <img src="images/catalog-item-1.png" alt="Screenshot of Catalog Item setup in ServiceNow" style="max-width:100%; height:auto; margin:10px 0;" />
                     <li>If Multiple Products is selected:
                         <ul>
                             <li>Show a link to download the product details Excel template.</li>
                             <li>Ask for an Excel attachment containing the filled product details.</li>
                         </ul>
                     </li>
-                    <img src="catalog-item.png" alt="Screenshot of Catalog Item setup in ServiceNow" style="max-width:100%; height:auto; margin:10px 0;" />
+                    <img src="images/catalog-item.png" alt="Screenshot of Catalog Item setup in ServiceNow" style="max-width:100%; height:auto; margin:10px 0;" />
                 </ul>
             </li>
             <li>
@@ -260,7 +260,7 @@
                 <ul>
                     <li>Create a new Flow in Flow Designer triggered on Service Catalog, currently showing flow handling multiple products only</li>
                     <hr>
-                    <img src="flow-designer-image.png" alt="Screenshot of Catalog Item setup in ServiceNow" style="max-width:100%; height:auto; margin:10px 0;" />
+                    <img src="images/flow-designer-image.png" alt="Screenshot of Catalog Item setup in ServiceNow" style="max-width:100%; height:auto; margin:10px 0;" />
                     <hr>
                     <li><u>Look Up Attachment Record:</u> Retrieve the Excel file attachment belonging to the requested item submitted via the Catalog Item.</li>
                     <li><u>Copy Attachment:</u> Create a copy of the attachment to safely process/import data without affecting the original file.</li>
@@ -272,32 +272,32 @@
                         Here are the important steps in creating a custom action to fetch import set sys_id
                         <hr>
                         <p>Step 1 - Input Step</p>
-                        <hr><img src="input-step1.png" alt="Import Set Table creation and data loading" style="max-width:100%; height:auto; margin:10px 0;" />
+                        <hr><img src="images/input-step1.png" alt="Import Set Table creation and data loading" style="max-width:100%; height:auto; margin:10px 0;" />
                         <p>Step 2.1 - Script Step</p>
-                        <hr><img src="script-step-1.png" alt="Import Set Table creation and data loading" style="max-width:100%; height:auto; margin:10px 0;" />
+                        <hr><img src="images/script-step-1.png" alt="Import Set Table creation and data loading" style="max-width:100%; height:auto; margin:10px 0;" />
                         <p>Step 2.2 - Script Step</p>
-                        <hr><img src="script-step-2.png" alt="Import Set Table creation and data loading" style="max-width:100%; height:auto; margin:10px 0;" />
+                        <hr><img src="images/script-step-2.png" alt="Import Set Table creation and data loading" style="max-width:100%; height:auto; margin:10px 0;" />
                         <p>Step 3 - Output Step</p>
-                        <hr><img src="output-step.png" alt="Import Set Table creation and data loading" style="max-width:100%; height:auto; margin:10px 0;" />
+                        <hr><img src="images/output-step.png" alt="Import Set Table creation and data loading" style="max-width:100%; height:auto; margin:10px 0;" />
                         <hr>
                     </li>
 
                     <li><u>Look Up Data Source Record:</u> Reference the Data Source by its sys_id, corresponding to the import set or Excel data source configuration.</li>
                     <hr>
-                    <img src="data-source.png" alt="">
+                    <img src="images/data-source.png" alt="">
                     <li><u>Look Up Records in Import Set:</u> Find records in the import set created for the multiple products.</li>
                     <hr>
-                    <img src="import-set-step.png" alt="">
+                    <img src="images/import-set-step.png" alt="">
                     <li><u>Trigger Transform Map:</u> Run the Transform Map to map and create actual Product records in the target table from the import set data.</li>
                     <hr>
                     <p>Here are the important steps in creating a custom action to Trigger Transform Map</p>
-                    <img src="trigger-transform-map.png" alt="">
+                    <img src="images/trigger-transform-map.png" alt="">
                     <p>Step 1 - Input Step</p>
                     <hr>
-                    <img src="trigger-transform-map-step-1.png" alt="">
+                    <img src="images/trigger-transform-map-step-1.png" alt="">
                     <p>Step 1 - Input Step</p>
                     <hr>
-                    <img src="trigger-transform-map-step-2.png" alt="">
+                    <img src="images/trigger-transform-map-step-2.png" alt="">
                     <li>
                         <u>Create Script Include:</u>
                         <pre><code style="font-size:x-small;">
@@ -360,16 +360,16 @@ KapCreateProductUtils.prototype = {
                 Transform Maps
                 <ul>
                     <li>Create a new Import Set Table by providing the blank excel template(I selected existing as I have already created it)</li>
-                    <img src="import-set-table.png" alt="">
+                    <img src="images/import-set-table.png" alt="">
                     <hr>
                     <li>Create a Transform Map</li>
-                    <img src="transform-map-step-1.png" alt="">
+                    <img src="images/transform-map-step-1.png" alt="">
                     <hr>
                     <li>Create a Field mappings as required</li>
-                    <img src="field-mapping.png" alt="">
+                    <img src="images/field-mapping.png" alt="">
                     <hr>
                     <li>Populate RITM Number in product's Comment</li>
-                    <img src="ritm-number.png" alt="">
+                    <img src="images/ritm-number.png" alt="">
                     <hr>
                     <li>Transform Scripts</li>
                     <ol>
@@ -525,24 +525,21 @@ KapCreateProductUtils.prototype = {
 </code></pre>
 
                     </ol>
-
-                    <img src="" alt="">
-                    <hr>
                 </ul>
             </li>
         </ol>
         <h2>Output</h2>
-        <img src="output.png" alt="">
+        <img src="images/output.png" alt="">
         <hr>
         <ul>
             <li>Created Products</li>
-            <img src="products.png" alt="">
+            <img src="images/products.png" alt="">
             <hr>
         </ul>
 
         <ul>
             <li>Created Sold Products</li>
-            <img src="sold-products.png" alt="">
+            <img src="images/sold-products.png" alt="">
             <hr>
         </ul>
 
