@@ -1,268 +1,365 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Rohan Aditya</title>
-  <link rel="icon" href="images/r-letter-logo.png" type="image/x-icon" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;700&display=swap" rel="stylesheet"/>
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"/>
-  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-  <link rel="stylesheet" href="portfolio.css">
 
-  <style>
-    .fade-in-path {
-      opacity: 0;
-      animation: fadeIn 2s ease-out forwards;
-    }
-    @keyframes fadeIn {
-      to { opacity: 1; }
-    }
-    .table-animated {
-      width: 32px;
-      height: 32px;
-      stroke: #333;
-      stroke-width: 2;
-      fill: none;
-    }
-    .animate-path {
-      stroke-dasharray: 100;
-      stroke-dashoffset: 100;
-      animation: draw 1s ease forwards infinite alternate;
-    }
-    .row-1 { animation-delay: 0s; }
-    .row-2 { animation-delay: 0.2s; }
-    .col-1 { animation-delay: 0.6s; }
-    .col-2 { animation-delay: 0.8s; }
-    .rect-border {
-      stroke-dasharray: 200;
-      stroke-dashoffset: 200;
-      animation: draw 1s ease forwards infinite alternate;
-    }
-    @keyframes draw {
-      to { stroke-dashoffset: 0; }
-    }
-    .spinning-gear {
-      animation: spin 2s linear infinite;
-      width: 32px;
-      height: 32px;
-      display: inline-block;
-    }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.9);
-      transition: all 0.3s ease;
-    }
-  </style>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rohan Aditya</title>
+    <link rel="icon" href="images/r-letter-logo.png" type="image/x-icon" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;700&display=swap" rel="stylesheet" />
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <link rel="stylesheet" href="portfolio.css">
+
+    <style>
+        .fade-in-path {
+            opacity: 0;
+            animation: fadeIn 2s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .table-animated {
+            width: 32px;
+            height: 32px;
+            stroke: #333;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .animate-path {
+            stroke-dasharray: 100;
+            stroke-dashoffset: 100;
+            animation: draw 1s ease forwards infinite alternate;
+        }
+
+        .row-1 {
+            animation-delay: 0s;
+        }
+
+        .row-2 {
+            animation-delay: 0.2s;
+        }
+
+        .col-1 {
+            animation-delay: 0.6s;
+        }
+
+        .col-2 {
+            animation-delay: 0.8s;
+        }
+
+        .rect-border {
+            stroke-dasharray: 200;
+            stroke-dashoffset: 200;
+            animation: draw 1s ease forwards infinite alternate;
+        }
+
+        @keyframes draw {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        .spinning-gear {
+            animation: spin 2s linear infinite;
+            width: 32px;
+            height: 32px;
+            display: inline-block;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.9);
+            transition: all 0.3s ease;
+        }
+    </style>
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
-    <button style="border: none;margin-top: 10px;" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
-      <img src="images/menu.png" alt="Menu" />
-    </button>
-    <h5 style="color: white;">Rohan's blog</h5>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="#experience">Blogs</a></li>
-        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-      </ul>
-    </div>
-  </nav>
-
-  <div id="home" class="profile">
-    <div id="particles-js"></div>
-    <div class="container">
-      <div class="row align-items-center profile-content d-flex">
-        <div class="col-md-6 p1 text-md-left text-center">
-          <p><i>“Not in prod!”<br>
-          <span style="color: red;"><b>Rohan</b></span> said “Too late.” 🚀</i></p>
-          <h2>Welcome to my ServiceNow blog </h2>
-          <p>here bugs become features (eventually).</p>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
+        <button style="border: none;margin-top: 10px;" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <img src="images/menu.png" alt="Menu" />
+        </button>
+        <h5 style="color: white;">Rohan's blog</h5>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#experience">Blogs</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+            </ul>
         </div>
-        <!--<div class="col-md-6 p2 text-center">
+    </nav>
+
+    <div id="home" class="profile">
+        <div id="particles-js"></div>
+        <div class="container">
+            <div class="row align-items-center profile-content d-flex">
+                <div class="col-md-6 p1 text-md-left text-center">
+                    <p><i>“Not in prod!”<br>
+                            <span style="color: red;"><b>Rohan</b></span> said “Too late.” 🚀</i></p>
+                    <h2>Welcome to my ServiceNow blog </h2>
+                    <p>here bugs become features (eventually).</p>
+                </div>
+                <!--<div class="col-md-6 p2 text-center">
           <img src="rohanaditya.jpeg" alt="Rohan Aditya" />
         </div>-->
-      </div>
+            </div>
+        </div>
     </div>
-  </div>
 
- <!-- Experience section -->
-<section id="experience" class="py-5 bg-white">
-  <div class="container">
-    <h2 class="text-center mb-5">What I wrote so far</h2>
-    <div class="row" >
+    <!-- Experience section -->
+    <section id="experience" class="py-5 bg-white">
+        <div class="container">
+            <h2 class="text-center mb-5">What I wrote so far</h2>
+            <div class="row">
+                <!-- Product and Sold Product Creation -->
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm border-0 text-center">
+                        <div class="card-body">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                                <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+                                <line x1="12" y1="22.08" x2="12" y2="12" />
+                            </svg>
+                            <h5 class="card-title">Create Product and Sold Products Use Case</h5>
+                            <p class="text-muted small">A practical solution for creating product records directly from Excel attachments.</p>
 
-      <!-- Scripting in Reports -->
-      <div class="col-md-4 mb-4">
-        <div class="card h-100 shadow-sm border-0 text-center">
-          <div class="card-body">
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="mb-3">
-              <path
-                class="fade-in-path"
-                d="M19.744 21.158c-2.09 1.77-4.79 2.842-7.744 2.842-6.627 0-12-5.373-12-12 0-6.29 4.842-11.44 11-11.95v12.364l8.744 8.744zm-6.744-19.107c5.046.503 9 4.772 9 9.949 0 2.397-.85 4.6-2.262 6.324l1.42 1.42c1.77-2.09 2.842-4.79 2.842-7.744 0-6.29-4.842-11.44-11-11.95v2.001z"
-              />
-            </svg>
-            <h5 class="card-title">Scripting in Reports</h5>
-            <p class="text-muted small">When Condition Builder says “No,” you say “JavaScript.” Here’s how.</p>
-            <p  class="text-muted small">Published on 17th July 2025</p>
-            <a href="reportscript.html" class="btn btn-success btn-sm">Check now</a>
-          </div>
+                            <p class="text-muted small">Published on 8th August 2025</p>
+                            <a href="productCreation.html" class="btn btn-success btn-sm">Check now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scripting in Reports -->
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm border-0 text-center">
+                        <div class="card-body">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="mb-3">
+                                <path class="fade-in-path" d="M19.744 21.158c-2.09 1.77-4.79 2.842-7.744 2.842-6.627 0-12-5.373-12-12 0-6.29 4.842-11.44 11-11.95v12.364l8.744 8.744zm-6.744-19.107c5.046.503 9 4.772 9 9.949 0 2.397-.85 4.6-2.262 6.324l1.42 1.42c1.77-2.09 2.842-4.79 2.842-7.744 0-6.29-4.842-11.44-11-11.95v2.001z" />
+                            </svg>
+                            <h5 class="card-title">Scripting in Reports</h5>
+                            <p class="text-muted small">When Condition Builder says “No,” you say “JavaScript.” Here’s how.</p>
+                            <p class="text-muted small">Published on 17th July 2025</p>
+                            <a href="reportscript.html" class="btn btn-success btn-sm">Check now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Show Table Data in Modal – Native UI -->
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm border-0 text-center">
+                        <div class="card-body">
+                            <svg class="table-animated mb-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2" class="rect-border" />
+                                <line x1="3" y1="9" x2="21" y2="9" class="animate-path row-1" />
+                                <line x1="3" y1="15" x2="21" y2="15" class="animate-path row-2" />
+                                <line x1="9" y1="3" x2="9" y2="21" class="animate-path col-1" />
+                                <line x1="15" y1="3" x2="15" y2="21" class="animate-path col-2" />
+                            </svg>
+                            <h5 class="card-title">Show Table Data in Modal – Native UI</h5>
+                            <p class="text-muted small">Select a table and show its data in a fancy modal</p>
+                            <p class="text-muted small">Published on 5th July 2025</p>
+                            <a href="modal.html" class="btn btn-success btn-sm">Check now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Custom Quick link Widget in ServiceNow -->
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm border-0 text-center">
+                        <div class="card-body">
+                            <svg class="spinning-gear mb-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M24 13.616v-3.232c-1.651-.587-2.694-.752-3.219-2.019v-.001c-.527-1.271.1-2.134.847-3.707l-2.285-2.285c-1.561.742-2.433 1.375-3.707.847h-.001c-1.269-.526-1.435-1.576-2.019-3.219h-3.232c-.582 1.635-.749 2.692-2.019 3.219h-.001c-1.271.528-2.132-.098-3.707-.847l-2.285 2.285c.745 1.568 1.375 2.434.847 3.707-.527 1.271-1.584 1.438-3.219 2.02v3.232c1.632.58 2.692.749 3.219 2.019.53 1.282-.114 2.166-.847 3.707l2.285 2.286c1.562-.743 2.434-1.375 3.707-.847h.001c1.27.526 1.436 1.579 2.019 3.219h3.232c.582-1.636.75-2.69 2.027-3.222h.001c1.262-.524 2.12.101 3.698.851l2.285-2.286c-.744-1.563-1.375-2.433-.848-3.706.527-1.271 1.588-1.44 3.221-2.021zm-12 2.384c-2.209 0-4-1.791-4-4s1.791-4 4-4 4 1.791 4 4-1.791 4-4 4z" />
+                            </svg>
+                            <h5 class="card-title">Custom Quick link Widget in ServiceNow</h5>
+                            <p class="text-muted small">I made a quick link widget for a client. Spent more time naming it than building it.</p>
+                            <p class="text-muted small">Published on 28 June 2025</p>
+                            <a href="quicklink.html" class="btn btn-success btn-sm">Check now</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
-      </div>
+    </section>
 
-      <!-- Show Table Data in Modal – Native UI -->
-      <div class="col-md-4 mb-4">
-        <div class="card h-100 shadow-sm border-0 text-center">
-          <div class="card-body">
-            <svg class="table-animated mb-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <rect x="3" y="3" width="18" height="18" rx="2" ry="2" class="rect-border" />
-              <line x1="3" y1="9" x2="21" y2="9" class="animate-path row-1" />
-              <line x1="3" y1="15" x2="21" y2="15" class="animate-path row-2" />
-              <line x1="9" y1="3" x2="9" y2="21" class="animate-path col-1" />
-              <line x1="15" y1="3" x2="15" y2="21" class="animate-path col-2" />
-            </svg>
-            <h5 class="card-title">Show Table Data in Modal – Native UI</h5>
-            <p class="text-muted small">Select a table and show its data in a fancy modal</p>
-            <p  class="text-muted small">Published on 5th July 2025</p>
-            <a href="modal.html" class="btn btn-success btn-sm">Check now</a>
-          </div>
+
+    <section id="contact" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5">More about me</h2>
+            <div class="row justify-content-center">
+
+                <div class="col-md-8">
+                    <div class="card shadow-lg border-0">
+                        <div class="card-body">
+                            <h5 class="card-title mb-4" style="font-size: 1.5rem; color: #000000;">Connect with me and stay updated</h5>
+                            <ul class="list-unstyled" style="font-size: 1.1rem;">
+                                <li class="mb-3">
+                                    <a href="https://www.linkedin.com/in/rohan-aditya-thirumala-6b8228264/" target="_blank" class="text-decoration-none text-dark">
+                                        <strong>LinkedIn</strong>
+                                    </a> – Let's network and connect professionally!
+                                </li>
+                                <li class="mb-3">
+                                    <a href="https://github.com/aytid" target="_blank" class="text-decoration-none text-dark">
+                                        <strong>GitHub</strong>
+                                    </a> – Check out my projects and contributions to the tech community.
+                                </li>
+                                <li class="mb-3">
+                                    <a href="https://www.instagram.com/rohanaditya._?utm_source=qr" target="_blank" class="text-decoration-none text-dark">
+                                        <strong>Instagram</strong>
+                                    </a> – Follow my journey and personal updates.
+                                </li>
+                                <li class="mb-3">
+                                    <a href="mailto:adityathirumala20@gmail.com" class="text-decoration-none text-dark">
+                                        <strong>Email</strong>
+                                    </a> – Drop me a message anytime!
+                                </li>
+                                <li class="mb-3">
+                                    <a href="https://aytid.github.io/Portfolio/" class="text-decoration-none text-dark">
+                                        <strong>Portfolio</strong>
+                                    </a> – Take a peek at my digital playground
+                                </li>
+                            </ul> <br>
+                            <p>Got a question, an idea, or just wanna say hi? Drop me a message below</p>
+
+                            <form action="https://formspree.io/f/mldnwlbw" method="POST" class="fun-form">
+                                <label for="name">What’s your name?</label>
+                                <input type="text" id="name" name="name" required>
+
+                                <label for="email">Your email (I promise no spam!)</label>
+                                <input type="email" id="email" name="_replyto" required>
+
+                                <label for="message">What’s on your mind?</label>
+                                <textarea id="message" name="message" rows="5" required></textarea>
+
+                                <button type="submit">Send It!</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-
-      <!-- Custom Quick link Widget in ServiceNow -->
-      <div class="col-md-4 mb-4">
-        <div class="card h-100 shadow-sm border-0 text-center">
-          <div class="card-body">
-            <svg class="spinning-gear mb-3" xmlns="http://www.w3.org/2000/svg"
-                 viewBox="0 0 24 24" fill="currentColor">
-              <path d="M24 13.616v-3.232c-1.651-.587-2.694-.752-3.219-2.019v-.001c-.527-1.271.1-2.134.847-3.707l-2.285-2.285c-1.561.742-2.433 1.375-3.707.847h-.001c-1.269-.526-1.435-1.576-2.019-3.219h-3.232c-.582 1.635-.749 2.692-2.019 3.219h-.001c-1.271.528-2.132-.098-3.707-.847l-2.285 2.285c.745 1.568 1.375 2.434.847 3.707-.527 1.271-1.584 1.438-3.219 2.02v3.232c1.632.58 2.692.749 3.219 2.019.53 1.282-.114 2.166-.847 3.707l2.285 2.286c1.562-.743 2.434-1.375 3.707-.847h.001c1.27.526 1.436 1.579 2.019 3.219h3.232c.582-1.636.75-2.69 2.027-3.222h.001c1.262-.524 2.12.101 3.698.851l2.285-2.286c-.744-1.563-1.375-2.433-.848-3.706.527-1.271 1.588-1.44 3.221-2.021zm-12 2.384c-2.209 0-4-1.791-4-4s1.791-4 4-4 4 1.791 4 4-1.791 4-4 4z"/>
-            </svg>
-            <h5 class="card-title">Custom Quick link Widget in ServiceNow</h5>
-            <p class="text-muted small">I made a quick link widget for a client. Spent more time naming it than building it.</p>
-            <p class="text-muted small">Published on 28 June 2025</p>
-            <a href="quicklink.html" class="btn btn-success btn-sm">Check now</a>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
 
 
-<section id="contact" class="py-5 bg-light">
-  <div  class="container">
-    <h2 class="text-center mb-5">More about me</h2>
-    <div class="row justify-content-center">
-
-      <div class="col-md-8">
-        <div class="card shadow-lg border-0">
-          <div class="card-body">
-            <h5 class="card-title mb-4" style="font-size: 1.5rem; color: #000000;">Connect with me and stay updated</h5>
-            <ul class="list-unstyled" style="font-size: 1.1rem;">
-              <li class="mb-3">
-                <a href="https://www.linkedin.com/in/rohan-aditya-thirumala-6b8228264/" target="_blank" class="text-decoration-none text-dark">
-                  <strong>LinkedIn</strong> 
-                </a> – Let's network and connect professionally!
-              </li>
-              <li class="mb-3">
-                <a href="https://github.com/aytid" target="_blank" class="text-decoration-none text-dark">
-                  <strong>GitHub</strong>
-                </a> – Check out my projects and contributions to the tech community.
-              </li>
-              <li class="mb-3">
-                <a href="https://www.instagram.com/rohanaditya._?utm_source=qr" target="_blank" class="text-decoration-none text-dark">
-                  <strong>Instagram</strong>
-                </a> – Follow my journey and personal updates.
-              </li>
-              <li class="mb-3">
-                <a href="mailto:adityathirumala20@gmail.com" class="text-decoration-none text-dark">
-                  <strong>Email</strong>
-                </a> – Drop me a message anytime!
-              </li>
-              <li class="mb-3">
-                <a href="https://aytid.github.io/Portfolio/" class="text-decoration-none text-dark">
-                  <strong>Portfolio</strong>
-                </a> – Take a peek at my digital playground
-              </li>
-            </ul> <br>
-  <p>Got a question, an idea, or just wanna say hi? Drop me a message below</p>
-
-  <form action="https://formspree.io/f/mldnwlbw" method="POST" class="fun-form">
-    <label for="name">What’s your name?</label>
-    <input type="text" id="name" name="name" required>
-
-    <label for="email">Your email (I promise no spam!)</label>
-    <input type="email" id="email" name="_replyto"  required>
-
-    <label for="message">What’s on your mind?</label>
-    <textarea id="message" name="message" rows="5" required></textarea>
-
-    <button type="submit">Send It!</button>
-  </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  
-</section>
+    </section>
 
 
-  <script>
-  particlesJS("particles-js", {
-    particles: {
-      number: { value: 100, density: { enable: true, value_area: 800 } },
-      color: { value: "#000000" },
-      shape: { type: "circle", stroke: { width: 0, color: "#000000" } },
-      opacity: { value: 1 },
-      size: { value: 3, random: true },
-      line_linked: { enable: true, distance: 200, color: "#000000", opacity: 1, width: 1 },
-      move: { enable: true, speed: 6 }
-    },
-    interactivity: {
-      detect_on: "canvas",
-      events: {
-        onhover: { enable: true, mode: "grab" },
-        onclick: { enable: true, mode: "push" },
-        resize: true
-      },
-      modes: {
-        grab: { distance: 140, line_linked: { opacity: 1 } },
-        bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
-        repulse: { distance: 200, duration: 0.4 },
-        push: { particles_nb: 4 },
-        remove: { particles_nb: 2 }
-      }
-    },
-    retina_detect: true
-  });
+    <script>
+        particlesJS("particles-js", {
+            particles: {
+                number: {
+                    value: 100,
+                    density: {
+                        enable: true,
+                        value_area: 800
+                    }
+                },
+                color: {
+                    value: "#000000"
+                },
+                shape: {
+                    type: "circle",
+                    stroke: {
+                        width: 0,
+                        color: "#000000"
+                    }
+                },
+                opacity: {
+                    value: 1
+                },
+                size: {
+                    value: 3,
+                    random: true
+                },
+                line_linked: {
+                    enable: true,
+                    distance: 200,
+                    color: "#000000",
+                    opacity: 1,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 6
+                }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: {
+                        enable: true,
+                        mode: "grab"
+                    },
+                    onclick: {
+                        enable: true,
+                        mode: "push"
+                    },
+                    resize: true
+                },
+                modes: {
+                    grab: {
+                        distance: 140,
+                        line_linked: {
+                            opacity: 1
+                        }
+                    },
+                    bubble: {
+                        distance: 400,
+                        size: 40,
+                        duration: 2,
+                        opacity: 8,
+                        speed: 3
+                    },
+                    repulse: {
+                        distance: 200,
+                        duration: 0.4
+                    },
+                    push: {
+                        particles_nb: 4
+                    },
+                    remove: {
+                        particles_nb: 2
+                    }
+                }
+            },
+            retina_detect: true
+        });
 
 
-document.querySelectorAll('.nav-link').forEach(link => {
-  link.addEventListener('click', function (e) {
-    const href = this.getAttribute('href');
-    if (href.startsWith('http') || href.startsWith('mailto')) return;
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href.startsWith('http') || href.startsWith('mailto')) return;
 
-    e.preventDefault();
-    document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
+                e.preventDefault();
+                document.querySelector(href).scrollIntoView({
+                    behavior: 'smooth'
+                });
 
-    if (window.innerWidth < 768) {
-      document.getElementById('navbarNav').classList.remove('show');
-    }
-  });
-});
-
-  </script>
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+                if (window.innerWidth < 768) {
+                    document.getElementById('navbarNav').classList.remove('show');
+                }
+            });
+        });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
 </html>
