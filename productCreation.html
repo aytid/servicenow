@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Automate Creation of Product and Sold Product Records from Excel via Flow and Transform Map</title>
+    <link rel="icon" href="images/r-letter-logo.png" type="image/x-icon" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;700&display=swap" rel="stylesheet" />
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Poppins", sans-serif;
+            background: linear-gradient(to bottom right, #f8f9fa, #e8ebf0);
+            color: #212529;
+            font-size: 1rem;
+        }
+
+        .section {
+            padding: 60px 20px;
+            max-width: 900px;
+            margin: 40px auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        code,
+        pre {
+            background: #f1f3f5;
+            padding: 12px;
+            display: block;
+            white-space: pre-wrap;
+            border-left: 4px solid #0077cc;
+            overflow-x: auto;
+            border-radius: 6px;
+            font-size: 0.95rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #181a1f;
+            color: white;
+            margin-top: 60px;
+        }
+
+        button {
+            background-color: #0077cc;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 10px;
+            cursor: pointer;
+            font-weight: 500;
+            border-radius: 24px;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        button:hover {
+            background-color: #005fa3;
+            transform: translateY(-2px);
+        }
+
+        .navbar-dark .navbar-nav .nav-link {
+            color: white !important;
+        }
+
+        .navbar-toggler img {
+            max-width: 35px;
+            height: auto;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* --- Improved mobile styles --- */
+        @media (max-width: 992px) {
+            .section {
+                max-width: 98%;
+                padding: 36px 8px;
+            }
+        }
+
+        @media (max-width: 768px) {
+
+            /* Smaller paddings for tablets */
+            .section {
+                max-width: 100%;
+                padding: 24px 2vw;
+            }
+        }
+
+        @media (max-width: 576px) {
+
+            body,
+            .section,
+            code,
+            pre,
+            button {
+                font-size: 0.9rem;
+            }
+
+            .section {
+                padding: 18px 4vw;
+                margin: 5px 0;
+                border-radius: 8px;
+            }
+
+            code,
+            pre {
+                padding: 8px;
+                font-size: 0.8rem;
+            }
+
+            button {
+                padding: 10px 0;
+                width: 100%;
+                font-size: 1rem;
+                border-radius: 20px;
+            }
+
+            h1 {
+                font-size: 1.4rem;
+                text-align: left;
+                word-break: break-word;
+            }
+
+            h2,
+            h3 {
+                font-size: 1.1rem;
+            }
+
+            ul,
+            ol {
+                margin-left: 15px;
+                padding-left: 10px;
+            }
+
+            .navbar-dark .navbar-nav .nav-link,
+            .navbar-dark .navbar-brand {
+                text-align: left;
+                padding-left: 10px;
+            }
+
+            .navbar h5 {
+                font-size: 1rem;
+                margin-left: 10px;
+            }
+
+            .navbar-toggler {
+                padding: 1px 4px;
+                margin-top: 2px;
+            }
+
+            footer {
+                font-size: 0.8rem;
+                padding: 10px;
+            }
+
+            .navbar {
+                min-height: 56px;
+                font-size: 0.95rem;
+            }
+        }
+
+        /* Ensure images never overflow */
+        img,
+        .section img {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            margin: 0.3em 0;
+        }
+
+        /* Responsive horizontal rule on mobile */
+        @media (max-width: 576px) {
+            hr {
+                margin: 12px 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top shadow-sm">
+        <button style="border: none;margin-top: 10px;" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <img src="images/menu.png" alt="Menu" />
+        </button>
+        <h5 style="color: white;">Rohan's blog</h5>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="index.html#home">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    <!-- Main Section -->
+    <section class="section">
+        <h1>Automate Creation of Product and Sold Product Records from Excel via Flow and Transform Map</h1>
+        <br>
+        <p><strong>Author:</strong> Rohan Aditya </p>
+        <br>
+        <p>Hi everyone 👋<br>
+            I’d like to share a quick use case we implemented in ServiceNow.</p>
+        <h3>Use Case Overview</h3>
+        <p>Create <strong>Product</strong> and <strong>Sold Product</strong> records in ServiceNow by simply submitting a Catalog Item with an Excel file attachment containing product details.</p>
+        <h3>Approach</h3>
+        <ul>
+            <li>Create a Catalog Item.</li>
+            <li>Create a Flow that gets triggered when the Catalog Item is submitted.</li>
+            <li>In the Flow, trigger a Transform Map that processes the uploaded Excel file.</li>
+            <li>Inside the Transform Map, use Transform Scripts to Create Products and Sold Products.</li>
+            <li>After record creation, add a comment to the RITM containing clickable links to the newly created Products and Sold Products.</li>
+        </ul>
+
+
+        <h3>Implementation Steps</h3>
+        <ol>
+            <li>
+                Create Products and Sold Products using a Catalog Item in ServiceNow.
+                <br>
+                <ul>
+                    <li>The Catalog Item will have one primary question: "Number of products to create" with options:
+                        <ul>
+                            <li>Single Product</li>
+                            <li>Multiple Products</li>
+                        </ul>
+                    </li>
+                    <li>If Single Product is selected:
+                        <ul>
+                            <li>Show questions for Name of Product, Product Model Number, Model Category, and whether accounts need to be linked (Yes/No).</li>
+                            <li>If Yes is selected, show a question to select accounts to be linked to the Sold Product.</li>
+                        </ul>
+                    </li>
+                    <img src="catalog-item-1.png" alt="Screenshot of Catalog Item setup in ServiceNow" style="max-width:100%; height:auto; margin:10px 0;" />
+                    <li>If Multiple Products is selected:
+                        <ul>
+                            <li>Show a link to download the product details Excel template.</li>
+                            <li>Ask for an Excel attachment containing the filled product details.</li>
+                        </ul>
+                    </li>
+                    <img src="catalog-item.png" alt="Screenshot of Catalog Item setup in ServiceNow" style="max-width:100%; height:auto; margin:10px 0;" />
+                </ul>
+            </li>
+            <li>
+                Configure a Flow to automate processing of the Catalog Item submission.
+                <ul>
+                    <li>Create a new Flow in Flow Designer triggered on Service Catalog, currently showing flow handling multiple products only</li>
+                    <hr>
+                    <img src="flow-designer-image.png" alt="Screenshot of Catalog Item setup in ServiceNow" style="max-width:100%; height:auto; margin:10px 0;" />
+                    <hr>
+                    <li><u>Look Up Attachment Record:</u> Retrieve the Excel file attachment belonging to the requested item submitted via the Catalog Item.</li>
+                    <li><u>Copy Attachment:</u> Create a copy of the attachment to safely process/import data without affecting the original file.</li>
+                    <li>
+                        <u>Get Import Set:</u>
+                        Trigger a custom Flow action that calls a method - getImportSetSysId from Script Include - KapCreateProductUtils method passing the Requested Item sys_id.
+                        This action loads the Excel attachment data into a new Import Set table, links each imported row to the Requested Item for traceability, and returns the Import Set record ID for further processing.
+                        <br>
+                        Here are the important steps in creating a custom action to fetch import set sys_id
+                        <hr>
+                        <p>Step 1 - Input Step</p>
+                        <hr><img src="input-step1.png" alt="Import Set Table creation and data loading" style="max-width:100%; height:auto; margin:10px 0;" />
+                        <p>Step 2.1 - Script Step</p>
+                        <hr><img src="script-step-1.png" alt="Import Set Table creation and data loading" style="max-width:100%; height:auto; margin:10px 0;" />
+                        <p>Step 2.2 - Script Step</p>
+                        <hr><img src="script-step-2.png" alt="Import Set Table creation and data loading" style="max-width:100%; height:auto; margin:10px 0;" />
+                        <p>Step 3 - Output Step</p>
+                        <hr><img src="output-step.png" alt="Import Set Table creation and data loading" style="max-width:100%; height:auto; margin:10px 0;" />
+                        <hr>
+                    </li>
+
+                    <li><u>Look Up Data Source Record:</u> Reference the Data Source by its sys_id, corresponding to the import set or Excel data source configuration.</li>
+                    <hr>
+                    <img src="data-source.png" alt="">
+                    <li><u>Look Up Records in Import Set:</u> Find records in the import set created for the multiple products.</li>
+                    <hr>
+                    <img src="import-set-step.png" alt="">
+                    <li><u>Trigger Transform Map:</u> Run the Transform Map to map and create actual Product records in the target table from the import set data.</li>
+                    <hr>
+                    <p>Here are the important steps in creating a custom action to Trigger Transform Map</p>
+                    <img src="trigger-transform-map.png" alt="">
+                    <p>Step 1 - Input Step</p>
+                    <hr>
+                    <img src="trigger-transform-map-step-1.png" alt="">
+                    <p>Step 1 - Input Step</p>
+                    <hr>
+                    <img src="trigger-transform-map-step-2.png" alt="">
+                    <li>
+                        <u>Create Script Include:</u>
+                        <pre><code style="font-size:x-small;">
+var KapCreateProductUtils = Class.create();
+KapCreateProductUtils.prototype = {
+    initialize: function() {},
+
+    getImportSetSysId: function (ritmSysId) {
+        var dataSourceSysId = gs.getProperty('kap.create.product.data.source.sys.id');
+
+        var grDataSource = new GlideRecord('sys_data_source');
+        if (grDataSource.get(dataSourceSysId)) {
+            var loader = new GlideImportSetLoader();
+            var importSetRec = loader.getImportSetGr(grDataSource);
+            loader.loadImportSetTable(importSetRec, grDataSource);
+
+            importSetRec.state = "loaded";
+            importSetRec.update();
+
+            var importTableName = importSetRec.getValue("table_name");
+
+            if (!importTableName) {
+                gs.error("Import Set Table Name is null. Cannot proceed.");
+                return;
+            }
+
+            var rowGR = new GlideRecord(importTableName);
+            rowGR.addQuery("import_set", importSetRec.getUniqueValue());
+            rowGR.query();
+            while (rowGR.next()) {
+                rowGR.u_requested_item = ritmSysId;
+                rowGR.update();
+            }
+
+            return importSetRec.getUniqueValue();
+        }
+
+        return null;
+    },
+
+    triggerTransformMap: function(importSetRecSysID) {
+        var transformSysId = gs.getProperty('kap.create.product.transform.map.sys.id');
+
+        var transformWorker = new GlideImportSetTransformerWorker(importSetRecSysID, transformSysId);
+        transformWorker.setBackground(true);
+        transformWorker.start();
+    },
+    type: 'KapCreateProductUtils'
+};
+  </code></pre>
+                    </li>
+
+                    <li><u>Delete Attachment:</u> Remove the copied attachment after processing to clean up.</li>
+                    <li><u>Update Requested Item Record:</u> Update the original Requested Item record, for example, by adding comments or status to reflect completion.</li>
+                    <li>Add a Work Note or comment to the Requested Item with clickable links to the newly created records.</li>
+                    <li>Activate the Flow to enable this automation.</li>
+                </ul>
+            </li>
+            <li>
+                Transform Maps
+                <ul>
+                    <li>Create a new Import Set Table by providing the blank excel template(I selected existing as I have already created it)</li>
+                    <img src="import-set-table.png" alt="">
+                    <hr>
+                    <li>Create a Transform Map</li>
+                    <img src="transform-map-step-1.png" alt="">
+                    <hr>
+                    <li>Create a Field mappings as required</li>
+                    <img src="field-mapping.png" alt="">
+                    <hr>
+                    <li>Populate RITM Number in product's Comment</li>
+                    <img src="ritm-number.png" alt="">
+                    <hr>
+                    <li>Transform Scripts</li>
+                    <ol>
+                        <li>onAfter Transform Script to create Sold Product after Product is created</li>
+                        <ul>
+                            <li>If Accounts are mentioned in Excel, create Sold Products and attach them to the mentioned accounts.</li>
+                            <li>If Accounts are not mentioned, create Sold Products and attach them to a Default Account.</li>
+                        </ul>
+                        <pre><code style="font-size:x-small;">
+(function runTransformScript(source, map, log, target) {
+
+
+    var productSysId = target.sys_id.toString();
+    var productName = source.u_name_of_the__demo_product_1;
+
+
+    if (!productSysId || !productName) {
+        return;
+    }
+
+
+    // If accounts are specified
+    if (source.u_which_accoun_d_to_be_linked && source.u_which_accoun_d_to_be_linked.trim() !== '') {
+
+
+        var accountNames = source.u_which_accoun_d_to_be_linked.split(/\s*,\s*/);
+        var validAccounts = [];
+        for (var i = 0; i < accountNames.length; i++) {
+            if (isValidAccount(accountNames[i])) {
+                validAccounts.push(accountNames[i]);
+            }
+        }
+        var accountGr = new GlideRecord('customer_account');
+        accountGr.addQuery('name', 'IN', validAccounts);
+        accountGr.query();
+
+
+        while (accountGr.next()) {
+            createSoldProduct(productSysId, productName, accountGr.sys_id.toString(), accountGr.name.toString());
+        }
+
+
+        if (accountNames.length != validAccounts.length) {
+            // Use generic account
+            var genericAccountSysId = gs.getProperty('kap.sold.product.generic.account.sys.id');
+            if (genericAccountSysId) {
+                var genericAccountGr = new GlideRecord('customer_account');
+                if (genericAccountGr.get(genericAccountSysId)) {
+                    createSoldProduct(productSysId, productName, genericAccountSysId, genericAccountGr.name.toString());
+                }
+            }
+        }
+
+
+    } else {
+        // Use generic account
+        var genericAccountId = gs.getProperty('kap.sold.product.generic.account.sys.id');
+        if (genericAccountId) {
+            var genericAccGr = new GlideRecord('customer_account');
+            if (genericAccGr.get(genericAccountId)) {
+                createSoldProduct(productSysId, productName, genericAccountId, genericAccGr.name.toString());
+            }
+        }
+    }
+
+
+    // Reusable function to insert a Sold Product
+    function createSoldProduct(productId, productName, accountId, accountName) {
+        var soldProduct = new GlideRecord('sn_install_base_sold_product');
+        soldProduct.initialize();
+        soldProduct.product = productId;
+        soldProduct.account = accountId;
+        soldProduct.name = productName + ' - ' + accountName;
+        soldProduct.insert();
+    }
+
+
+    function isValidAccount(accountName) {
+        var accountGr = new GlideRecord('customer_account');
+        accountGr.addQuery('name', accountName);
+        accountGr.query();
+        if (accountGr.hasNext()) {
+            return true;
+        }
+        return false;
+    }
+
+
+})(source, map, log, target);
+</code></pre>
+
+                        <li>onComplete Transform Script to create a link to display created Products and Sold Products</li>
+                        <pre><code style="font-size: x-small;">
+(function runTransformScript(source, map, log, target /*undefined onStart*/ ) {
+
+    var rowGr = new GlideRecord(source.getTableName());
+    rowGr.addQuery('import_set', source.import_set);
+    rowGr.query();
+
+    if (!rowGr.next() || !rowGr.u_requested_item) {
+        return;
+    }
+
+    var ritmRef = rowGr.u_requested_item;
+
+    // Get Products
+    var productGr = new GlideRecord(target.getTableName());
+    productGr.addQuery('sys_created_by', 'system');
+    productGr.addQuery('comments', 'CONTAINS', ritmRef.number);
+    productGr.query();
+
+    var productSysIds = [];
+
+    while (productGr.next()) {
+        productSysIds.push(productGr.getValue('sys_id'));
+    }
+
+    // Get Sold Products by checking product.comments CONTAINS RITM number
+    var soldSysIds = [];
+    var soldGr = new GlideRecord('sn_install_base_sold_product');
+    soldGr.addQuery('sys_created_by', 'system');
+    soldGr.addEncodedQuery('productISNOTEMPTY');
+    soldGr.addEncodedQuery('product.sys_idIN' + productSysIds);
+    soldGr.query();
+    while (soldGr.next()) {
+        soldSysIds.push(soldGr.getValue('sys_id'));
+    }
+
+    if (productSysIds.length === 0 && soldSysIds.length === 0) {
+        return;
+    }
+
+    var baseUrl = gs.getProperty('glide.servlet.uri');
+    var commentText = '';
+
+    if (productSysIds.length > 0) {
+        var productListUrl = baseUrl + target.getTableName() + '_list.do?sysparm_query=sys_idIN' + productSysIds.join(',');
+        commentText += 'Click &lt;a href="' + productListUrl + '" target="_blank"&gt;here&lt;/a&gt; to view the created Products.\n';
+    }
+
+    if (soldSysIds.length > 0) {
+        var soldListUrl = baseUrl + 'sn_install_base_sold_product_list.do?sysparm_query=sys_idIN' + soldSysIds.join(',');
+        commentText += 'Click &lt;a href="' + soldListUrl + '" target="_blank"&gt;here&lt;/a&gt; to view the created Sold Products.';
+    }
+
+    var ritmGR = new GlideRecord('sc_req_item');
+    if (ritmGR.get(ritmRef)) {
+        ritmGR.comments = commentText;
+        ritmGR.update();
+    }
+
+})(source, map, log, target);
+</code></pre>
+
+                    </ol>
+
+                    <img src="" alt="">
+                    <hr>
+                </ul>
+            </li>
+        </ol>
+        <h2>Output</h2>
+        <img src="output.png" alt="">
+        <hr>
+        <ul>
+            <li>Created Products</li>
+            <img src="products.png" alt="">
+            <hr>
+        </ul>
+
+        <ul>
+            <li>Created Sold Products</li>
+            <img src="sold-products.png" alt="">
+            <hr>
+        </ul>
+
+        <!-- Footer -->
+        <footer>
+            &copy; 2025 Rohan's ServiceNow Blog
+        </footer>
+</body>
+
+</html>
