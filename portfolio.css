@@ -372,3 +372,18 @@ section {
     font-size: 1rem;
   }
 }
+
+
+
+
+
+/* Mobile menu button size */
+@media (max-width: 768px) {
+  .navbar-toggler img {
+    width: 40px;   /* increase icon width */
+    height: 40px;  /* increase icon height */
+  }
+  .navbar-toggler {
+    padding: 8px;
+  }
+}
