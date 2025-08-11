@@ -82,11 +82,42 @@
             }
         }
 
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.9);
+        /* Card styling */
+        .custom-card {
+            background: linear-gradient(135deg, #ffffff, #f8f9fa);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
             transition: all 0.3s ease;
         }
+
+        .custom-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Icon background */
+        .icon-circle {
+            background: #eaf3ff;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        /* Key points section */
+        .key-points {
+            background: transparent;
+            border-radius: 8px;
+            text-align: left;
+        }
+
+        .mb-3,
+        .my-3 {
+            margin-bottom: 1rem !important;
+            margin: auto;
+        }
+
     </style>
 </head>
 
@@ -128,68 +159,168 @@
             <h2 class="text-center mb-5">What I wrote so far</h2>
             <div class="row">
                 <!-- Product and Sold Product Creation -->
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100 shadow-sm border-0 text-center">
-                        <div class="card-body">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
-                                <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
-                                <line x1="12" y1="22.08" x2="12" y2="12" />
-                            </svg>
-                            <h5 class="card-title">Create Product and Sold Products Use Case</h5>
-                            <p class="text-muted small">A practical solution for creating product records directly from Excel attachments.</p>
 
-                            <p class="text-muted small">Published on 8th August 2025</p>
-                            <a href="productCreation.html" class="btn btn-success btn-sm">Check now</a>
+
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 border-0 text-center custom-card">
+                        <div class="card-body">
+                            <!-- Icon Wrapper -->
+                            <div class="icon-circle mx-auto mb-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 
+                             1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                                    <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+                                    <line x1="12" y1="22.08" x2="12" y2="12" />
+                                </svg>
+                            </div>
+
+                            <!-- Title -->
+                            <h5 class="card-title fw-bold mb-2">
+                                Create Product & Sold Products Use Case
+                            </h5>
+
+                            <!-- Description -->
+                            <p class="text-muted small mb-3">
+                                A practical approach to creating product records directly from Excel attachments.
+                            </p>
+
+                            <!-- Key Points Section -->
+                            <div class="key-points text-start px-3 py-2 mt-3">
+                                <p class="fw-semibold small mb-2 text-primary">Key points covered:</p>
+                                <ul class="small mb-0 ps-3">
+                                    <li>Triggering transform map from Flow Designer</li>
+                                    <li>Establishing relation between Import Set & Requested Item</li>
+                                </ul>
+                            </div>
+
+
+                            <!-- Footer -->
+                            <p class="text-muted small mt-4 mb-2">Published on 8th August 2025</p>
+                            <a href="productCreation.html" class="btn btn-success btn-sm rounded-pill px-3">
+                                Check now
+                            </a>
                         </div>
                     </div>
                 </div>
+
 
                 <!-- Scripting in Reports -->
                 <div class="col-md-4 mb-4">
-                    <div class="card h-100 shadow-sm border-0 text-center">
+                    <div class="card h-100 border-0 text-center custom-card">
                         <div class="card-body">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="mb-3">
-                                <path class="fade-in-path" d="M19.744 21.158c-2.09 1.77-4.79 2.842-7.744 2.842-6.627 0-12-5.373-12-12 0-6.29 4.842-11.44 11-11.95v12.364l8.744 8.744zm-6.744-19.107c5.046.503 9 4.772 9 9.949 0 2.397-.85 4.6-2.262 6.324l1.42 1.42c1.77-2.09 2.842-4.79 2.842-7.744 0-6.29-4.842-11.44-11-11.95v2.001z" />
-                            </svg>
-                            <h5 class="card-title">Scripting in Reports</h5>
-                            <p class="text-muted small">When Condition Builder says “No,” you say “JavaScript.” Here’s how.</p>
-                            <p class="text-muted small">Published on 17th July 2025</p>
-                            <a href="reportscript.html" class="btn btn-success btn-sm">Check now</a>
+
+                            <div class="icon-circle mx-auto mb-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="mb-3">
+                                    <path class="fade-in-path" d="M19.744 21.158c-2.09 1.77-4.79 2.842-7.744 2.842-6.627 0-12-5.373-12-12 0-6.29 4.842-11.44 11-11.95v12.364l8.744 8.744zm-6.744-19.107c5.046.503 9 4.772 9 9.949 0 2.397-.85 4.6-2.262 6.324l1.42 1.42c1.77-2.09 2.842-4.79 2.842-7.744 0-6.29-4.842-11.44-11-11.95v2.001z" />
+                                </svg>
+                            </div>
+
+                            <!-- Title -->
+                            <h5 class="card-title fw-bold mb-2">Scripting in Condition Builder and Reports</h5>
+
+                            <!-- Description -->
+                            <p class="text-muted small mb-3">
+                                When Condition Builder says “No,” you say “JavaScript.” Here’s how.
+                            </p>
+
+                            <!-- Key Points Section -->
+                            <div class="key-points text-start px-3 py-2 mt-3">
+                                <p class="fw-semibold small mb-2 text-primary">Key points covered:</p>
+                                <ul class="small mb-0 ps-3">
+                                    <li>Using scripting to enhance report filters</li>
+                                    <li>Bypassing limitations of Condition Builder</li>
+                                </ul>
+                            </div>
+
+                            <!-- Footer -->
+                            <p class="text-muted small mt-4 mb-2">Published on 17th July 2025</p>
+                            <a href="reportscript.html" class="btn btn-success btn-sm rounded-pill px-3">
+                                Check now
+                            </a>
+
                         </div>
                     </div>
                 </div>
 
+
                 <!-- Show Table Data in Modal – Native UI -->
+
                 <div class="col-md-4 mb-4">
-                    <div class="card h-100 shadow-sm border-0 text-center">
+                    <div class="card h-100 border-0 text-center custom-card">
                         <div class="card-body">
-                            <svg class="table-animated mb-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2" class="rect-border" />
-                                <line x1="3" y1="9" x2="21" y2="9" class="animate-path row-1" />
-                                <line x1="3" y1="15" x2="21" y2="15" class="animate-path row-2" />
-                                <line x1="9" y1="3" x2="9" y2="21" class="animate-path col-1" />
-                                <line x1="15" y1="3" x2="15" y2="21" class="animate-path col-2" />
-                            </svg>
-                            <h5 class="card-title">Show Table Data in Modal – Native UI</h5>
-                            <p class="text-muted small">Select a table and show its data in a fancy modal</p>
-                            <p class="text-muted small">Published on 5th July 2025</p>
-                            <a href="modal.html" class="btn btn-success btn-sm">Check now</a>
+
+                            <!-- Icon Wrapper -->
+                            <div class="icon-circle mx-auto mb-3">
+                                <svg class="table-animated" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2" class="rect-border" />
+                                    <line x1="3" y1="9" x2="21" y2="9" class="animate-path row-1" />
+                                    <line x1="3" y1="15" x2="21" y2="15" class="animate-path row-2" />
+                                    <line x1="9" y1="3" x2="9" y2="21" class="animate-path col-1" />
+                                    <line x1="15" y1="3" x2="15" y2="21" class="animate-path col-2" />
+                                </svg>
+                            </div>
+
+                            <!-- Title -->
+                            <h5 class="card-title fw-bold mb-2">Show Table Data in Modal – Native UI</h5>
+
+                            <!-- Description -->
+                            <p class="text-muted small mb-3">
+                                Select a table and display its data in a clean, interactive modal window.
+                            </p>
+
+                            <!-- Key Points -->
+                            <div class="key-points text-start px-3 py-2 mt-3">
+                                <p class="fw-semibold small mb-2 text-primary">Key points covered:</p>
+                                <ul class="small mb-0 ps-3">
+                                    <li>Fetching table data dynamically</li>
+                                    <li>Displaying records inside a modal</li>
+                                </ul>
+                            </div>
+
+                            <!-- Footer -->
+                            <p class="text-muted small mt-4 mb-2">Published on 5th July 2025</p>
+                            <a href="modal.html" class="btn btn-success btn-sm rounded-pill px-3">
+                                Check now
+                            </a>
                         </div>
                     </div>
                 </div>
+
 
                 <!-- Custom Quick link Widget in ServiceNow -->
                 <div class="col-md-4 mb-4">
-                    <div class="card h-100 shadow-sm border-0 text-center">
+                    <div class="card h-100 border-0 text-center custom-card">
                         <div class="card-body">
-                            <svg class="spinning-gear mb-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M24 13.616v-3.232c-1.651-.587-2.694-.752-3.219-2.019v-.001c-.527-1.271.1-2.134.847-3.707l-2.285-2.285c-1.561.742-2.433 1.375-3.707.847h-.001c-1.269-.526-1.435-1.576-2.019-3.219h-3.232c-.582 1.635-.749 2.692-2.019 3.219h-.001c-1.271.528-2.132-.098-3.707-.847l-2.285 2.285c.745 1.568 1.375 2.434.847 3.707-.527 1.271-1.584 1.438-3.219 2.02v3.232c1.632.58 2.692.749 3.219 2.019.53 1.282-.114 2.166-.847 3.707l2.285 2.286c1.562-.743 2.434-1.375 3.707-.847h.001c1.27.526 1.436 1.579 2.019 3.219h3.232c.582-1.636.75-2.69 2.027-3.222h.001c1.262-.524 2.12.101 3.698.851l2.285-2.286c-.744-1.563-1.375-2.433-.848-3.706.527-1.271 1.588-1.44 3.221-2.021zm-12 2.384c-2.209 0-4-1.791-4-4s1.791-4 4-4 4 1.791 4 4-1.791 4-4 4z" />
-                            </svg>
-                            <h5 class="card-title">Custom Quick link Widget in ServiceNow</h5>
-                            <p class="text-muted small">I made a quick link widget for a client. Spent more time naming it than building it.</p>
-                            <p class="text-muted small">Published on 28 June 2025</p>
-                            <a href="quicklink.html" class="btn btn-success btn-sm">Check now</a>
+
+                            <!-- Icon Wrapper -->
+                            <div class="icon-circle mx-auto mb-3">
+                                <svg class="spinning-gear" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32" fill="currentColor">
+                                    <path d="M24 13.616v-3.232c-1.651-.587-2.694-.752-3.219-2.019v-.001c-.527-1.271.1-2.134.847-3.707l-2.285-2.285c-1.561.742-2.433 1.375-3.707.847h-.001c-1.269-.526-1.435-1.576-2.019-3.219h-3.232c-.582 1.635-.749 2.692-2.019 3.219h-.001c-1.271.528-2.132-.098-3.707-.847l-2.285 2.285c.745 1.568 1.375 2.434.847 3.707-.527 1.271-1.584 1.438-3.219 2.02v3.232c1.632.58 2.692.749 3.219 2.019.53 1.282-.114 2.166-.847 3.707l2.285 2.286c1.562-.743 2.434-1.375 3.707-.847h.001c1.27.526 1.436 1.579 2.019 3.219h3.232c.582-1.636.75-2.69 2.027-3.222h.001c1.262-.524 2.12.101 3.698.851l2.285-2.286c-.744-1.563-1.375-2.433-.848-3.706.527-1.271 1.588-1.44 3.221-2.021zm-12 2.384c-2.209 0-4-1.791-4-4s1.791-4 4-4 4 1.791 4 4-1.791 4-4 4z" />
+                                </svg>
+                            </div>
+
+                            <!-- Title -->
+                            <h5 class="card-title fw-bold mb-2">Custom Quick Link Widget in ServiceNow</h5>
+
+                            <!-- Description -->
+                            <p class="text-muted small mb-3">
+                                Built a quick link widget for a client—spent more time naming it than coding it.
+                            </p>
+
+                            <!-- Key Points -->
+                            <div class="key-points text-start px-3 py-2 mt-3">
+                                <p class="fw-semibold small mb-2 text-primary">Key points covered:</p>
+                                <ul class="small mb-0 ps-3">
+                                    <li>Creating custom widgets in ServiceNow</li>
+                                    <li>Adding quick navigation features</li>
+                                </ul>
+                            </div>
+
+                            <!-- Footer -->
+                            <p class="text-muted small mt-4 mb-2">Published on 28th June 2025</p>
+                            <a href="quicklink.html" class="btn btn-success btn-sm rounded-pill px-3">
+                                Check now
+                            </a>
                         </div>
                     </div>
                 </div>
