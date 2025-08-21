@@ -10,208 +10,185 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-    <style>
-        html {
-            scroll-behavior: smooth;
-        }
 
-        body {
-            margin: 0;
-            font-family: "Poppins", sans-serif;
-            background: linear-gradient(to bottom right, #f8f9fa, #e8ebf0);
-            color: #212529;
-            font-size: 1rem;
-        }
+      <style>
+    html {
+      scroll-behavior: smooth;
+    }
 
-        .section {
-            padding: 60px 20px;
-            max-width: 900px;
-            margin: 40px auto;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
-        }
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(to bottom right, #f8f9fa, #e8ebf0);
+      color: #212529;
+      font-size: 1rem;
+    }
 
-        code,
-        pre {
-            background: #f1f3f5;
-            padding: 12px;
-            display: block;
-            white-space: pre-wrap;
-            border-left: 4px solid #0077cc;
-            overflow-x: auto;
-            border-radius: 6px;
-            font-size: 0.95rem;
-        }
+    .section {
+      padding: 60px 20px;
+      max-width: 900px;
+      margin: 40px auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+    }
 
-        footer {
-            text-align: center;
-            padding: 20px;
-            background: #181a1f;
-            color: white;
-            margin-top: 60px;
-        }
+    code,
+    pre {
+      background: #f1f3f5;
+      padding: 12px;
+      display: block;
+      white-space: pre-wrap;
+      border-left: 4px solid #0077cc;
+      overflow-x: auto;
+      border-radius: 6px;
+      font-size: 0.95rem;
+    }
 
-        button {
-            background-color: #0077cc;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            margin-top: 10px;
-            cursor: pointer;
-            font-weight: 500;
-            border-radius: 24px;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-        }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #181a1f;
+      color: white;
+      margin-top: 60px;
+    }
 
-        button:hover {
-            background-color: #005fa3;
-            transform: translateY(-2px);
-        }
+    button {
+      background-color: #0077cc;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin-top: 10px;
+      cursor: pointer;
+      font-weight: 500;
+      border-radius: 24px;
+      transition: all 0.3s ease;
+      font-size: 1rem;
+    }
 
-        .navbar-dark .navbar-nav .nav-link {
-            color: white !important;
-        }
+    button:hover {
+      background-color: #005fa3;
+      transform: translateY(-2px);
+    }
 
-        .navbar-toggler img {
-            max-width: 35px;
-            height: auto;
-        }
+    .navbar-dark .navbar-nav .nav-link {
+      color: white !important;
 
-        img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-        }
+    }
 
-        /* --- Improved mobile styles --- */
-        @media (max-width: 992px) {
-            .section {
-                max-width: 98%;
-                padding: 36px 8px;
-            }
-        }
+    .navbar-dark .navbar-toggler {
+        width: auto;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
 
-        @media (max-width: 768px) {
+    @media (max-width: 992px) {
+      .section {
+        max-width: 98%;
+        padding: 36px 8px;
+      }
+    }
 
-            /* Smaller paddings for tablets */
-            .section {
-                max-width: 100%;
-                padding: 24px 2vw;
-            }
-        }
+    @media (max-width: 768px) {
+      .section {
+        max-width: 100%;
+        padding: 24px 2vw;
+      }
+    }
 
-        @media (max-width: 576px) {
+    @media (max-width: 576px) {
 
-            body,
-            .section,
-            code,
-            pre,
-            button {
-                font-size: 0.9rem;
-            }
+      body,
+      .section,
+      code,
+      pre,
+      button {
+        font-size: 0.9rem;
+      }
 
-            .section {
-                padding: 18px 4vw;
-                margin: 5px 0;
-                border-radius: 8px;
-            }
+      .section {
+        padding: 18px 4vw;
+        margin: 5px 0;
+        border-radius: 8px;
+      }
 
-            code,
-            pre {
-                padding: 8px;
-                font-size: 0.8rem;
-            }
+      code,
+      pre {
+        padding: 8px;
+        font-size: 0.8rem;
+      }
 
-            button {
-                padding: 10px 0;
-                width: 100%;
-                font-size: 1rem;
-                border-radius: 20px;
-            }
+      button {
+        padding: 10px 0;
+        width: 100%;
+        font-size: 1rem;
+        border-radius: 20px;
+      }
 
-            h1 {
-                font-size: 1.4rem;
-                text-align: left;
-                word-break: break-word;
-            }
+      h1 {
+        font-size: 1.4rem;
+        text-align: left;
+        word-break: break-word;
+      }
 
-            h2,
-            h3 {
-                font-size: 1.1rem;
-            }
+      h2,
+      h3 {
+        font-size: 1.1rem;
+      }
 
-            ul,
-            ol {
-                margin-left: 15px;
-                padding-left: 10px;
-            }
+      ul,
+      ol {
+        margin-left: 15px;
+        padding-left: 10px;
+      }
 
-            .navbar-dark .navbar-nav .nav-link,
-            .navbar-dark .navbar-brand {
-                text-align: left;
-                padding-left: 10px;
-            }
+      footer {
+        font-size: 0.8rem;
+        padding: 10px;
+      }
 
-            .navbar h5 {
-                font-size: 1rem;
-                margin-left: 10px;
-            }
+      .navbar {
+        min-height: 56px;
+      }
+    }
 
-            .navbar-toggler {
-                padding: 1px 4px;
-                margin-top: 2px;
-            }
+    /* Ensure images never overflow */
+    img,
+    .section img {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      margin: 0.3em 0;
+    }
 
-            footer {
-                font-size: 0.8rem;
-                padding: 10px;
-            }
-
-            .navbar {
-                min-height: 56px;
-                font-size: 0.95rem;
-            }
-        }
-
-        /* Ensure images never overflow */
-        img,
-        .section img {
-            width: 100%;
-            max-width: 100%;
-            height: auto;
-            margin: 0.3em 0;
-        }
-
-        /* Responsive horizontal rule on mobile */
-        @media (max-width: 576px) {
-            hr {
-                margin: 12px 0;
-            }
-        }
-
-    </style>
+    @media (max-width: 576px) {
+      hr {
+        margin: 12px 0;
+      }
+    }
+  </style>
 </head>
 
 <body>
-    <!-- Navbar -->
-	<nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top shadow-sm">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" style="border: none;">
-    <img src="images/menu.png" alt="Menu" style="max-width: 32px; height: auto;" />
-  </button>
-  <span class="navbar-text ml-auto" style="color: white; font-weight: 600; font-size: 1.25rem;">
-    Rohan's blog
-  </span>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav ml-auto">
-      <!-- You can hide links here or add if needed -->
-      <li class="nav-item"><a class="nav-link" href="index.html#home">Home</a></li>
-      <li class="nav-item"><a class="nav-link" href="index.html#contact">Contact</a></li>
-    </ul>
-  </div>
-</nav>
 
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top shadow-sm">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" style="border: none;">
+      <img src="images/menu.png" alt="Menu" style="max-width: 32px; height: auto;" />
+    </button>
+    <span class="navbar-text ml-auto" style="color: white; font-weight: 600; font-size: 1.25rem;">
+      Rohan's blog
+    </span>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html#home">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="index.html#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
     
     <!-- Main Section -->
     <section class="section">
