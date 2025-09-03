@@ -142,18 +142,6 @@
 
 </head>
 <body>
-	<!-- <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top shadow-sm">
-    <button style="border: none;margin-top: 10px;" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
-      <img src="images/menu.png" alt="Menu" />
-    </button>
-    <h5 style="color: white;">Rohan's blog</h5>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="index.html#contact">Contact</a></li>
-      </ul>
-    </div>
-  </nav>-->
 
 	<nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top shadow-sm">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" style="border: none;">
@@ -207,496 +195,78 @@
 
     <h2 id="html" class="mt-5">HTML Template</h2>
     <div id="code-html" class="code-container collapsed">
-        <pre><code>&lt;!-- Thumbnail Cards Centered --&gt; 
-&lt;div class=&quot;all-card-container&quot; 
-     ng-if=&quot;c.data.card_type == 'Thumbnail' &amp;&amp; c.data.text_alignment == 'Center'&quot;&gt;
-  &lt;a ng-repeat=&quot;item in data.json_data&quot; 
-     class=&quot;card quick-links card-thumbnail-align-center {{c.data.card_size}}&quot;
-     aria-labelledby=&quot;{{data.instanceId}}-item-{{$index}}&quot;
-     id=&quot;{{data.instanceId}}-item-{{$index}}&quot;
-     ng-href=&quot;{{item.url}}&quot;
-     ng-click=&quot;clicked(item)&quot;
-     ng-attr-target=&quot;{{item.target}}&quot;
-     ng-class=&quot;getCustomColor('background')&quot; 
-     ng-style=&quot;getStyle(item, 'background')&quot;
-     ng-keydown=&quot;c.keyboardAction($event,item)&quot;
-     tabindex=&quot;0&quot;&gt;
+      <pre><code>
+&lt;!-- Quick Link Card --&gt;
+&lt;div class="all-card-container"&gt;
+  &lt;a class="quick-links card"
+     aria-labelledby="{{data.instanceId}}-quick-link"
+     id="{{data.instanceId}}-quick-link"
+     ng-href="{{data.json_data[0].url}}"
+     ng-click="clicked(data.json_data[0])"
+     ng-attr-target="{{data.json_data[0].target}}"
+     tabindex="0"&gt;
 
-    &lt;div class=&quot;overlay&quot;&gt;&lt;/div&gt;
-
-    &lt;div class=&quot;circle&quot;&gt;
-      &lt;div class=&quot;icon&quot; 
-           ng-if=&quot;[item.icon.length] != 0 &amp;&amp; c.data.show_icon === 'true'&quot;
-           style=&quot;background-image: url({{item.icon}});&quot;&gt;&lt;/div&gt;
+    &lt;div class="circle"&gt;
+      &lt;div class="icon" 
+           ng-if="data.json_data[0].icon &amp;&amp; data.json_data[0].icon.length"
+           style="background-image: url({{data.json_data[0].icon}});"&gt;&lt;/div&gt;
     &lt;/div&gt;
 
-    &lt;p style=&quot;font-size: 1.5rem;text-align:center;color:black;&quot;&gt;{{item.title}}&lt;/p&gt;
-    &lt;p style=&quot;font-size: 1.3rem; margin-top: 1px; text-align:center;color:#9e9e9e;&quot;&gt;{{item.shortDescription}}&lt;/p&gt;
-  &lt;/a&gt;
-&lt;/div&gt;
+    &lt;div class="overlay"&gt;&lt;/div&gt;
 
-&lt;!-- Thumbnail Cards Left Aligned --&gt;   
-&lt;div ng-class=&quot;{'all-card-container-left' : (c.data.card_size === 'card-medium'),'all-card-container' : (c.data.card_size === 'card-small')}&quot; 
-     ng-if=&quot;c.data.card_type=='Thumbnail' &amp;&amp; c.data.text_alignment=='Left'&quot;&gt;
-  &lt;a ng-repeat=&quot;item in data.json_data&quot; 
-     class=&quot;card quick-links card-thumbnail-align-left {{c.data.card_size}}&quot;
-     aria-labelledby=&quot;{{data.instanceId}}-item-{{$index}}&quot;
-     ng-href=&quot;{{item.url}}&quot;
-     id=&quot;{{data.instanceId}}-item-{{$index}}&quot;
-     ng-attr-target=&quot;{{item.target}}&quot; 
-     ng-class=&quot;getCustomColor('background')&quot; 
-     ng-style=&quot;getStyle(item, 'background')&quot;&gt;
+    &lt;!-- Title --&gt;
+    &lt;p class="card-title"&gt;{{data.title}}&lt;/p&gt;
 
-    &lt;div class=&quot;overlay&quot;&gt;&lt;/div&gt;
+    &lt;!-- Short description --&gt;
+    &lt;p class="card-description"&gt;{{data.short_description}}&lt;/p&gt;
 
-    &lt;div class=&quot;circle&quot;&gt;
-      &lt;div class=&quot;icon&quot; 
-           ng-if=&quot;[item.icon.length] != 0 &amp;&amp; c.data.show_icon === 'true'&quot;
-           style=&quot;background-image: url({{item.icon}});&quot;&gt;&lt;/div&gt;
-    &lt;/div&gt;
-
-    &lt;p style=&quot;font-size: 1.5rem;text-align:center;color:black;&quot;&gt;{{item.title}}&lt;/p&gt;
-    &lt;p style=&quot;font-size: 1.3rem; margin-top: 1px; text-align:center;color:#9e9e9e;&quot;&gt;{{item.shortDescription}}&lt;/p&gt;
   &lt;/a&gt;
 &lt;/div&gt;
 </code></pre>
+
     </div>
     <button onclick="toggleCode('code-html', this)">Read more ↓</button>
     <button id="html-copy-button" onclick="copyHTMLCode()">Copy</button>
     <h2 id="css" class="mt-5">CSS Styling</h2>
     <div id="code-css" class="code-container collapsed">
-      <pre>
-        <code>$background-primary: #FFFFFF !default;
-$sp-panel-box-shadow: 0 4px 8px 0 rgba(23, 40, 52, 0.08) !default;
-$border-primary: #8790A1 !default;
-$border-secondary: #B3B7BC !default;
-$border-tertiary: #DADDE2 !default;
-$text-primary: #1D2223 !default;
-$color-sp-separator: #EAEAEA !default;
-//$link-hover-color : #354ECA !default;
-$link-hover-color : #000000 !default;
-//$link-color : #3C59E7 !default;
-$link-color : #000000 !default;
-$sp-space--xxs: 2px !default;
-$rm: $sp-space--xxs;
-
-.primary-color {
-	background-color: $brand-primary;
-}
-
-.dark-color {
-	background-color: $color-dark;
-}
-
-.light-color {
-	background-color: $color-light;
-}
-
-.accent-color {
-	background-color: $color-accent;
-}
-
-.text-color-white {
-	color: #FFFFFF !important;
-}
-
-.text-color-black {
-	color: $text-primary !important;
-}
-.quick-link-empty-state {
-	height: 75 * $rm;
-	text-align: center;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	padding: 2.4rem;
-	p{
-		color: $text-secondary;
-		font-size: $font-size-base;
-	}
-}
-.link-container {
-	background: $background-primary;
-	box-shadow: $sp-panel-box-shadow;
-	border-radius: $border-radius-large;
-	margin-bottom: $rm * 8;
-	min-width: min-content;
-	.title {
-		min-width: 250px;
-		line-height: $rm * 12;
-		color: $text-primary;
-		word-wrap: break-word;
-		padding: $rm * 12;
-		border-bottom: 1px solid $color-sp-separator;
-	}
-	.widget-title {
-		margin: 0;
-	}
-}
-
-.title--with-icon {
-    display: flex;
-    flex-direction: row;
-}
-
-.external-link--icon {
-  display: flex;
-  padding-left: 6px;
-  font-size: 14px;
-  align-self: flex-start;
-  line-height: 21px;
-  padding-top: 2px;
-}
-
-.all-card-container,
-.all-card-container-left,
-.all-card-container-simple {
-	display: flex;
-	padding: $rm * 12;
-	grid-template-columns: 1fr;
-	grid-gap: $rm * 12;
-  width:250px;
-  margin:auto;
-}
-
-.card-thumbnail-align-left {
-	display: flex;
-	flex-direction: row;
-	border: 1px solid $border-tertiary;
-	box-sizing: border-box;
-	border-radius: $border-radius-base;
-	padding: $rm * 4 $rm * 8;
-	flex: 1;
-	justify-items: center;
-	word-wrap: break-word;
-	word-break: break-word;
-	.icon-container {
-		margin-right: $rm * 4;
-		min-width: 85px;
-		width: 85px;
-	}
-	.icon-container.card-small {
-		min-width: 48px;
-		width: 48px;
-	}
-	.content-container {
-		padding-right: 0px;
-		background-color: transparent;
-		min-width: auto;
-		align-self: center;
-		flex-grow: 0;
-		padding-left: $rm * 4;
-		align-items: flex-start;
-	}
-}
-
-.card-thumbnail-align-left.card-medium {
-	min-height: 121px;
-}
-
-.card-thumbnail-align-left.card-small {
-	min-height: 75px;
-}
-
-.content-container--content-start {
-  justify-content: start !important;
-  padding: 0 $rm * 4 $rm * 4 $rm * 4 !important;
-  background-color: transparent !important;
-}
-
-.card-simple {
-	position: relative;
-	flex-grow: 1;
-	display: flex;
-	flex-direction: column;
-	border-bottom: 1px solid $border-secondary;
-	flex: 1;
-	word-break: break-word;
-	word-wrap: break-word;
-	overflow: hidden;
-	.content-container {
-		margin-top: auto;
-		margin-bottom: $rm * 8;
-		padding: 0;
-		flex-grow: 0;
-		background-color: $background-primary;
-	}
-}
-
-.card-simple.card-small,
-.card-simple.card-medium {
-	min-height: 70px;
-	max-height: 90px;
-}
-
-.card-simple > div > span {
-	color: black;
-}
-
-.card-simple:hover > div > span {
-	font-style: bold;
-}
-
-.card-simple > div > div > .card-title {
-  color: $link-color;
-}
-
-.card-simple:hover > div > div > .card-title {
-  color: $link-hover-color;
-}
-
-.card-simple:hover > div > div > .external-link--icon {
-  color: $link-hover-color;
-}
-
-.content-container.content-left-align {
-	align-items: flex-start;
-}
-
-.text-left-align {
-	text-align: left !important;
-}
-
-.card-thumbnail-align-center {
-	position: relative;
-	flex-grow: 1;
-	display: flex;
-	flex-direction: column;
-	border: 1px solid $border-tertiary;
-	box-sizing: border-box;
-	border-radius: $border-radius-base;
-	background-size: 100% 100%;
-	background-position: bottom;
-	word-break: break-word;
-	word-wrap: break-word;
-	overflow: hidden;
-	.icon-container {
-		padding: $rm * 4 $rm * 8 $rm * 4;
-		min-height: 92px;
-	}
-	.icon-container--no-image-color {
-		min-height: 0;
-		padding: 0;
-	}
-	.icon-container--background-medium {
-		min-height: 92px;
-	}
-	.icon-container--background-small {
-		min-height: 44px;
-	}
-	.content-container--no-image-color {
-		justify-content: center;
-		padding: 0 $rm * 4;
-		background-color: transparent;
-	}
-}
-
-.card-thumbnail-align-center.card-medium {
-	max-height: 155px;
-	min-height: 140px;
-}
-
-.card-thumbnail-align-center.card-small {
-	max-height: 108px;
-	min-height: 76px;
-}
-
-.icon-container {
-	position: relative;
-	box-sizing: border-box;
-	display: flex;
-	flex-grow: 0;
-	flex-shrink: 1;
-	justify-content: center;
-	align-items: center;
-}
-
-.icon {
-	width: 64px;
-	height: 64px;
-	background-size: cover;
-	z-index: 2;
-	position: absolute;
-}
-.icon--with-overlay {
-	height: 48px;
-	width: 48px;
-}
-
-.icon--small {
-	width: 42px;
-	height: 42px;
-}
-
-.icon--small-with-overlay {
-	width: 30px;
-	height: 30px;
-}
-
-.icon-bg-color {
-	box-sizing: border-box;
-	z-index: 1;
-	width: 76px;
-	height: 76px;
-	opacity: 0.7;
-	border-radius: 50%;
-	mix-blend-mode: normal;
-	position: absolute;
-}
-
-.icon-bg-color--small {
-	width: 48px;
-	height: 48px;
-}
-
-.content-container {
-	box-sizing: border-box;
-	display: flex;
-	bottom: 0;
-	flex-grow: 1;
-	align-items: center;
-	padding: $rm * 4 $rm * 8 $rm * 4;
-	flex-direction: column;
-	background-color: rgba(255, 255, 255, 0.7);
-	mix-blend-mode: normal;
-}
-
-.card-thumbnail-align-center:hover,
-.card-thumbnail-align-left:hover {
-	box-shadow: $sp-panel-box-shadow;
-}
-
-.card-title {
-	text-align: center;
-	font-style: normal;
-	font-weight: $headings-font-weight;
-	color: $text-primary;
-	font-size: $rm * 8;
-	padding: 0;
-	margin: 0;
-}
-
-.card-description {
-	text-align: center;
-	font-style: normal;
-	font-weight: normal;
-	color: $text-primary;
-	font-size: $rm * 7;
-	padding-top: $rm * 2;
-	padding: 0;
-	margin: 0;
-}
-
-.text-ellipsis {
-	word-wrap: break-word;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	display: -webkit-box;
-	-webkit-box-orient: vertical;
-	-webkit-line-clamp: 2;
-}
-
-a:hover {
-	text-decoration: none !important;
-}
-
-.all-card-container {
-	grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
-}
-
-.all-card-container-left {
-	grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
-}
-
-@media screen and (-ms-high-contrast: active),
-(-ms-high-contrast: none) {
-	.all-card-container,
-	.all-card-container-left {
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: space-around;
-	}
-	
-	.card-thumbnail-align-left.card-medium {
-		width: 250px;
-		min-width: 250px;
-		max-width: 250px;
-		margin-bottom: 16px;
-		margin-right: 16px;
-		flex: 1 0 100%;
-	}
-
-	.card-thumbnail-align-left.card-small,
-	.card-thumbnail-align-center,
-	.card-simple {
-		width: 200px;
-		min-width: 200px;
-		max-width: 200px;
-		margin-bottom: 16px;
-		margin-right: 16px;
-		flex: 1 0 100%;
-	}
-
-	.text-ellipsis {
-		width: 160px;
-	}
-
-	.text-ellipsis-small-icon {
-		width: 90px;
-	}
-  
-	.text-ellipsis-small-no-icon {
-		width: 140px;
-	}
-  
-	.text-ellipsis-medium-icon {
-		width: 100px;
-	}
-
-	.text-ellipsis-medium-no-icon {
-		width: 180px;
-	}
-  
-	.icon,
-	.icon-bg-color {
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-	}
-}.quick-links {
-  --bg-color: #DCE9FF;           /* same soft blue background */
+      <pre><code>.quick-links {
+  --bg-color: #DCE9FF;
   --bg-color-light: #f1f7ff;
   --text-color-hover: #4C5656;
   --box-shadow-color: rgba(220, 233, 255, 0.48);
+}
+
+.all-card-container {
+  display: flex;
+  justify-content: center;
+  width: 260px;
+  margin: auto;
+  margin-top: -8rem;
 }
 
 .quick-links.card {
   width: 250px;
   height: 321px;
   background: #fff;
-  //background: transparent;
-  border:none;
-  border-top-right-radius: 10px;
+  border: none;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   position: relative;
-  //box-shadow: 0 14px 26px rgba(0,0,0,0.04);
   transition: all 0.3s ease-out;
   text-decoration: none;
+  border-radius: 5px;
 }
 
 .quick-links.card:hover {
-  transform: translateY(-5px) scale(1.005) translateZ(0);
+  transform: translateY(-25px) scale(1.005) translateZ(0);
   box-shadow: 0 24px 36px rgba(0,0,0,0.11),
-    0 24px 46px var(--box-shadow-color);
+              0 24px 46px var(--box-shadow-color);
 }
 
 .quick-links.card:hover .overlay {
-  //transform: scale(12) translateZ(0);
-    //transform: scale(20) translateX(10px) translateY(10px);
   transform: scale(30);
 }
 
@@ -712,13 +282,6 @@ a:hover {
 .quick-links.card:hover p {
   color: var(--text-color-hover);
 }
-
-/*
-.quick-links.card:active {
-  transform: scale(1) translateZ(0);
-    //box-shadow: 0 15px 24px rgba(0,0,0,0.11), 0 15px 24px var(--box-shadow-color);
-  		box-shadow: #ffffff;
-}*/
 
 .quick-links.card p {
   font-size: 17px;
@@ -753,24 +316,44 @@ a:hover {
   transition: opacity 0.3s ease-out;
 }
 
-.quick-links .circle svg {
+.quick-links .circle .icon {
+  width: 64px;
+  height: 64px;
+  background-size: cover;
   z-index: 10000;
-  transform: translateZ(0);
+  position: relative;
 }
 
 .quick-links .overlay {
-  //width: 118px;
   width: 20px;
-  position: absolute;
-  //height: 118px;
   height: 20px;
   border-radius: 50%;
   background: var(--bg-color);
+  position: absolute;
   top: 100px;
   left: 100px;
   z-index: 0;
   transition: transform 0.3s ease-out;
 }
+
+.card-title {
+  text-align: center;
+  font-weight: 600;
+  font-size: 18px;
+  margin: 10px 0 0;
+}
+
+.card-description {
+  text-align: center;
+  font-size: 14px;
+  margin: 6px 0 0;
+  color: #666;
+}
+
+.col-md-3 {
+  width: 24%;
+}
+
 	</code></pre>
     </div>
     <button onclick="toggleCode('code-css', this)">Read more ↓</button>
@@ -778,287 +361,89 @@ a:hover {
 
     <h2 id="server" class="mt-5">Server Script</h2>
     <div id="code-server" class="code-container collapsed">
-            <pre>
-        <code>(function() {
-    data.load_config = options.load_config;
-    if (data.load_config === "async" && !input)
-        return;
-    data.quickLinkHeader = gs.getMessage(options.title);
+            <pre><code>(function () {
     data.instanceId = $sp.getDisplayValue("sys_id");
     var quickLinkId = $sp.getParameter("quick_link_id");
     var pageId = $sp.getParameter("id");
-    var startTime = new GlideDateTime();
 
-    data.portal = $sp.getPortalRecord();
     var quickLinkUtil = new sn_ex_sp.QuickLinkUtil();
 
-    setOptions(options);
-    if (quickLinkId && pageId == "quick_link_preview") {
+    // Options
+    data.title = (options && options.title) ? options.title : "";
+    data.short_description = (options && options.short_description) ? options.short_description : "";
+    var selectedQuickLink = (options && options.select_a_quick_link) ? options.select_a_quick_link : "";
+
+    // Fetch JSON data
+    if (quickLinkId && pageId === "quick_link_preview") {
         data.json_data = quickLinkUtil.fetchQuicklinksForHomePage(quickLinkId, data.instanceId);
-    } else if (options.quick_links) {
-        data.json_data = quickLinkUtil.fetchQuicklinksForHomePage(options.quick_links, data.instanceId);
+    } else if (selectedQuickLink) {
+        data.json_data = quickLinkUtil.fetchQuicklinksForHomePage(selectedQuickLink, data.instanceId);
+    } else {
+        // Default: fetch the first Quick Link available
+        var gr = new GlideRecord('sn_ex_sp_quick_link');
+        gr.orderBy('sys_created_on'); // or any other ordering
+        if (gr.query() && gr.next()) {
+            selectedQuickLink = gr.sys_id.toString();
+            data.json_data = quickLinkUtil.fetchQuicklinksForHomePage(selectedQuickLink, data.instanceId);
+        } else {
+            data.json_data = [];
+        }
     }
 
-    var stats = {};
-    stats.callerId = data.instanceId;
-    stats.textPrefix = 'Quick Links';
-    stats.startTime = startTime;
-    stats.shortDesc = 'Load Data';
-    //new sn_ex_sp.PerformanceIndicatorUtil().postInstanceHotspot(stats);
-
-    function setOptions(customOptions) {
-        var cardSizes = {
-            "Small": "card-small",
-            "Medium": "card-medium"
-        };
-
-        data.card_type = customOptions.card_type;
-        data.card_size = cardSizes[customOptions.card_size];
-        data.text_alignment = customOptions.text_alignment;
-
-        data.show_background = customOptions.show_background;
-        data.show_icon = customOptions.show_icon;
-        data.show_description = customOptions.show_description;
-
-        data.background_color = customOptions.background_color;
-        data.background_hexcode = customOptions.background_hexcode;
-
-        data.icon_background_color = customOptions.icon_background_color;
-        data.icon_background_hexcode = customOptions.icon_background_hexcode;
-
-        data.show_text_overlay = customOptions.show_text_overlay;
-        data.text_overlay_hexcode = customOptions.text_overlay_hexcode;
-
-        data.text_color = customOptions.text_color;
-        data.text_color_hexcode = customOptions.text_color_hexcode;
-        data.showEmptyState = options.show_empty_state;
+    // Set title: options.title or Quick Link name
+    if (!data.title && selectedQuickLink) {
+        var grTitle = new GlideRecord('sn_ex_sp_quick_link');
+        if (grTitle.get(selectedQuickLink)) {
+            data.title = grTitle.name.toString();
+        }
     }
 
-    if (input && input.action == 'openGuidedhelp' && input.guidedHelpId) {
-        data.pageId = $sp.getParameter('id') ? $sp.getParameter('id') : data.portal.homepage.getDisplayValue();
-        data.guidedHelpResponse = new sn_ex_sp.QuickLinkUtil().handleGuidedHelpClick(input.guidedHelpId, data.pageId, "quick_link");
+    // Handle guided help click
+    if (input && input.action === "openGuidedhelp" && input.guidedHelpId) {
+        var portal = $sp.getPortalRecord();
+        data.pageId = $sp.getParameter("id") ? $sp.getParameter("id") : (portal && portal.homepage.getDisplayValue());
+        data.guidedHelpResponse = quickLinkUtil.handleGuidedHelpClick(input.guidedHelpId, data.pageId, "quick_link");
     }
-		
-})();</code></pre>
+})();
+
+            </code></pre>
     </div>
     <button onclick="toggleCode('code-server', this)">Read more ↓</button>
     <button id="server-copy-button" onclick="copyServerCode()">Copy</button>
 
     <h2 id="client" class="mt-5">Client Script</h2>
     <div id="code-client" class="code-container collapsed">
-            <pre>
-        <code>api.controller = function($scope, $timeout, $window, snAnalytics) {
-    /* widget controller */
-
+            <pre><code>api.controller = function($scope, $timeout, $window) {
     var c = this;
     $scope.isLoading = false;
 
-    $scope.card_size = c.data.card_size;
-    $scope.card_type = c.data.card_type;
-
     $scope.clicked = function(item) {
-        if (item.type == 'guided_help') {
+        if (item.type === "guided_help") {
             c.server.get({
-                "action": "openGuidedhelp",
-                "guidedHelpId": item.guided_help
+                action: "openGuidedhelp",
+                guidedHelpId: item.guided_help
             }).then(function(resp) {
                 $timeout(function() {
-                    $window.open(resp.data.guidedHelpResponse.url, '_self');
-                }, raiseAppseeEvent(resp.data.guidedHelpResponse));
+                    $window.open(resp.data.guidedHelpResponse.url, "_self");
+                });
             });
         }
     };
 
-    $scope.getCustomColor = function(styleClassFor) {
-        var cssCustomClass = "";
-
-        var supportedColors = {
-            "Primary": "primary-color",
-            "Dark": "dark-color",
-            "Light": "light-color",
-            "Accent": "accent-color",
-            "Hexcode": ""
-        };
-
-        var darkColors = ['Primary', 'Dark', 'Accent'];
-
-        switch (styleClassFor) {
-            case 'background':
-                cssCustomClass = (c.data.background_color) ? supportedColors[c.data.background_color] : '';
-                break;
-            case 'icon_overlay':
-                cssCustomClass = supportedColors[c.data.icon_background_color];
-                break;
-            case 'text':
-                if (c.data.text_color === 'false') {
-                    cssCustomClass = 'text-color-black';
-                    if (c.data.text_alignment === 'Left') {
-                        if (darkColors.includes(c.data.background_color)) {
-                            cssCustomClass = 'text-color-white';
-                        }
-                    } else {
-                        if (c.data.show_background === 'false' && c.data.show_text_overlay === 'false') {
-                            if (darkColors.includes(c.data.background_color)) {
-                                cssCustomClass = 'text-color-white';
-                            }
-                        }
-                    }
-                }
-                break;
-        }
-        return cssCustomClass;
-    };
-
-    $scope.getStyle = function(item, styleRequiredFor) {
-        var styleObj = {};
-        switch (styleRequiredFor) {
-            case 'background':
-                if (c.data.show_background === 'true' && c.data.card_type === 'Thumbnail' && c.data.text_alignment === 'Center' && item.bg_image && item.bg_image.length != 0) {
-                    styleObj['background-image'] = 'url(' + item.bg_image + ')';
-                }
-                if (c.data.background_color === 'Hexcode') {
-                    styleObj['background-color'] = c.data.background_hexcode;
-                }
-                if (item.type == 'guided_help') {
-                    styleObj['cursor'] = 'pointer';
-                }
-                break;
-            case 'icon_overlay':
-                if (c.data.icon_background_color === 'true') {
-                    styleObj['background-color'] = c.data.icon_background_hexcode;
-                }
-                break;
-            case 'text_overlay':
-                if (c.data.show_text_overlay === 'true') {
-                    styleObj['background-color'] = hexToRGB(c.data.text_overlay_hexcode, '0.7');
-                }
-                break;
-            case 'text':
-                if (c.data.text_color === 'true') {
-                    styleObj['color'] = c.data.text_color_hexcode;
-                }
-                break;
-        }
-        return styleObj;
-    };
-
-    $scope.getEvaluatedIconContainer = function(item) {
-        switch (c.data.card_size) {
-            case 'card-small':
-                if (c.data.show_text_overlay === 'false') {
-                    return 'icon-container--no-image-color';
-                } else {
-                    return 'icon-container--background-small';
-                }
-                break;
-            case 'card-medium':
-                if (c.data.show_text_overlay === 'false') {
-                    if ((c.data.show_icon === 'true' && item.icon.length == 0) || c.data.show_icon === 'false') {
-                        return 'icon-container--no-image-color';
-                    } else {
-                        return 'icon-container--background-medium';
-                    }
-                }
-                break;
-        }
-    }
-
-    $scope.getEvaluatedContentContainer = function(item) {
-        switch (c.data.card_size) {
-            case 'card-small':
-                return 'content-container--no-image-color';
-            case 'card-medium':
-                if (c.data.show_text_overlay === 'false') {
-                    if (c.data.show_icon === 'true' && item.icon.length != 0) {
-                        return 'content-container--content-start';
-                    } else {
-                        return 'content-container--no-image-color';
-                    }
-                }
-                break;
-        }
-    };
-
-    $scope.getTextEllipsisClassForIE = function(item) {
-        var cssClassName = "text-ellipsis-";
-        if (c.data.card_size === 'card-medium') {
-            cssClassName = cssClassName + "medium";
-        } else {
-            cssClassName = cssClassName + "small";
-        }
-        if (c.data.show_icon === 'true' && item.icon && item.icon.length != 0) {
-            cssClassName = cssClassName + "-icon";
-        } else {
-            cssClassName = cssClassName + "-no-icon";
-        }
-        return cssClassName;
-    };
-
-    $(window).resize(handleToolTip);
-    $scope.$evalAsync(handleToolTip);
-
-    function handleToolTip() {
-        var isIE = window.navigator.userAgent.indexOf('Trident/') !== -1;
-        $timeout(function() {
-            $(".card-thumbnail-align-center, .card-thumbnail-align-left, .card-simple").each(function(index) {
-                var hideToolTip = false;
-                var span = $(this).find(".card-title");
-                if (isIE) {
-                    if (span && span[0] && span.width() >= span[0].scrollWidth) {
-                        hideToolTip = true;
-                    }
-                } else {
-                    if (span && span[0] && span.height() >= span[0].scrollHeight) {
-                        hideToolTip = true;
-                    }
-                }
-                if (hideToolTip) {
-                    $(this).tooltip('disable');
-                } else {
-                    $(this).tooltip('enable');
-                }
-            });
-        }, 100);
-    }
-
-    function hexToRGB(hex, alpha) {
-        var r = parseInt(hex.slice(1, 3), 16),
-            g = parseInt(hex.slice(3, 5), 16),
-            b = parseInt(hex.slice(5, 7), 16);
-        return "rgba(" + r + ", " + g + ", " + b + ", " + alpha + ")";
-    }
-
-    function raiseAppseeEvent(data) {
-        if (!data.isNew) {
-            return;
-        }
-        var payload = {};
-        payload.name = "Guided Self-service Started";
-        payload.data = {};
-        payload.data["Guided Self-service"] = data.processName;
-        payload.data["User Id"] = data.userId;
-        payload.data["Source"] = data.source;
-        snAnalytics.addEvent(payload);
-    }
-
-    c.asyncGet = function() {
+		c.asyncGet = function() {
         $scope.isLoading = true;
         c.data.action = "loadData";
-        c.server.update().then(function(response) {
+        c.server.update().then(function() {
             $scope.isLoading = false;
-            setTimeout(handleToolTip);
         });
     };
 
-
-    var load_config = c.data.load_config;
-    if (load_config === "async")
+    if (c.data.load_config === "async") {
         setTimeout(c.asyncGet);
-    else {
-        $scope.isLoading = false;
-        setTimeout(handleToolTip);
     }
-};</code></pre>
+};
+
+            </code></pre>
     </div>
     <button onclick="toggleCode('code-client', this)">Read more ↓</button>
     <button id="client-side-copy-button" onclick="copyClientSideCode()">Copy</button>
