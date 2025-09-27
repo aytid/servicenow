@@ -137,7 +137,6 @@ nav a:hover {
     padding-top: calc(var(--header-height) - 80px);
     overflow: hidden;
     background-color: #eaf9ec;
-    height: 600px;
 }
 
 .hero-wrap {
