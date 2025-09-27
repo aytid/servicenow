@@ -540,3 +540,40 @@ footer {
         max-width: none
     }
 }
+
+/* General code block styling */
+.code-block {
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 15px;
+  margin: 20px 0;
+  overflow-x: auto;       
+  white-space: pre;       
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.95rem;
+  box-sizing: border-box;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .code-block {
+    font-size: 5px;      
+    padding: 10px;
+    margin: 15px 5px;       
+  }
+
+  .container.card.blog-post {
+    width: 100%;             
+    padding: 0px;
+  }
+
+  .hero-wrap {
+    padding: 15px;          
+  }
+
+  .image-block img {
+    width: 100%;
+    height: auto;           
+  }
+}
