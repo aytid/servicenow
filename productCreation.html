@@ -247,42 +247,79 @@
           If Accounts are mentioned in Excel, create Sold Products and attach them to the mentioned accounts. If
           Accounts are not mentioned, create Sold Products and attach them to a Default Account.</li>
         <div style="margin-left: 0px;" class="code-block">
-          (function runTransformScript(source, map, log, target) {
+                    (function runTransformScript(source, map, log, target) {
 
 
-          var productSysId = target.sys_id.toString();
-          var productName = source.u_name_of_the__demo_product_1;
+              var productSysId = target.sys_id.toString();
+              var productName = source.u_name_of_the__demo_product_1;
 
 
-          if (!productSysId || !productName) {
-          return;
-          }
+              if (!productSysId || !productName) {
+                  return;
+              }
 
 
-          // If accounts are specified
-          if (source.u_which_accoun_d_to_be_linked && source.u_which_accoun_d_to_be_linked.trim() !== '') {
+              // If accounts are specified
+              if (source.u_which_accoun_d_to_be_linked && source.u_which_accoun_d_to_be_linked.trim() !== '') {
 
 
-          var accountNames = source.u_which_accoun_d_to_be_linked.split(/\s*,\s*/);
-          var validAccounts = [];
-          for (var i = 0; i < accountNames.length; i++) { if (isValidAccount(accountNames[i])) {
-            validAccounts.push(accountNames[i]); } } var accountGr=new GlideRecord('customer_account');
-            accountGr.addQuery('name', 'IN' , validAccounts); accountGr.query(); while (accountGr.next()) {
-            createSoldProduct(productSysId, productName, accountGr.sys_id.toString(), accountGr.name.toString()); } if
-            (accountNames.length !=validAccounts.length) { // Use generic account var
-            genericAccountSysId=gs.getProperty('kap.sold.product.generic.account.sys.id'); if (genericAccountSysId) {
-            var genericAccountGr=new GlideRecord('customer_account'); if (genericAccountGr.get(genericAccountSysId)) {
-            createSoldProduct(productSysId, productName, genericAccountSysId, genericAccountGr.name.toString()); } } } }
-            else { // Use generic account var
-            genericAccountId=gs.getProperty('kap.sold.product.generic.account.sys.id'); if (genericAccountId) { var
-            genericAccGr=new GlideRecord('customer_account'); if (genericAccGr.get(genericAccountId)) {
-            createSoldProduct(productSysId, productName, genericAccountId, genericAccGr.name.toString()); } } } //
-            Reusable function to insert a Sold Product function createSoldProduct(productId, productName, accountId,
-            accountName) { var soldProduct=new GlideRecord('sn_install_base_sold_product'); soldProduct.initialize();
-            soldProduct.product=productId; soldProduct.account=accountId; soldProduct.name=productName + ' - ' +
-            accountName; soldProduct.insert(); } function isValidAccount(accountName) { var accountGr=new
-            GlideRecord('customer_account'); accountGr.addQuery('name', accountName); accountGr.query(); if
-            (accountGr.hasNext()) { return true; } return false; } })(source, map, log, target); </code>
+                  var accountNames = source.u_which_accoun_d_to_be_linked.split(/\s*,\s*/);
+                  var validAccounts = [];
+                  for (var i = 0; i < accountNames.length; i++) {
+                      if (isValidAccount(accountNames[i])) {
+                          validAccounts.push(accountNames[i]);
+                      }
+                  }
+                  var accountGr = new GlideRecord('customer_account');
+                  accountGr.addQuery('name', 'IN', validAccounts);
+                  accountGr.query();
+                  while (accountGr.next()) {
+                      createSoldProduct(productSysId, productName, accountGr.sys_id.toString(), accountGr.name.toString());
+                  }
+                  if (accountNames.length != validAccounts.length) { // Use generic account var
+                      genericAccountSysId = gs.getProperty('kap.sold.product.generic.account.sys.id');
+                      if (genericAccountSysId) {
+                          var genericAccountGr = new GlideRecord('customer_account');
+                          if (genericAccountGr.get(genericAccountSysId)) {
+                              createSoldProduct(productSysId, productName, genericAccountSysId, genericAccountGr.name.toString());
+                          }
+                      }
+                  }
+              } else {
+                // Use generic account 
+                var genericAccountId = gs.getProperty('kap.sold.product.generic.account.sys.id');
+                  if (genericAccountId) {
+                      var
+                          genericAccGr = new GlideRecord('customer_account');
+                      if (genericAccGr.get(genericAccountId)) {
+                          createSoldProduct(productSysId, productName, genericAccountId, genericAccGr.name.toString());
+                      }
+                  }
+              }
+              //Reusable function to insert a Sold Product
+              function createSoldProduct(productId, productName, accountId,
+                  accountName) {
+                  var soldProduct = new GlideRecord('sn_install_base_sold_product');
+                  soldProduct.initialize();
+                  soldProduct.product = productId;
+                  soldProduct.account = accountId;
+                  soldProduct.name = productName + ' - ' +
+                      accountName;
+                  soldProduct.insert();
+              }
+
+              function isValidAccount(accountName) {
+                  var accountGr = new
+                  GlideRecord('customer_account');
+                  accountGr.addQuery('name', accountName);
+                  accountGr.query();
+                  if (accountGr.hasNext()) {
+                      return true;
+                  }
+                  return false;
+              }
+          })(source, map, log, target); 
+        </code>
             </pre>
         </div>
 
