@@ -2,197 +2,72 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Automate Creation of Product and Sold Product Records from Excel via Flow and Transform Map</title>
-    <link rel="icon" href="images/r-letter-logo.png" type="image/x-icon" />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;700&display=swap" rel="stylesheet" />
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-
-      <style>
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      font-family: "Poppins", sans-serif;
-      background: linear-gradient(to bottom right, #f8f9fa, #e8ebf0);
-      color: #212529;
-      font-size: 1rem;
-    }
-
-    .section {
-      padding: 60px 20px;
-      max-width: 900px;
-      margin: 40px auto;
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
-    }
-
-    code,
-    pre {
-      background: #f1f3f5;
-      padding: 12px;
-      display: block;
-      white-space: pre-wrap;
-      border-left: 4px solid #0077cc;
-      overflow-x: auto;
-      border-radius: 6px;
-      font-size: 0.95rem;
-    }
-
-    footer {
-      text-align: center;
-      padding: 20px;
-      background: #181a1f;
-      color: white;
-      margin-top: 60px;
-    }
-
-    button {
-      background-color: #0077cc;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      margin-top: 10px;
-      cursor: pointer;
-      font-weight: 500;
-      border-radius: 24px;
-      transition: all 0.3s ease;
-      font-size: 1rem;
-    }
-
-    button:hover {
-      background-color: #005fa3;
-      transform: translateY(-2px);
-    }
-
-    .navbar-dark .navbar-nav .nav-link {
-      color: white !important;
-
-    }
-
-    .navbar-dark .navbar-toggler {
-        width: auto;
-    }
-    img {
-      max-width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    @media (max-width: 992px) {
-      .section {
-        max-width: 98%;
-        padding: 36px 8px;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .section {
-        max-width: 100%;
-        padding: 24px 2vw;
-      }
-    }
-
-    @media (max-width: 576px) {
-
-      body,
-      .section,
-      code,
-      pre,
-      button {
-        font-size: 0.9rem;
-      }
-
-      .section {
-        padding: 18px 4vw;
-        margin: 5px 0;
-        border-radius: 8px;
-      }
-
-      code,
-      pre {
-        padding: 8px;
-        font-size: 0.8rem;
-      }
-
-      button {
-        padding: 10px 0;
-        width: 100%;
-        font-size: 1rem;
-        border-radius: 20px;
-      }
-
-      h1 {
-        font-size: 1.4rem;
-        text-align: left;
-        word-break: break-word;
-      }
-
-      h2,
-      h3 {
-        font-size: 1.1rem;
-      }
-
-      ul,
-      ol {
-        margin-left: 15px;
-        padding-left: 10px;
-      }
-
-      footer {
-        font-size: 0.8rem;
-        padding: 10px;
-      }
-
-      .navbar {
-        min-height: 56px;
-      }
-    }
-
-    /* Ensure images never overflow */
-    img,
-    .section img {
-      width: 100%;
-      max-width: 100%;
-      height: auto;
-      margin: 0.3em 0;
-    }
-
-    @media (max-width: 576px) {
-      hr {
-        margin: 12px 0;
-      }
-    }
-  </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Use Script Include in Filter – ServiceNow</title>
+  <meta name="description"
+    content="Rohan Aditya - Platform Developer and ServiceNow Expert. Skilled in full-stack development and innovative software solutions." />
+  <link rel="icon" href="images/r-letter-logo.png" type="image/png" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <link rel="stylesheet" href="index.css">
 </head>
 
 <body>
-
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top shadow-sm">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" style="border: none;">
-      <img src="images/menu.png" alt="Menu" style="max-width: 32px; height: auto;" />
-    </button>
-    <span class="navbar-text ml-auto" style="color: white; font-weight: 600; font-size: 1.25rem;">
-      Rohan's blog
-    </span>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item"><a class="nav-link" href="index.html#home">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="index.html#contact">Contact</a></li>
-      </ul>
+  <!-- Header -->
+  <header>
+    <div class="nav">
+      <div class="brand">
+        <h1><a href="index.html#home">Rohan Aditya</a></h1>
+      </div>
+      <nav>
+        <ul>
+          <!-- <li><a href="https://rohanaditya-servicenow.vercel.app/">Home</a></li> -->
+          <li><a href="https://rohanaditya-servicenow.vercel.app/" class="active">Blogs</a></li>
+          <li><a href="https://rohanaditya.vercel.app">About Me</a></li>
+        </ul>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-expanded="false" aria-label="Open menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" />
+        </svg>
+      </button>
     </div>
+  </header>
+
+  <!-- Mobile Nav -->
+  <div id="overlay"></div>
+  <nav class="mobile-nav" id="mobileNav" aria-hidden="true">
+    <button class="close-btn" id="mobileClose" aria-label="Close menu">&times;</button>
+    <ul>
+      <!-- <li><a href="index.html#home">Home</a></li> -->
+      <li><a href="https://rohanaditya-servicenow.vercel.app/" class="active">Blogs</a></li>
+      <li><a href="https://rohanaditya.vercel.app">About Me</a></li>
+    </ul>
   </nav>
+
+    <!-- Hero Section -->
+  <section class="hero">
+    <div id="particles-js"></div>
+      <div class="hero-wrap">
+      <div>
+        <h2>Automate Creation of Product and Sold Product Records from Excel via Flow and Transform Map</h2>
+        <p><strong>Author:</strong> Rohan Aditya</p>
+        <p>Key points covered:</p>
+        <ul>
+          <li>Triggering transform map from Flow Designer</li>
+          <li>Establishing relation between Import Set & Requested Item</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
     
     <!-- Main Section -->
-    <section class="section">
-        <h1>Establishing Relation Between Flow Designer, Transform Map, and Target Records</h1>
+    <section class="hero">
+        <h1></h1>
         <br>
         <p><strong>Author:</strong> Rohan Aditya </p>
         <br>
@@ -245,10 +120,10 @@
                     <hr>
                     <img src="images/flow-designer-image.png" alt="Screenshot of Catalog Item setup in ServiceNow" style="max-width:100%; height:auto; margin:10px 0;" />
                     <hr>
-                    <li><u>Look Up Attachment Record:</u> Retrieve the Excel file attachment belonging to the requested item submitted via the Catalog Item.</li>
-                    <li><u>Copy Attachment:</u> Create a copy of the attachment to safely process/import data without affecting the original file.</li>
+                    <li><b>Look Up Attachment Record:</b> Retrieve the Excel file attachment belonging to the requested item submitted via the Catalog Item.</li>
+                    <li><b>Copy Attachment:</b> Create a copy of the attachment to safely process/import data without affecting the original file.</li>
                     <li>
-                        <u>Get Import Set:</u>
+                        <b>Get Import Set:</b>
                         Trigger a custom Flow action that calls a method - getImportSetSysId from Script Include - KapCreateProductUtils method passing the Requested Item sys_id.
                         This action loads the Excel attachment data into a new Import Set table, links each imported row to the Requested Item for traceability, and returns the Import Set record ID for further processing.
                         <br>
@@ -265,13 +140,13 @@
                         <hr>
                     </li>
 
-                    <li><u>Look Up Data Source Record:</u> Reference the Data Source by its sys_id, corresponding to the import set or Excel data source configuration.</li>
+                    <li><b>Look Up Data Source Record:</b> Reference the Data Source by its sys_id, corresponding to the import set or Excel data source configuration.</li>
                     <hr>
                     <img src="images/data-source.png" alt="">
-                    <li><u>Look Up Records in Import Set:</u> Find records in the import set created for the multiple products.</li>
+                    <li><b>Look Up Records in Import Set:</b> Find records in the import set created for the multiple products.</li>
                     <hr>
                     <img src="images/import-set-step.png" alt="">
-                    <li><u>Trigger Transform Map:</u> Run the Transform Map to map and create actual Product records in the target table from the import set data.</li>
+                    <li><b>Trigger Transform Map:</b> Run the Transform Map to map and create actual Product records in the target table from the import set data.</li>
                     <hr>
                     <p>Here are the important steps in creating a custom action to Trigger Transform Map</p>
                     <img src="images/trigger-transform-map.png" alt="">
@@ -282,8 +157,8 @@
                     <hr>
                     <img src="images/trigger-transform-map-step-2.png" alt="">
                     <li>
-                        <u>Create Script Include:</u>
-                        <pre><code style="font-size:x-small;">
+                        <b>Create Script Include:</b>
+                        <div class="code-block">
 var KapCreateProductUtils = Class.create();
 KapCreateProductUtils.prototype = {
     initialize: function() {},
@@ -330,11 +205,11 @@ KapCreateProductUtils.prototype = {
     },
     type: 'KapCreateProductUtils'
 };
-  </code></pre>
+  </code></pre></div>
                     </li>
 
-                    <li><u>Delete Attachment:</u> Remove the copied attachment after processing to clean up.</li>
-                    <li><u>Update Requested Item Record:</u> Update the original Requested Item record, for example, by adding comments or status to reflect completion.</li>
+                    <li><b>Delete Attachment:</b> Remove the copied attachment after processing to clean up.</li>
+                    <li><b>Update Requested Item Record:</b> Update the original Requested Item record, for example, by adding comments or status to reflect completion.</li>
                     <li>Add a Work Note or comment to the Requested Item with clickable links to the newly created records.</li>
                     <li>Activate the Flow to enable this automation.</li>
                 </ul>
@@ -361,7 +236,7 @@ KapCreateProductUtils.prototype = {
                             <li>If Accounts are mentioned in Excel, create Sold Products and attach them to the mentioned accounts.</li>
                             <li>If Accounts are not mentioned, create Sold Products and attach them to a Default Account.</li>
                         </ul>
-                        <pre><code style="font-size:x-small;">
+                        <div class="code-block">
 (function runTransformScript(source, map, log, target) {
 
 
@@ -442,10 +317,10 @@ KapCreateProductUtils.prototype = {
 
 
 })(source, map, log, target);
-</code></pre>
+</code></pre></div>
 
                         <li>onComplete Transform Script to create a link to display created Products and Sold Products</li>
-                        <pre><code style="font-size: x-small;">
+                        <div class="code-block">
 (function runTransformScript(source, map, log, target /*undefined onStart*/ ) {
 
     var rowGr = new GlideRecord(source.getTableName());
@@ -505,7 +380,7 @@ KapCreateProductUtils.prototype = {
     }
 
 })(source, map, log, target);
-</code></pre>
+</code></pre></div>
 
                     </ol>
 
@@ -529,10 +404,133 @@ KapCreateProductUtils.prototype = {
             <hr>
         </ul>
 
-        <!-- Footer -->
-        <footer>
-            &copy; 2025 Rohan's ServiceNow Blog
-        </footer>
+  <!-- Footer -->
+    <footer>
+        <div class="footer-wrap">
+            <div>
+                <strong>© <span id="year"></span> Rohan Aditya</strong>
+            </div>
+        </div>
+    </footer>
+
+  <!-- Scripts -->
+    <script>
+        var hamburger = document.getElementById("hamburger");
+        var mobileNav = document.getElementById("mobileNav");
+        var mobileClose = document.getElementById("mobileClose");
+        var overlay = document.getElementById("overlay");
+
+        function openMenu() {
+            mobileNav.classList.add("open");
+            mobileNav.setAttribute("aria-hidden", "false");
+            overlay.classList.add("show");
+            document.body.style.overflow = "hidden";
+            hamburger.setAttribute("aria-expanded", "true");
+        }
+
+        function closeMenu() {
+            mobileNav.classList.remove("open");
+            mobileNav.setAttribute("aria-hidden", "true");
+            overlay.classList.remove("show");
+            document.body.style.overflow = "";
+            hamburger.setAttribute("aria-expanded", "false");
+        }
+
+        if (hamburger) {
+            hamburger.addEventListener("click", function () {
+                if (mobileNav.classList.contains("open")) {
+                    closeMenu();
+                } else {
+                    openMenu();
+                }
+            });
+        }
+        if (mobileClose) {
+            mobileClose.addEventListener("click", function () {
+                closeMenu();
+            });
+        }
+        overlay.addEventListener("click", function () {
+            closeMenu();
+        });
+
+        var mobileLinks = document.querySelectorAll(".mobile-nav a");
+        for (var i = 0; i < mobileLinks.length; i++) {
+            mobileLinks[i].addEventListener("click", function () {
+                closeMenu();
+            });
+        }
+
+        var yearEl = document.getElementById("year");
+        if (yearEl) {
+            yearEl.textContent = new Date().getFullYear();
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        const swiper = new Swiper('.gallerySwiper', {
+            loop: true,
+            slidesPerView: 1,
+            spaceBetween: 10,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev'
+            },
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false
+            },
+        });
+    </script>
+    <script>
+        particlesJS("particles-js", {
+            particles: {
+                number: { value: 100, density: { enable: true, value_area: 800 } },
+                color: { value: "#ffffff" },
+                shape: { type: "circle", stroke: { width: 0, color: "#8c5e41" } },
+                opacity: { value: 1 },
+                size: { value: 1, random: true },
+                line_linked: { enable: true, distance: 200, color: "#8c5e41", opacity: 1, width: 0.8 },
+                move: { enable: true, speed: 8 }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: { enable: true, mode: "grab" },
+                    onclick: { enable: true, mode: "push" },
+                    resize: true
+                },
+                modes: {
+                    grab: { distance: 140, line_linked: { opacity: 1 } },
+                    push: { particles_nb: 4 }
+                }
+            },
+            retina_detect: true
+        });
+
+        document.querySelectorAll('.nav a, .mobile-nav a').forEach(link => {
+            link.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+
+                if (href.startsWith('http') || href.startsWith('mailto')) return;
+
+                e.preventDefault();
+                document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
+
+                if (window.innerWidth < 768) {
+                    document.getElementById('mobileNav').classList.remove('open');
+                    document.getElementById('overlay').classList.remove('show');
+                    document.getElementById('hamburger').setAttribute('aria-expanded', 'false');
+                    document.body.style.overflow = '';
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
