@@ -1,180 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Quick Links Widget – ServiceNow</title>
-  <link rel="icon" href="images/r-letter-logo.png" type="image/x-icon" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;700&display=swap" rel="stylesheet"/>
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"/>
- <style>
-  html {
-    scroll-behavior: smooth;
-  }
-
-  body {
-    margin: 0;
-    font-family: "Poppins", sans-serif;
-    background: linear-gradient(to bottom right, #f8f9fa, #e8ebf0);
-    color: #212529;
-  }
-
-  section {
-    scroll-margin-top: 10px;
-  }
-
-  .section {
-    padding: 60px 20px;
-    max-width: 900px;
-    margin: 40px auto;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
-  }
-
-  h1, h2, h3, h4 {
-    font-weight: 500;
-    color: #181a1f;
-    line-height: 1.4;
-    margin-bottom: 20px;
-  }
-
-  h3, h4 {
-    font-size: 1.25rem;
-  }
-
-  code, pre {
-    background: #f1f3f5;
-    padding: 12px;
-    display: block;
-    white-space: pre-wrap;
-    border-left: 4px solid #0077cc;
-    overflow-x: auto;
-    border-radius: 6px;
-    font-family: "Courier New", Courier, monospace;
-  }
-
-  .code-container.collapsed {
-    max-height: 100px;
-    overflow: hidden;
-    position: relative;
-    transition: max-height 0.3s ease;
-  }
-
-  .code-container.expanded {
-    max-height: none;
-  }
-
-  button {
-    background-color: #0077cc;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    margin-top: 10px;
-    cursor: pointer;
-    font-weight: 500;
-    border-radius: 24px;
-    transition: all 0.3s ease;
-  }
-
-  button:hover {
-    background-color: #005fa3;
-    transform: translateY(-2px);
-  }
-
-  .quick-links li {
-    margin-bottom: 8px;
-  }
-
-  .quick-links a {
-    color: #0077cc;
-    text-decoration: none;
-    font-weight: 500;
-  }
-
-  .quick-links a:hover {
-    text-decoration: underline;
-  }
-
-  .quicklinkimg img {
-    width: 100%;
-    border: 1px solid #dee2e6;
-    border-radius: 12px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-  }
-
-  footer {
-    text-align: center;
-    padding: 32px 20px 8px;
-    background: #181a1f;
-    color: white;
-    margin-top: 60px;
-    font-weight: 400;
-  }
-
-  .navbar-dark .navbar-nav .nav-link {
-    color: white !important;
-  }
-
-  @media (max-width: 576px) {
-    body {
-      font-size: 1rem;
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Show Table Data in Modal – ServiceNow</title>
+  <meta name="description"
+    content="Rohan Aditya - Platform Developer and ServiceNow Expert. Skilled in full-stack development and innovative software solutions." />
+  <link rel="icon" href="images/r-letter-logo.png" type="image/png" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <link rel="stylesheet" href="index.css">
+  <style>
+    .code-container {
+      max-height: 200px;
+      /* default collapsed height */
+      overflow: hidden;
+      transition: max-height 0.4s ease;
     }
 
-    .section {
-      padding: 30px 15px;
+    .code-container.expanded {
+      max-height: 1000px;
+      /* enough to show all code */
     }
 
-    h1, h2 {
-      font-size: 1.4rem;
+    .code-container.collapsed {
+      max-height: 200px;
+      /* same as default collapsed */
     }
-
-    h3, h4 {
-      font-size: 1.2rem;
-    }
-
-    .quicklinkimg img {
-      max-width: 100%;
-      height: auto;
-    }
-  }
-</style>
-
+  </style>
 </head>
+
 <body>
+  <!-- Header -->
+  <header>
+    <div class="nav">
+      <div class="brand">
+        <h1><a href="index.html#home">Rohan Aditya</a></h1>
+      </div>
+      <nav>
+        <ul>
+          <!-- <li><a href="https://rohanaditya-servicenow.vercel.app/">Home</a></li> -->
+          <li><a href="https://rohanaditya-servicenow.vercel.app/" class="active">Blogs</a></li>
+          <li><a href="https://rohanaditya.vercel.app">About Me</a></li>
+        </ul>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-expanded="false" aria-label="Open menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" />
+        </svg>
+      </button>
+    </div>
+  </header>
 
-	<nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top shadow-sm">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" style="border: none;">
-    <img src="images/menu.png" alt="Menu" style="max-width: 32px; height: auto;" />
-  </button>
-  <span class="navbar-text ml-auto" style="color: white; font-weight: 600; font-size: 1.25rem;">
-    Rohan's blog
-  </span>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav ml-auto">
-      <!-- You can hide links here or add if needed -->
-      <li class="nav-item"><a class="nav-link" href="index.html#home">Home</a></li>
-      <li class="nav-item"><a class="nav-link" href="index.html#contact">Contact</a></li>
+  <!-- Mobile Nav -->
+  <div id="overlay"></div>
+  <nav class="mobile-nav" id="mobileNav" aria-hidden="true">
+    <button class="close-btn" id="mobileClose" aria-label="Close menu">&times;</button>
+    <ul>
+      <!-- <li><a href="index.html#home">Home</a></li> -->
+      <li><a href="https://rohanaditya-servicenow.vercel.app/" class="active">Blogs</a></li>
+      <li><a href="https://rohanaditya.vercel.app">About Me</a></li>
     </ul>
-  </div>
-</nav>
+  </nav>
 
-  <section class="section">
-    <h1 class="mb-4">Custom Quick Link Widget</h1>
-    <p><strong>Author:</strong> Me. Blame me if it breaks.</p>
-    <p>Here’s how I built a custom ServiceNow widget that transforms ordinary links into vibrant, center-aligned cards. <br> Stylish? Absolutely. <br> <span style="color: red;" >Overengineered?</span> Maybe.</p>
-    <p>Steps to Create this Custom Quick Link Widget</p>
-<ol>
-  <li>From the All menu, navigate to Service Portal > Widgets.</li>
-  <li>In the widget list, search for "Quick Links" and open its record.</li>
-  <li>Once the widget record opens, click the Clone button located in the top-right corner. This will create a duplicate widget titled "Copy of Quick Links".</li>
-  <li>Update the cloned widget’s Name, ID, and Description to reflect your custom version.</li>
-  <li>Scroll down and update the widget’s HTML Template, CSS, Client Script, and Server Script sections as outlined in the following steps.</li>
-  <li>Alternatively, you can import the pre-configured XML file provided at the end of this article to apply the custom layout and behaviour instantly.</li>
-</ol>
-
-<!-- Download Button -->
-<button onclick="forceDownload()" style="
+  <!-- Hero Section -->
+  <section class="hero">
+    <div id="particles-js"></div>
+    <div class="hero-wrap">
+      <div>
+        <h2>Custom Quick Link Widget</h2>
+        <p><strong>Author:</strong> Rohan Aditya</p>
+        <p>Key points covered:</p>
+        <ul>
+          <li>Creating custom widgets in ServiceNow</li>
+          <li>Adding quick navigation features</li>
+        </ul>
+        <p>Here’s how I built a custom ServiceNow widget that transforms ordinary links into vibrant, center-aligned
+          cards. <br> Stylish? Absolutely. <br> <span style="color: red;">Overengineered?</span> Maybe.</p>
+        <p>Steps to Create this Custom Quick Link Widget</p>
+        <ol>
+          <li>From the All menu, navigate to Service Portal > Widgets.</li>
+          <li>In the widget list, search for "Quick Links" and open its record.</li>
+          <li>Once the widget record opens, click the Clone button located in the top-right corner. This will create a
+            duplicate widget titled "Copy of Quick Links".</li>
+          <li>Update the cloned widget’s Name, ID, and Description to reflect your custom version.</li>
+          <li>Scroll down and update the widget’s HTML Template, CSS, Client Script, and Server Script sections as
+            outlined in the following steps.</li>
+          <li>Alternatively, you can import the pre-configured XML file provided at the end of this article to apply the
+            custom layout and behaviour instantly.</li>
+        </ol>
+        <!-- Download Button -->
+        <button onclick="forceDownload()" style="
   padding: 10px 20px;
   background-color: #007bff;
   color: white;
@@ -182,20 +101,20 @@
   border-radius: 4px;
   cursor: pointer;
 ">
-  ⬇ Download Widget XML from GitHub
-</button>
+          ⬇ Download Widget XML from GitHub
+        </button>
+        <h1 class="mt-5">Quick Navigation</h1>
+        <ul class="quick-links">
+          <li><a href="#html">HTML Template</a></li>
+          <li><a href="#css">CSS Styling</a></li>
+          <li><a href="#server">Server Script</a></li>
+          <li><a href="#client">Client Script</a></li>
+        </ul>
 
-    <h2 class="mt-5">Quick Navigation</h2>
-    <ul class="quick-links">
-      <li><a href="#html">HTML Template</a></li>
-      <li><a href="#css">CSS Styling</a></li>
-      <li><a href="#server">Server Script</a></li>
-      <li><a href="#client">Client Script</a></li>
-    </ul>
-
-    <h2 id="html" class="mt-5">HTML Template</h2>
-    <div id="code-html" class="code-container collapsed">
-      <pre><code>
+        <h1 id="html" class="mt-5">HTML Template</h1>
+        <div id="code-html" class="code-container collapsed">
+          <div class="code-block">
+            <pre><code>
 &lt;!-- Quick Link Card --&gt;
 &lt;div class="all-card-container"&gt;
   &lt;a class="quick-links card"
@@ -223,13 +142,15 @@
   &lt;/a&gt;
 &lt;/div&gt;
 </code></pre>
+          </div>
 
-    </div>
-    <button onclick="toggleCode('code-html', this)">Read more ↓</button>
-    <button id="html-copy-button" onclick="copyHTMLCode()">Copy</button>
-    <h2 id="css" class="mt-5">CSS Styling</h2>
-    <div id="code-css" class="code-container collapsed">
-      <pre><code>.quick-links {
+        </div>
+        <button onclick="toggleCode('code-html', this)">Read more ↓</button>
+        <button id="html-copy-button" onclick="copyHTMLCode()">Copy</button>
+        <h1 id="css" class="mt-5">CSS Styling</h1>
+        <div id="code-css" class="code-container collapsed">
+          <div class="code-block">
+            <pre><code>.quick-links {
   --bg-color: #DCE9FF;
   --bg-color-light: #f1f7ff;
   --text-color-hover: #4C5656;
@@ -355,12 +276,14 @@
 }
 
 	</code></pre>
-    </div>
-    <button onclick="toggleCode('code-css', this)">Read more ↓</button>
-    <button id="css-copy-button" onclick="copyCSSCode()">Copy</button>
+          </div>
+        </div>
+        <button onclick="toggleCode('code-css', this)">Read more ↓</button>
+        <button id="css-copy-button" onclick="copyCSSCode()">Copy</button>
 
-    <h2 id="server" class="mt-5">Server Script</h2>
-    <div id="code-server" class="code-container collapsed">
+        <h1 id="server" class="mt-5">Server Script</h1>
+        <div id="code-server" class="code-container collapsed">
+          <div class="code-block">
             <pre><code>(function () {
     data.instanceId = $sp.getDisplayValue("sys_id");
     var quickLinkId = $sp.getParameter("quick_link_id");
@@ -407,12 +330,14 @@
 })();
 
             </code></pre>
-    </div>
-    <button onclick="toggleCode('code-server', this)">Read more ↓</button>
-    <button id="server-copy-button" onclick="copyServerCode()">Copy</button>
+          </div>
+        </div>
+        <button onclick="toggleCode('code-server', this)">Read more ↓</button>
+        <button id="server-copy-button" onclick="copyServerCode()">Copy</button>
 
-    <h2 id="client" class="mt-5">Client Script</h2>
-    <div id="code-client" class="code-container collapsed">
+        <h1 id="client" class="mt-5">Client Script</h1>
+        <div id="code-client" class="code-container collapsed">
+          <div class="code-block">
             <pre><code>api.controller = function($scope, $timeout, $window) {
     var c = this;
     $scope.isLoading = false;
@@ -444,21 +369,153 @@
 };
 
             </code></pre>
-    </div>
-    <button onclick="toggleCode('code-client', this)">Read more ↓</button>
-    <button id="client-side-copy-button" onclick="copyClientSideCode()">Copy</button>
+          </div>
+        </div>
+        <button onclick="toggleCode('code-client', this)">Read more ↓</button>
+        <button id="client-side-copy-button" onclick="copyClientSideCode()">Copy</button>
 
-    <h2 class="mt-5">Final Result</h2>
-    <p>You’ll get a responsive set of colorful cards centered on the page. Each card links to a different ServiceNow page or resource. This widget works great on Employee Center portals.</p>
-    <div class="quicklinkimg" style="display: flex; flex-direction: column; gap: 20px; align-items: center;">
-      <img src="images/quicklink-before-hover.png" alt="Quick Link Reference 1" />
-      <img src="images/quicklink-on-hover.png" alt="Quick Link Reference 2" />
-    </div>
+        <h1 class="mt-5">Final Result</h1>
+        <p>You’ll get a responsive set of colorful cards centered on the page. Each card links to a different ServiceNow
+          page or resource. This widget works great on Employee Center portals.</p>
+        <div class="quicklinkimg" style="display: flex; flex-direction: column; gap: 20px; align-items: center;">
+          <img src="images/quicklink-before-hover.png" alt="Quick Link Reference 1" />
+          <img src="images/quicklink-on-hover.png" alt="Quick Link Reference 2" />
+        </div>
   </section>
 
+  </div>
+  </div>
+  </section>
+
+
+
+  <!-- Footer -->
   <footer>
-    <p>&copy; 2025 Rohan Aditya. All rights reserved.</p>
+    <div class="footer-wrap">
+      <div>
+        <strong>© <span id="year"></span> Rohan Aditya</strong>
+      </div>
+    </div>
   </footer>
+
+  <!-- Scripts -->
+  <script>
+    var hamburger = document.getElementById("hamburger");
+    var mobileNav = document.getElementById("mobileNav");
+    var mobileClose = document.getElementById("mobileClose");
+    var overlay = document.getElementById("overlay");
+
+    function openMenu() {
+      mobileNav.classList.add("open");
+      mobileNav.setAttribute("aria-hidden", "false");
+      overlay.classList.add("show");
+      document.body.style.overflow = "hidden";
+      hamburger.setAttribute("aria-expanded", "true");
+    }
+
+    function closeMenu() {
+      mobileNav.classList.remove("open");
+      mobileNav.setAttribute("aria-hidden", "true");
+      overlay.classList.remove("show");
+      document.body.style.overflow = "";
+      hamburger.setAttribute("aria-expanded", "false");
+    }
+
+    if (hamburger) {
+      hamburger.addEventListener("click", function () {
+        if (mobileNav.classList.contains("open")) {
+          closeMenu();
+        } else {
+          openMenu();
+        }
+      });
+    }
+    if (mobileClose) {
+      mobileClose.addEventListener("click", function () {
+        closeMenu();
+      });
+    }
+    overlay.addEventListener("click", function () {
+      closeMenu();
+    });
+
+    var mobileLinks = document.querySelectorAll(".mobile-nav a");
+    for (var i = 0; i < mobileLinks.length; i++) {
+      mobileLinks[i].addEventListener("click", function () {
+        closeMenu();
+      });
+    }
+
+    var yearEl = document.getElementById("year");
+    if (yearEl) {
+      yearEl.textContent = new Date().getFullYear();
+    }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    const swiper = new Swiper('.gallerySwiper', {
+      loop: true,
+      slidesPerView: 1,
+      spaceBetween: 10,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev'
+      },
+      autoplay: {
+        delay: 3000,
+        disableOnInteraction: false
+      },
+    });
+  </script>
+  <script>
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 100, density: { enable: true, value_area: 800 } },
+        color: { value: "#ffffff" },
+        shape: { type: "circle", stroke: { width: 0, color: "#8c5e41" } },
+        opacity: { value: 1 },
+        size: { value: 1, random: true },
+        line_linked: { enable: true, distance: 200, color: "#8c5e41", opacity: 1, width: 0.8 },
+        move: { enable: true, speed: 8 }
+      },
+      interactivity: {
+        detect_on: "canvas",
+        events: {
+          onhover: { enable: true, mode: "grab" },
+          onclick: { enable: true, mode: "push" },
+          resize: true
+        },
+        modes: {
+          grab: { distance: 140, line_linked: { opacity: 1 } },
+          push: { particles_nb: 4 }
+        }
+      },
+      retina_detect: true
+    });
+
+    document.querySelectorAll('.nav a, .mobile-nav a').forEach(link => {
+      link.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+
+        if (href.startsWith('http') || href.startsWith('mailto')) return;
+
+        e.preventDefault();
+        document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
+
+        if (window.innerWidth < 768) {
+          document.getElementById('mobileNav').classList.remove('open');
+          document.getElementById('overlay').classList.remove('show');
+          document.getElementById('hamburger').setAttribute('aria-expanded', 'false');
+          document.body.style.overflow = '';
+        }
+      });
+    });
+  </script>
 
   <script>
 
@@ -478,63 +535,64 @@
 
 
     function forceDownload() {
-  const url = "https://raw.githubusercontent.com/aytid/servicenow/main/custom-quick-link.xml";
-  fetch(url)
-    .then(res => res.blob())
-    .then(blob => {
-      const a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
-      a.download = "QuickLinksWidget.xml"; // <-- Desired filename here
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-    })
-    .catch(() => alert("Download failed. Please check the file URL."));
-}
+      const url = "https://raw.githubusercontent.com/aytid/servicenow/main/custom-quick-link.xml";
+      fetch(url)
+        .then(res => res.blob())
+        .then(blob => {
+          const a = document.createElement("a");
+          a.href = URL.createObjectURL(blob);
+          a.download = "QuickLinksWidget.xml"; // <-- Desired filename here
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        })
+        .catch(() => alert("Download failed. Please check the file URL."));
+    }
 
 
-function copyHTMLCode() {
-  const code = document.getElementById("code-html").innerText;
-  navigator.clipboard.writeText(code).then(() => {
-    document.getElementById('html-copy-button').innerHTML = 'Copied';
-    //alert("HTML code copied to clipboard!");
-  }).catch(err => {
-    //alert("Failed to copy: " + err);
-  });
-}
+    function copyHTMLCode() {
+      const code = document.getElementById("code-html").innerText;
+      navigator.clipboard.writeText(code).then(() => {
+        document.getElementById('html-copy-button').innerHTML = 'Copied';
+        //alert("HTML code copied to clipboard!");
+      }).catch(err => {
+        //alert("Failed to copy: " + err);
+      });
+    }
 
-function copyCSSCode() {
-  const code = document.getElementById("code-css").innerText;
-  navigator.clipboard.writeText(code).then(() => {
-    document.getElementById('css-copy-button').innerHTML = 'Copied';
-    //alert("HTML code copied to clipboard!");
-  }).catch(err => {
-    //alert("Failed to copy: " + err);
-  });
-}
+    function copyCSSCode() {
+      const code = document.getElementById("code-css").innerText;
+      navigator.clipboard.writeText(code).then(() => {
+        document.getElementById('css-copy-button').innerHTML = 'Copied';
+        //alert("HTML code copied to clipboard!");
+      }).catch(err => {
+        //alert("Failed to copy: " + err);
+      });
+    }
 
-function copyServerCode() {
-  const code = document.getElementById("code-server").innerText;
-  navigator.clipboard.writeText(code).then(() => {
-    document.getElementById('server-copy-button').innerHTML = 'Copied';
-    //alert("HTML code copied to clipboard!");
-  }).catch(err => {
-    //alert("Failed to copy: " + err);
-  });
-}
+    function copyServerCode() {
+      const code = document.getElementById("code-server").innerText;
+      navigator.clipboard.writeText(code).then(() => {
+        document.getElementById('server-copy-button').innerHTML = 'Copied';
+        //alert("HTML code copied to clipboard!");
+      }).catch(err => {
+        //alert("Failed to copy: " + err);
+      });
+    }
 
-function copyClientSideCode() {
-  const code = document.getElementById("code-client").innerText;
-  navigator.clipboard.writeText(code).then(() => {
-    document.getElementById('client-side-copy-button').innerHTML = 'Copied';
-    //alert("HTML code copied to clipboard!");
-  }).catch(err => {
-    //alert("Failed to copy: " + err);
-  });
-}
+    function copyClientSideCode() {
+      const code = document.getElementById("code-client").innerText;
+      navigator.clipboard.writeText(code).then(() => {
+        document.getElementById('client-side-copy-button').innerHTML = 'Copied';
+        //alert("HTML code copied to clipboard!");
+      }).catch(err => {
+        //alert("Failed to copy: " + err);
+      });
+    }
   </script>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
 </html>
