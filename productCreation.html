@@ -167,53 +167,54 @@
       <li>
         <b>Create Script Include:</b>
         <div class="code-block">
-          var KapCreateProductUtils = Class.create();
-          KapCreateProductUtils.prototype = {
-          initialize: function() {},
+         <pre><code>
+var KapCreateProductUtils = Class.create();
+KapCreateProductUtils.prototype = {
+    initialize: function() {},
 
-          getImportSetSysId: function (ritmSysId) {
-          var dataSourceSysId = gs.getProperty('kap.create.product.data.source.sys.id');
+    getImportSetSysId: function(ritmSysId) {
+        var dataSourceSysId = gs.getProperty('kap.create.product.data.source.sys.id');
 
-          var grDataSource = new GlideRecord('sys_data_source');
-          if (grDataSource.get(dataSourceSysId)) {
-          var loader = new GlideImportSetLoader();
-          var importSetRec = loader.getImportSetGr(grDataSource);
-          loader.loadImportSetTable(importSetRec, grDataSource);
+        var grDataSource = new GlideRecord('sys_data_source');
+        if (grDataSource.get(dataSourceSysId)) {
+            var loader = new GlideImportSetLoader();
+            var importSetRec = loader.getImportSetGr(grDataSource);
+            loader.loadImportSetTable(importSetRec, grDataSource);
 
-          importSetRec.state = "loaded";
-          importSetRec.update();
+            importSetRec.state = "loaded";
+            importSetRec.update();
 
-          var importTableName = importSetRec.getValue("table_name");
+            var importTableName = importSetRec.getValue("table_name");
 
-          if (!importTableName) {
-          gs.error("Import Set Table Name is null. Cannot proceed.");
-          return;
-          }
+            if (!importTableName) {
+                gs.error("Import Set Table Name is null. Cannot proceed.");
+                return;
+            }
 
-          var rowGR = new GlideRecord(importTableName);
-          rowGR.addQuery("import_set", importSetRec.getUniqueValue());
-          rowGR.query();
-          while (rowGR.next()) {
-          rowGR.u_requested_item = ritmSysId;
-          rowGR.update();
-          }
+            var rowGR = new GlideRecord(importTableName);
+            rowGR.addQuery("import_set", importSetRec.getUniqueValue());
+            rowGR.query();
+            while (rowGR.next()) {
+                rowGR.u_requested_item = ritmSysId;
+                rowGR.update();
+            }
 
-          return importSetRec.getUniqueValue();
-          }
+            return importSetRec.getUniqueValue();
+        }
 
-          return null;
-          },
+        return null;
+    },
 
-          triggerTransformMap: function(importSetRecSysID) {
-          var transformSysId = gs.getProperty('kap.create.product.transform.map.sys.id');
+    triggerTransformMap: function(importSetRecSysID) {
+        var transformSysId = gs.getProperty('kap.create.product.transform.map.sys.id');
 
-          var transformWorker = new GlideImportSetTransformerWorker(importSetRecSysID, transformSysId);
-          transformWorker.setBackground(true);
-          transformWorker.start();
-          },
-          type: 'KapCreateProductUtils'
-          };
-          </code></pre>
+        var transformWorker = new GlideImportSetTransformerWorker(importSetRecSysID, transformSysId);
+        transformWorker.setBackground(true);
+        transformWorker.start();
+    },
+    type: 'KapCreateProductUtils'
+};
+         </code></pre>
         </div>
       </li>
 
@@ -246,148 +247,150 @@
         <li><b>onAfter Transform Script</b> to create Sold Product after Product is created:
           If Accounts are mentioned in Excel, create Sold Products and attach them to the mentioned accounts. If
           Accounts are not mentioned, create Sold Products and attach them to a Default Account.</li>
-        <div style="margin-left: 0px;" class="code-block">
-                    (function runTransformScript(source, map, log, target) {
+        <div class="code-block">
+         <pre><code>
+(function runTransformScript(source, map, log, target) {
 
 
-              var productSysId = target.sys_id.toString();
-              var productName = source.u_name_of_the__demo_product_1;
+    var productSysId = target.sys_id.toString();
+    var productName = source.u_name_of_the__demo_product_1;
 
 
-              if (!productSysId || !productName) {
-                  return;
-              }
+    if (!productSysId || !productName) {
+        return;
+    }
 
 
-              // If accounts are specified
-              if (source.u_which_accoun_d_to_be_linked && source.u_which_accoun_d_to_be_linked.trim() !== '') {
+    // If accounts are specified
+    if (source.u_which_accoun_d_to_be_linked && source.u_which_accoun_d_to_be_linked.trim() !== '') {
 
 
-                  var accountNames = source.u_which_accoun_d_to_be_linked.split(/\s*,\s*/);
-                  var validAccounts = [];
-                  for (var i = 0; i < accountNames.length; i++) {
-                      if (isValidAccount(accountNames[i])) {
-                          validAccounts.push(accountNames[i]);
-                      }
-                  }
-                  var accountGr = new GlideRecord('customer_account');
-                  accountGr.addQuery('name', 'IN', validAccounts);
-                  accountGr.query();
-                  while (accountGr.next()) {
-                      createSoldProduct(productSysId, productName, accountGr.sys_id.toString(), accountGr.name.toString());
-                  }
-                  if (accountNames.length != validAccounts.length) { // Use generic account var
-                      genericAccountSysId = gs.getProperty('kap.sold.product.generic.account.sys.id');
-                      if (genericAccountSysId) {
-                          var genericAccountGr = new GlideRecord('customer_account');
-                          if (genericAccountGr.get(genericAccountSysId)) {
-                              createSoldProduct(productSysId, productName, genericAccountSysId, genericAccountGr.name.toString());
-                          }
-                      }
-                  }
-              } else {
-                // Use generic account 
-                var genericAccountId = gs.getProperty('kap.sold.product.generic.account.sys.id');
-                  if (genericAccountId) {
-                      var
-                          genericAccGr = new GlideRecord('customer_account');
-                      if (genericAccGr.get(genericAccountId)) {
-                          createSoldProduct(productSysId, productName, genericAccountId, genericAccGr.name.toString());
-                      }
-                  }
-              }
-              //Reusable function to insert a Sold Product
-              function createSoldProduct(productId, productName, accountId,
-                  accountName) {
-                  var soldProduct = new GlideRecord('sn_install_base_sold_product');
-                  soldProduct.initialize();
-                  soldProduct.product = productId;
-                  soldProduct.account = accountId;
-                  soldProduct.name = productName + ' - ' +
-                      accountName;
-                  soldProduct.insert();
-              }
+        var accountNames = source.u_which_accoun_d_to_be_linked.split(/\s*,\s*/);
+        var validAccounts = [];
+        for (var i = 0; i < accountNames.length; i++) {
+            if (isValidAccount(accountNames[i])) {
+                validAccounts.push(accountNames[i]);
+            }
+        }
+        var accountGr = new GlideRecord('customer_account');
+        accountGr.addQuery('name', 'IN', validAccounts);
+        accountGr.query();
+        while (accountGr.next()) {
+            createSoldProduct(productSysId, productName, accountGr.sys_id.toString(), accountGr.name.toString());
+        }
+        if (accountNames.length != validAccounts.length) { // Use generic account var
+            genericAccountSysId = gs.getProperty('kap.sold.product.generic.account.sys.id');
+            if (genericAccountSysId) {
+                var genericAccountGr = new GlideRecord('customer_account');
+                if (genericAccountGr.get(genericAccountSysId)) {
+                    createSoldProduct(productSysId, productName, genericAccountSysId, genericAccountGr.name.toString());
+                }
+            }
+        }
+    } else {
+        // Use generic account 
+        var genericAccountId = gs.getProperty('kap.sold.product.generic.account.sys.id');
+        if (genericAccountId) {
+            var
+                genericAccGr = new GlideRecord('customer_account');
+            if (genericAccGr.get(genericAccountId)) {
+                createSoldProduct(productSysId, productName, genericAccountId, genericAccGr.name.toString());
+            }
+        }
+    }
+    //Reusable function to insert a Sold Product
+    function createSoldProduct(productId, productName, accountId,
+        accountName) {
+        var soldProduct = new GlideRecord('sn_install_base_sold_product');
+        soldProduct.initialize();
+        soldProduct.product = productId;
+        soldProduct.account = accountId;
+        soldProduct.name = productName + ' - ' +
+            accountName;
+        soldProduct.insert();
+    }
 
-              function isValidAccount(accountName) {
-                  var accountGr = new
-                  GlideRecord('customer_account');
-                  accountGr.addQuery('name', accountName);
-                  accountGr.query();
-                  if (accountGr.hasNext()) {
-                      return true;
-                  }
-                  return false;
-              }
-          })(source, map, log, target); 
-        </code>
-            </pre>
+    function isValidAccount(accountName) {
+        var accountGr = new
+        GlideRecord('customer_account');
+        accountGr.addQuery('name', accountName);
+        accountGr.query();
+        if (accountGr.hasNext()) {
+            return true;
+        }
+        return false;
+    }
+})(source, map, log, target);
+        </code></pre>
         </div>
 
         <li><b>onComplete Transform Script</b> to create a link to display created Products and Sold Products</li>
         <div class="code-block">
-          (function runTransformScript(source, map, log, target /*undefined onStart*/ ) {
+         <pre><code>
+(function runTransformScript(source, map, log, target /*undefined onStart*/ ) {
 
-          var rowGr = new GlideRecord(source.getTableName());
-          rowGr.addQuery('import_set', source.import_set);
-          rowGr.query();
+    var rowGr = new GlideRecord(source.getTableName());
+    rowGr.addQuery('import_set', source.import_set);
+    rowGr.query();
 
-          if (!rowGr.next() || !rowGr.u_requested_item) {
-          return;
-          }
+    if (!rowGr.next() || !rowGr.u_requested_item) {
+        return;
+    }
 
-          var ritmRef = rowGr.u_requested_item;
+    var ritmRef = rowGr.u_requested_item;
 
-          // Get Products
-          var productGr = new GlideRecord(target.getTableName());
-          productGr.addQuery('sys_created_by', 'system');
-          productGr.addQuery('comments', 'CONTAINS', ritmRef.number);
-          productGr.query();
+    // Get Products
+    var productGr = new GlideRecord(target.getTableName());
+    productGr.addQuery('sys_created_by', 'system');
+    productGr.addQuery('comments', 'CONTAINS', ritmRef.number);
+    productGr.query();
 
-          var productSysIds = [];
+    var productSysIds = [];
 
-          while (productGr.next()) {
-          productSysIds.push(productGr.getValue('sys_id'));
-          }
+    while (productGr.next()) {
+        productSysIds.push(productGr.getValue('sys_id'));
+    }
 
-          // Get Sold Products by checking product.comments CONTAINS RITM number
-          var soldSysIds = [];
-          var soldGr = new GlideRecord('sn_install_base_sold_product');
-          soldGr.addQuery('sys_created_by', 'system');
-          soldGr.addEncodedQuery('productISNOTEMPTY');
-          soldGr.addEncodedQuery('product.sys_idIN' + productSysIds);
-          soldGr.query();
-          while (soldGr.next()) {
-          soldSysIds.push(soldGr.getValue('sys_id'));
-          }
+    // Get Sold Products by checking product.comments CONTAINS RITM number
+    var soldSysIds = [];
+    var soldGr = new GlideRecord('sn_install_base_sold_product');
+    soldGr.addQuery('sys_created_by', 'system');
+    soldGr.addEncodedQuery('productISNOTEMPTY');
+    soldGr.addEncodedQuery('product.sys_idIN' + productSysIds);
+    soldGr.query();
+    while (soldGr.next()) {
+        soldSysIds.push(soldGr.getValue('sys_id'));
+    }
 
-          if (productSysIds.length === 0 && soldSysIds.length === 0) {
-          return;
-          }
+    if (productSysIds.length === 0 && soldSysIds.length === 0) {
+        return;
+    }
 
-          var baseUrl = gs.getProperty('glide.servlet.uri');
-          var commentText = '';
+    var baseUrl = gs.getProperty('glide.servlet.uri');
+    var commentText = '';
 
-          if (productSysIds.length > 0) {
-          var productListUrl = baseUrl + target.getTableName() + '_list.do?sysparm_query=sys_idIN' +
-          productSysIds.join(',');
-          commentText += 'Click &lt;a href="' + productListUrl + '" target="_blank"&gt;here&lt;/a&gt; to view the
-          created Products.\n';
-          }
+    if (productSysIds.length > 0) {
+        var productListUrl = baseUrl + target.getTableName() + '_list.do?sysparm_query=sys_idIN' +
+            productSysIds.join(',');
+        commentText += 'Click &lt;a href="' + productListUrl + '" target="_blank"&gt;here&lt;/a&gt; to view the
+        created Products.\n ';
+    }
 
-          if (soldSysIds.length > 0) {
-          var soldListUrl = baseUrl + 'sn_install_base_sold_product_list.do?sysparm_query=sys_idIN' +
-          soldSysIds.join(',');
-          commentText += 'Click &lt;a href="' + soldListUrl + '" target="_blank"&gt;here&lt;/a&gt; to view the created
-          Sold Products.';
-          }
+    if (soldSysIds.length > 0) {
+        var soldListUrl = baseUrl + 'sn_install_base_sold_product_list.do?sysparm_query=sys_idIN' +
+            soldSysIds.join(',');
+        commentText += 'Click &lt;a href="' + soldListUrl + '" target="_blank"&gt;here&lt;/a&gt; to view the created
+        Sold Products.
+        ';
+    }
 
-          var ritmGR = new GlideRecord('sc_req_item');
-          if (ritmGR.get(ritmRef)) {
-          ritmGR.comments = commentText;
-          ritmGR.update();
-          }
+    var ritmGR = new GlideRecord('sc_req_item');
+    if (ritmGR.get(ritmRef)) {
+        ritmGR.comments = commentText;
+        ritmGR.update();
+    }
 
-          })(source, map, log, target);
+})(source, map, log, target);
           </code></pre>
         </div>
 
