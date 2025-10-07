@@ -13,24 +13,6 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   <link rel="stylesheet" href="index.css">
-  <style>
-    .code-container {
-      max-height: 200px;
-      /* default collapsed height */
-      overflow: hidden;
-      transition: max-height 0.4s ease;
-    }
-
-    .code-container.expanded {
-      max-height: 1000px;
-      /* enough to show all code */
-    }
-
-    .code-container.collapsed {
-      max-height: 200px;
-      /* same as default collapsed */
-    }
-  </style>
 </head>
 
 <body>
@@ -149,8 +131,8 @@
           </div>
 
         </div>
-        <button onclick="toggleCode('code-html', this)">Read more ↓</button>
-        <button id="html-copy-button" onclick="copyHTMLCode()">Copy</button>
+        <!-- <button onclick="toggleCode('code-html', this)">Read more ↓</button> -->
+        <!-- <button id="html-copy-button" onclick="copyHTMLCode()">Copy</button> -->
         <h1 id="css" class="mt-5">CSS Styling</h1>
         <div id="code-css" class="code-container collapsed">
           <div class="code-block">
@@ -282,8 +264,8 @@
 	</code></pre>
           </div>
         </div>
-        <button onclick="toggleCode('code-css', this)">Read more ↓</button>
-        <button id="css-copy-button" onclick="copyCSSCode()">Copy</button>
+        <!-- <button onclick="toggleCode('code-css', this)">Read more ↓</button> -->
+        <!-- <button id="css-copy-button" onclick="copyCSSCode()">Copy</button> -->
 
         <h1 id="server" class="mt-5">Server Script</h1>
         <div id="code-server" class="code-container collapsed">
@@ -336,8 +318,8 @@
             </code></pre>
           </div>
         </div>
-        <button onclick="toggleCode('code-server', this)">Read more ↓</button>
-        <button id="server-copy-button" onclick="copyServerCode()">Copy</button>
+        <!-- <button onclick="toggleCode('code-server', this)">Read more ↓</button> -->
+        <!-- <button id="server-copy-button" onclick="copyServerCode()">Copy</button> -->
 
         <h1 id="client" class="mt-5">Client Script</h1>
         <div id="code-client" class="code-container collapsed">
@@ -375,8 +357,8 @@
             </code></pre>
           </div>
         </div>
-        <button onclick="toggleCode('code-client', this)">Read more ↓</button>
-        <button id="client-side-copy-button" onclick="copyClientSideCode()">Copy</button>
+        <!-- <button onclick="toggleCode('code-client', this)">Read more ↓</button> -->
+        <!-- <button id="client-side-copy-button" onclick="copyClientSideCode()">Copy</button> -->
 
         <h1 class="mt-5">Final Result</h1>
         <p>You’ll get a responsive set of colorful cards centered on the page. Each card links to a different ServiceNow
