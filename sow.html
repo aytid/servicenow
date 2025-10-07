@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SOW to CSM/FSM Workspace</title>
+  <meta name="description"
+    content="Rohan Aditya - Platform Developer and ServiceNow Expert. Skilled in full-stack development and innovative software solutions." />
+  <link rel="icon" href="images/r-letter-logo.png" type="image/png" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <link rel="stylesheet" href="index.css">
+  <style>
+    /* Consistent Blog Images */
+    .blog1 img,
+    .blog2 img,
+    .blog3 img,
+    .blog4 img {
+      display: block;
+      max-width: 100%;
+      width: 800px;
+      height: auto;
+      margin: 16px auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      object-fit: cover;
+    }
+
+    /* Mobile adjustments */
+    @media (max-width: 768px) {
+
+      .blog1 img,
+      .blog2 img,
+      .blog3 img,
+      .blog4 img {
+        width: 100%;
+      }
+    }
+  </style>
+
+
+
+
+
+
+
+
+
+
+<style>
+
+</style>
+</head>
+
+<body>
+  <!-- Header -->
+  <header>
+    <div class="nav">
+      <div class="brand">
+        <h1><a href="index.html#home">Rohan Aditya</a></h1>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="https://rohanaditya-servicenow.vercel.app/" class="active">Blogs</a></li>
+          <li><a href="https://rohanaditya.vercel.app">About Me</a></li>
+        </ul>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-expanded="false" aria-label="Open menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" />
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Nav -->
+  <div id="overlay"></div>
+  <nav class="mobile-nav" id="mobileNav" aria-hidden="true">
+    <button class="close-btn" id="mobileClose" aria-label="Close menu">&times;</button>
+    <ul>
+      <li><a href="https://rohanaditya-servicenow.vercel.app/" class="active">Blogs</a></li>
+      <li><a href="https://rohanaditya.vercel.app">About Me</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div id="particles-js"></div>
+    <div class="hero-wrap">
+      <div>
+        <h1>SOW to CSM/FSM Workspace Migration</h1>
+        <p><strong>Author:</strong> Rohan Aditya</p>
+        <p><strong>Date:</strong> 7th October 2025</p>
+        <p>Key points covered:</p>
+        <ul>
+          <li>Conflict Calendar on Change</li>
+          <li>Risk Assessment on Change</li>
+          <li>Completed Risk Assessment on Change</li>
+          <li>Check Conflicts on Change</li>
+          <li>Create Request on Incident</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero">
+    <h1>Quick Navigation</h1>
+    <ul class="quick-links">
+      <li><a href="#section1">Conflict Calendar on Change</a></li>
+      <li><a href="#section2">Risk Assessment on Change</a></li>
+      <li><a href="#section3">Completed Risk Assessment on Change</a></li>
+      <li><a href="#section4">Check Conflicts on Change</a></li>
+      <li><a href="#section5">Create Request on Incident</a></li>
+    </ul>
+    <div class="blog1">
+      <h1 id="section1">Conflict Calendar on Change</h1>
+      <ol>
+        <li>Open the Conflict Calendar UI Action, sys_id = <b>a8b7eac20b1332005775aabcb4673ae2</b></li>
+        <li>Check Workspace Form Button or Workspace Form Menu</li>
+        <li>Check Format for Configurable Workspace</li>
+        <li>Update the Workspace Client Script:</li>
+        <div class="code-block">
+          <pre><code>
+        function onClick(g_form) {
+    var sys_id = g_form.getUniqueValue();
+    var url = top.location.href;
+
+    var routeGr = new GlideAjax(‘KAPChangeUtils’);
+    routeGr.addParam('sysparm_name','getBaseURL');
+    routeGr.getXMLAnswer(function(response){
+        var route = url.split(response);
+        var newUrl = route[1] + '/sub/change-conflict-calendar/' + sys_id;
+        open(newUrl, '_self');
+    });
+}
+
+      </code></pre>
+        </div>
+        <li>We need to create a new page and Script include for this</li>
+        <li>Create a Script Include with the Configurations</li>
+        <b> Name: </b>KAPChangeUtils <br>
+        <b>Application:</b> Global<br>
+        <b>Accessible from:</b> All application scopes<br>
+        <b>Client Callable:</b> True<br>
+        <b>Active:</b> True<br>
+        <b>Mobile Callable:</b> False<br>
+        <b>Sandbox enabled:</b> False<br>
+        <b>Script include:</b>
+        </li>
+
+        <div class="code-block">
+          <pre><code>
+        var KAPChangeUtils = Class.create();
+        KAPChangeUtils.prototype = Object.extendsObject(AbstractAjaxProcessor, {
+          getBaseURL: function(){
+            return gs.getProperty('glide.servlet.uri').toString();
+          },
+          type: 'KAPChangeUtils'
+        });
+
+      </code></pre>
+        </div>
+        <li>We need to create a page with UI Builder</li>
+      </ol>
+      <h1>Creating a Page in UI Builder</h1>
+      <ol>
+        <li>Open UI Builder and search for CSM/FSM Configurable Workspace</li>
+        <li>Click on + icon beside Pages and Variants to create a page</li> <br>
+        <img src="doc image 1.png" alt=""> <br>
+        <li>Select “Create a new page”</li> <br>
+        <img src="doc image 2.png" alt=""> <br>
+        <li>then “Create from scratch instead” </li> <br>
+        <img src="doc image 3.png" alt=""> <br>
+        <li><b>Name: </b>“Change Conflict Calendar<br></li><br>
+        <img src="doc image 4.png" alt=""> <br>
+        <li>So that URL path will be “change-conflict-calendar” (make sure this should be the URL path, as we call this
+          URL In Workspace Client Script)</li> <br>
+        <li>Under the Required parameter section, click on +Add and enter the name as “SysId”. Then, click Look good,
+          provide the page name as Conflict Calendar, and click Continue.</li> <br>
+        <li>Select “Build responsive” to build a responsive conflict calendar page</li> <br>
+        <li>This creates a new page, and it will be visible under “Pages and Variants” of CSM/ FSM Experience</li> <br>
+        <li>Open page from the list of pages</li> <br>
+        <img src="doc image 5.png" alt=""> <br>
+        <li>Click on “Settings” on top the page</li> <br>
+        <img src="doc image 6.png" alt=""> <br>
+        <li>Open Under Actions, click on arrow beside "Open records" Select “variant record”.</li><br>
+        <img src="doc image 7.png" alt=""> <br>
+        <li>Clear the Macroponent configuration & Event mapping fields and Set "App configuration" set to your new
+          workspace(In our case it is CSM/FSM Configurable Workspace App Config) and Save the record.</li><br>
+        <li>Now open “Page definition”</li><br>
+        <img src="doc image 8.png" alt=""> <br>
+        <li>A UX Macroponent Definition record will open, displaying the fields: Layout Model, Composition, Data,
+          Internal
+          Event Mapping, Properties, Dispatched Events, and State</li><br>
+        <li>Using SN Utils, open the OOB record <b>4b5a6af60b0d1110c85e8a8db777b270,</b> titled “Change Conflict
+          Calendar
+          default”, which is used in the OOB SOW</li><br>
+        <li>Copy the values from the fields (Layout Model, Composition, Data, Internal Event Mapping, Properties,
+          Dispatched Events, and State) in the OOB record, paste them into your new UX Macroponent Definition record,
+          and
+          then save the record..</li><br>
+        <p>Now we have Conflict Calendar form button in CSM/ FSM Configurable workspace. After clicking on Conflict
+          Calendar we get,</p>
+        <img src="doc image 9.png" alt=""> <br>
+        </p>
+      </ol>
+    </div>
+
+    <div class="blog2">
+      <h1 id="section2">Risk Assessment on Change</h1>
+      <ol>
+        <li>Open the Risk Assessment UI Action, sys_id = <b>8d300156d7033200532c24837e6103e8</b></li>
+        <li>Check Workspace Form Button or Workspace Form Menu</li>
+        <li>Check Format for Configurable Workspace</li>
+        <li>Update the Workspace Client Script:</li>
+        <div class="code-block">
+          <pre><code>
+ function onClick(g_form) {
+     invokeAssessment();
+ }
+
+ function invokeAssessment() {
+     g_form.hideAllFieldMsgs();
+     if (g_form.isUserModified()) {
+         handleDirtyForm();
+     } else {
+         var changeRequestSysId = g_form.getUniqueValue();
+         var tableName = g_form.getTableName();
+         var ga = new GlideAjax("ChangeRiskAsmtAjax");
+         ga.addParam("sysparm_name", "invokeAssessmentAjax");
+         ga.addParam("sysparm_id", changeRequestSysId);
+         ga.addParam("sysparm_class", tableName);
+         ga.getXMLAnswer(function(answer) {
+
+             answer = JSON.parse(answer);
+             if (!answer.hasAsmt)
+                 g_form.addInfoMessage(getMessage("There are no risk assessments defined for this Change Request"));
+             else {
+                 if (answer.asmtComplete)
+                     handleCompletedAsmt();
+                 else {
+                     var asmtInstanceSysId = answer.asmtInstanceSysId;
+                     var changeRiskAsmtSysId = answer.changeRiskAsmtSysId;
+                     var changeRequestSysId = answer.changeRequestSysId;
+                     var riskAsmtName = answer.riskAsmtName;
+                     handleAsmt(asmtInstanceSysId, changeRiskAsmtSysId, changeRequestSysId, riskAsmtName);
+                 }
+             }
+         });
+     }
+ }
+
+ function handleDirtyForm() {
+     var msg = getMessage("Do you want to save changes to " + g_form.getValue("number") + " before leaving this page?");
+     g_modal.confirm(getMessage("Confirmation"), msg, function(confirmed) {
+         if (confirmed) {
+             g_form.save();
+         }
+
+     });
+ }
+
+ function handleCompletedAsmt() {
+
+     var msg = getMessage("You have already completed the risk assessment. Would you like to edit your existing risk assessment?");
+     g_modal.confirm(getMessage("Confirmation"), msg, function(confirmed) {
+         if (confirmed) {
+             var changeRequestSysId = g_form.getUniqueValue();
+             var tableName = g_form.getTableName();
+             var ga = new GlideAjax("ChangeRiskAsmtAjax");
+             ga.addParam("sysparm_name", "copyAssessmentAjax");
+             ga.addParam("sysparm_id", changeRequestSysId);
+             ga.addParam("sysparm_class", tableName);
+             ga.getXMLAnswer(function(answer) {
+
+                 answer = JSON.parse(answer);
+                 if (!answer || !answer.hasAsmt)
+                     g_form.addInfoMessage(getMessage("There are no risk assessments defined for this Change Request"));
+                 else {
+                     var asmtInstanceSysId = answer.asmtInstanceSysId;
+                     var changeRiskAsmtSysId = answer.changeRiskAsmtSysId;
+                     var changeRequestSysId = answer.changeRequestSysId;
+                     var riskAsmtName = answer.riskAsmtName;
+                     handleAsmt(asmtInstanceSysId, changeRiskAsmtSysId, changeRequestSysId, riskAsmtName);
+                 }
+             });
+         }
+     });
+ }
+
+ function handleAsmt(asmtInstanceSysId, changeRiskAsmtSysId, changeRequestSysId, riskAsmtName) {
+
+     var asmtUiPage = "assessment_take2";
+     var url = asmtUiPage + ".do";
+     url += "?sysparm_assessable_sysid=" + asmtInstanceSysId;
+     url += "&sysparm_assessable_type=" + changeRiskAsmtSysId;
+     url += "&sysparm_hide_header=true";
+     url += "&sysparm_hide_save=true";
+     url += "&sysparm_hide_cancel=true";
+     url += "&sysparm_hide_source_details=true";
+     url += "&sysparm_stack=no";
+     url += "&sysparm_return_url=" + getEncodedUrl(changeRequestSysId, asmtInstanceSysId);
+     g_modal.showFrame({
+         url: url,
+         title: 'JT Risk Assessments',
+         size: 'lg',
+         height: 1000,
+     });
+
+ }
+
+ function getEncodedUrl(changeRequestSysId, asmtInstanceSysId) {
+     var closeUiPage = "change_risk_asmt_close_dialog";
+     var url = "/" + closeUiPage + ".do";
+     url += "?sysparm_stack=no";
+     url += "&sysparm_id=" + changeRequestSysId;
+     url += "&sysparm_asmtInstanceSysId=" + asmtInstanceSysId;
+     return encodeURIComponent(url);
+ }
+          </code></pre>
+        </div>
+      </ol>
+    </div>
+
+    <div class="blog3">
+      <h1 id="section3">Completed Risk Assessment on Change</h1>
+      <ol>
+        <li>Open the Completed Risk Assessment UI Action, sys_id = <b>5406d544b7612300da26e4f6ee11a9c3</b></li>
+        <li>Check Workspace Form Button or Workspace Form Menu</li>
+        <li>Check Format for Configurable Workspace</li>
+        <li>Update the Workspace Client Script:</li>
+        <div class="code-block">
+          <pre><code>
+ function onClick(g_form) {
+     viewCompleted();
+ }
+
+ function viewCompleted() {
+     var changeRequestSysId = g_form.getUniqueValue();
+     var tableName = g_form.getTableName();
+     var ga = new GlideAjax("ChangeRiskAsmtAjax");
+     ga.addParam("sysparm_name", "viewAssessmentAjax");
+     ga.addParam("sysparm_id", changeRequestSysId);
+     ga.addParam("sysparm_class", tableName);
+     ga.getXMLAnswer(function(answer) {
+         answer = JSON.parse(answer);
+         if (!answer || !answer.asmtComplete) {
+             g_form.addInfoMessage(getMessage("There are no completed risk assessments for this Change Request"));
+         } else {
+             var asmtInstanceSysId = answer.asmtInstanceSysId;
+             var changeRiskAsmtSysId = answer.changeRiskAsmtSysId;
+             var changeRequestSysId = answer.changeRequestSysId;
+             var riskAsmtName = answer.riskAsmtName;
+             _showCompletedAsmt(asmtInstanceSysId, changeRiskAsmtSysId, changeRequestSysId, riskAsmtName);
+         }
+     });
+ }
+
+ function _showCompletedAsmt(asmtInstanceSysId, changeRiskAsmtSysId, changeRequestSysId, riskAsmtName) {
+     g_form.hideAllFieldMsgs();
+     var asmtUiPage = "assessment_take2";
+     var url = asmtUiPage + ".do";
+     url += "?sysparm_assessable_sysid=" + asmtInstanceSysId;
+     url += "&sysparm_assessable_type=" + changeRiskAsmtSysId;
+     url += "&sysparm_reader_view=true";
+     url += "&sysparm_hide_header=true";
+     url += "&sysparm_hide_save=true";
+     url += "&sysparm_hide_cancel=true";
+     url += "&sysparm_hide_source_details=true";
+     url += "&sysparm_stack=no";
+
+     g_modal.showFrame({
+         url: url,
+         title: riskAsmtName,
+         size: 'lg',
+         height: 1000
+     });
+ }
+          </code></pre>
+        </div>
+      </ol>
+    </div>
+
+    <div class="blog4">
+      <h1 id="section4">Check Conflicts on Change</h1>
+      <ol>
+        <li>Open the Check Conflicts UI Action, sys_id = <b>d3668ab84a36232b00bbd765d0e94336</b></li>
+        <li>Check Active checkbox if UI action is needed</li>
+        <li>Check Workspace Form Button or Workspace Form Menu</li>
+        <li>Check Format for Configurable Workspace</li>
+        <li>Update the Workspace Client Script:</li>
+        <div class="code-block">
+          <pre><code>
+ function onClick(g_form) {
+     var fields = [];
+     var missingLabels = [];
+
+     if (g_form.hasField("start_date") && !g_form.getValue("start_date")) {
+         fields.push("start_date");
+         missingLabels.push(g_form.getLabelOf("start_date"));
+     }
+
+     if (g_form.hasField("end_date") && !g_form.getValue("end_date")) {
+         fields.push("end_date");
+         missingLabels.push(g_form.getLabelOf("end_date"));
+     }
+
+     if (g_form.hasField("cmdb_ci") && !g_form.getValue("cmdb_ci")) {
+         fields.push("cmdb_ci");
+         missingLabels.push(g_form.getLabelOf("cmdb_ci"));
+     }
+
+     if (missingLabels.length > 0) {
+         var msg = (missingLabels.length > 1) ?
+             "To check conflicts, the following fields need values: " + missingLabels.join(", ") :
+             "To check conflicts, the following field needs a value: " + missingLabels[0];
+         g_form.addErrorMessage(msg);
+         fields.forEach(function(field) {
+             g_form.showFieldMsg(field, "Required for conflict check", "error", false);
+         });
+         return;
+     }
+     g_form.clearMessages();
+     g_form.submit("check_conflicts");
+ }
+          </code></pre>
+        </div>
+      </ol>
+    </div>
+
+        <div class="blog5">
+      <h1 id="section5">Create Request on Incident</h1>
+      <ol>
+        <li>Open the Create Request UI Action, sys_id = <b>b7980ba483b76e10ccf85d70deaad32e</b></li>
+        <li>Instead of creating a UI Action we can go with Action Assignment.</li>
+        <li>Open the above record using SN Utils, it is “Create request” Action Assignment.</li>
+        <li>Insert and Stay on the record, empty the view field and check the “Enable for all Configurable Experiences” check box and Save the record.</li>
+        <div class="code-block">
+          <pre><code>
+function onClick(g_form) {
+    var fields = [];
+    var missingLabels = [];
+
+    if (g_form.hasField("start_date") && !g_form.getValue("start_date")) {
+        fields.push("start_date");
+        missingLabels.push(g_form.getLabelOf("start_date"));
+    }
+
+    if (g_form.hasField("end_date") && !g_form.getValue("end_date")) {
+        fields.push("end_date");
+        missingLabels.push(g_form.getLabelOf("end_date"));
+    }
+
+    if (g_form.hasField("cmdb_ci") && !g_form.getValue("cmdb_ci")) {
+        fields.push("cmdb_ci");
+        missingLabels.push(g_form.getLabelOf("cmdb_ci"));
+    }
+
+    if (missingLabels.length > 0) {
+        var msg = (missingLabels.length > 1) ?
+            "To check conflicts, the following fields need values: " + missingLabels.join(", ") :
+            "To check conflicts, the following field needs a value: " + missingLabels[0];
+        g_form.addErrorMessage(msg);
+        fields.forEach(function(field) {
+            g_form.showFieldMsg(field, "Required for conflict check", "error", false);
+        });
+        return;
+    }
+    g_form.clearMessages();
+    g_form.submit("check_conflicts");
+}
+          </code></pre>
+        </div>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-wrap">
+      <div>
+        <strong>© <span id="year"></span> Rohan Aditya</strong>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    // Mobile Menu
+    var hamburger = document.getElementById("hamburger");
+    var mobileNav = document.getElementById("mobileNav");
+    var mobileClose = document.getElementById("mobileClose");
+    var overlay = document.getElementById("overlay");
+
+    function openMenu() {
+      mobileNav.classList.add("open");
+      mobileNav.setAttribute("aria-hidden", "false");
+      overlay.classList.add("show");
+      document.body.style.overflow = "hidden";
+      hamburger.setAttribute("aria-expanded", "true");
+    }
+
+    function closeMenu() {
+      mobileNav.classList.remove("open");
+      mobileNav.setAttribute("aria-hidden", "true");
+      overlay.classList.remove("show");
+      document.body.style.overflow = "";
+      hamburger.setAttribute("aria-expanded", "false");
+    }
+
+    hamburger.addEventListener("click", () => mobileNav.classList.contains("open") ? closeMenu() : openMenu());
+    mobileClose.addEventListener("click", closeMenu);
+    overlay.addEventListener("click", closeMenu);
+    document.querySelectorAll(".mobile-nav a").forEach(link => link.addEventListener("click", closeMenu));
+
+    // Year Auto Update
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    // Swiper Example (if needed)
+    const swiper = new Swiper('.gallerySwiper', {
+      loop: true,
+      slidesPerView: 1,
+      spaceBetween: 10,
+      pagination: { el: '.swiper-pagination', clickable: true },
+      navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+      autoplay: { delay: 3000, disableOnInteraction: false },
+    });
+  </script>
+
+  <script>
+    // Particles
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 100, density: { enable: true, value_area: 800 } },
+        color: { value: "#ffffff" },
+        shape: { type: "circle", stroke: { width: 0, color: "#8c5e41" } },
+        opacity: { value: 1 },
+        size: { value: 1, random: true },
+        line_linked: { enable: true, distance: 200, color: "#8c5e41", opacity: 1, width: 0.8 },
+        move: { enable: true, speed: 8 }
+      },
+      interactivity: {
+        detect_on: "canvas",
+        events: { onhover: { enable: true, mode: "grab" }, onclick: { enable: true, mode: "push" }, resize: true },
+        modes: { grab: { distance: 140, line_linked: { opacity: 1 } }, push: { particles_nb: 4 } }
+      },
+      retina_detect: true
+    });
+  </script>
+</body>
+
+</html>
