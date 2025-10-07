@@ -542,7 +542,7 @@ footer {
 }
 
 /* General code block styling */
-.code-block {
+/* .code-block {
   background-color: #f9f9f9;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -553,7 +553,38 @@ footer {
   font-family: "Courier New", Courier, monospace;
   font-size: 0.95rem;
   box-sizing: border-box;
+} */
+ .code-block {
+  border: 1px solid #dfe3eb;
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 24px 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
+
+.code-block::before {
+  content: "";
+  display: block;
+  height: 8px;
+  background: linear-gradient(to right, #0077cc, #00b4d8);
+}
+
+.code-block pre {
+  background: #f9fafc;
+  padding: 16px;
+  margin: 0;
+  font-family: 'Fira Code', monospace;
+  font-size: 14px;
+  color: #1e293b;
+  line-height: 1.6;
+  overflow-x: auto;
+}
+
+.code-block code {
+  background: none;
+  color: inherit;
+}
+
 
 /* Mobile adjustments */
 @media (max-width: 768px) {
