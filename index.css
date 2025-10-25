@@ -194,7 +194,7 @@ section {
     text-align: center;
 }
 
-/* Blog Cards */
+/* Blog Section */
 #blog {
     padding: 60px 0;
     background-color: #ffffff;
@@ -687,6 +687,13 @@ footer {
     }
 }
 
+@media (max-width: 768px) {
+  /* FIX: Force Hero section to single column on tablet/mobile screens */
+  .hero-wrap {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 1200px) {
   .blog-grid {
     grid-template-columns: repeat(3, 1fr);
@@ -711,8 +718,9 @@ footer {
     }
 
     .hero h2 {
-        font-size: 26px;
-        line-height: 1.2
+        font-size: 26px; 
+        line-height: 1.2;
+        /* Line height adjustment helps with tight wrapping */
     }
 
     .section-title {
@@ -746,7 +754,7 @@ footer {
     }
 
     .contact-text-block h3 {
-        font-size: 2em;
+        font-size: 1.8em;
     }
 
     .link-item {
@@ -754,7 +762,7 @@ footer {
         align-items: flex-start;
         gap: 5px;
         padding: 15px 0;
-        font-size: 12px;
+        font-size: 14px;
     }
 
     .link-item a {
