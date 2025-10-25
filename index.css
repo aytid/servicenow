@@ -623,3 +623,240 @@ footer {
     height: auto;           
   }
 }
+
+
+/* Contact Section */
+:root {
+    --primary-color: #4a90e2;
+    --text-color-dark: #333333;
+    --text-color-light: #666666;
+    --bg-light: #d9f7d9;
+    --card-bg: #ffffff;
+}
+
+/* * Contact Section Styles 
+ */
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-2px);
+    }
+
+    50% {
+        transform: translateX(2px);
+    }
+
+    75% {
+        transform: translateX(-2px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.contact-snappy {
+    background-color: var(--bg-light);
+    padding: 80px 20px;
+    color: var(--text-color-dark);
+}
+
+.contact-container {
+    max-width: var(--maxw); /* Inherited from overall layout */
+    margin: 0 auto;
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.contact-text-block {
+    flex: 1;
+    min-width: 300px;
+    padding-top: 30px;
+}
+
+.contact-text-block h3 {
+    font-size: 3em;
+    font-weight: 700;
+    color: var(--text-color-dark);
+    margin-bottom: 20px;
+}
+
+.contact-text-block p {
+    color: var(--text-color-light);
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.contact-text-block p strong {
+    color: var(--text-color-dark);
+}
+
+.contact-text-block a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease-in-out;
+}
+
+.contact-text-block a:hover {
+    color: #3b7ad1;
+    text-decoration: underline;
+}
+
+.contact-card {
+    background-color: var(--card-bg);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    max-width: 450px;
+}
+
+.card-title {
+    font-size: 2em;
+    font-weight: 600;
+    color: var(--text-color-dark);
+    margin-bottom: 5px;
+}
+
+.card-subtitle {
+    color: var(--text-color-light);
+    margin-bottom: 30px;
+}
+
+.contact-links-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.link-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #eeeeee;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.link-item:hover {
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}
+
+.link-item:last-child {
+    border-bottom: none;
+}
+
+.link-item .icon-and-text {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.link-item .icon-and-text strong {
+    font-weight: 600;
+    color: var(--text-color-dark);
+    font-size: 1.1em;
+}
+
+
+.link-item i {
+    font-size: 1.2em;
+    width: 20px;
+    text-align: center;
+    transition: transform 0.2s ease-in-out;
+}
+
+.link-item .fa-envelope {
+    color: var(--primary-color);
+}
+
+.link-item .fa-linkedin {
+    color: #0077b5;
+}
+
+.link-item .fa-github {
+    color: #333333;
+}
+
+.link-item .fa-instagram {
+    color: #C13584;
+}
+
+
+.link-item:hover i {
+    animation: shake 0.4s ease-in-out;
+}
+
+
+.link-item a {
+    text-decoration: none;
+    color: var(--primary-color);
+    font-weight: 500;
+    transition: color 0.2s ease-in-out;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.link-item a:hover {
+    color: #3b7ad1;
+    text-decoration: underline;
+}
+
+/* Contact Section Media Queries */
+@media (max-width: 900px) {
+    .contact-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .contact-card {
+        max-width: 100%;
+    }
+
+    .contact-text-block {
+        text-align: center;
+        padding-top: 0;
+        min-width: unset;
+    }
+
+    .contact-text-block h3 {
+        font-size: 2.5em;
+    }
+}
+
+@media (max-width: 500px) {
+    .contact-snappy {
+        padding: 40px 15px;
+    }
+
+    .contact-card {
+        padding: 30px;
+    }
+
+    .contact-text-block h3 {
+        font-size: 2em;
+    }
+
+    .link-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+        padding: 15px 0;
+        font-size: 12px;
+    }
+
+    .link-item a {
+        padding-left: 30px;
+        text-align: left;
+        width: 100%;
+    }
+}
