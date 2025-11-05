@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Autopopulate Fields in Mobile Input Form</title>
+  <meta name="description"
+    content="Learn how to autopopulate fields in ServiceNow Agent Mobile forms using Mobile Callable Script Includes to set default values dynamically." />
+  <link rel="icon" href="images/r-letter-logo.png" type="image/png" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <link rel="stylesheet" href="index.css">
+  <style>
+  .blog1 img {
+  display: block;
+  width: 90%;      
+  max-width: 700px;
+  height: auto;
+  margin: 24px auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  object-fit: contain;     
+}
+
+@media (max-width: 576px) {
+  .blog1 img {
+    width: 95%;
+    max-width: 100%;
+    margin: 16px auto;
+    border-radius: 8px;
+  }
+}
+
+  @media (max-width: 768px) {
+    h1 {
+      width: 100%;
+      font-size: 24px;
+    }
+  }
+  </style>
+</head>
+
+<body>
+  <!-- Header -->
+  <header>
+    <div class="nav">
+      <div class="brand">
+        <h1><a href="index.html#home">Rohan Aditya</a></h1>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="https://rohanaditya-servicenow.vercel.app/" class="active">Blogs</a></li>
+          <li><a href="https://rohanaditya.vercel.app">About Me</a></li>
+        </ul>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-expanded="false" aria-label="Open menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" />
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Nav -->
+  <div id="overlay"></div>
+  <nav class="mobile-nav" id="mobileNav" aria-hidden="true">
+    <button class="close-btn" id="mobileClose" aria-label="Close menu">&times;</button>
+    <ul>
+      <li><a href="https://rohanaditya-servicenow.vercel.app/" class="active">Blogs</a></li>
+      <li><a href="https://rohanaditya.vercel.app">About Me</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div id="particles-js"></div>
+    <div class="hero-wrap">
+      <div>
+        <h2>Autopopulate Fields in Mobile Input Form</h2>
+        <p><strong>Author:</strong> Rohan Aditya</p>
+        <p>Key points covered:</p>
+        <ul>
+          <li>Why your Script Include ignores you in Mobile</li>
+          <li>How to use Mobile Callable Script Includes</li>
+          <li>Autopopulating fields in Mobile Input Form </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Navigation -->
+  <section class="hero">
+    <h1>Quick Navigation</h1>
+    <ul class="quick-links">
+      <li><a href="#section1">Why It Refuses to Work and How to Convince It</a></li>
+      <li><a href="#section3">Steps to Implement</a></li>
+      <li><a href="#section4">Script Include Example</a></li>
+    </ul>
+    <div class="blog1">
+  <h1 style="margin-top: 40px;" id="section1">Why It Refuses to Work and How to Convince It</h1>
+  <p>
+    Your <b>Script Include</b> isn’t working in the mobile input form?  
+    You double-checked the code, cleared cache, maybe even whispered a prayer — but nothing. Classic developer déjà vu.
+  </p>
+  <p>
+    Usually, it’s one of these two sneaky culprits:
+  </p>
+  <ol>
+    <li>
+      The <b>Mobile Callable</b> checkbox is still <b>unchecked</b>.  
+      Without it, the Agent Mobile app completely ignores your Script Include — like that one teammate who reads messages but never replies.
+    </li>
+    <li>
+      You’re returning only the <b>sys_id</b> like the old desktop days.  
+      Mobile wants a <b>JSON object</b> with both Value and DisplayValue.  
+      Skip that, and you’ll just get a blank stare from your input field.
+    </li>
+  </ol>
+  <p>
+    Fix both, and your form will finally come to life — no rituals required.
+  </p>
+</div>
+
+    <div class="blog1">
+      <h1 id="section3">Steps to Implement</h1>
+      <ol>
+        <li>Create a <b>Script Include</b>.</li>
+        <li>Mark it as <b>Mobile Callable</b>.</li>
+        <li>In your Mobile Input variable, use the <b>Script</b> attribute to call your function.</li>
+        <li>Open the Case form in the Mobile app and watch your field auto-populate like magic.</li>
+      </ol>
+    </div>
+
+    <div class="blog1">
+      <h1 id="section4">Script Include Example</h1>
+      <p>
+        Here’s an example that automatically sets the Assignment Group when the form opens.
+      </p>
+      <div class="code-block">
+        <pre><code>
+var MobileUtils = Class.create();
+MobileUtils.prototype = {
+    initialize: function() {},
+
+    populateDefaultAssignmentGroup: function() {
+
+      var assignmentGroup = gs.getProperty('service.desk.group');
+
+        return {
+            "Value": assignmentGroup.toString(),
+            "DisplayValue": "IT Service Desk"
+        };
+    },
+
+    type: 'MobileUtils'
+};
+        </code></pre>
+      </div>
+      <p>Create Assignment Group Variable and set variable type to <b>Scripted</b> </p>
+      <img src="images/mobile-image2.png" alt="">
+      <p>Create Variable attribute and select name as Script and call script include in Value.</p>
+      <img src="images/mobile-image1.png" alt="">
+      <p>Create Assignment Group Input field, in that under Autofill variable select the above Assignment group variable</p>
+      <img src="images/mobile-image3.png" alt="">
+      <p>
+        And that’s it!  
+        Now when you open your form, your Assignment Group shows up by default.
+      </p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-wrap">
+      <div>
+        <strong>© <span id="year"></span> Rohan Aditya</strong>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    // Mobile Menu
+    const hamburger = document.getElementById("hamburger");
+    const mobileNav = document.getElementById("mobileNav");
+    const mobileClose = document.getElementById("mobileClose");
+    const overlay = document.getElementById("overlay");
+
+    function openMenu() {
+      mobileNav.classList.add("open");
+      mobileNav.setAttribute("aria-hidden", "false");
+      overlay.classList.add("show");
+      document.body.style.overflow = "hidden";
+      hamburger.setAttribute("aria-expanded", "true");
+    }
+
+    function closeMenu() {
+      mobileNav.classList.remove("open");
+      mobileNav.setAttribute("aria-hidden", "true");
+      overlay.classList.remove("show");
+      document.body.style.overflow = "";
+      hamburger.setAttribute("aria-expanded", "false");
+    }
+
+    hamburger.addEventListener("click", () =>
+      mobileNav.classList.contains("open") ? closeMenu() : openMenu()
+    );
+    mobileClose.addEventListener("click", closeMenu);
+    overlay.addEventListener("click", closeMenu);
+    document.querySelectorAll(".mobile-nav a").forEach(link =>
+      link.addEventListener("click", closeMenu)
+    );
+
+    // Year Auto Update
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Particles
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 100, density: { enable: true, value_area: 800 } },
+        color: { value: "#ffffff" },
+        shape: { type: "circle", stroke: { width: 0, color: "#8c5e41" } },
+        opacity: { value: 1 },
+        size: { value: 1, random: true },
+        line_linked: { enable: true, distance: 200, color: "#8c5e41", opacity: 1, width: 0.8 },
+        move: { enable: true, speed: 8 }
+      },
+      interactivity: {
+        detect_on: "canvas",
+        events: { onhover: { enable: true, mode: "grab" }, onclick: { enable: true, mode: "push" }, resize: true },
+        modes: { grab: { distance: 140, line_linked: { opacity: 1 } }, push: { particles_nb: 4 } }
+      },
+      retina_detect: true
+    });
+  </script>
+
+</body>
+
+</html>
