@@ -126,26 +126,30 @@
 <p>
   Fix both, and your form will finally come to life — no rituals required.
 </p>
+    <p>
+  Fix both, and your form will finally come to life — no rituals required.
+</p>
 
 <div class="blog1">
   <h2>Let’s Consider a Use Case: Populating Assignment Group</h2>
   <p>
     Imagine you have a mobile form where users create an <b>Incident</b> or <b>Case</b>, and you want the 
-    <b>Assignment Group</b> field to automatically populate with a default value — say, <b>IT Service Desk</b>.
+    <b>Assignment Group</b> field to automatically populate with a default value — for example, <b>IT Service Desk</b>.
   </p>
-  <img src="images/mobile-assignment-usecase.png" alt="Use case showing autopopulated Assignment Group in mobile form">
-  
+
   <p>
     This can be easily achieved using a <b>Mobile Callable Script Include</b> that runs when the form loads. 
-    Instead of manually selecting a group every time, the system fills it in automatically, improving both speed 
+    Instead of manually selecting a group every time, the system fills it automatically, improving both speed 
     and consistency for your users.
   </p>
+
   <p>The process looks like this:</p>
   <ol>
     <li>Create a Script Include that returns both <b>Value</b> and <b>DisplayValue</b> for the group.</li>
     <li>Mark it as <b>Mobile Callable</b> so that it can be accessed from the Mobile app.</li>
     <li>In your Mobile Input variable, use the <b>Script</b> attribute to call the function.</li>
   </ol>
+
   <p>
     Once done, each time a user opens the form in the mobile app, the <b>Assignment Group</b> will already be populated.
   </p>
@@ -175,16 +179,10 @@ MobileUtils.prototype = {
     </code></pre>
   </div>
 
-  <img src="images/mobile-scriptinclude.png" alt="Mobile Callable Script Include example in ServiceNow">
+  <p><b>Step 1:</b> Create an Assignment Group Variable and set its type to <b>Scripted</b>.</p>
+  <img src="images/mobile-image2.png" alt="Create Assignment Group Variable in Mobile App">
 
-  <p>
-    Be sure to check the <b>Mobile Callable</b> box — otherwise, this script won’t be accessible from mobile.
-  </p>
-
-  <p>
-    Next, go to your <b>Mobile Input Variable</b>, set its type to <b>Scripted</b>, 
-    and use the <b>Script</b> attribute to call your function:
-  </p>
+  <p><b>Step 2:</b> Open the variable’s attributes, select <b>Script</b>, and call your function:</p>
 
   <div class="code-block">
     <pre><code>
@@ -192,16 +190,19 @@ MobileUtils.populateDefaultAssignmentGroup();
     </code></pre>
   </div>
 
-  <img src="images/mobile-variable-config.png" alt="Scripted variable configuration in ServiceNow Mobile">
+  <img src="images/mobile-image1.png" alt="Set Script attribute for Variable in ServiceNow">
+
+  <p><b>Step 3:</b> Create the Assignment Group input field and set its <b>Autofill variable</b> 
+  to the scripted variable you created above.</p>
+
+  <img src="images/mobile-image3.png" alt="Assignment Group Input field autofilled in mobile form">
 
   <p>
-    Finally, create an <b>Assignment Group</b> input field and set its <b>Autofill variable</b> 
-    to the scripted variable you just made. When you open the form on the mobile app, 
-    your <b>Assignment Group</b> will automatically populate as shown below.
+    That’s it! Now when you open the form on your mobile device, 
+    your <b>Assignment Group</b> field will automatically populate with the default value.
   </p>
-
-  <img src="images/mobile-autofilled-field.png" alt="Mobile form showing prefilled Assignment Group field">
 </div>
+
 
   </section>
   <!-- Footer -->
