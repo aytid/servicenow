@@ -123,12 +123,7 @@
     Fix both, and your form will finally come to life — no rituals required.
   </p>
 </div>
-<p>
-  Fix both, and your form will finally come to life — no rituals required.
-</p>
-    <p>
-  Fix both, and your form will finally come to life — no rituals required.
-</p>
+
 
 <div class="blog1">
   <h1>Let’s Consider a Use Case: Populating Assignment Group</h1>
@@ -150,56 +145,50 @@
     <li>In your Mobile Input variable, use the <b>Script</b> attribute to call the function.</li>
   </ol>
 
-  <p>
-    Once done, each time a user opens the form in the mobile app, the <b>Assignment Group</b> will already be populated.
-  </p>
-  
-  <p>
-    Here’s the full <b>Script Include</b> used to set the default Assignment Group. 
-    Notice how it returns both <b>Value</b> and <b>DisplayValue</b> — this format is required for mobile to display it correctly.
-  </p>
+ <p>
+  Once done, each time a user opens the form in the mobile app, the <b>Assignment Group</b> will already be populated.
+</p>
 
-  <div class="code-block">
-    <pre><code>
-var MobileUtils = Class.create();
-MobileUtils.prototype = {
-    initialize: function() {},
+<h2>Implementation Steps</h2>
+<ol>
+  <li><b>Step 1: Create Script Include</b>  
+    <p>
+      Go to <b>System Definition &gt; Script Includes</b> and create a new one.  
+      Mark it as <b>Mobile Callable</b>, and return both <b>Value</b> and <b>DisplayValue</b> for your default group.
+    </p>
+  </li>
 
-    populateDefaultAssignmentGroup: function() {
-        var assignmentGroup = gs.getProperty('service.desk.group');
-        return {
-            "Value": assignmentGroup.toString(),
-            "DisplayValue": "IT Service Desk"
-        };
-    },
+  <li><b>Step 2: Create Assignment Group Variable</b>  
+    <p>
+      In your Mobile Input Form, create a new variable for <b>Assignment Group</b> and set its type to <b>Scripted</b>.
+    </p>
+    <img src="images/mobile-image2.png" alt="Create Assignment Group Variable in Mobile App">
+  </li>
 
-    type: 'MobileUtils'
-};
-    </code></pre>
-  </div>
+  <li><b>Step 3: Configure Variable Attribute (Script)</b>  
+    <p>
+      Open the variable’s attributes, select <b>Script</b> as the name, and call your function in the value field:
+    </p>
+    <div class="code-block">
+      <pre><code>MobileUtils.populateDefaultAssignmentGroup();</code></pre>
+    </div>
+    <img src="images/mobile-image1.png" alt="Set Script attribute for Variable in ServiceNow">
+  </li>
 
-  <p><b>Step 1:</b> Create an Assignment Group Variable and set its type to <b>Scripted</b>.</p>
-  <img src="images/mobile-image2.png" alt="Create Assignment Group Variable in Mobile App">
+  <li><b>Step 4: Configure Autofill Variable</b>  
+    <p>
+      Create an <b>Assignment Group</b> input field in your form and select the above scripted variable 
+      under the <b>Autofill Variable</b> option.
+    </p>
+    <img src="images/mobile-image3.png" alt="Assignment Group Input field autofilled in mobile form">
+  </li>
+</ol>
 
-  <p><b>Step 2:</b> Open the variable’s attributes, select <b>Script</b>, and call your function:</p>
+<p>
+  That’s it! Now when you open the form on your mobile device, 
+  your <b>Assignment Group</b> field will automatically populate with the default value.
+</p>
 
-  <div class="code-block">
-    <pre><code>
-MobileUtils.populateDefaultAssignmentGroup();
-    </code></pre>
-  </div>
-
-  <img src="images/mobile-image1.png" alt="Set Script attribute for Variable in ServiceNow">
-
-  <p><b>Step 3:</b> Create the Assignment Group input field and set its <b>Autofill variable</b> 
-  to the scripted variable you created above.</p>
-
-  <img src="images/mobile-image3.png" alt="Assignment Group Input field autofilled in mobile form">
-
-  <p>
-    That’s it! Now when you open the form on your mobile device, 
-    your <b>Assignment Group</b> field will automatically populate with the default value.
-  </p>
 </div>
 
 
