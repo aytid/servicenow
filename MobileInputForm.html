@@ -144,49 +144,43 @@
     <li>Mark it as <b>Mobile Callable</b> so that it can be accessed from the Mobile app.</li>
     <li>In your Mobile Input variable, use the <b>Script</b> attribute to call the function.</li>
   </ol>
-
- <p>
+  <p>
   Once done, each time a user opens the form in the mobile app, the <b>Assignment Group</b> will already be populated.
 </p>
 
-<h2>Implementation Steps</h2>
-<ol>
-  <li><b>Step 1: Create Script Include</b>  
-    <p>
-      Go to <b>System Definition &gt; Script Includes</b> and create a new one.  
-      Mark it as <b>Mobile Callable</b>, and return both <b>Value</b> and <b>DisplayValue</b> for your default group.
-    </p>
-  </li>
+<h1>Implementation Steps</h1>
 
-  <li><b>Step 2: Create Assignment Group Variable</b>  
-    <p>
-      In your Mobile Input Form, create a new variable for <b>Assignment Group</b> and set its type to <b>Scripted</b>.
-    </p>
-    <img src="images/mobile-image2.png" alt="Create Assignment Group Variable in Mobile App">
-  </li>
+<p><strong>Step 1: Create Script Include</strong></p>
+<p>
+  Go to System Definition &gt; Script Includes and create a new one.  
+  Mark it as Mobile Callable, and return both Value and DisplayValue for your default group.
+</p>
 
-  <li><b>Step 3: Configure Variable Attribute (Script)</b>  
-    <p>
-      Open the variable’s attributes, select <b>Script</b> as the name, and call your function in the value field:
-    </p>
-    <div class="code-block">
-      <pre><code>MobileUtils.populateDefaultAssignmentGroup();</code></pre>
-    </div>
-    <img src="images/mobile-image1.png" alt="Set Script attribute for Variable in ServiceNow">
-  </li>
+<p><strong>Step 2: Create Assignment Group Variable</strong></p>
+<p>
+  In your Mobile Input Form, create a new variable for Assignment Group and set its type to Scripted.
+</p>
+<img src="images/mobile-image2.png" alt="Create Assignment Group Variable in Mobile App">
 
-  <li><b>Step 4: Configure Autofill Variable</b>  
-    <p>
-      Create an <b>Assignment Group</b> input field in your form and select the above scripted variable 
-      under the <b>Autofill Variable</b> option.
-    </p>
-    <img src="images/mobile-image3.png" alt="Assignment Group Input field autofilled in mobile form">
-  </li>
-</ol>
+<p><strong>Step 3: Configure Variable Attribute (Script)</strong></p>
+<p>
+  Open the variable’s attributes, select Script as the name, and call your function in the value field:
+</p>
+<div class="code-block">
+  <pre><code>MobileUtils.populateDefaultAssignmentGroup();</code></pre>
+</div>
+<img src="images/mobile-image1.png" alt="Set Script attribute for Variable in ServiceNow">
+
+<p><strong>Step 4: Configure Autofill Variable</strong></p>
+<p>
+  Create an Assignment Group input field in your form and select the above scripted variable 
+  under the Autofill Variable option.
+</p>
+<img src="images/mobile-image3.png" alt="Assignment Group Input field autofilled in mobile form">
 
 <p>
   That’s it! Now when you open the form on your mobile device, 
-  your <b>Assignment Group</b> field will automatically populate with the default value.
+  your Assignment Group field will automatically populate with the default value.
 </p>
 
 </div>
