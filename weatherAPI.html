@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Weather API</title>
+  <meta name="description"
+    content="Rohan Aditya - Platform Developer and ServiceNow Expert. Skilled in full-stack development and innovative software solutions." />
+  <link rel="icon" href="images/r-letter-logo.png" type="image/png" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <link rel="stylesheet" href="index.css">
+
+  <!-- Download button style -->
+  <style>
+    .code-block code {
+      font-family: "Menlo", "Consolas", monospace !important;
+    }
+
+    .download-widget-btn {
+      margin: 30px 0;
+      text-align: center;
+    }
+
+    .download-widget-btn a {
+      background: #015851;
+      color: #fff;
+      padding: 12px 28px;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: 0.2s ease;
+    }
+
+    .download-widget-btn a:hover {
+      background: #013f3a;
+      transform: translateY(-3px);
+    }
+
+    /* Mobile Code Block Optimization */
+    @media (max-width: 576px) {
+
+      /* Make code block full width */
+      .code-block {
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow-x: auto !important;
+        border-radius: 6px;
+      }
+
+      /* Pre and code adjustments */
+      .code-block pre {
+        width: 100% !important;
+        white-space: pre-wrap !important;
+        /* wrap lines */
+        word-break: break-word !important;
+        /* break long strings */
+        font-size: 0.5rem !important;
+        /* smaller font */
+        line-height: 1.2rem !important;
+        padding: 12px !important;
+        box-sizing: border-box !important;
+      }
+
+      .code-block code {
+        font-family: "Menlo", "Consolas", monospace !important;
+      }
+
+      /* Reduce padding of section so code sits nicely */
+      .blog1 section {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header -->
+  <header>
+    <div class="nav">
+      <div class="brand">
+        <h1><a href="index.html#home">Rohan Aditya</a></h1>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="https://rohanaditya-servicenow.vercel.app/" class="active">Blogs</a></li>
+          <li><a href="https://rohanaditya.vercel.app">About Me</a></li>
+        </ul>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-expanded="false" aria-label="Open menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" />
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Nav -->
+  <div id="overlay"></div>
+  <nav class="mobile-nav" id="mobileNav" aria-hidden="true">
+    <button class="close-btn" id="mobileClose" aria-label="Close menu">&times;</button>
+    <ul>
+      <li><a href="https://rohanaditya-servicenow.vercel.app/" class="active">Blogs</a></li>
+      <li><a href="https://rohanaditya.vercel.app">About Me</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div id="particles-js"></div>
+    <div class="hero-wrap">
+      <div>
+        <h1>Fetching Weather Data in ServiceNow Using REST APIs</h1>
+        <p><strong>Author:</strong> Rohan Aditya</p>
+        <p><strong>Date:</strong> 7th December 2025</p>
+        <p>Key points covered:</p>
+        <ul>
+          <li>Calling Weather API</li>
+          <li>Building a Weather Widget</li>
+          <li>Using Instance Options</li>
+          <li>Rendering Weather UI</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Navigation -->
+  <section class="hero">
+    <h1>Quick Navigation</h1>
+    <ul class="quick-links">
+      <li><a href="#section1">API Explanation</a></li>
+      <li><a href="#section2">Server Script</a></li>
+      <li><a href="#section3">Client Script</a></li>
+      <li><a href="#section6">Option Schema</li>
+      <li><a href="#section4">Widget HTML</a></li>
+      <li><a href="#section5">Download XML</a></li>
+    </ul>
+
+    <!-- Blog Body -->
+    <div class="blog1">
+
+      <!-- SECTION 1 -->
+      <section>
+        <h1 id="section1">Calling Weather API in ServiceNow</h1>
+        <p>
+          Let’s be honest — Weather Widgets look cool.
+          And building one in ServiceNow? Even cooler 😎.
+        </p>
+        <p>
+          In this tutorial, we consume the <b>WeatherAPI.com</b> service using
+          <code>sn_ws.RESTMessageV2()</code> and render a clean UI in a Service Portal Widget.
+        </p>
+      </section>
+
+      <!-- SECTION 2 -->
+      <section>
+        <h1 id="section2">Server Script</h1>
+        <p>
+          This script calls the API, fetches today’s weather, calculates a 3-day forecast,
+          and returns it back to the widget.
+        </p>
+        <div class="code-block">
+          <pre><code>
+(function () {
+
+    try {
+        var city = (options.city || "Hyderabad").replace(/ /g, "%20");
+        var startDate = normalizeDate(options.start_date);
+
+        var apiKey = gs.getProperty('weather.api.key');
+        var url = "https://api.weatherapi.com/v1/forecast.json?key=" + apiKey +
+                  "&q=" + city + "&days=3&aqi=no&alerts=no";
+
+        var r = new sn_ws.RESTMessageV2();
+        r.setEndpoint(url);
+        r.setHttpMethod("GET");
+
+        var result = JSON.parse(r.execute().getBody());
+
+        var apiToday = result.forecast.forecastday[0].date;
+
+        var displayToday = startDate || apiToday;
+        var disp1 = computeNextDate(displayToday, 1);
+        var disp2 = computeNextDate(displayToday, 2);
+
+        data.weather = {
+            city: result.location.name + ", " + result.location.country,
+            temp: result.current.temp_c,
+            icon_url: "https:" + result.current.condition.icon,
+            date: formatPrettyDate(displayToday)
+        };
+
+        data.forecast = [
+            {
+                date: formatPrettyDate(disp1),
+                avg_temp: result.forecast.forecastday[1].day.avgtemp_c,
+                icon_url: "https:" + result.forecast.forecastday[1].day.condition.icon
+            },
+            {
+                date: formatPrettyDate(disp2),
+                avg_temp: result.forecast.forecastday[2].day.avgtemp_c,
+                icon_url: "https:" + result.forecast.forecastday[2].day.condition.icon
+            }
+        ];
+
+    } catch (ex) {
+        data.error = ex.message;
+    }
+
+    function normalizeDate(inputDate) {
+        if (!inputDate) return "";
+        var gdt = new GlideDateTime();
+        gdt.setDisplayValue(inputDate);
+        return gdt.getLocalDate().toString();
+    }
+
+    function computeNextDate(dateStr, addDays) {
+        var gdt = new GlideDateTime(dateStr + " 00:00:00");
+        gdt.addDaysLocalTime(addDays);
+        return gdt.getLocalDate().toString();
+    }
+
+    function formatPrettyDate(dateStr) {
+        var p = dateStr.split("-");
+        var monthIndex = parseInt(p[1], 10) - 1;
+        var day = parseInt(p[2], 10);
+        var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                      "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        return months[monthIndex] + " " + day;
+    }
+
+})();
+
+          </code></pre>
+        </div>
+      </section>
+
+      <!-- SECTION 3 -->
+      <section>
+        <h1 id="section3">Client Controller</h1>
+        <p>
+          The client controller sends inputs (city, date) to the server and receives the forecast.
+        </p>
+        <div class="code-block">
+          <pre><code>api.controller = function($scope) {
+  var c = this;
+};</code></pre>
+        </div>
+      </section>
+      <!-- SECTION 6 -->
+      <section>
+        <h1 id="section-instance-options">Instance Options Schema</h1>
+        <p>
+          Below is the minimal instance option schema used for configuring the default city
+          and start date in the Weather Widget.
+        </p>
+
+        <div class="code-block">
+          <pre><code>
+            [
+              {
+                "name":"city",
+                "section":"other",
+              "label":"Default City",
+              "type":"string"
+              },
+              {
+                "hint":"DD-MM-YYYY",
+                "name":"start_date",
+                "section":"other",
+                "label":"Start Date",
+                "type":"string"
+              }
+            ]
+          </code></pre>
+        </div>
+      </section>
+
+
+      <!-- SECTION 4 -->
+      <section>
+        <h1 id="section4">Widget HTML</h1>
+        <p>This is the UI that displays city name, temperature, and forecast.</p>
+        <div class="code-block">
+          <pre><code>&lt;div class="weather-widget"&gt;
+  &lt;h3&gt;{{data.weather.city}}&lt;/h3&gt;
+  &lt;div class="forecast-card"&gt;
+    &lt;img ng-src="{{data.weather.icon_url}}"&gt;
+    &lt;div&gt;{{data.weather.temp}}°C&lt;/div&gt;
+    &lt;div&gt;{{data.weather.date}}&lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class="all-weather"&gt;
+    &lt;div class="forecast-card" ng-repeat="day in data.forecast"&gt;
+      &lt;img ng-src="{{day.icon_url}}"&gt;
+      &lt;div&gt;{{day.avg_temp}}°C&lt;/div&gt;
+      &lt;div&gt;{{day.date}}&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
+      <!-- SECTION 5 -->
+      <section>
+        <p>
+          The complete widget logic is already documented above, including the server script,
+          client controller, instance options, and HTML structure.
+          If you would like to download the full Widget XML file, use the button below.
+        </p>
+
+        <!-- Download Button -->
+        <button onclick="forceDownload()" class="btn btn-primary">
+          Download Widget XML
+        </button>
+      </section>
+
+      <section>
+        <h1>Final Output</h1>
+        <p>This is how the weather widget appears in the Service Portal:</p>
+
+        <div style="text-align:center; margin-top:20px;">
+          <img src="weather-output.png" alt="Weather Widget Output"
+            style="max-width:100%; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,0.15);">
+        </div>
+      </section>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-wrap">
+      <div>
+        <strong>© <span id="year"></span> Rohan Aditya</strong>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    var hamburger = document.getElementById("hamburger");
+    var mobileNav = document.getElementById("mobileNav");
+    var mobileClose = document.getElementById("mobileClose");
+    var overlay = document.getElementById("overlay");
+
+    function openMenu() {
+      mobileNav.classList.add("open");
+      mobileNav.setAttribute("aria-hidden", "false");
+      overlay.classList.add("show");
+      document.body.style.overflow = "hidden";
+      hamburger.setAttribute("aria-expanded", "true");
+    }
+
+    function closeMenu() {
+      mobileNav.classList.remove("open");
+      mobileNav.setAttribute("aria-hidden", "true");
+      overlay.classList.remove("show");
+      document.body.style.overflow = "";
+      hamburger.setAttribute("aria-expanded", "false");
+    }
+
+    hamburger.addEventListener("click", () => mobileNav.classList.contains("open") ? closeMenu() : openMenu());
+    mobileClose.addEventListener("click", closeMenu);
+    overlay.addEventListener("click", closeMenu);
+
+    document.querySelectorAll(".mobile-nav a").forEach(link => link.addEventListener("click", closeMenu));
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+  <script>
+    // Particles animation
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 100, density: { enable: true, value_area: 800 } },
+        color: { value: "#ffffff" },
+        shape: { type: "circle" },
+        size: { value: 1, random: true },
+        line_linked: { enable: true, distance: 200, color: "#8c5e41", opacity: 1, width: 0.8 },
+        move: { enable: true, speed: 8 }
+      }
+    });
+
+    function forceDownload() {
+      const url = "https://raw.githubusercontent.com/aytid/servicenow/main/Weather-API-Widget.xml";
+      fetch(url)
+        .then(res => res.blob())
+        .then(blob => {
+          const a = document.createElement("a");
+          a.href = URL.createObjectURL(blob);
+          a.download = "Weather-API-Widget.xml";
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        })
+        .catch(() => alert("Download failed. Please check the file URL."));
+    }
+  </script>
+
+</body>
+
+</html>
