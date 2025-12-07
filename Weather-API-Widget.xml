@@ -1,28 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<unload unload_date="2025-12-07 13:09:39">
+<unload unload_date="2025-12-07 14:10:45">
 <sp_widget action="INSERT_OR_UPDATE">
 <category>custom</category>
 <client_script><![CDATA[api.controller = function($scope) {
     var c = this;
-
-    c.weatherLoaded = false;
-
-    c.fetchWeather = function(city, startDate) {
-        if (!city || !startDate) return;
-
-        c.server.get({
-            action: "updateWeather",
-            city: city,
-            start_date: startDate
-        }).then(function(response) {
-            $scope.data.weather = response.data.weather;
-            $scope.data.forecast = response.data.forecast;
-            c.weatherLoaded = true;
-        });
-    };
-
-    // Example auto-load
-    c.fetchWeather("Hyderabad", "01-01-2025");
 };
 ]]></client_script>
 <controller_as>c</controller_as>
@@ -92,79 +73,77 @@
   
 }]]></link>
 <name>Weather API Widget</name>
-<option_schema>[
-  {
-    "name": "city",
-    "label": "Default City",
-    "type": "string"
-  },
-  {
-    "name": "start_date",
-    "label": "Start Date",
-    "type": "string"
-  }
-]
-</option_schema>
+<option_schema>[{"name":"city","section":"other","label":"Default City","type":"string"},{"hint":"DD-MM-YYYY","name":"start_date","section":"other","label":"Start Date","type":"string"}]</option_schema>
 <public>false</public>
 <roles/>
 <script><![CDATA[(function () {
-    // WEATHER API CALL
-    if (input && input.action === "updateWeather") {
-        try {
-            var city = input.city.replace(/ /g, "%20");
-            data.city = city;
 
-            // Convert event start date
-            var gd = new GlideDate();
-            gd.setDisplayValue(input.start_date);
+    try {
+        var city = (options.city || "Hyderabad").replace(/ /g, "%20");
+        var startDate = normalizeDate(options.start_date);
 
-            // Generate 3 event dates
-            var d1 = gd.getDisplayValue();
-            gd.addDaysLocalTime(1);
-            var d2 = gd.getDisplayValue();
-            gd.addDaysLocalTime(1);
-            var d3 = gd.getDisplayValue();
+        var apiKey = "fd99ebc7f2b14aed8ca80017250811";
+        var url = "https://api.weatherapi.com/v1/forecast.json?key=" + apiKey +
+                  "&q=" + city + "&days=3&aqi=no&alerts=no";
 
-            var apiKey = 'fd99ebc7f2b14aed8ca80017250811';
-            var url = "https://api.weatherapi.com/v1/forecast.json?key=" + apiKey +
-                      "&q=" + city +
-                      "&days=3&aqi=no&alerts=no";
+        var r = new sn_ws.RESTMessageV2();
+        r.setEndpoint(url);
+        r.setHttpMethod("GET");
 
-            var r = new sn_ws.RESTMessageV2();
-            r.setEndpoint(url);
-            r.setHttpMethod("GET");
-            var response = r.execute();
-            var result = JSON.parse(response.getBody());
+        var result = JSON.parse(r.execute().getBody());
 
-            data.weather = {
-                city: result.location.name + ", " + result.location.country,
-                temp: result.current.temp_c,
-                icon_url: "https:" + result.current.condition.icon,
-                date: d1
-            };
+        var apiToday = result.forecast.forecastday[0].date;
 
-            data.forecast = [
-                {
-                    date: d1,
-                    avg_temp: result.forecast.forecastday[0].day.avgtemp_c,
-                    icon_url: "https:" + result.forecast.forecastday[0].day.condition.icon
-                },
-                {
-                    date: d2,
-                    avg_temp: result.forecast.forecastday[1].day.avgtemp_c,
-                    icon_url: "https:" + result.forecast.forecastday[1].day.condition.icon
-                },
-                {
-                    date: d3,
-                    avg_temp: result.forecast.forecastday[2].day.avgtemp_c,
-                    icon_url: "https:" + result.forecast.forecastday[2].day.condition.icon
-                }
-            ];
+        var displayToday = startDate || apiToday;
+        var disp1 = computeNextDate(displayToday, 1);
+        var disp2 = computeNextDate(displayToday, 2);
 
-        } catch (ex) {
-            data.error = ex.message;
-        }
+        data.weather = {
+            city: result.location.name + ", " + result.location.country,
+            temp: result.current.temp_c,
+            icon_url: "https:" + result.current.condition.icon,
+            date: formatPrettyDate(displayToday)
+        };
+
+        data.forecast = [
+            {
+                date: formatPrettyDate(disp1),
+                avg_temp: result.forecast.forecastday[1].day.avgtemp_c,
+                icon_url: "https:" + result.forecast.forecastday[1].day.condition.icon
+            },
+            {
+                date: formatPrettyDate(disp2),
+                avg_temp: result.forecast.forecastday[2].day.avgtemp_c,
+                icon_url: "https:" + result.forecast.forecastday[2].day.condition.icon
+            }
+        ];
+
+    } catch (ex) {
+        data.error = ex.message;
     }
+
+    function normalizeDate(inputDate) {
+        if (!inputDate) return "";
+        var gdt = new GlideDateTime();
+        gdt.setDisplayValue(inputDate);
+        return gdt.getLocalDate().toString();
+    }
+
+    function computeNextDate(dateStr, addDays) {
+        var gdt = new GlideDateTime(dateStr + " 00:00:00");
+        gdt.addDaysLocalTime(addDays);
+        return gdt.getLocalDate().toString();
+    }
+
+    function formatPrettyDate(dateStr) {
+        var p = dateStr.split("-");
+        var monthIndex = parseInt(p[1], 10) - 1;
+        var day = parseInt(p[2], 10);
+        var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                      "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        return months[monthIndex] + " " + day;
+    }
+
 })();
 ]]></script>
 <servicenow>false</servicenow>
@@ -172,15 +151,15 @@
 <sys_created_by>rohan.aditya</sys_created_by>
 <sys_created_on>2025-12-07 12:36:08</sys_created_on>
 <sys_id>da0cfdeb83e17210ccf85d70deaad340</sys_id>
-<sys_mod_count>18</sys_mod_count>
+<sys_mod_count>38</sys_mod_count>
 <sys_name>Weather API Widget</sys_name>
 <sys_package display_value="Global" source="global">global</sys_package>
 <sys_policy/>
 <sys_scope display_value="Global">global</sys_scope>
 <sys_update_name>sp_widget_da0cfdeb83e17210ccf85d70deaad340</sys_update_name>
 <sys_updated_by>rohan.aditya</sys_updated_by>
-<sys_updated_on>2025-12-07 12:59:02</sys_updated_on>
-<template><![CDATA[<div class="weather-widget" ng-if="c.weatherLoaded">
+<sys_updated_on>2025-12-07 14:05:23</sys_updated_on>
+<template><![CDATA[<div class="weather-widget">
 
   <!-- CITY NAME -->
   <h3 class="weather-city">{{data.weather.city}}</h3>
