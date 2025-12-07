@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<unload unload_date="2025-12-07 13:09:39">
+<sp_widget action="INSERT_OR_UPDATE">
+<category>custom</category>
+<client_script><![CDATA[api.controller = function($scope) {
+    var c = this;
+
+    c.weatherLoaded = false;
+
+    c.fetchWeather = function(city, startDate) {
+        if (!city || !startDate) return;
+
+        c.server.get({
+            action: "updateWeather",
+            city: city,
+            start_date: startDate
+        }).then(function(response) {
+            $scope.data.weather = response.data.weather;
+            $scope.data.forecast = response.data.forecast;
+            c.weatherLoaded = true;
+        });
+    };
+
+    // Example auto-load
+    c.fetchWeather("Hyderabad", "01-01-2025");
+};
+]]></client_script>
+<controller_as>c</controller_as>
+<css>.weather-widget {
+  text-align: center;
+  padding: 20px 10px;
+  margin-bottom: 20px;
+  font-family: 'Poppins', sans-serif;
+  background-color:white;
+}
+
+.weather-city {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #015851;
+  margin-bottom: 15px;
+}
+
+.forecast-row {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+}
+
+.forecast-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.forecast-icon {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 8px;
+}
+
+.forecast-temp {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.forecast-date {
+  font-size: 0.95rem;
+  color: #444;
+}
+
+@media (max-width: 480px) {
+  .forecast-row {
+    gap: 20px;
+  }
+  .forecast-icon {
+    width: 30px;
+    height: 30px;
+  }
+}
+</css>
+<data_table>sp_instance</data_table>
+<demo_data/>
+<description/>
+<docs display_value=""/>
+<field_list/>
+<has_preview>false</has_preview>
+<id>weather-api-widget</id>
+<internal>false</internal>
+<link><![CDATA[function link(scope, element, attrs, controller) {
+  
+}]]></link>
+<name>Weather API Widget</name>
+<option_schema>[
+  {
+    "name": "city",
+    "label": "Default City",
+    "type": "string"
+  },
+  {
+    "name": "start_date",
+    "label": "Start Date",
+    "type": "string"
+  }
+]
+</option_schema>
+<public>false</public>
+<roles/>
+<script><![CDATA[(function () {
+    // WEATHER API CALL
+    if (input && input.action === "updateWeather") {
+        try {
+            var city = input.city.replace(/ /g, "%20");
+            data.city = city;
+
+            // Convert event start date
+            var gd = new GlideDate();
+            gd.setDisplayValue(input.start_date);
+
+            // Generate 3 event dates
+            var d1 = gd.getDisplayValue();
+            gd.addDaysLocalTime(1);
+            var d2 = gd.getDisplayValue();
+            gd.addDaysLocalTime(1);
+            var d3 = gd.getDisplayValue();
+
+            var apiKey = 'fd99ebc7f2b14aed8ca80017250811';
+            var url = "https://api.weatherapi.com/v1/forecast.json?key=" + apiKey +
+                      "&q=" + city +
+                      "&days=3&aqi=no&alerts=no";
+
+            var r = new sn_ws.RESTMessageV2();
+            r.setEndpoint(url);
+            r.setHttpMethod("GET");
+            var response = r.execute();
+            var result = JSON.parse(response.getBody());
+
+            data.weather = {
+                city: result.location.name + ", " + result.location.country,
+                temp: result.current.temp_c,
+                icon_url: "https:" + result.current.condition.icon,
+                date: d1
+            };
+
+            data.forecast = [
+                {
+                    date: d1,
+                    avg_temp: result.forecast.forecastday[0].day.avgtemp_c,
+                    icon_url: "https:" + result.forecast.forecastday[0].day.condition.icon
+                },
+                {
+                    date: d2,
+                    avg_temp: result.forecast.forecastday[1].day.avgtemp_c,
+                    icon_url: "https:" + result.forecast.forecastday[1].day.condition.icon
+                },
+                {
+                    date: d3,
+                    avg_temp: result.forecast.forecastday[2].day.avgtemp_c,
+                    icon_url: "https:" + result.forecast.forecastday[2].day.condition.icon
+                }
+            ];
+
+        } catch (ex) {
+            data.error = ex.message;
+        }
+    }
+})();
+]]></script>
+<servicenow>false</servicenow>
+<sys_class_name>sp_widget</sys_class_name>
+<sys_created_by>rohan.aditya</sys_created_by>
+<sys_created_on>2025-12-07 12:36:08</sys_created_on>
+<sys_id>da0cfdeb83e17210ccf85d70deaad340</sys_id>
+<sys_mod_count>18</sys_mod_count>
+<sys_name>Weather API Widget</sys_name>
+<sys_package display_value="Global" source="global">global</sys_package>
+<sys_policy/>
+<sys_scope display_value="Global">global</sys_scope>
+<sys_update_name>sp_widget_da0cfdeb83e17210ccf85d70deaad340</sys_update_name>
+<sys_updated_by>rohan.aditya</sys_updated_by>
+<sys_updated_on>2025-12-07 12:59:02</sys_updated_on>
+<template><![CDATA[<div class="weather-widget" ng-if="c.weatherLoaded">
+
+  <!-- CITY NAME -->
+  <h3 class="weather-city">{{data.weather.city}}</h3>
+
+  <div class="forecast-row">
+
+    <!-- Current Day -->
+    <div class="forecast-item">
+      <img ng-src="{{data.weather.icon_url}}" class="forecast-icon">
+      <div class="forecast-temp">{{data.weather.temp}}°C</div>
+      <div class="forecast-date">{{data.weather.date}}</div>
+    </div>
+
+    <!-- Next Days -->
+    <div class="forecast-item" ng-repeat="day in data.forecast">
+      <img ng-src="{{day.icon_url}}" class="forecast-icon">
+      <div class="forecast-temp">{{day.avg_temp}}°C</div>
+      <div class="forecast-date">{{day.date}}</div>
+    </div>
+
+  </div>
+</div>
+]]></template>
+</sp_widget>
+</unload>
