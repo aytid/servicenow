@@ -14,7 +14,6 @@
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   <link rel="stylesheet" href="index.css">
 
-  <!-- Download button style -->
   <style>
     .code-block code {
       font-family: "Menlo", "Consolas", monospace !important;
@@ -56,15 +55,11 @@
         border-radius: 6px;
       }
 
-      /* Pre and code adjustments */
       .code-block pre {
         width: 100% !important;
         white-space: pre-wrap !important;
-        /* wrap lines */
         word-break: break-word !important;
-        /* break long strings */
         font-size: 0.5rem !important;
-        /* smaller font */
         line-height: 1.2rem !important;
         padding: 12px !important;
         box-sizing: border-box !important;
@@ -74,7 +69,6 @@
         font-family: "Menlo", "Consolas", monospace !important;
       }
 
-      /* Reduce padding of section so code sits nicely */
       .blog1 section {
         padding-left: 0 !important;
         padding-right: 0 !important;
@@ -144,13 +138,13 @@
 
     <!-- Blog Body -->
     <div class="blog1">
-<!-- SECTION 4 -->
-<section>
-  <h1 id="section1">Widget HTML</h1>
-  <p>This is the UI that displays city name, temperature, and forecast.</p>
+      <!-- SECTION 4 -->
+      <section>
+        <h1 id="section1">Widget HTML</h1>
+        <p>This is the UI that displays city name, temperature, and forecast.</p>
 
-  <div class="code-block">
-    <pre><code>
+        <div class="code-block">
+          <pre><code>
 &lt;div class="he-hero-section"&gt;
   &lt;video
     class="he-hero-video"
@@ -167,8 +161,8 @@
   &lt;/div&gt;
 &lt;/div&gt;
     </code></pre>
-  </div>
-</section>
+        </div>
+      </section>
 
 
       <!-- SECTION 2 -->
@@ -244,13 +238,17 @@ data.show_search_box = options.show_search_box;
 
       <section>
         <h1>Final Output</h1>
-        <p>This is how the weather widget appears in the Service Portal:</p>
+        <p>This is how the video widget looks in the Portal:</p>
 
         <div style="text-align:center; margin-top:20px;">
-          <img src="images/weather-output.png" alt="Weather Widget Output"
-            style="max-width:100%; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,0.15);">
+          <iframe width="420" height="315"
+            src="https://drive.google.com/uc?export=download&id=1gjgretuHDKnJxl6jXODk7-2CbPfNtoXD">
+          </iframe>
+
         </div>
       </section>
+
+
 
     </div>
   </section>
@@ -312,19 +310,27 @@ data.show_search_box = options.show_search_box;
     });
 
     function forceDownload() {
-      const url = "https://raw.githubusercontent.com/aytid/servicenow/main/Weather-API-Widget.xml";
+      const url = "https://raw.githubusercontent.com/aytid/servicenow/main/Portal-Video%E2%80%93Widget.xml";
+
       fetch(url)
-        .then(res => res.blob())
+        .then(res => {
+          if (!res.ok) throw new Error("Network response was not ok");
+          return res.blob();
+        })
         .then(blob => {
           const a = document.createElement("a");
           a.href = URL.createObjectURL(blob);
-          a.download = "Weather-API-Widget.xml";
+          a.download = "Video-Widget.xml";
           document.body.appendChild(a);
           a.click();
           document.body.removeChild(a);
+          URL.revokeObjectURL(a.href);
         })
-        .catch(() => alert("Download failed. Please check the file URL."));
+        .catch(() => {
+          alert("Download failed. Please check the file URL.");
+        });
     }
+
   </script>
 
 </body>
