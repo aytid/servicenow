@@ -74,6 +74,29 @@
         padding-right: 0 !important;
       }
     }
+
+.blog1 iframe,
+.blog1 video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.blog1 iframe {
+  aspect-ratio: 16 / 9;
+}
+
+@media (max-width: 576px) {
+
+  .blog1 iframe,
+  .blog1 video {
+    width: 100% !important;
+    height: auto !important;
+    border-radius: 8px;
+  }
+}
+
   </style>
 </head>
 
@@ -141,8 +164,6 @@
       <!-- SECTION 4 -->
       <section>
         <h1 id="section1">Widget HTML</h1>
-        <p>This is the UI that displays city name, temperature, and forecast.</p>
-
         <div class="code-block">
           <pre><code>
 &lt;div class="he-hero-section"&gt;
@@ -168,10 +189,6 @@
       <!-- SECTION 2 -->
       <section>
         <h1 id="section2">Server Script</h1>
-        <p>
-          This script calls the API, fetches today’s weather, calculates a 3-day forecast,
-          and returns it back to the widget.
-        </p>
         <div class="code-block">
           <pre><code>
 var aisEnabled = $sp.isAISearchEnabled();
@@ -201,10 +218,6 @@ data.show_search_box = options.show_search_box;
       <!-- SECTION 6 -->
       <section>
         <h1 id="section3">Instance Options Schema</h1>
-        <p>
-          Below is the minimal instance option schema used for configuring the default city
-          and start date in the Weather Widget.
-        </p>
 
         <div class="code-block">
           <pre><code>
@@ -236,40 +249,19 @@ data.show_search_box = options.show_search_box;
         </button>
       </section>
 
-<section>
+      <section>
         <h1>Final Output</h1>
         <p>This is how the video widget looks in the Portal:</p>
 
-        <div class="video-container">
-          <iframe 
-            src="https://drive.google.com/file/d/1gjgretuHDKnJxl6jXODk7-2CbPfNtoXD/preview" 
-            allow="autoplay">
+        <div style="text-align:center; margin-top:20px;">
+          <!-- <iframe width="620" height="515"
+            src="https://drive.google.com/uc?export=download&id=1gjgretuHDKnJxl6jXODk7-2CbPfNtoXD">
+          </iframe> -->
+          <iframe width="920" height="515"
+            src="https://app.weet.co/play/91631118/create-video-tutorials-with-weet">
           </iframe>
+          
         </div>
-
-        <style>
-          /* This makes the video responsive (16:9 aspect ratio) */
-          .video-container {
-            position: relative;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-            height: 0;
-            overflow: hidden;
-            max-width: 800px;
-            margin: 20px auto;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-            background: #000;
-          }
-
-          .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-          }
-        </style>
       </section>
 
 
