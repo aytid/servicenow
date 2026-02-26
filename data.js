@@ -4,6 +4,11 @@ const articlesData = [
         title: 'Custom Quick Link Widget',
         category: 'Tutorial',
         excerpt: 'Built a custom ServiceNow Quick Link widget that transforms standard links into vibrant, center-aligned interactive cards.',
+        tags: ['Custom Widget', 'Quick Links', 'Employee Center', 'Service Portal'],
+        date: '2025-06-28',
+        readTime: '12 min',
+        views: 920,
+        created: '2025-06-28T11:00:00Z',
         content: `
 
 **Author: Rohan Aditya**
@@ -207,18 +212,18 @@ Each card links to a different ServiceNow page or resource.
 
 This widget works especially well on **Employee Center portals**.
 
-© 2026 Rohan Aditya`,
-        tags: ['Custom Widget', 'Quick Links', 'Employee Center', 'Service Portal'],
-        date: '2025-06-28',
-        readTime: '12 min',
-        views: 3200,
-        created: '2025-06-28T11:00:00Z'
+© 2026 Rohan Aditya`
     },
     {
-        id: '1002',
+        id: '918',
         title: 'Show Table Data in Modal – Native UI',
         category: 'Tutorial',
         excerpt: 'Learn how to fetch dynamic table data and display it inside a GlideModal using UI Actions, UI Pages, and GlideAjax in ServiceNow.',
+        tags: ['GlideModal', 'UI Page', 'GlideAjax'],
+        date: '2025-07-02',
+        readTime: '10 min',
+        views: 890,
+        created: '2025-07-02T10:30:00Z',
         content: `
 **Author: Rohan Aditya**
 
@@ -432,19 +437,18 @@ Here’s how the final modal looks when you run it:
        alt="Modal UI - Final Display" />
 </div>
 
-© 2026 Rohan Aditya
-`,
-        tags: ['GlideModal', 'UI Page', 'GlideAjax'],
-        date: '2025-07-02',
-        readTime: '10 min',
-        views: 2900,
-        created: '2025-07-02T10:30:00Z'
+© 2026 Rohan Aditya`
     },
     {
         id: '103',
         title: 'Use Script Include in Condition Filter or Reports',
         category: 'Tutorial',
         excerpt: 'Break past Condition Builder limitations by using a Script Include to dynamically filter records in lists and reports.',
+        tags: ['Script Include', 'Condition Builder', 'Reports', 'Sandbox enabled'],
+        date: '2025-07-17',
+        readTime: '6 min',
+        views: 922,
+        created: '2025-07-17T09:15:00Z',
         content: `
 
 **Author: Rohan Aditya**
@@ -507,7 +511,7 @@ function ReportsAJAX() {
 \`\`\`
 
 🚨 **Important:**  
-If *Sandbox* isn’t checked, your script won't work — and you’ll start questioning every life choice that led to this moment.
+If *Sandbox* isn't checked, your script won't work — and you'll start questioning every life choice that led to this moment.
 
 ---
 
@@ -538,7 +542,7 @@ Now your report dynamically pulls only Active P1 incidents.
 
 ---
 
-## What’s Happening Behind the Scenes
+## What's Happening Behind the Scenes
 
 - The Script Include runs server-side.
 - It returns an array of sys_ids.
@@ -549,18 +553,18 @@ Clean. Dynamic. Powerful.
 
 ---
 
-© 2026 Rohan Aditya`,
-        tags: ['Script Include', 'Condition Builder', 'Reports', 'Sandbox enabled'],
-        date: '2025-07-17',
-        readTime: '6 min',
-        views: 2400,
-        created: '2025-07-17T09:15:00Z'
+© 2026 Rohan Aditya`
     },
     {
         id: '104',
         title: 'Automate Creation of Product and Sold Product Records from Excel via Flow and Transform Map',
         category: 'Use Case',
         excerpt: 'A practical automation approach to creating Product and Sold Product records directly from Excel attachments using Flow Designer and Transform Maps.',
+        tags: ['Flow Designer', 'Transform Map', 'Import Set'],
+        date: '2025-08-08',
+        readTime: '12 min',
+        views: 3100,
+        created: '2025-08-08T10:00:00Z',
         content: `
 **Author: Rohan Aditya**
 
@@ -576,7 +580,7 @@ Clean. Dynamic. Powerful.
 ---
 
 Hi everyone 👋  
-I’d like to share a practical use case we implemented in ServiceNow.
+I'd like to share a practical use case we implemented in ServiceNow.
 
 ---
 
@@ -938,19 +942,18 @@ Upload Excel → Submit Catalog → Products & Sold Products Created Automatical
 
 ---
 
-© 2026 Rohan Aditya
-`,
-        tags: ['Flow Designer', 'Transform Map', 'Import Set',],
-        date: '2025-08-08',
-        readTime: '12 min',
-        views: 3100,
-        created: '2025-08-08T10:00:00Z'
+© 2026 Rohan Aditya`
     },
     {
         id: '1009',
         title: 'Convert Data from CSV File to JSON',
         category: 'Use Case',
         excerpt: 'Automate CSV attachment processing in ServiceNow using Flow Designer and convert Import Set data into a structured JSON object.',
+        tags: ['Flow Designer', 'Import Set', 'CSV Processing', 'JSON Conversion'],
+        date: '2026-01-08',
+        readTime: '8 min',
+        views: 280,
+        created: '2026-01-08T10:00:00Z',
         content: `
 **Author: Rohan Aditya**
 
@@ -1100,19 +1103,18 @@ Clean. Automated. Integration-ready.
 
 ---
 
-© 2026 Rohan Aditya
-`,
-        tags: ['Flow Designer', 'Import Set', 'CSV Processing', 'JSON Conversion'],
-        date: '2026-01-08',
-        readTime: '8 min',
-        views: 1800,
-        created: '2026-01-08T10:00:00Z'
+© 2026 Rohan Aditya`
     },
     {
         id: '1007',
         title: 'Fetching Weather Data in ServiceNow Using REST APIs',
         category: 'Tutorial',
         excerpt: 'Learn how to call a Weather API in ServiceNow using RESTMessageV2 and build a dynamic Weather Forecast Widget in Service Portal.',
+        tags: ['ServiceNow', 'REST API', 'Service Portal', 'Widget Development', 'Integration'],
+        date: '2025-12-07',
+        readTime: '9 min',
+        views: 2100,
+        created: '2025-12-07T10:00:00Z',
         content: `
 **Author: Rohan Aditya**
 
@@ -1129,7 +1131,7 @@ Clean. Automated. Integration-ready.
 
 ---
 
-Let’s be honest — Weather Widgets look cool.  
+Let's be honest — Weather Widgets look cool.  
 And building one in ServiceNow? Even cooler 😎  
 
 In this tutorial, we consume the WeatherAPI.com service using \`sn_ws.RESTMessageV2()\` and render a clean UI in a Service Portal Widget.
@@ -1163,7 +1165,7 @@ We call the external API using RESTMessageV2, fetch today's weather, calculate a
         var startDate = normalizeDate(options.start_date);
 
         var apiKey = gs.getProperty('weather.api.key');
-        var url = "https://api.weatherapi.com/v1/forecast.json?key=" + apiKey +
+        var url = "https://api.weatherapi.com/v1/forecast.json?key= " + apiKey +
                   "&q=" + city + "&days=3&aqi=no&alerts=no";
 
         var r = new sn_ws.RESTMessageV2();
@@ -1295,10 +1297,10 @@ The complete widget logic is documented above (Server Script, Client Controller,
 
 You can export the full Widget XML file from ServiceNow for reuse.
 <div class="download-container">
-    <a href="https://raw.githubusercontent.com/aytid/servicenow/main/Weather-API-Widget.xml" 
+    <a href="https://raw.githubusercontent.com/aytid/servicenow/main/Weather-API-Widget.xml " 
        download="Weather-API-Widget.xml"
        class="download-btn">
-        <svg class="download-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg class="download-icon" xmlns="http://www.w3.org/2000/svg " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
             <polyline points="7 10 12 15 17 10"></polyline>
             <line x1="12" y1="15" x2="12" y2="3"></line>
@@ -1323,20 +1325,19 @@ Reusable Widget architecture.
 
 ---
 
-© 2026 Rohan Aditya
-`,
-        tags: ['ServiceNow', 'REST API', 'Service Portal', 'Widget Development', 'Integration'],
-        date: '2025-12-07',
-        readTime: '9 min',
-        views: 2100,
-        created: '2025-12-07T10:00:00Z'
+© 2026 Rohan Aditya`
     },
     {
-    id: '1008',
-    title: 'ServiceNow Portal Video Widget',
-    category: 'Tutorial',
-    excerpt: 'Build a modern, interactive background video banner widget for ServiceNow Service Portal with overlay content and flexible instance options.',
-    content: `
+        id: '1008',
+        title: 'ServiceNow Portal Video Widget',
+        category: 'Tutorial',
+        excerpt: 'Build a modern, interactive background video banner widget for ServiceNow Service Portal with overlay content and flexible instance options.',
+        tags: ['ServiceNow', 'Service Portal', 'Widget Development', 'UI/UX', 'Video Banner'],
+        date: '2025-12-24',
+        readTime: '7 min',
+        views: 1950,
+        created: '2025-12-24T10:00:00Z',
+        content: `
 
 **Author: Rohan Aditya**
 
@@ -1515,20 +1516,19 @@ Perfect for Employee Center or branded portals.
 
 ---
 
-© 2026 Rohan Aditya
-`,
-    tags: ['ServiceNow', 'Service Portal', 'Widget Development', 'UI/UX', 'Video Banner'],
-    date: '2025-12-24',
-    readTime: '7 min',
-    views: 1950,
-    created: '2025-12-24T10:00:00Z'
+© 2026 Rohan Aditya`
     },
     {
-    id: '1006',
-    title: 'Autopopulate Fields in Mobile Input Form',
-    category: 'Tutorial',
-    excerpt: 'Learn how to dynamically prefill fields in ServiceNow Agent Mobile using Mobile Callable Script Includes and scripted variables.',
-    content: `
+        id: '1006',
+        title: 'Autopopulate Fields in Mobile Input Form',
+        category: 'Tutorial',
+        excerpt: 'Learn how to dynamically prefill fields in ServiceNow Agent Mobile using Mobile Callable Script Includes and scripted variables.',
+        tags: ['ServiceNow', 'Agent Mobile', 'Script Include', 'Mobile Development', 'Automation'],
+        date: '2025-11-05',
+        readTime: '7 min',
+        views: 625,
+        created: '2025-11-05T10:00:00Z',
+        content: `
 
 **Author: Rohan Aditya**
 
@@ -1546,7 +1546,7 @@ Perfect for Employee Center or branded portals.
 
 ### Why It Refuses to Work and How to Convince It
 
-Your Script Include isn’t working in the mobile input form?
+Your Script Include isn't working in the mobile input form?
 
 You double-checked the code.  
 Cleared cache.  
@@ -1554,13 +1554,13 @@ Maybe even whispered a prayer.
 
 Still nothing. Classic developer déjà vu.
 
-Usually, it’s one of these two sneaky culprits:
+Usually, it's one of these two sneaky culprits:
 
 **Mobile Callable is unchecked**  
-If the *Mobile Callable* checkbox isn’t enabled, the Agent Mobile app completely ignores your Script Include — like that one teammate who reads messages but never replies.
+If the *Mobile Callable* checkbox isn't enabled, the Agent Mobile app completely ignores your Script Include — like that one teammate who reads messages but never replies.
 
 **Returning only sys_id**  
-Mobile doesn’t want just the sys_id like desktop UI does.  
+Mobile doesn't want just the sys_id like desktop UI does.  
 It expects a JSON object with both:
 
 - Value  
@@ -1644,7 +1644,7 @@ In your **Mobile Input Form**:
 
 ## Step 3: Configure Variable Attribute (Script)
 
-Open the variable’s **Attributes**:
+Open the variable's **Attributes**:
 
 - Value:
 
@@ -1676,7 +1676,7 @@ In your Assignment Group input field:
 Now when the form opens in **ServiceNow Agent Mobile**:
 
 - Assignment Group is already populated  
-- Users don’t need to select manually  
+- Users don't need to select manually  
 - Data consistency improves  
 
 Simple tweak.  
@@ -1684,20 +1684,19 @@ Big usability win.
 
 ---
 
-© 2026 Rohan Aditya
-`,
-    tags: ['ServiceNow', 'Agent Mobile', 'Script Include', 'Mobile Development', 'Automation'],
-    date: '2025-11-05',
-    readTime: '7 min',
-    views: 1650,
-    created: '2025-11-05T10:00:00Z'
+© 2026 Rohan Aditya`
     },
     {
-    id: '1005',
-    title: 'SOW to CSM/FSM Workspace Migration',
-    category: 'Tutorial',
-    excerpt: 'Complete configuration guide for updating UI Actions and Workspace components during SOW to CSM/FSM Configurable Workspace migration.',
-    content: `
+        id: '1005',
+        title: 'SOW to CSM/FSM Workspace Migration',
+        category: 'Tutorial',
+        excerpt: 'Complete configuration guide for updating UI Actions and Workspace components during SOW to CSM/FSM Configurable Workspace migration.',
+        tags: ['ServiceNow', 'Workspace Migration', 'CSM', 'FSM', 'UI Builder'],
+        date: '2025-10-07',
+        readTime: '14 min',
+        views: 1249,
+        created: '2025-10-07T10:00:00Z',
+        content: `
 
 **Author: Rohan Aditya**
 
@@ -2009,18 +2008,12 @@ During SOW → CSM/FSM migration:
 - Action Assignments must be enabled
 
 Migration is not just enabling Workspace —  
-it’s reconfiguring it properly.
+it's reconfiguring it properly.
 
 ---
 
-© 2026 Rohan Aditya
-`,
-    tags: ['ServiceNow', 'Workspace Migration', 'CSM', 'FSM', 'UI Builder'],
-    date: '2025-10-07',
-    readTime: '14 min',
-    views: 2950,
-    created: '2025-10-07T10:00:00Z'
-    },
+© 2026 Rohan Aditya`
+    }
 ];
 
 // Function to get articles (from localStorage or default data)
