@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rohan Aditya</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="shortcut icon" href="images/r-letter-logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="/images/r-letter-logo.png">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="#" class="brand" onclick="app.showHome(); return false;">
+                <!-- <div class="brand-mark">RA</div> -->
+                <div>
+                    <span class="brand-text">Rohan Aditya</span>
+                    <!-- <span class="brand-sub">ServiceNow Journal</span> -->
+                </div>
+            </a>
+
+            <nav class="header-nav">
+                <a href="#" class="nav-link" onclick="app.filterByCategory('All'); return false;">Articles</a>
+                <a href="#" class="nav-link" onclick="app.filterByCategory('Tutorial'); return false;">Tutorials</a>
+                <!-- <a href="#" class="nav-link" onclick="app.filterByCategory('Case Study'); return false;">Case
+                    Studies</a> -->
+                <a href="https://rohanaditya.vercel.app/" class="nav-link" onclick="app.showAbout(); return false;">About</a>
+            </nav>
+
+            <div class="header-actions">
+                <button class="theme-toggle" onclick="app.toggleTheme()" title="Toggle theme">
+                    <span id="theme-icon">◐</span>
+                </button>
+                <!-- <button class="btn btn-primary" onclick="app.openEditor()">
+                    <span>+</span> Write
+                </button> -->
+            </div>
+        </div>
+    </header>
+
+    <main class="main" id="mainContent">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <h1>ServiceNow playground Series.</h1>
+                    <p>by Rohan</p>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <span class="stat-value" id="statArticles">0</span>
+                            <span class="stat-label">Articles</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value" id="statTutorials">0</span>
+                            <span class="stat-label">Tutorials</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value" id="statReads">0</span>
+                            <span class="stat-label">Total Reads</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="code-preview">
+                        <div class="code-line">
+                            <span class="code-line-number">01</span>
+                            <span><span class="code-keyword">class</span> <span class="code-function">RohanAditya</span>
+                                {</span>
+                        </div>
+
+                        <div class="code-line">
+                            <span class="code-line-number">02</span>
+                            <span style="margin-left: 2rem;"><span class="code-keyword">constructor</span>() {</span>
+                        </div>
+
+                        <div class="code-line">
+                            <span class="code-line-number">03</span>
+                            <span style="margin-left: 4rem;">this.<span class="code-function">role</span> = <span
+                                    class="code-string">'ServiceNow Platform Developer'</span>;</span>
+                        </div>
+
+                        <div class="code-line">
+                            <span class="code-line-number">04</span>
+                            <span style="margin-left: 4rem;">this.<span class="code-function">company</span> = <span
+                                    class="code-string">'Kaptius'</span>;</span>
+                        </div>
+
+                        <div class="code-line">
+                            <span class="code-line-number">05</span>
+                            <span style="margin-left: 4rem;">this.<span class="code-function">specialization</span> =
+                                <span class="code-string">'CSA, CAD, CIS-ITSM'</span>;</span>
+                        </div>
+
+                        <div class="code-line">
+                            <span class="code-line-number">06</span>
+                            <span style="margin-left: 4rem;">this.<span class="code-function">mindset</span> = <span
+                                    class="code-string">'Automate. Optimize. Scale.'</span>;</span>
+                        </div>
+
+                        <div class="code-line">
+                            <span class="code-line-number">07</span>
+                            <span style="margin-left: 2rem;">}</span>
+                        </div>
+
+                        <div class="code-line">
+                            <span class="code-line-number">08</span>
+                            <span>}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Search Section -->
+        <section class="search-section">
+            <div class="search-container">
+                <div class="search-box">
+                    <span class="search-icon">⌕</span>
+                    <input type="text" class="search-input" id="searchInput"
+                        placeholder="Search articles, topics, or code..." oninput="app.handleSearch()">
+                </div>
+                <div class="filter-chips" id="filterChips">
+                    <button class="chip active" onclick="app.filterByCategory('All')">All</button>
+                    <button class="chip" onclick="app.filterByCategory('Tutorial')">Tutorials</button>
+                    <button class="chip" onclick="app.filterByCategory('Integration')">Integration</button>
+                    <!-- <button class="chip" onclick="app.filterByCategory('Performance')">Performance</button> -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Content -->
+        <section class="content">
+            <div class="section-header">
+                <h2 class="section-title">Latest Articles</h2>
+                <div class="view-options">
+                    <button class="view-btn active" onclick="app.setView('grid')">Grid</button>
+                    <button class="view-btn" onclick="app.setView('list')">List</button>
+                </div>
+            </div>
+
+            <div id="articlesContainer" class="articles-grid">
+                <!-- Articles injected here -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Editor Modal -->
+    <div class="modal-overlay" id="editorModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-title">New Article</h2>
+                <button class="modal-close" onclick="app.closeEditor()">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="articleForm">
+                    <input type="hidden" id="articleId">
+
+                    <div class="form-group">
+                        <label class="form-label">Title</label>
+                        <input type="text" class="form-input" id="articleTitle" required
+                            placeholder="Enter article title...">
+                    </div>
+
+                    <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div>
+                            <label class="form-label">Category</label>
+                            <select class="form-select" id="articleCategory">
+                                <option value="Tutorial">Tutorial</option>
+                                <option value="Case Study">Case Study</option>
+                                <option value="Integration">Integration</option>
+                                <option value="Performance">Performance</option>
+                                <option value="Architecture">Architecture</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="form-label">Publish Date</label>
+                            <input type="date" class="form-input" id="articleDate" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Excerpt</label>
+                        <input type="text" class="form-input" id="articleExcerpt" required
+                            placeholder="Brief description of the article...">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Content (Markdown)</label>
+                        <textarea class="form-textarea" id="articleContent" required placeholder="# Introduction
+
+Write your article in Markdown...
+
+## Code Example
+```javascript
+// Your code here
+```"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Tags (Press Enter)</label>
+                        <div class="tag-input-container" onclick="document.getElementById('tagInput').focus()">
+                            <div id="tagList"></div>
+                            <input type="text" class="tag-input" id="tagInput" placeholder="Add tag...">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-ghost" onclick="app.closeEditor()">Cancel</button>
+                <button class="btn btn-primary" onclick="app.saveArticle()">Publish Article</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Article View Modal -->
+    <div class="modal-overlay" id="articleModal">
+        <div class="modal" style="max-width: 900px;">
+            <div class="modal-header">
+                <div></div>
+                <div style="display: flex; gap: 0.5rem;">
+                    <button class="btn btn-ghost" onclick="app.editCurrentArticle()">Edit</button>
+                    <button class="btn btn-ghost" onclick="app.exportArticle()" style="color: #ef4444;">Delete</button>
+                    <button class="modal-close" onclick="app.closeArticle()">×</button>
+                </div>
+            </div>
+            <div class="modal-body" style="padding: 0;">
+                <article class="article-view" id="articleViewContent">
+                    <!-- Article content injected here -->
+                </article>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
