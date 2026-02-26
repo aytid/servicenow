@@ -198,11 +198,11 @@ You’ll get a responsive set of colorful cards centered on the page.
 Each card links to a different ServiceNow page or resource.
 
 <div class="blog-image">
-<img src="images/blog1/b1img1.png" alt="Quick Links Widget Before Hover" />
+<img src="images/b1img1.png" alt="Quick Links Widget Before Hover" />
 </div>
 
 <div class="blog-image">
-  <img src="images/blog1/b1img2.png" alt="Quick Links Widget After Hover" />
+  <img src="images/b1img2.png" alt="Quick Links Widget After Hover" />
 </div>
 
 This widget works especially well on **Employee Center portals**.
@@ -414,21 +414,21 @@ GetTableRecordsAJAX.prototype = Object.extendsObject(AbstractAjaxProcessor, {
 Here’s how the final modal looks when you run it:
 
 <div class="blog-image">
-<img src="images/blog2/modal1.png" alt="Modal UI - Table Selection" />
+<img src="images/modal1.png" alt="Modal UI - Table Selection" />
 </div>
 
 <div class="blog-image">
-  <img src="images/blog2/modal2.png" 
+  <img src="images/modal2.png" 
        alt="Modal UI - Table Data Loaded" />
 </div>
 
 <div class="blog-image">
-  <img src="images/blog2/modal3.png" 
+  <img src="images/modal3.png" 
        alt="Modal UI - Multiple Records View" />
 </div>
 
 <div class="blog-image">
-  <img src="images/blog2/modal4.png" 
+  <img src="images/modal4.png" 
        alt="Modal UI - Final Display" />
 </div>
 
@@ -533,7 +533,7 @@ SYS ID → is one of → javascript:ReportsAJAX();
 
 Now your report dynamically pulls only Active P1 incidents.
 <div class="blog-image">
-<img src="images/blog3/b3img1.png" alt="Script Include in Condition Builder" />
+<img src="images/b3img1.png" alt="Script Include in Condition Builder" />
 </div>
 
 ---
@@ -621,7 +621,7 @@ Show questions for:
 If **Yes**, allow account selection.
 
 <div class="blog-image">
-<img src="images/blog4/b4img1.png" alt="Catalog Item - Single Product Setup" />
+<img src="images/b4img1.png" alt="Catalog Item - Single Product Setup" />
 </div>
 
 ---
@@ -632,7 +632,7 @@ If **Yes**, allow account selection.
 - Ask user to upload filled Excel file  
 
 <div class="blog-image">
-<img src="images/blog4/b4img2.png" alt="Catalog Item - Multiple Product Setup" />
+<img src="images/b4img2.png" alt="Catalog Item - Multiple Product Setup" />
 </div>
 
 ---
@@ -642,7 +642,7 @@ If **Yes**, allow account selection.
 Create a Flow triggered on Service Catalog submission.
 
 <div class="blog-image">
-<img src="images/blog4/b4img3.png" alt="Flow Designer Trigger Setup" />
+<img src="images/b4img3.png" alt="Flow Designer Trigger Setup" />
 </div>
 
 ### Flow Steps:
@@ -651,34 +651,34 @@ Create a Flow triggered on Service Catalog submission.
 - Copy Attachment  
 - Custom Action → Get Import Set  
 <div class="blog-image">
-<img src="images/blog4/b4img4.png" alt="Custom Action - Get Import Set" />
+<img src="images/b4img4.png" alt="Custom Action - Get Import Set" />
 </div>
 <div class="blog-image">
-<img src="images/blog4/b4img5.png" alt="Custom Action - Get Import Set" />
+<img src="images/b4img5.png" alt="Custom Action - Get Import Set" />
 </div>
 <div class="blog-image">
-<img src="images/blog4/b4img6.png" alt="Custom Action - Get Import Set" />
+<img src="images/b4img6.png" alt="Custom Action - Get Import Set" />
 </div>
 <div class="blog-image">
-<img src="images/blog4/b4img7.png" alt="Custom Action - Get Import Set" />
+<img src="images/b4img7.png" alt="Custom Action - Get Import Set" />
 </div>  
 - Look Up Data Source  
 <div class="blog-image">
-<img src="images/blog4/b4img8.png" alt="Look Up Data Source" />
+<img src="images/b4img8.png" alt="Look Up Data Source" />
 </div>
 - Look Up Import Set Records  
 <div class="blog-image">
-<img src="images/blog4/b4img9.png" alt="Look Up Import Set Records" />
+<img src="images/b4img9.png" alt="Look Up Import Set Records" />
 </div>  
 - Trigger Transform Map
 <div class="blog-image">
-<img src="images/blog4/b4img10.png" alt="Trigger Transform Map" />
+<img src="images/b4img10.png" alt="Trigger Transform Map" />
 </div>  
 <div class="blog-image">
-<img src="images/blog4/b4img11.png" alt="Trigger Transform Map" />
+<img src="images/b4img11.png" alt="Trigger Transform Map" />
 </div> 
 <div class="blog-image">
-<img src="images/blog4/b4img12.png" alt="Trigger Transform Map" />
+<img src="images/b4img12.png" alt="Trigger Transform Map" />
 </div> 
 - Delete Copied Attachment  
 - Update Requested Item  
@@ -745,19 +745,19 @@ KapCreateProductUtils.prototype = {
 
 - Create Import Set Table 
 <div class="blog-image">
-<img src="images/blog4/b4img13.png" alt="Trigger Transform Map" />
+<img src="images/b4img13.png" alt="Trigger Transform Map" />
 </div> 
 - Create Transform Map
 <div class="blog-image">
-<img src="images/blog4/b4img14.png" alt="Create Transform Map" />
+<img src="images/b4img14.png" alt="Create Transform Map" />
 </div> 
 - Configure Field Mappings 
 <div class="blog-image">
-<img src="images/blog4/b4img15.png" alt="Configure Field Mappings" />
+<img src="images/b4img15.png" alt="Configure Field Mappings" />
 </div> 
 - Populate RITM Number in Product Comments 
 <div class="blog-image">
-<img src="images/blog4/b4img16.png" alt="Populate RITM Number in Product Comments" />
+<img src="images/b4img16.png" alt="Populate RITM Number in Product Comments" />
 </div>  
 
 ---
@@ -917,19 +917,19 @@ KapCreateProductUtils.prototype = {
 
 ### Output
 <div class="blog-image">
-<img src="images/blog4/b4img17.png" alt="Output" />
+<img src="images/b4img17.png" alt="Output" />
 </div>
 
 ### Created Products
 
 <div class="blog-image">
-<img src="images/blog4/b4img18.png" alt="Created Products" />
+<img src="images/b4img18.png" alt="Created Products" />
 </div> 
 
 ### Created Sold Products
 
 <div class="blog-image">
-<img src="images/blog4/b4img19.png" alt="Created Sold Products" />
+<img src="images/b4img19.png" alt="Created Sold Products" />
 </div> 
 ---
 
@@ -995,7 +995,7 @@ Fully automated. No manual parsing.
 ## Custom Action – Inputs & Outputs
 
 <div class="blog-image">
-<img src="images/blog9/b9img1.png" alt="Catalog Item - Single Product Setup" />
+<img src="images/b9img1.png" alt="Catalog Item - Single Product Setup" />
 </div>
 
 
@@ -1004,7 +1004,7 @@ Fully automated. No manual parsing.
 - **RITM Sys ID** – Reference to Requested Item  
 
 <div class="blog-image">
-<img src="images/blog9/b9img2.png" alt="Catalog Item - Single Product Setup" />
+<img src="images/b9img2.png" alt="Catalog Item - Single Product Setup" />
 </div>
 
 
@@ -1073,7 +1073,7 @@ Fully automated. No manual parsing.
 
 - **JSON Data** – Final converted JSON object  
 <div class="blog-image">
-<img src="images/blog9/b9img3.png" alt="Catalog Item - Single Product Setup" />
+<img src="images/b9img3.png" alt="Catalog Item - Single Product Setup" />
 </div>
 
 ---
@@ -1314,7 +1314,7 @@ You can export the full Widget XML file from ServiceNow for reuse.
 This is how the Weather Widget appears in Service Portal:
 
 <div class="blog-image">
-<img src="images/blog7/b7img1.png" alt="Weather Widget Output in Service Portal" />
+<img src="images/b7img1.png" alt="Weather Widget Output in Service Portal" />
 </div>
 
 Clean API integration.  
@@ -1502,7 +1502,7 @@ Allows dynamic configuration without modifying code.
 This is how the background video banner appears in Service Portal:
 
 <div class="blog-image">
-<img src="images/blog6/video-widget-output.png" alt="ServiceNow Portal Video Widget Output" />
+<img src="images/video-widget-output.png" alt="ServiceNow Portal Video Widget Output" />
 </div>
 
 ---
@@ -1637,7 +1637,7 @@ In your **Mobile Input Form**:
 - Type: **Scripted**
 
 <div class="blog-image">
-<img src="images/blog6/b6img1.png" alt="Create Assignment Group Variable in Mobile App" />
+<img src="images/b6img1.png" alt="Create Assignment Group Variable in Mobile App" />
 </div>
 
 ---
@@ -1653,7 +1653,7 @@ MobileUtils.populateDefaultAssignmentGroup();
 \`\`\`
 
 <div class="blog-image">
-<img src="images/blog6/b6img2.png" alt="Set Script Attribute in ServiceNow" />
+<img src="images/b6img2.png" alt="Set Script Attribute in ServiceNow" />
 </div>
 
 ---
@@ -1666,7 +1666,7 @@ In your Assignment Group input field:
 - Select the scripted variable created earlier  
 
 <div class="blog-image">
-<img src="images/blog6/b6img3.png" alt="Assignment Group Autofilled in Mobile Form" />
+<img src="images/b6img3.png" alt="Assignment Group Autofilled in Mobile Form" />
 </div>
 
 ---
@@ -1786,19 +1786,19 @@ KAPChangeUtils.prototype = Object.extendsObject(AbstractAjaxProcessor, {
 2. Select **CSM/FSM Configurable Workspace**
 3. Click ➕ beside *Pages and Variants*
 <div class="blog-image">
-<img src="images/blog5/b5img1.png" alt="Weather Widget Output in Service Portal" />
+<img src="images/b5img1.png" alt="Weather Widget Output in Service Portal" />
 </div>
 4. Select **Create a new page**
 <div class="blog-image">
-<img src="images/blog5/b5img2.png" alt="Weather Widget Output in Service Portal" />
+<img src="images/b5img2.png" alt="Weather Widget Output in Service Portal" />
 </div>
 5. Choose **Create from scratch instead**
 <div class="blog-image">
-<img src="images/blog5/b5img3.png" alt="Weather Widget Output in Service Portal" />
+<img src="images/b5img3.png" alt="Weather Widget Output in Service Portal" />
 </div>
 6. Name it: **Change Conflict Calendar**
 <div class="blog-image">
-<img src="images/blog5/b5img4.png" alt="Weather Widget Output in Service Portal" />
+<img src="images/b5img4.png" alt="Weather Widget Output in Service Portal" />
 </div>  
 7. URL Path must be:  
    \`change-conflict-calendar\`  ⚠ (Must match client script)
@@ -1816,28 +1816,28 @@ Select **Build responsive**
 
 1. Open the newly created page
 <div class="blog-image">
-<img src="images/blog5/b5img5.png" alt="Weather Widget Output in Service Portal" />
+<img src="images/b5img5.png" alt="Weather Widget Output in Service Portal" />
 </div>
 2. Click **Settings**
 <div class="blog-image">
-<img src="images/blog5/b5img6.png" alt="Weather Widget Output in Service Portal" />
+<img src="images/b5img6.png" alt="Weather Widget Output in Service Portal" />
 </div>
 3. Under Actions → Open records → Select **Variant record**
 <div class="blog-image">
-<img src="images/blog5/b5img7.png" alt="Weather Widget Output in Service Portal" />
+<img src="images/b5img7.png" alt="Weather Widget Output in Service Portal" />
 </div>
 4. Clear:
    - Macroponent configuration
    - Event mapping fields
 5. Set **App Configuration** to your CSM/FSM Workspace, Now open Page Definition.
 <div class="blog-image">
-<img src="images/blog5/b5img8.png" alt="Weather Widget Output in Service Portal" />
+<img src="images/b5img8.png" alt="Weather Widget Output in Service Portal" />
 </div>
 6. Copy the values from the fields (Layout Model, Composition, Data, Internal Event Mapping, Properties, Dispatched Events, and State) in the OOB record, paste them into your new UX Macroponent Definition record, and then save the record..
 
 Now we have Conflict Calendar form button in CSM/ FSM Configurable workspace. After clicking on Conflict Calendar we get,
 <div class="blog-image">
-<img src="images/blog5/b5img9.png" alt="Weather Widget Output in Service Portal" />
+<img src="images/b5img9.png" alt="Weather Widget Output in Service Portal" />
 </div>
 
 ---
