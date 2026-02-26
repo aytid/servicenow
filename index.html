@@ -30,11 +30,12 @@
             </a>
 
             <nav class="header-nav">
-                <a href="#" class="nav-link" onclick="app.filterByCategory('All'); return false;">Articles</a>
+                <a href="#" class="nav-link" onclick="app.filterByCategory('All'); return false;">All</a>
                 <a href="#" class="nav-link" onclick="app.filterByCategory('Tutorial'); return false;">Tutorials</a>
+                <a href="#" class="nav-link" onclick="app.filterByCategory('Use Case'); return false;">Use Cases</a>
                 <!-- <a href="#" class="nav-link" onclick="app.filterByCategory('Case Study'); return false;">Case
                     Studies</a> -->
-                <a href="https://rohanaditya.vercel.app/" class="nav-link" onclick="app.showAbout(); return false;">About</a>
+                <a href="https://rohanaditya.vercel.app/" class="nav-link" >About</a>
             </nav>
 
             <div class="header-actions">
@@ -132,7 +133,7 @@
                 <div class="filter-chips" id="filterChips">
                     <button class="chip active" onclick="app.filterByCategory('All')">All</button>
                     <button class="chip" onclick="app.filterByCategory('Tutorial')">Tutorials</button>
-                    <button class="chip" onclick="app.filterByCategory('Integration')">Integration</button>
+                    <button class="chip" onclick="app.filterByCategory('Use Case')">Use Cases</button>
                     <!-- <button class="chip" onclick="app.filterByCategory('Performance')">Performance</button> -->
                 </div>
             </div>
