@@ -215,7 +215,7 @@ This widget works especially well on **Employee Center portals**.
 © 2026 Rohan Aditya`
     },
     {
-        id: '918',
+        id: '1002',
         title: 'Show Table Data in Modal – Native UI',
         category: 'Tutorial',
         excerpt: 'Learn how to fetch dynamic table data and display it inside a GlideModal using UI Actions, UI Pages, and GlideAjax in ServiceNow.',
@@ -440,7 +440,7 @@ Here’s how the final modal looks when you run it:
 © 2026 Rohan Aditya`
     },
     {
-        id: '103',
+        id: '1003',
         title: 'Use Script Include in Condition Filter or Reports',
         category: 'Tutorial',
         excerpt: 'Break past Condition Builder limitations by using a Script Include to dynamically filter records in lists and reports.',
@@ -556,7 +556,7 @@ Clean. Dynamic. Powerful.
 © 2026 Rohan Aditya`
     },
     {
-        id: '104',
+        id: '1004',
         title: 'Automate Creation of Product and Sold Product Records from Excel via Flow and Transform Map',
         category: 'Use Case',
         excerpt: 'A practical automation approach to creating Product and Sold Product records directly from Excel attachments using Flow Designer and Transform Maps.',
