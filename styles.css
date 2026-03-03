@@ -1283,3 +1283,31 @@ body {
         font-size: 0.9rem;
     }
 }
+
+
+
+
+.code-preview {
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.code-line {
+    white-space: nowrap;
+}
+
+@media (max-width: 576px) {
+    .code-preview {
+        padding: 20px 16px;
+        border-radius: 16px;
+    }
+
+    .code-line {
+        font-size: 0.75rem;
+    }
+
+    .code-line-number {
+        margin-right: 10px;
+    }
+}
