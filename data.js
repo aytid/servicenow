@@ -2167,13 +2167,13 @@ reviewUpdateSetAJAX.prototype = Object.extendsObject(AbstractAjaxProcessor, {
 Clicking the UI Action opens a modal showing:
 
 <div class="blog-image">
-<img src="images/b10img1.png" alt="Weather Widget Output in Service Portal" />
+<img src="images/b11img1.png" alt="Weather Widget Output in Service Portal" />
 </div>
 <div class="blog-image">
-<img src="images/b10img2.png" alt="Weather Widget Output in Service Portal" />
+<img src="images/b11img2.png" alt="Weather Widget Output in Service Portal" />
 </div>
 <div class="blog-image">
-<img src="images/b10img3.png" alt="Weather Widget Output in Service Portal" />
+<img src="images/b11img3.png" alt="Weather Widget Output in Service Portal" />
 </div>
 
 - DELETE Records Tab
