@@ -2013,7 +2013,218 @@ it's reconfiguring it properly.
 ---
 
 © 2026 Rohan Aditya`
-    }
+    },
+    {
+    id: '1010',
+    title: 'Automation in Reviewing Update Sets',
+    category: 'Tutorial',
+    excerpt: 'Build a UI Action and dynamic review modal to automatically detect DELETE and Cross-Scoped records before promoting update sets.',
+    content: `
+
+**Author: Rohan Aditya**
+
+**Date: 24th February 2026**
+
+---
+### Why Refine Update Sets?
+
+Large update sets often contain:
+
+- DELETE records  
+- Cross-scoped updates  
+
+Promoting them blindly can cause unexpected issues in higher environments.
+
+Refining update sets before deployment ensures:
+
+- Cleaner migrations  
+- Reduced production risk  
+- Better governance  
+
+---
+Instead of manually checking records like a digital archaeologist… we automate it.
+
+### UI Action
+
+Add a UI Action on **sys_update_set** table:
+
+\`\`\`javascript
+function openReviewModal() {
+    var gm = new GlideModal('review_update_set');
+    gm.setTitle('Checking Update Set');
+    gm.setPreference('current_update_set', g_form.getUniqueValue());
+    gm.setSize('large');
+    gm.render();
+}
+\`\`\`
+
+This opens a dynamic review modal.
+
+---
+
+### UI Page
+
+The UI Page:
+
+- Receives update set sys_id  
+- Loads child update sets  
+- Displays Scope  
+- Renders DELETE & CROSS SCOPED tabs  
+- Calls GlideAjax dynamically  
+
+\`\`\`xml
+<?xml version="1.0" encoding="utf-8" ?>
+<j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide">
+
+    <g:evaluate>
+        var currentUpdateSet = RP.getWindowProperties().get('current_update_set');
+        var usName = "";
+        var usScope = "";
+        var childSets = [];
+
+        var us = new GlideRecord('sys_update_set');
+        if (us.get(currentUpdateSet)) {
+            usName = us.getValue('name');
+            usScope = us.application.getDisplayValue();
+        }
+
+        var child = new GlideRecord('sys_update_set');
+        child.addQuery('parent', currentUpdateSet);
+        child.orderBy('name');
+        child.query();
+        while (child.next()) {
+            childSets.push({
+                sys_id: child.getUniqueValue(),
+                name: child.getValue('name'),
+                created: child.getDisplayValue('sys_created_on')
+            });
+        }
+    </g:evaluate>
+
+    <g:ui_form>
+        <!-- UI with dropdown, include child checkbox,
+             and tabbed result section for deletes & cross scoped -->
+    </g:ui_form>
+
+</j:jelly>
+\`\`\`
+
+The UI dynamically builds:
+
+- Update set selector  
+- Include Child checkbox  
+- Scope display  
+- Tab navigation  
+- Result tables  
+
+---
+
+### Script Include
+
+Create Script Include:
+
+- Name: **reviewUpdateSetAJAX**
+- Client Callable: ✔ True
+
+\`\`\`javascript
+var reviewUpdateSetAJAX = Class.create();
+reviewUpdateSetAJAX.prototype = Object.extendsObject(AbstractAjaxProcessor, {
+
+    getData: function() {
+
+        var usId = this.getParameter('update_set');
+        var includeChildren = this.getParameter('include_children') == "true";
+
+        var result = {
+            deletes: [],
+            cross: []
+        };
+
+        var updateSetIds = [usId];
+
+        if (includeChildren) {
+            var child = new GlideRecord('sys_update_set');
+            child.addQuery('parent', usId);
+            child.query();
+            while (child.next()) {
+                updateSetIds.push(child.getUniqueValue());
+            }
+        }
+
+        var usGR = new GlideRecord('sys_update_set');
+        if (!usGR.get(usId))
+            return JSON.stringify(result);
+
+        var xmlGR = new GlideRecord('sys_update_xml');
+        xmlGR.addQuery('update_set', 'IN', updateSetIds.join(','));
+        xmlGR.query();
+
+        while (xmlGR.next()) {
+
+            var nameField = xmlGR.name.toString();
+            var recordSysId = nameField.slice(-32);
+            var tableName = nameField.slice(0, nameField.length - 33);
+
+            var rec = {
+                sys_id: recordSysId,
+                xml_sys_id: xmlGR.sys_id.toString(),
+                type: xmlGR.type.toString(),
+                target_name: xmlGR.target_name ? xmlGR.target_name.toString() : xmlGR.name.toString(),
+                table: tableName,
+                updated_by: xmlGR.sys_updated_by.toString(),
+                action: xmlGR.action.toString(),
+                scope: xmlGR.application.getDisplayValue(),
+                update_set_name: xmlGR.update_set.getDisplayValue()
+            };
+
+            var xmlUpdateSetScope = xmlGR.update_set.application.toString();
+            var xmlRecordScope = xmlGR.application.toString();
+
+            if (xmlGR.action == "DELETE") {
+                result.deletes.push(rec);
+            } else if (xmlRecordScope != xmlUpdateSetScope) {
+                result.cross.push(rec);
+            }
+        }
+
+        return JSON.stringify(result);
+    },
+
+    type: 'reviewUpdateSetAJAX'
+});
+\`\`\`
+
+---
+
+### Final Result
+
+Clicking the UI Action opens a modal showing:
+
+<div class="blog-image">
+<img src="images/b10img1.png" alt="Weather Widget Output in Service Portal" />
+</div>
+<div class="blog-image">
+<img src="images/b10img2.png" alt="Weather Widget Output in Service Portal" />
+</div>
+<div class="blog-image">
+<img src="images/b10img3.png" alt="Weather Widget Output in Service Portal" />
+</div>
+
+- DELETE Records Tab
+- CROSS SCOPED Records Tab
+- Optional inclusion of child update sets
+- Record counts per category
+
+---
+
+© 2026 Rohan Aditya
+`,
+    tags: ['Update Sets', 'Automation', 'GlideAjax', 'UI Page'],
+    date: '2026-02-24',
+    readTime: '10 min',
+    views: 3200,
+    created: '2026-02-24T10:00:00Z'
+},
 ];
 
 // Function to get articles (from localStorage or default data)
