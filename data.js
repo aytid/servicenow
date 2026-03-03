@@ -563,7 +563,7 @@ Clean. Dynamic. Powerful.
         tags: ['Flow Designer', 'Transform Map', 'Import Set'],
         date: '2025-08-08',
         readTime: '12 min',
-        views: 3100,
+        views: 430,
         created: '2025-08-08T10:00:00Z',
         content: `
 **Author: Rohan Aditya**
@@ -1113,7 +1113,7 @@ Clean. Automated. Integration-ready.
         tags: ['ServiceNow', 'REST API', 'Service Portal', 'Widget Development', 'Integration'],
         date: '2025-12-07',
         readTime: '9 min',
-        views: 2100,
+        views: 300,
         created: '2025-12-07T10:00:00Z',
         content: `
 **Author: Rohan Aditya**
@@ -1335,7 +1335,7 @@ Reusable Widget architecture.
         tags: ['ServiceNow', 'Service Portal', 'Widget Development', 'UI/UX', 'Video Banner'],
         date: '2025-12-24',
         readTime: '7 min',
-        views: 1950,
+        views: 250,
         created: '2025-12-24T10:00:00Z',
         content: `
 
@@ -1694,7 +1694,7 @@ Big usability win.
         tags: ['ServiceNow', 'Workspace Migration', 'CSM', 'FSM', 'UI Builder'],
         date: '2025-10-07',
         readTime: '14 min',
-        views: 1249,
+        views: 200,
         created: '2025-10-07T10:00:00Z',
         content: `
 
@@ -2222,7 +2222,7 @@ Clicking the UI Action opens a modal showing:
     tags: ['Update Sets', 'Automation', 'GlideAjax', 'UI Page'],
     date: '2026-02-24',
     readTime: '10 min',
-    views: 3200,
+    views: 240,
     created: '2026-02-24T10:00:00Z'
 },
 ];
