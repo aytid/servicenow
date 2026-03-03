@@ -6,7 +6,6 @@ const articlesData = [
         excerpt: 'Built a custom ServiceNow Quick Link widget that transforms standard links into vibrant, center-aligned interactive cards.',
         tags: ['Custom Widget', 'Quick Links', 'Employee Center'],
         date: '2025-06-28',
-        readTime: '12 min',
         views: 920,
         created: '2025-06-28T11:00:00Z',
         content: `
@@ -221,7 +220,6 @@ This widget works especially well on **Employee Center portals**.
         excerpt: 'Learn how to fetch dynamic table data and display it inside a GlideModal using UI Actions, UI Pages, and GlideAjax in ServiceNow.',
         tags: ['GlideModal', 'UI Page', 'GlideAjax'],
         date: '2025-07-02',
-        readTime: '10 min',
         views: 890,
         created: '2025-07-02T10:30:00Z',
         content: `
@@ -446,7 +444,6 @@ Here’s how the final modal looks when you run it:
         excerpt: 'Break past Condition Builder limitations by using a Script Include to dynamically filter records in lists and reports.',
         tags: ['Condition Builder', 'Reports', 'Sandbox enabled'],
         date: '2025-07-17',
-        readTime: '6 min',
         views: 922,
         created: '2025-07-17T09:15:00Z',
         content: `
@@ -556,7 +553,6 @@ Clean. Dynamic. Powerful.
         excerpt: 'A practical automation approach to creating Product and Sold Product records directly from Excel attachments using Flow Designer and Transform Maps.',
         tags: ['Flow Designer', 'Transform Map', 'Import Set'],
         date: '2025-08-08',
-        readTime: '12 min',
         views: 430,
         created: '2025-08-08T10:00:00Z',
         content: `
@@ -945,7 +941,6 @@ Upload Excel → Submit Catalog → Products & Sold Products Created Automatical
         excerpt: 'Automate CSV attachment processing in ServiceNow using Flow Designer and convert Import Set data into a structured JSON object.',
         tags: ['Flow Designer', 'Import Set', 'CSV Processing', 'JSON Conversion'],
         date: '2026-01-08',
-        readTime: '8 min',
         views: 280,
         created: '2026-01-08T10:00:00Z',
         content: `
@@ -1106,7 +1101,6 @@ Clean. Automated. Integration-ready.
         excerpt: 'Learn how to call a Weather API in ServiceNow using RESTMessageV2 and build a dynamic Weather Forecast Widget in Service Portal.',
         tags: ['REST API', 'Portal', 'Integration'],
         date: '2025-12-07',
-        readTime: '9 min',
         views: 300,
         created: '2025-12-07T10:00:00Z',
         content: `
@@ -1328,7 +1322,6 @@ Reusable Widget architecture.
         excerpt: 'Build a modern, interactive background video banner widget for ServiceNow Service Portal with overlay content and flexible instance options.',
         tags: ['Portal', 'Video Widget', 'UI/UX'],
         date: '2025-12-24',
-        readTime: '7 min',
         views: 250,
         created: '2025-12-24T10:00:00Z',
         content: `
@@ -1491,7 +1484,6 @@ This is how the background video banner appears in Service Portal:
         excerpt: 'Learn how to dynamically prefill fields in ServiceNow Agent Mobile using Mobile Callable Script Includes and scripted variables.',
         tags: ['Agent Mobile', 'Script Include', 'Automation'],
         date: '2025-11-05',
-        readTime: '7 min',
         views: 625,
         created: '2025-11-05T10:00:00Z',
         content: `
@@ -1659,7 +1651,6 @@ Big usability win.
         excerpt: 'Complete configuration guide for updating UI Actions and Workspace components during SOW to CSM/FSM Configurable Workspace migration.',
         tags: ['Workspace Migration', 'SOW to CSM', 'UI Builder'],
         date: '2025-10-07',
-        readTime: '14 min',
         views: 200,
         created: '2025-10-07T10:00:00Z',
         content: `
@@ -2167,13 +2158,13 @@ reviewUpdateSetAJAX.prototype = Object.extendsObject(AbstractAjaxProcessor, {
 Clicking the UI Action opens a modal showing:
 
 <div class="blog-image">
-<img src="images/b11img1.png" alt="Weather Widget Output in Service Portal" />
+<img src="images/b10img1.png" alt="Weather Widget Output in Service Portal" />
 </div>
 <div class="blog-image">
-<img src="images/b11img2.png" alt="Weather Widget Output in Service Portal" />
+<img src="images/b10img2.png" alt="Weather Widget Output in Service Portal" />
 </div>
 <div class="blog-image">
-<img src="images/b11img3.png" alt="Weather Widget Output in Service Portal" />
+<img src="images/b10img3.png" alt="Weather Widget Output in Service Portal" />
 </div>
 
 - DELETE Records Tab
@@ -2187,7 +2178,6 @@ Clicking the UI Action opens a modal showing:
 `,
     tags: ['Update Sets', 'Automation', 'UI Page'],
     date: '2026-02-24',
-    readTime: '10 min',
     views: 240,
     created: '2026-02-24T10:00:00Z'
 },
