@@ -47,8 +47,6 @@ const articleApp = {
                     <div class="article-view-meta">
                         <span>${this.formatDate(this.article.date)}</span>
                         <span>•</span>
-                        <span>${this.article.readTime} read</span>
-                        <span>•</span>
                         <span>${this.article.views.toLocaleString()} views</span>
                     </div>
                 </header>

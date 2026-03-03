@@ -236,15 +236,14 @@ const app = {
                         <div class="article-meta">
                             <span class="article-date">📅 ${this.formatDate(article.date)}</span>
                             <span>•</span>
-                            <span>${article.readTime}</span>
+                            <span class="read-time">${article.views.toLocaleString()} views</span>
                         </div>
                         <h3 class="article-title">${this.escapeHtml(article.title)}</h3>
                         <p class="article-excerpt">${this.escapeHtml(article.excerpt)}</p>
                         <div class="article-footer">
                             <div class="article-tags">
-                                ${article.tags.slice(0, 2).map(t => `<span class="article-tag">#${t}</span>`).join('')}
+                                ${article.tags.slice(0, 6).map(t => `<span class="article-tag">#${t}</span>`).join('')}
                             </div>
-                            <span class="read-time">${article.views.toLocaleString()} views</span>
                         </div>
                     </div>
                 </article>

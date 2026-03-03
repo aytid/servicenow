@@ -601,9 +601,8 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-top: 1.25rem;
-    margin-top: 1.25rem;
-    border-top: 1px solid var(--color-border-light);
+    /*padding-top: 1.25rem;
+    margin-top: 1.25rem;*/
 }
 
 .article-tags {
@@ -1179,9 +1178,6 @@ body {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-    margin-top: 1rem;
-    padding-top: 1rem;
-    border-top: 1px solid #e5e7eb;
 }
 
 /* Individual Tag */
@@ -1211,8 +1207,6 @@ body {
 @media (min-width: 768px) {
     .article-tags {
         gap: 0.6rem;
-        margin-top: 1.5rem;
-        padding-top: 1.5rem;
     }
 
     .article-tag {

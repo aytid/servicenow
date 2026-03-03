@@ -1110,7 +1110,7 @@ Clean. Automated. Integration-ready.
         title: 'Fetching Weather Data in ServiceNow Using REST APIs',
         category: 'Tutorial',
         excerpt: 'Learn how to call a Weather API in ServiceNow using RESTMessageV2 and build a dynamic Weather Forecast Widget in Service Portal.',
-        tags: ['ServiceNow', 'REST API', 'Service Portal', 'Widget Development', 'Integration'],
+        tags: ['REST API', 'Service Portal', 'Integration'],
         date: '2025-12-07',
         readTime: '9 min',
         views: 300,
@@ -1332,7 +1332,7 @@ Reusable Widget architecture.
         title: 'ServiceNow Portal Video Widget',
         category: 'Tutorial',
         excerpt: 'Build a modern, interactive background video banner widget for ServiceNow Service Portal with overlay content and flexible instance options.',
-        tags: ['ServiceNow', 'Service Portal', 'Widget Development', 'UI/UX', 'Video Banner'],
+        tags: ['Service Portal', 'Video Widget', 'UI/UX'],
         date: '2025-12-24',
         readTime: '7 min',
         views: 250,
@@ -1345,32 +1345,12 @@ Reusable Widget architecture.
 
 ---
 
-## Key Points Covered
-
-- Implementing a responsive background video banner  
-- Overlaying search and content widgets on video  
-- Using instance options for flexible configuration  
-- Creating a modern Service Portal landing experience  
-
----
-
 ## Overview
 
 Modern portals feel alive. Static banners are outdated — but a clean background video? That changes everything.
 
 In this tutorial, we build a **responsive background video widget** for ServiceNow Service Portal.  
 The widget supports overlay content like search bars, headings, and dynamic widgets — all configurable via instance options.
-
----
-
-### Quick Navigation
-
-- Widget Structure  
-- Instance Options  
-- Server Script  
-- Widget HTML  
-- CSS Styling  
-- Download XML  
 
 ---
 
@@ -1508,14 +1488,6 @@ This is how the background video banner appears in Service Portal:
 
 ---
 
-Responsive.  
-Modern.  
-Visually impactful.
-
-Perfect for Employee Center or branded portals.
-
----
-
 © 2026 Rohan Aditya`
     },
     {
@@ -1523,7 +1495,7 @@ Perfect for Employee Center or branded portals.
         title: 'Autopopulate Fields in Mobile Input Form',
         category: 'Tutorial',
         excerpt: 'Learn how to dynamically prefill fields in ServiceNow Agent Mobile using Mobile Callable Script Includes and scripted variables.',
-        tags: ['ServiceNow', 'Agent Mobile', 'Script Include', 'Mobile Development', 'Automation'],
+        tags: ['Agent Mobile', 'Script Include', 'Mobile Development', 'Automation'],
         date: '2025-11-05',
         readTime: '7 min',
         views: 625,
@@ -1691,7 +1663,7 @@ Big usability win.
         title: 'SOW to CSM/FSM Workspace Migration',
         category: 'Tutorial',
         excerpt: 'Complete configuration guide for updating UI Actions and Workspace components during SOW to CSM/FSM Configurable Workspace migration.',
-        tags: ['ServiceNow', 'Workspace Migration', 'CSM', 'FSM', 'UI Builder'],
+        tags: ['Workspace Migration', 'SOW to CSM', 'UI Builder'],
         date: '2025-10-07',
         readTime: '14 min',
         views: 200,
@@ -2219,7 +2191,7 @@ Clicking the UI Action opens a modal showing:
 
 © 2026 Rohan Aditya
 `,
-    tags: ['Update Sets', 'Automation', 'GlideAjax', 'UI Page'],
+    tags: ['Update Sets', 'Automation', 'UI Page'],
     date: '2026-02-24',
     readTime: '10 min',
     views: 240,
