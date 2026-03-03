@@ -4,7 +4,7 @@ const articlesData = [
         title: 'Custom Quick Link Widget',
         category: 'Tutorial',
         excerpt: 'Built a custom ServiceNow Quick Link widget that transforms standard links into vibrant, center-aligned interactive cards.',
-        tags: ['Custom Widget', 'Quick Links', 'Employee Center', 'Service Portal'],
+        tags: ['Custom Widget', 'Quick Links', 'Employee Center'],
         date: '2025-06-28',
         readTime: '12 min',
         views: 920,
@@ -444,7 +444,7 @@ Here’s how the final modal looks when you run it:
         title: 'Use Script Include in Condition Filter or Reports',
         category: 'Tutorial',
         excerpt: 'Break past Condition Builder limitations by using a Script Include to dynamically filter records in lists and reports.',
-        tags: ['Script Include', 'Condition Builder', 'Reports', 'Sandbox enabled'],
+        tags: ['Condition Builder', 'Reports', 'Sandbox enabled'],
         date: '2025-07-17',
         readTime: '6 min',
         views: 922,
@@ -460,12 +460,6 @@ Here’s how the final modal looks when you run it:
 - Using scripting to enhance report filters  
 - Bypassing limitations of Condition Builder  
 - Dynamically filtering records using Script Include  
-
----
-
-## Before You Begin
-
-**Role required:** admin  
 
 ---
 
@@ -1110,7 +1104,7 @@ Clean. Automated. Integration-ready.
         title: 'Fetching Weather Data in ServiceNow Using REST APIs',
         category: 'Tutorial',
         excerpt: 'Learn how to call a Weather API in ServiceNow using RESTMessageV2 and build a dynamic Weather Forecast Widget in Service Portal.',
-        tags: ['REST API', 'Service Portal', 'Integration'],
+        tags: ['REST API', 'Portal', 'Integration'],
         date: '2025-12-07',
         readTime: '9 min',
         views: 300,
@@ -1127,7 +1121,7 @@ Clean. Automated. Integration-ready.
 - Calling Weather API  
 - Building a Weather Widget  
 - Using Instance Options  
-- Rendering Weather UI in Service Portal  
+- Rendering Weather UI in Portal  
 
 ---
 
@@ -1332,7 +1326,7 @@ Reusable Widget architecture.
         title: 'ServiceNow Portal Video Widget',
         category: 'Tutorial',
         excerpt: 'Build a modern, interactive background video banner widget for ServiceNow Service Portal with overlay content and flexible instance options.',
-        tags: ['Service Portal', 'Video Widget', 'UI/UX'],
+        tags: ['Portal', 'Video Widget', 'UI/UX'],
         date: '2025-12-24',
         readTime: '7 min',
         views: 250,
@@ -1495,7 +1489,7 @@ This is how the background video banner appears in Service Portal:
         title: 'Autopopulate Fields in Mobile Input Form',
         category: 'Tutorial',
         excerpt: 'Learn how to dynamically prefill fields in ServiceNow Agent Mobile using Mobile Callable Script Includes and scripted variables.',
-        tags: ['Agent Mobile', 'Script Include', 'Mobile Development', 'Automation'],
+        tags: ['Agent Mobile', 'Script Include', 'Automation'],
         date: '2025-11-05',
         readTime: '7 min',
         views: 625,
