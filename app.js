@@ -258,7 +258,7 @@ const app = {
                     <div class="list-content">
                         <h3>${this.escapeHtml(article.title)}</h3>
                         <div class="list-meta">
-                            ${article.category} • ${article.readTime} • ${article.views.toLocaleString()} views
+                            ${article.category} • ${article.views.toLocaleString()} views
                         </div>
                     </div>
                     <div class="list-arrow">→</div>
