@@ -235,8 +235,6 @@ const app = {
                     <div class="article-content">
                         <div class="article-meta">
                             <span class="article-date">📅 ${this.formatDate(article.date)}</span>
-                            <span>•</span>
-                            <span class="read-time">${article.views.toLocaleString()} views</span>
                         </div>
                         <h3 class="article-title">${this.escapeHtml(article.title)}</h3>
                         <p class="article-excerpt">${this.escapeHtml(article.excerpt)}</p>
@@ -257,9 +255,6 @@ const app = {
                     </div>
                     <div class="list-content">
                         <h3>${this.escapeHtml(article.title)}</h3>
-                        <div class="list-meta">
-                            ${article.category} • ${article.views.toLocaleString()} views
-                        </div>
                     </div>
                     <div class="list-arrow">→</div>
                 </article>

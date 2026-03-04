@@ -46,8 +46,6 @@ const articleApp = {
                     <h1 class="article-view-title">${this.escapeHtml(this.article.title)}</h1>
                     <div class="article-view-meta">
                         <span>${this.formatDate(this.article.date)}</span>
-                        <span>•</span>
-                        <span>${this.article.views.toLocaleString()} views</span>
                     </div>
                 </header>
                 <div class="article-view-content">${htmlContent}</div>
