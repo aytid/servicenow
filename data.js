@@ -233,15 +233,6 @@ This widget works especially well on **Employee Center portals**.
 - Displaying records inside a modal  
 - Using GlideModal with UI Page  
 - GlideAjax + Script Include integration  
-
----
-
-## Quick Navigation
-
-- UI Action  
-- UI Page  
-- Script Include  
-
 ---
 
 ## Create the UI Action
@@ -1106,8 +1097,6 @@ Clean. Automated. Integration-ready.
         content: `
 **Author: Rohan Aditya**
 
-**Date: 7th December 2025**
-
 ---
 
 ## Key Points Covered
@@ -1327,9 +1316,6 @@ Reusable Widget architecture.
         content: `
 
 **Author: Rohan Aditya**
-
-**Date: 24th December 2025**
-
 ---
 
 ## Overview
@@ -1489,9 +1475,6 @@ This is how the background video banner appears in Service Portal:
         content: `
 
 **Author: Rohan Aditya**
-
-**Date: 5th November 2025**
-
 ---
 
 ## Key Points Covered
@@ -1656,8 +1639,6 @@ Big usability win.
         content: `
 
 **Author: Rohan Aditya**
-
-**Date: 7th October 2025**
 
 ---
 
@@ -1979,8 +1960,6 @@ it's reconfiguring it properly.
     content: `
 
 **Author: Rohan Aditya**
-
-**Date: 24th February 2026**
 
 ---
 ### Why Refine Update Sets?
