@@ -15,14 +15,10 @@ const app = {
     },
 
     loadArticles() {
-        // const stored = localStorage.getItem('blog_articles');
-        // if (stored) {
-        //     this.articles = JSON.parse(stored);
-        // } else {
-            // Call getSampleArticles which uses data.js
-            this.articles = this.getSampleArticles();
-            this.saveArticles();
-        //}
+
+        // Call getSampleArticles which uses data.js
+        this.articles = this.getSampleArticles();
+        this.saveArticles();
     },
 
     saveArticles() {
@@ -190,6 +186,11 @@ const app = {
         });
 
         this.render();
+
+        const articles = document.getElementById('articlesContainer');
+        if (articles) {
+            articles.scrollIntoView({ behavior: 'smooth' });
+        }
     },
 
     getFilteredArticles() {
@@ -274,8 +275,10 @@ const app = {
         document.getElementById('statArticles').textContent = this.articles.length;
         document.getElementById('statTutorials').textContent =
             this.articles.filter(a => a.category === 'Tutorial').length;
-        document.getElementById('statReads').textContent =
-            this.articles.reduce((sum, a) => sum + a.views, 0).toLocaleString();
+        document.getElementById('statUseCases').textContent =
+            this.articles.filter(a => a.category === 'Use Case').length;
+        //document.getElementById('statReads').textContent =
+        //this.articles.reduce((sum, a) => sum + a.views, 0).toLocaleString();
     },
 
     getCategoryIcon(category) {
@@ -284,9 +287,9 @@ const app = {
             'Performance': '⚡',
             'Integration': '🔌',
             'Tutorial': '📚',
-            'Case Study': '💼'
+            'Use Case': '📝',
         };
-        return icons[category] || '📝';
+        return icons[category] || '💼';
     },
 
     formatDate(dateStr) {

@@ -19,43 +19,34 @@
 </head>
 
 <body>
-    <header class="header">
-        <div class="header-content">
-            <a href="#" class="brand" onclick="app.showHome(); return false;">
-                <!-- <div class="brand-mark">RA</div> -->
-                <div>
-                    <span class="brand-text">Rohan Aditya</span>
-                    <!-- <span class="brand-sub">ServiceNow Journal</span> -->
-                </div>
-            </a>
+<header class="header">
+    <div class="header-content">
+        <a href="#" class="brand" onclick="app.showHome(); return false;">
+            <img src="images/rohannow-logo.png" alt="Rohan Aditya Logo" style="height:40px; width:auto;">
+        </a>
 
-            <nav class="header-nav">
-                <a href="#" class="nav-link" onclick="app.filterByCategory('All'); return false;">All</a>
-                <a href="#" class="nav-link" onclick="app.filterByCategory('Tutorial'); return false;">Tutorials</a>
-                <a href="#" class="nav-link" onclick="app.filterByCategory('Use Case'); return false;">Use Cases</a>
-                <!-- <a href="#" class="nav-link" onclick="app.filterByCategory('Case Study'); return false;">Case
-                    Studies</a> -->
-                <a href="https://rohanaditya.vercel.app/" class="nav-link" >About</a>
-            </nav>
+        <nav class="header-nav">
+            <a href="#" class="nav-link" onclick="app.filterByCategory('All'); return false;">All</a>
+            <a href="#" class="nav-link" onclick="app.filterByCategory('Tutorial'); return false;">Tutorials</a>
+            <a href="#" class="nav-link" onclick="app.filterByCategory('Use Case'); return false;">Use Cases</a>
+            <a href="https://rohanaditya.vercel.app/" class="nav-link">About</a>
+        </nav>
 
-            <div class="header-actions">
-                <button class="theme-toggle" onclick="app.toggleTheme()" title="Toggle theme">
-                    <span id="theme-icon">◐</span>
-                </button>
-                <!-- <button class="btn btn-primary" onclick="app.openEditor()">
-                    <span>+</span> Write
-                </button> -->
-            </div>
+        <div class="header-actions">
+            <button class="theme-toggle" onclick="app.toggleTheme()" title="Toggle theme">
+                <span id="theme-icon">◐</span>
+            </button>
         </div>
-    </header>
+    </div>
+</header>
 
     <main class="main" id="mainContent">
         <!-- Hero Section -->
         <section class="hero">
             <div class="hero-grid">
                 <div class="hero-content">
-                    <h1>ServiceNow playground Series.</h1>
-                    <p>by Rohan</p>
+                    <h1>ServiceNow playground Series</h1>
+                    <h3>by Rohan Aditya</h3>
                     <div class="hero-stats">
                         <div class="stat">
                             <span class="stat-value" id="statArticles">0</span>
@@ -66,8 +57,8 @@
                             <span class="stat-label">Tutorials</span>
                         </div>
                         <div class="stat">
-                            <span class="stat-value" id="statReads">0</span>
-                            <span class="stat-label">Total Reads</span>
+                            <span class="stat-value" id="statUseCases">0</span>
+                            <span class="stat-label">Use Cases</span>
                         </div>
                     </div>
                 </div>
