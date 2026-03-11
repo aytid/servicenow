@@ -939,28 +939,11 @@ Upload Excel → Submit Catalog → Products & Sold Products Created Automatical
 
 ---
 
-## Key Points Covered
-
-- Fetching CSV attachment from RITM  
-- Using Data Source & Import Set  
-- Converting CSV staged data into structured JSON  
-- Automating CSV processing with Flow Designer  
-
----
-
 ## Use Case Overview
 
-CSV uploads via Catalog Items are common for bulk onboarding and integrations. Instead of manually parsing CSV files, this solution automates the entire process.
-
-When a Catalog Item is submitted with a CSV attachment:
-
-- Flow is triggered  
-- Attachment is processed via Data Source  
-- Import Set is created  
-- Staged data is converted into JSON  
-- Final JSON object is returned  
-
-Fully automated. No manual parsing.
+An internal user submits a Catalog Item with a CSV file attached. Once the request is submitted,
+the system processes the attachment, reads the data from the CSV file, and converts the CSV data into a structured JSON object.
+This JSON object can then be used for further processing such as creating or updating records in the system
 
 ---
 
