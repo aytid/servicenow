@@ -171,7 +171,7 @@ const app = {
         this.currentArticle = article;
         article.views++;
         this.saveArticles();
-        window.open(`article.html?id=${id}`, '_self');
+        window.open(`article.html?id=${id}`, '_blank');
     },
 
     handleSearch() {
