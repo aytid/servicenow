@@ -13,7 +13,6 @@ const articlesData = [
 **Author: Rohan Aditya**
 
 ### Key Points Covered
-
 - Creating custom widgets in ServiceNow  
 - Adding quick navigation features  
 - Transforming ordinary links into vibrant, center-aligned cards  
@@ -223,9 +222,8 @@ This widget works especially well on **Employee Center portals**.
         views: 890,
         created: '2025-07-02T10:30:00Z',
         content: `
-**Author: Rohan Aditya**
 
----
+**Author: Rohan Aditya**
 
 ## Key Points Covered
 
@@ -441,8 +439,6 @@ Here’s how the final modal looks when you run it:
 
 **Author: Rohan Aditya**
 
----
-
 ## Key Points Covered
 
 - Using scripting to enhance report filters  
@@ -547,9 +543,9 @@ Clean. Dynamic. Powerful.
         views: 430,
         created: '2025-08-08T10:00:00Z',
         content: `
+
 **Author: Rohan Aditya**
 
----
 
 ## Key Points Covered
 
@@ -926,691 +922,6 @@ Upload Excel → Submit Catalog → Products & Sold Products Created Automatical
 © 2026 Rohan Aditya`
     },
     {
-        id: '1009',
-        title: 'Convert Data from CSV File to JSON',
-        category: 'Use Case',
-        excerpt: 'Automate CSV attachment processing in ServiceNow using Flow Designer and convert Import Set data into a structured JSON object.',
-        tags: ['Flow Designer', 'Import Set', 'CSV Processing', 'JSON Conversion'],
-        date: '2026-01-08',
-        views: 280,
-        created: '2026-01-08T10:00:00Z',
-        content: `
-**Author: Rohan Aditya**
-
----
-
-## Use Case Overview
-
-An internal user submits a Catalog Item with a CSV file attached. Once the request is submitted,
-the system processes the attachment, reads the data from the CSV file, and converts the CSV data into a structured JSON object.
-This JSON object can then be used for further processing such as creating or updating records in the system
-
----
-
-## High-Level Flow Design
-
-1. Catalog Item submitted with CSV attachment  
-2. Flow triggers on RITM creation  
-3. Attachment copied to a Data Source  
-4. Custom Action runs Import Set  
-5. Staged data converted to JSON  
-6. Attachment deleted from Data Source  
-
----
-
-## Custom Action – Inputs & Outputs
-
-<div class="blog-image">
-<img src="images/b9img1.png" alt="Catalog Item - Single Product Setup" />
-</div>
-
-
-## Inputs
-
-- **RITM Sys ID** – Reference to Requested Item  
-
-<div class="blog-image">
-<img src="images/b9img2.png" alt="Catalog Item - Single Product Setup" />
-</div>
-
-
----
-
-## Script Step
-
-\`\`\`javascript
-
-(function execute(inputs, outputs) {
-
-    var ritmSysId = inputs.ritmSysId;
-    var jsonResultList = [];
-
-    var dataSourceSysId = gs.getProperty('kap.read.csv.data.source.sys.id');
-
-    var att = new GlideSysAttachment();
-    var attachment = att.getAttachments('sys_data_source', dataSourceSysId);
-
-    if (!attachment || !attachment.hasNext()) {
-        outputs.json_data = JSON.stringify({ "directAppsUserList": [] });
-        return;
-    }
-
-    var grDataSource = new GlideRecord('sys_data_source');
-    if (grDataSource.get(dataSourceSysId)) {
-
-        var loader = new GlideImportSetLoader();
-        var importSetRec = loader.getImportSetGr(grDataSource);
-
-        loader.loadImportSetTable(importSetRec, grDataSource);
-        importSetRec.state = "loaded";
-        importSetRec.update();
-
-        var importTableName = importSetRec.getValue("table_name");
-
-        var rowGR = new GlideRecord(importTableName);
-        rowGR.addQuery("sys_import_set", importSetRec.getUniqueValue());
-        rowGR.query();
-
-        while (rowGR.next()) {
-
-            rowGR.u_ritm = ritmSysId;
-            rowGR.update();
-
-            jsonResultList.push({
-                "directAppsUserEmail": rowGR.getValue('u_email'),
-                "directAppsUserRetailerName": rowGR.getValue('u_retailer_name')
-                    .replaceAll(' ', '')
-                    .toLowerCase(),
-                "directAppsUserSupplierNumber": rowGR.getValue('u_supplier_number')
-            });
-        }
-    }
-
-    outputs.json_data = JSON.stringify({
-        "directAppsUserList": jsonResultList
-    });
-
-})(inputs, outputs);
-\`\`\`
-
----
-
-## Script Step Output Variable
-
-- **JSON Data** – Final converted JSON object  
-<div class="blog-image">
-<img src="images/b9img3.png" alt="Catalog Item - Single Product Setup" />
-</div>
-
----
-
-## Sample JSON Output
-
-\`\`\`json
-{
-  "directAppsUserList": [
-    {
-      "directAppsUserEmail": "user@example.com",
-      "directAppsUserRetailerName": "retailername",
-      "directAppsUserSupplierNumber": "SUP123"
-    }
-  ]
-}
-\`\`\`
-
----
-
-This approach eliminates manual CSV parsing and provides a structured JSON output ready for integrations or API calls.
-
-Clean. Automated. Integration-ready.
-
----
-
-© 2026 Rohan Aditya`
-    },
-    {
-        id: '1007',
-        title: 'Fetching Weather Data in ServiceNow Using REST APIs',
-        category: 'Tutorial',
-        excerpt: 'Learn how to call a Weather API in ServiceNow using RESTMessageV2 and build a dynamic Weather Forecast Widget in Service Portal.',
-        tags: ['REST API', 'Portal', 'Integration'],
-        date: '2025-12-07',
-        views: 300,
-        created: '2025-12-07T10:00:00Z',
-        content: `
-**Author: Rohan Aditya**
-
----
-
-## Key Points Covered
-
-- Calling Weather API  
-- Building a Weather Widget  
-- Using Instance Options  
-- Rendering Weather UI in Portal  
-
----
-
-Let's be honest — Weather Widgets look cool.  
-And building one in ServiceNow? Even cooler 😎  
-
-In this tutorial, we consume the WeatherAPI.com service using \`sn_ws.RESTMessageV2()\` and render a clean UI in a Service Portal Widget.
-
----
-
-### Quick Navigation
-
-- API Explanation  
-- Server Script  
-- Client Script  
-- Instance Options Schema  
-- Widget HTML  
-- Download XML  
-
----
-
-### Calling Weather API in ServiceNow
-
-We call the external API using RESTMessageV2, fetch today's weather, calculate a 3-day forecast, and pass structured data to the widget.
-
----
-
-## Server Script
-
-\`\`\`javascript
-(function () {
-
-    try {
-        var city = (options.city || "Hyderabad").replace(/ /g, "%20");
-        var startDate = normalizeDate(options.start_date);
-
-        var apiKey = gs.getProperty('weather.api.key');
-        var url = "https://api.weatherapi.com/v1/forecast.json?key= " + apiKey +
-                  "&q=" + city + "&days=3&aqi=no&alerts=no";
-
-        var r = new sn_ws.RESTMessageV2();
-        r.setEndpoint(url);
-        r.setHttpMethod("GET");
-
-        var result = JSON.parse(r.execute().getBody());
-
-        var apiToday = result.forecast.forecastday[0].date;
-
-        var displayToday = startDate || apiToday;
-        var disp1 = computeNextDate(displayToday, 1);
-        var disp2 = computeNextDate(displayToday, 2);
-
-        data.weather = {
-            city: result.location.name + ", " + result.location.country,
-            temp: result.current.temp_c,
-            icon_url: "https:" + result.current.condition.icon,
-            date: formatPrettyDate(displayToday)
-        };
-
-        data.forecast = [
-            {
-                date: formatPrettyDate(disp1),
-                avg_temp: result.forecast.forecastday[1].day.avgtemp_c,
-                icon_url: "https:" + result.forecast.forecastday[1].day.condition.icon
-            },
-            {
-                date: formatPrettyDate(disp2),
-                avg_temp: result.forecast.forecastday[2].day.avgtemp_c,
-                icon_url: "https:" + result.forecast.forecastday[2].day.condition.icon
-            }
-        ];
-
-    } catch (ex) {
-        data.error = ex.message;
-    }
-
-    function normalizeDate(inputDate) {
-        if (!inputDate) return "";
-        var gdt = new GlideDateTime();
-        gdt.setDisplayValue(inputDate);
-        return gdt.getLocalDate().toString();
-    }
-
-    function computeNextDate(dateStr, addDays) {
-        var gdt = new GlideDateTime(dateStr + " 00:00:00");
-        gdt.addDaysLocalTime(addDays);
-        return gdt.getLocalDate().toString();
-    }
-
-    function formatPrettyDate(dateStr) {
-        var p = dateStr.split("-");
-        var monthIndex = parseInt(p[1], 10) - 1;
-        var day = parseInt(p[2], 10);
-        var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
-                      "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-        return months[monthIndex] + " " + day;
-    }
-
-})();
-\`\`\`
-
----
-
-## Client Controller
-
-The client controller passes configuration and renders the response.
-
-\`\`\`javascript
-api.controller = function($scope) {
-  var c = this;
-};
-\`\`\`
-
----
-
-## Instance Options Schema
-
-This schema allows configuring default city and start date directly from widget instance settings.
-
-\`\`\`json
-[
-  {
-    "name":"city",
-    "section":"other",
-    "label":"Default City",
-    "type":"string"
-  },
-  {
-    "hint":"DD-MM-YYYY",
-    "name":"start_date",
-    "section":"other",
-    "label":"Start Date",
-    "type":"string"
-  }
-]
-\`\`\`
-
----
-
-## Widget HTML
-
-\`\`\`html
-<div class="weather-widget">
-  <h3>{{data.weather.city}}</h3>
-
-  <div class="forecast-card">
-    <img ng-src="{{data.weather.icon_url}}">
-    <div>{{data.weather.temp}}°C</div>
-    <div>{{data.weather.date}}</div>
-  </div>
-
-  <div class="all-weather">
-    <div class="forecast-card" ng-repeat="day in data.forecast">
-      <img ng-src="{{day.icon_url}}">
-      <div>{{day.avg_temp}}°C</div>
-      <div>{{day.date}}</div>
-    </div>
-  </div>
-</div>
-\`\`\`
-
----
-
-## Download XML
-
-The complete widget logic is documented above (Server Script, Client Controller, Instance Options, HTML).
-
-You can export the full Widget XML file from ServiceNow for reuse.
-<div class="download-container">
-    <a href="https://raw.githubusercontent.com/aytid/servicenow/main/Weather-API-Widget.xml " 
-       download="Weather-API-Widget.xml"
-       class="download-btn">
-        <svg class="download-icon" xmlns="http://www.w3.org/2000/svg " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-            <polyline points="7 10 12 15 17 10"></polyline>
-            <line x1="12" y1="15" x2="12" y2="3"></line>
-        </svg>
-        <span class="download-text">Download Widget XML</span>
-    </a>
-    <span class="download-meta">Weather-API-Widget.xml • 2.4 KB</span>
-</div>
----
-
-### Final Output
-
-This is how the Weather Widget appears in Service Portal:
-
-<div class="blog-image">
-<img src="images/b7img1.png" alt="Weather Widget Output in Service Portal" />
-</div>
-
-Clean API integration.  
-Dynamic configuration.  
-Reusable Widget architecture.
-
----
-
-© 2026 Rohan Aditya`
-    },
-    {
-        id: '1008',
-        title: 'ServiceNow Portal Video Widget',
-        category: 'Tutorial',
-        excerpt: 'Build a modern, interactive background video banner widget for ServiceNow Service Portal with overlay content and flexible instance options.',
-        tags: ['Portal', 'Video Widget', 'UI/UX'],
-        date: '2025-12-24',
-        views: 250,
-        created: '2025-12-24T10:00:00Z',
-        content: `
-
-**Author: Rohan Aditya**
----
-
-## Overview
-
-Modern portals feel alive. Static banners are outdated — but a clean background video? That changes everything.
-
-In this tutorial, we build a **responsive background video widget** for ServiceNow Service Portal.  
-The widget supports overlay content like search bars, headings, and dynamic widgets — all configurable via instance options.
-
----
-
-### Widget Structure
-
-This widget contains:
-
-- Background video container  
-- Overlay layer (dark gradient for readability)  
-- Centered content section  
-- Optional embedded search widget  
-
----
-
-## Instance Options Schema
-
-Allows dynamic configuration without modifying code.
-
-\`\`\`json
-[
-  {
-    "name": "video_url",
-    "section": "other",
-    "label": "Background Video URL",
-    "type": "string"
-  },
-  {
-    "name": "heading_text",
-    "section": "other",
-    "label": "Banner Heading",
-    "type": "string"
-  },
-  {
-    "name": "sub_text",
-    "section": "other",
-    "label": "Sub Heading",
-    "type": "string"
-  }
-]
-\`\`\`
-
----
-
-### Server Script
-
-\`\`\`javascript
-(function() {
-
-    data.video_url = options.video_url || "";
-    data.heading_text = options.heading_text || "Welcome to Service Portal";
-    data.sub_text = options.sub_text || "Search anything you need";
-
-})();
-\`\`\`
-
----
-
-### Widget HTML
-
-\`\`\`html
-<div class="video-banner">
-
-  <video autoplay muted loop playsinline class="background-video">
-    <source ng-src="{{data.video_url}}" type="video/mp4">
-  </video>
-
-  <div class="overlay"></div>
-
-  <div class="content">
-    <h1>{{data.heading_text}}</h1>
-    <p>{{data.sub_text}}</p>
-
-    <!-- Example: Embedded Search Widget -->
-    <sp-widget widget="widget-search"></sp-widget>
-
-  </div>
-
-</div>
-\`\`\`
-
----
-
-### CSS Styling
-
-\`\`\`css
-.video-banner {
-  position: relative;
-  height: 80vh;
-  overflow: hidden;
-}
-
-.background-video {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.overlay {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.45);
-}
-
-.content {
-  position: relative;
-  z-index: 2;
-  color: #ffffff;
-  text-align: center;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.content h1 {
-  font-size: 42px;
-  font-weight: 600;
-}
-
-.content p {
-  font-size: 18px;
-  margin-top: 10px;
-}
-\`\`\`
-
----
-
-### Final Output
-
-This is how the background video banner appears in Service Portal:
-
-<div class="blog-image">
-<img src="images/video-widget-output.png" alt="ServiceNow Portal Video Widget Output" />
-</div>
-
----
-
-© 2026 Rohan Aditya`
-    },
-    {
-        id: '1006',
-        title: 'Autopopulate Fields in Mobile Input Form',
-        category: 'Tutorial',
-        excerpt: 'Learn how to dynamically prefill fields in ServiceNow Agent Mobile using Mobile Callable Script Includes and scripted variables.',
-        tags: ['Agent Mobile', 'Script Include', 'Automation'],
-        date: '2025-11-05',
-        views: 625,
-        created: '2025-11-05T10:00:00Z',
-        content: `
-
-**Author: Rohan Aditya**
----
-
-## Key Points Covered
-
-- Why your Script Include ignores you in Mobile  
-- Understanding Mobile Callable Script Includes  
-- Autopopulating fields dynamically in Mobile Input Forms  
-
----
-
-### Why It Refuses to Work and How to Convince It
-
-Your Script Include isn't working in the mobile input form?
-
-You double-checked the code.  
-Cleared cache.  
-Maybe even whispered a prayer.
-
-Still nothing. Classic developer déjà vu.
-
-Usually, it's one of these two sneaky culprits:
-
-**Mobile Callable is unchecked**  
-If the *Mobile Callable* checkbox isn't enabled, the Agent Mobile app completely ignores your Script Include — like that one teammate who reads messages but never replies.
-
-**Returning only sys_id**  
-Mobile doesn't want just the sys_id like desktop UI does.  
-It expects a JSON object with both:
-
-- Value  
-- DisplayValue  
-
-Return only one, and your field stays blank.
-
-Fix these two things — and your form finally comes to life.
-
-No rituals required.
-
----
-
-### Use Case: Populating Assignment Group Automatically
-
-Imagine a mobile form where users create an **Incident** or **Case**, and you want the **Assignment Group** to automatically populate with a default value — for example, *IT Service Desk*.
-
-Instead of selecting it manually every time:
-
-- The form loads  
-- Script runs  
-- Field auto-fills  
-
-Faster. Cleaner. Consistent.
-
----
-
-### Implementation Steps
-
-## Step 1: Create Script Include
-
-Navigation:  
-System Definition > Script Includes  
-
-Create a new Script Include:
-
-- Mark as **Mobile Callable**
-- Return both **Value** and **DisplayValue**
-
-### Example Script Include
-
-\`\`\`javascript
-var MobileUtils = Class.create();
-MobileUtils.prototype = {
-
-    populateDefaultAssignmentGroup: function() {
-
-        var gr = new GlideRecord('sys_user_group');
-        gr.addQuery('name', 'IT Service Desk');
-        gr.query();
-
-        if (gr.next()) {
-            return {
-                value: gr.getUniqueValue(),
-                displayValue: gr.getDisplayValue('name')
-            };
-        }
-
-        return {};
-
-    },
-
-    type: 'MobileUtils'
-};
-\`\`\`
-
----
-
-## Step 2: Create Assignment Group Variable
-
-In your **Mobile Input Form**:
-
-- Create a new variable  
-- Type: **Scripted**
-
-<div class="blog-image">
-<img src="images/b6img1.png" alt="Create Assignment Group Variable in Mobile App" />
-</div>
-
----
-
-## Step 3: Configure Variable Attribute (Script)
-
-Open the variable's **Attributes**:
-
-- Value:
-
-\`\`\`
-MobileUtils.populateDefaultAssignmentGroup();
-\`\`\`
-
-<div class="blog-image">
-<img src="images/b6img2.png" alt="Set Script Attribute in ServiceNow" />
-</div>
-
----
-
-## Step 4: Configure Autofill Variable
-
-In your Assignment Group input field:
-
-- Set **Autofill Variable**  
-- Select the scripted variable created earlier  
-
-<div class="blog-image">
-<img src="images/b6img3.png" alt="Assignment Group Autofilled in Mobile Form" />
-</div>
-
----
-
-### Final Result
-
-Now when the form opens in **ServiceNow Agent Mobile**:
-
-- Assignment Group is already populated  
-- Users don't need to select manually  
-- Data consistency improves  
-
-Simple tweak.  
-Big usability win.
-
----
-
-© 2026 Rohan Aditya`
-    },
-    {
         id: '1005',
         title: 'SOW to CSM/FSM Workspace Migration',
         category: 'Tutorial',
@@ -1622,8 +933,6 @@ Big usability win.
         content: `
 
 **Author: Rohan Aditya**
-
----
 
 ## Key Points Covered
 
@@ -1936,15 +1245,700 @@ it's reconfiguring it properly.
 © 2026 Rohan Aditya`
     },
     {
-    id: '1010',
-    title: 'Automation in Reviewing Update Sets',
-    category: 'Tutorial',
-    excerpt: 'Build a UI Action and dynamic review modal to automatically detect DELETE and Cross-Scoped records before promoting update sets.',
-    content: `
+        id: '1006',
+        title: 'Autopopulate Fields in Mobile Input Form',
+        category: 'Tutorial',
+        excerpt: 'Learn how to dynamically prefill fields in ServiceNow Agent Mobile using Mobile Callable Script Includes and scripted variables.',
+        tags: ['Agent Mobile', 'Script Include', 'Automation'],
+        date: '2025-11-05',
+        views: 625,
+        created: '2025-11-05T10:00:00Z',
+        content: `
 
 **Author: Rohan Aditya**
 
+## Key Points Covered
+
+- Why your Script Include ignores you in Mobile  
+- Understanding Mobile Callable Script Includes  
+- Autopopulating fields dynamically in Mobile Input Forms  
+
 ---
+
+### Why It Refuses to Work and How to Convince It
+
+Your Script Include isn't working in the mobile input form?
+
+You double-checked the code.  
+Cleared cache.  
+Maybe even whispered a prayer.
+
+Still nothing. Classic developer déjà vu.
+
+Usually, it's one of these two sneaky culprits:
+
+**Mobile Callable is unchecked**  
+If the *Mobile Callable* checkbox isn't enabled, the Agent Mobile app completely ignores your Script Include — like that one teammate who reads messages but never replies.
+
+**Returning only sys_id**  
+Mobile doesn't want just the sys_id like desktop UI does.  
+It expects a JSON object with both:
+
+- Value  
+- DisplayValue  
+
+Return only one, and your field stays blank.
+
+Fix these two things — and your form finally comes to life.
+
+No rituals required.
+
+---
+
+### Use Case: Populating Assignment Group Automatically
+
+Imagine a mobile form where users create an **Incident** or **Case**, and you want the **Assignment Group** to automatically populate with a default value — for example, *IT Service Desk*.
+
+Instead of selecting it manually every time:
+
+- The form loads  
+- Script runs  
+- Field auto-fills  
+
+Faster. Cleaner. Consistent.
+
+---
+
+### Implementation Steps
+
+## Step 1: Create Script Include
+
+Navigation:  
+System Definition > Script Includes  
+
+Create a new Script Include:
+
+- Mark as **Mobile Callable**
+- Return both **Value** and **DisplayValue**
+
+### Example Script Include
+
+\`\`\`javascript
+var MobileUtils = Class.create();
+MobileUtils.prototype = {
+
+    populateDefaultAssignmentGroup: function() {
+
+        var gr = new GlideRecord('sys_user_group');
+        gr.addQuery('name', 'IT Service Desk');
+        gr.query();
+
+        if (gr.next()) {
+            return {
+                value: gr.getUniqueValue(),
+                displayValue: gr.getDisplayValue('name')
+            };
+        }
+
+        return {};
+
+    },
+
+    type: 'MobileUtils'
+};
+\`\`\`
+
+---
+
+## Step 2: Create Assignment Group Variable
+
+In your **Mobile Input Form**:
+
+- Create a new variable  
+- Type: **Scripted**
+
+<div class="blog-image">
+<img src="images/b6img1.png" alt="Create Assignment Group Variable in Mobile App" />
+</div>
+
+---
+
+## Step 3: Configure Variable Attribute (Script)
+
+Open the variable's **Attributes**:
+
+- Value:
+
+\`\`\`
+MobileUtils.populateDefaultAssignmentGroup();
+\`\`\`
+
+<div class="blog-image">
+<img src="images/b6img2.png" alt="Set Script Attribute in ServiceNow" />
+</div>
+
+---
+
+## Step 4: Configure Autofill Variable
+
+In your Assignment Group input field:
+
+- Set **Autofill Variable**  
+- Select the scripted variable created earlier  
+
+<div class="blog-image">
+<img src="images/b6img3.png" alt="Assignment Group Autofilled in Mobile Form" />
+</div>
+
+---
+
+### Final Result
+
+Now when the form opens in **ServiceNow Agent Mobile**:
+
+- Assignment Group is already populated  
+- Users don't need to select manually  
+- Data consistency improves  
+
+Simple tweak.  
+Big usability win.
+
+---
+
+© 2026 Rohan Aditya`
+    },
+    {
+        id: '1007',
+        title: 'Fetching Weather Data in ServiceNow Using REST APIs',
+        category: 'Tutorial',
+        excerpt: 'Learn how to call a Weather API in ServiceNow using RESTMessageV2 and build a dynamic Weather Forecast Widget in Service Portal.',
+        tags: ['REST API', 'Portal', 'Integration'],
+        date: '2025-12-07',
+        views: 300,
+        created: '2025-12-07T10:00:00Z',
+        content: `
+
+**Author: Rohan Aditya**
+
+
+## Key Points Covered
+
+- Calling Weather API  
+- Building a Weather Widget  
+- Using Instance Options  
+- Rendering Weather UI in Portal  
+
+---
+
+Let's be honest — Weather Widgets look cool.  
+And building one in ServiceNow? Even cooler 😎  
+
+In this tutorial, we consume the WeatherAPI.com service using \`sn_ws.RESTMessageV2()\` and render a clean UI in a Service Portal Widget.
+
+---
+
+### Quick Navigation
+
+- API Explanation  
+- Server Script  
+- Client Script  
+- Instance Options Schema  
+- Widget HTML  
+- Download XML  
+
+---
+
+### Calling Weather API in ServiceNow
+
+We call the external API using RESTMessageV2, fetch today's weather, calculate a 3-day forecast, and pass structured data to the widget.
+
+---
+
+## Server Script
+
+\`\`\`javascript
+(function () {
+
+    try {
+        var city = (options.city || "Hyderabad").replace(/ /g, "%20");
+        var startDate = normalizeDate(options.start_date);
+
+        var apiKey = gs.getProperty('weather.api.key');
+        var url = "https://api.weatherapi.com/v1/forecast.json?key= " + apiKey +
+                  "&q=" + city + "&days=3&aqi=no&alerts=no";
+
+        var r = new sn_ws.RESTMessageV2();
+        r.setEndpoint(url);
+        r.setHttpMethod("GET");
+
+        var result = JSON.parse(r.execute().getBody());
+
+        var apiToday = result.forecast.forecastday[0].date;
+
+        var displayToday = startDate || apiToday;
+        var disp1 = computeNextDate(displayToday, 1);
+        var disp2 = computeNextDate(displayToday, 2);
+
+        data.weather = {
+            city: result.location.name + ", " + result.location.country,
+            temp: result.current.temp_c,
+            icon_url: "https:" + result.current.condition.icon,
+            date: formatPrettyDate(displayToday)
+        };
+
+        data.forecast = [
+            {
+                date: formatPrettyDate(disp1),
+                avg_temp: result.forecast.forecastday[1].day.avgtemp_c,
+                icon_url: "https:" + result.forecast.forecastday[1].day.condition.icon
+            },
+            {
+                date: formatPrettyDate(disp2),
+                avg_temp: result.forecast.forecastday[2].day.avgtemp_c,
+                icon_url: "https:" + result.forecast.forecastday[2].day.condition.icon
+            }
+        ];
+
+    } catch (ex) {
+        data.error = ex.message;
+    }
+
+    function normalizeDate(inputDate) {
+        if (!inputDate) return "";
+        var gdt = new GlideDateTime();
+        gdt.setDisplayValue(inputDate);
+        return gdt.getLocalDate().toString();
+    }
+
+    function computeNextDate(dateStr, addDays) {
+        var gdt = new GlideDateTime(dateStr + " 00:00:00");
+        gdt.addDaysLocalTime(addDays);
+        return gdt.getLocalDate().toString();
+    }
+
+    function formatPrettyDate(dateStr) {
+        var p = dateStr.split("-");
+        var monthIndex = parseInt(p[1], 10) - 1;
+        var day = parseInt(p[2], 10);
+        var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                      "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        return months[monthIndex] + " " + day;
+    }
+
+})();
+\`\`\`
+
+---
+
+## Client Controller
+
+The client controller passes configuration and renders the response.
+
+\`\`\`javascript
+api.controller = function($scope) {
+  var c = this;
+};
+\`\`\`
+
+---
+
+## Instance Options Schema
+
+This schema allows configuring default city and start date directly from widget instance settings.
+
+\`\`\`json
+[
+  {
+    "name":"city",
+    "section":"other",
+    "label":"Default City",
+    "type":"string"
+  },
+  {
+    "hint":"DD-MM-YYYY",
+    "name":"start_date",
+    "section":"other",
+    "label":"Start Date",
+    "type":"string"
+  }
+]
+\`\`\`
+
+---
+
+## Widget HTML
+
+\`\`\`html
+<div class="weather-widget">
+  <h3>{{data.weather.city}}</h3>
+
+  <div class="forecast-card">
+    <img ng-src="{{data.weather.icon_url}}">
+    <div>{{data.weather.temp}}°C</div>
+    <div>{{data.weather.date}}</div>
+  </div>
+
+  <div class="all-weather">
+    <div class="forecast-card" ng-repeat="day in data.forecast">
+      <img ng-src="{{day.icon_url}}">
+      <div>{{day.avg_temp}}°C</div>
+      <div>{{day.date}}</div>
+    </div>
+  </div>
+</div>
+\`\`\`
+
+---
+
+## Download XML
+
+The complete widget logic is documented above (Server Script, Client Controller, Instance Options, HTML).
+
+You can export the full Widget XML file from ServiceNow for reuse.
+<div class="download-container">
+    <a href="https://raw.githubusercontent.com/aytid/servicenow/main/Weather-API-Widget.xml " 
+       download="Weather-API-Widget.xml"
+       class="download-btn">
+        <svg class="download-icon" xmlns="http://www.w3.org/2000/svg " width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+        <span class="download-text">Download Widget XML</span>
+    </a>
+    <span class="download-meta">Weather-API-Widget.xml • 2.4 KB</span>
+</div>
+---
+
+### Final Output
+
+This is how the Weather Widget appears in Service Portal:
+
+<div class="blog-image">
+<img src="images/b7img1.png" alt="Weather Widget Output in Service Portal" />
+</div>
+
+Clean API integration.  
+Dynamic configuration.  
+Reusable Widget architecture.
+
+---
+
+© 2026 Rohan Aditya`
+    },
+    {
+        id: '1008',
+        title: 'ServiceNow Portal Video Widget',
+        category: 'Tutorial',
+        excerpt: 'Build a modern, interactive background video banner widget for ServiceNow Service Portal with overlay content and flexible instance options.',
+        tags: ['Portal', 'Video Widget', 'UI/UX'],
+        date: '2025-12-24',
+        views: 250,
+        created: '2025-12-24T10:00:00Z',
+        content: `
+
+**Author: Rohan Aditya**
+
+## Overview
+
+Modern portals feel alive. Static banners are outdated — but a clean background video? That changes everything.
+
+In this tutorial, we build a **responsive background video widget** for ServiceNow Service Portal.  
+The widget supports overlay content like search bars, headings, and dynamic widgets — all configurable via instance options.
+
+---
+
+### Widget Structure
+
+This widget contains:
+
+- Background video container  
+- Overlay layer (dark gradient for readability)  
+- Centered content section  
+- Optional embedded search widget  
+
+---
+
+## Instance Options Schema
+
+Allows dynamic configuration without modifying code.
+
+\`\`\`json
+[
+  {
+    "name": "video_url",
+    "section": "other",
+    "label": "Background Video URL",
+    "type": "string"
+  },
+  {
+    "name": "heading_text",
+    "section": "other",
+    "label": "Banner Heading",
+    "type": "string"
+  },
+  {
+    "name": "sub_text",
+    "section": "other",
+    "label": "Sub Heading",
+    "type": "string"
+  }
+]
+\`\`\`
+
+---
+
+### Server Script
+
+\`\`\`javascript
+(function() {
+
+    data.video_url = options.video_url || "";
+    data.heading_text = options.heading_text || "Welcome to Service Portal";
+    data.sub_text = options.sub_text || "Search anything you need";
+
+})();
+\`\`\`
+
+---
+
+### Widget HTML
+
+\`\`\`html
+<div class="video-banner">
+
+  <video autoplay muted loop playsinline class="background-video">
+    <source ng-src="{{data.video_url}}" type="video/mp4">
+  </video>
+
+  <div class="overlay"></div>
+
+  <div class="content">
+    <h1>{{data.heading_text}}</h1>
+    <p>{{data.sub_text}}</p>
+
+    <!-- Example: Embedded Search Widget -->
+    <sp-widget widget="widget-search"></sp-widget>
+
+  </div>
+
+</div>
+\`\`\`
+
+---
+
+### CSS Styling
+
+\`\`\`css
+.video-banner {
+  position: relative;
+  height: 80vh;
+  overflow: hidden;
+}
+
+.background-video {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.45);
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  color: #ffffff;
+  text-align: center;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.content h1 {
+  font-size: 42px;
+  font-weight: 600;
+}
+
+.content p {
+  font-size: 18px;
+  margin-top: 10px;
+}
+\`\`\`
+
+---
+
+### Final Output
+
+This is how the background video banner appears in Service Portal:
+
+<div class="blog-image">
+<img src="images/video-widget-output.png" alt="ServiceNow Portal Video Widget Output" />
+</div>
+
+---
+
+© 2026 Rohan Aditya`
+    },
+    {
+        id: '1009',
+        title: 'Convert Data from CSV File to JSON',
+        category: 'Use Case',
+        excerpt: 'Automate CSV attachment processing in ServiceNow using Flow Designer and convert Import Set data into a structured JSON object.',
+        tags: ['Flow Designer', 'Import Set', 'CSV Processing', 'JSON Conversion'],
+        date: '2026-01-08',
+        views: 280,
+        created: '2026-01-08T10:00:00Z',
+        content: `
+
+**Author: Rohan Aditya**
+
+## Use Case Overview
+
+An internal user submits a Catalog Item with a CSV file attached. Once the request is submitted,
+the system processes the attachment, reads the data from the CSV file, and converts the CSV data into a structured JSON object.
+This JSON object can then be used for further processing such as creating or updating records in the system
+
+---
+
+## High-Level Flow Design
+
+1. Catalog Item submitted with CSV attachment  
+2. Flow triggers on RITM creation  
+3. Attachment copied to a Data Source  
+4. Custom Action runs Import Set  
+5. Staged data converted to JSON  
+6. Attachment deleted from Data Source  
+
+---
+
+## Custom Action – Inputs & Outputs
+
+<div class="blog-image">
+<img src="images/b9img1.png" alt="Catalog Item - Single Product Setup" />
+</div>
+
+
+## Inputs
+
+- **RITM Sys ID** – Reference to Requested Item  
+
+<div class="blog-image">
+<img src="images/b9img2.png" alt="Catalog Item - Single Product Setup" />
+</div>
+
+
+---
+
+## Script Step
+
+\`\`\`javascript
+
+(function execute(inputs, outputs) {
+
+    var ritmSysId = inputs.ritmSysId;
+    var jsonResultList = [];
+
+    var dataSourceSysId = gs.getProperty('kap.read.csv.data.source.sys.id');
+
+    var att = new GlideSysAttachment();
+    var attachment = att.getAttachments('sys_data_source', dataSourceSysId);
+
+    if (!attachment || !attachment.hasNext()) {
+        outputs.json_data = JSON.stringify({ "directAppsUserList": [] });
+        return;
+    }
+
+    var grDataSource = new GlideRecord('sys_data_source');
+    if (grDataSource.get(dataSourceSysId)) {
+
+        var loader = new GlideImportSetLoader();
+        var importSetRec = loader.getImportSetGr(grDataSource);
+
+        loader.loadImportSetTable(importSetRec, grDataSource);
+        importSetRec.state = "loaded";
+        importSetRec.update();
+
+        var importTableName = importSetRec.getValue("table_name");
+
+        var rowGR = new GlideRecord(importTableName);
+        rowGR.addQuery("sys_import_set", importSetRec.getUniqueValue());
+        rowGR.query();
+
+        while (rowGR.next()) {
+
+            rowGR.u_ritm = ritmSysId;
+            rowGR.update();
+
+            jsonResultList.push({
+                "directAppsUserEmail": rowGR.getValue('u_email'),
+                "directAppsUserRetailerName": rowGR.getValue('u_retailer_name')
+                    .replaceAll(' ', '')
+                    .toLowerCase(),
+                "directAppsUserSupplierNumber": rowGR.getValue('u_supplier_number')
+            });
+        }
+    }
+
+    outputs.json_data = JSON.stringify({
+        "directAppsUserList": jsonResultList
+    });
+
+})(inputs, outputs);
+\`\`\`
+
+---
+
+## Script Step Output Variable
+
+- **JSON Data** – Final converted JSON object  
+<div class="blog-image">
+<img src="images/b9img3.png" alt="Catalog Item - Single Product Setup" />
+</div>
+
+---
+
+## Sample JSON Output
+
+\`\`\`json
+{
+  "directAppsUserList": [
+    {
+      "directAppsUserEmail": "user@example.com",
+      "directAppsUserRetailerName": "retailername",
+      "directAppsUserSupplierNumber": "SUP123"
+    }
+  ]
+}
+\`\`\`
+
+---
+
+This approach eliminates manual CSV parsing and provides a structured JSON output ready for integrations or API calls.
+
+Clean. Automated. Integration-ready.
+
+---
+
+© 2026 Rohan Aditya`
+    },
+    {
+        id: '1010',
+        title: 'Automation in Reviewing Update Sets',
+        category: 'Tutorial',
+        excerpt: 'Build a UI Action and dynamic review modal to automatically detect DELETE and Cross-Scoped records before promoting update sets.',
+        tags: ['Update Sets', 'Automation', 'UI Page'],
+        date: '2026-02-24',
+        views: 240,
+        created: '2026-02-24T10:00:00Z',
+        content: `
+
+**Author: Rohan Aditya**
+
 ### Why Refine Update Sets?
 
 Large update sets often contain:
@@ -2138,11 +2132,287 @@ Clicking the UI Action opens a modal showing:
 
 © 2026 Rohan Aditya
 `,
-    tags: ['Update Sets', 'Automation', 'UI Page'],
-    date: '2026-02-24',
-    views: 240,
-    created: '2026-02-24T10:00:00Z'
-},
+    },
+    {
+        id: '1011',
+        title: 'Copying Incident Fields When Creating Change Request',
+        category: 'Tutorial',
+        excerpt: 'Customize the Create Change process in UI Builder to automatically copy Incident fields into the new Change Request.',
+        tags: ['Incident', 'Change Management', 'UI Builder', 'Incident to Change'],
+        date: '2026-03-11',
+        views: 210,
+        created: '2026-03-11T10:00:00Z',
+        content: `
+**Author: Rohan Aditya**
+
+### Use Case
+
+When creating a Change Request from an Incident, it is often useful to automatically copy relevant field values from the Incident to the Change.
+
+ServiceNow already copies some OOB task fields, but organizations usually need additional fields or custom logic.
+
+Instead of manually populating fields every time… we customize the Create Change page in UI Builder.
+
+---
+
+### Step 1: Duplicate the OOB Create Change Request Page
+
+Navigate to UI Builder, search for "Service operations workspace" and locate the page.
+
+**create-change-request-page**
+
+<div class="blog-image">
+<img src="images/b11img1.png" alt="Create Change Request Page" />
+</div>
+
+Click on it to open this page in Editor.
+On Top middle you can find "Settings" click on it.
+
+<div class="blog-image">
+<img src="images/b11img2.png" alt="Create Change Request Page in Editor" />
+</div>
+
+Give less order value than OOB page to make sure it loads first and than OOB Page.
+
+<div class="blog-image">
+<img src="images/b11img3.png" alt="Create Change Request Page in Editor" />
+</div>
+
+---
+
+### Now we have Two Scenarios
+
+1. Copying **Task table fields**
+2. Copying **Custom fields**
+
+---
+
+## Copying Task Fields
+
+ServiceNow already copies certain task fields when creating a Change.
+
+Open the new page in Editor and navigate to,
+
+**Client State Parameters → taskFields**
+
+<div class="blog-image">
+<img src="images/b11img4.png" alt="Client State Parameters" />
+</div>
+
+<div class="blog-image">
+<img src="images/b11img5.png" alt="taskFields" />
+</div>
+
+
+Verify the fields in the **Initial Value** property.
+
+Example:
+
+\`\`\`
+short_description,description,cmdb_ci,priority,assignment_group
+\`\`\`
+
+These fields are automatically copied from **Incident → Change Request**.
+
+To copy additional **task fields**, simply add them to this list.
+
+Example:
+
+\`\`\`
+short_description,description,cmdb_ci,priority,assignment_group,impact,urgency
+\`\`\`
+
+Now these fields will also be copied automatically.
+
+---
+
+## Copying Custom Fields
+
+There are **two possibilities** when dealing with custom fields.
+
+### Case 1: Custom Field Exists on Task Table
+
+If the custom field:
+
+- Belongs to the **task table**
+- Exists on both **Incident and Change Request**
+
+Then simply add it to **taskFields**.
+
+Example:
+
+\`\`\`
+short_description,description,u_business_service
+\`\`\`
+
+The field will automatically copy.
+
+---
+
+### Case 2: Custom Fields Are Different
+
+If fields are **not shared between tables**, we must modify the client script.
+
+Navigate to:
+
+**Client Scripts → Additional Query data from Task**
+
+<div class="blog-image">
+<img src="images/b11img6.png" alt="Additional Query data from Task" />
+</div>
+
+This script builds an **encoded query** that populates fields in the Change Request.
+
+---
+
+### Client Script Logic
+
+The script:
+
+1. Fetches the source record (Incident)
+2. Builds an encoded query
+3. Maps values into the Change form.
+
+### OOB UX Client Script
+
+**api.state.taskFields** contains the list of fields to copy.
+With these fields defined, the script iterates through them, checks if they have values in the Incident record, and constructs an encoded query string.
+\`\`\`javascript
+/**
+ * @param {params} params
+ * @param {api} params.api
+ * @param {any} params.event
+ * @param {any} params.imports
+ * @param {ApiHelpers} params.helpers
+ */
+function handler({
+    api,
+    event,
+    helpers,
+    imports
+}) {
+    if (!api.context.props.table || !api.context.props.sysid)
+        return;
+
+    const results = api.data[event.elementId].output.data.GlideRecord_Query[api.context.props.table]._results;
+    if (results.length < 1)
+        return;
+
+    const record = results[0];
+    let query = api.state.additionalQuery || '';
+    const queryParams = [];
+    const matchedGroups = query.match(/(\w*)=/ig)
+    if (Array.isArray(matchedGroups))
+        matchedGroups.map((param) => { queryParams.push(param.replace('=', '')); });
+
+    // params passed in must not be overridden, so remove them
+    const taskFields = api.state.taskFields.split(',').filter((field) => { return !queryParams.includes(field); });
+    taskFields.map((field) => {
+        const value = record[field].value;
+        if (!value)
+            return;
+
+        if (query !== '')
+            query += '^' + field + '=' + value;
+        else
+            query = field + '=' + value;
+    });
+    api.setState('additionalQuery', query);
+}
+\`\`\`
+
+---
+
+### Custom Mapping Example
+
+Sometimes fields must be **mapped differently**.
+
+Example:
+**u_incident_field → u_change_field**
+
+Example logic:
+
+\`\`\`javascript
+if (record.u_incident_field && record.u_incident_field.value) {
+    query += '^u_change_field=' + record.u_incident_field.value;
+}
+
+\`\`\`
+Then our new UX Client Script would look like this:
+
+\`\`\`javascript
+/**
+ * @param {params} params
+ * @param {api} params.api
+ * @param {any} params.event
+ * @param {any} params.imports
+ * @param {ApiHelpers} params.helpers
+ */
+function handler({
+    api,
+    event,
+    helpers,
+    imports
+}) {
+    if (!api.context.props.table || !api.context.props.sysid)
+        return;
+
+    const results = api.data[event.elementId].output.data.GlideRecord_Query[api.context.props.table]._results;
+    if (results.length < 1)
+        return;
+
+    const record = results[0];
+    let query = api.state.additionalQuery || '';
+    const queryParams = [];
+    const matchedGroups = query.match(/(\w*)=/ig)
+    if (Array.isArray(matchedGroups))
+        matchedGroups.map((param) => { queryParams.push(param.replace('=', '')); });
+
+    // params passed in must not be overridden, so remove them
+    const taskFields = api.state.taskFields.split(',').filter((field) => { return !queryParams.includes(field); });
+    taskFields.map((field) => {
+        const value = record[field].value;
+        if (!value)
+            return;
+
+        if (query !== '')
+            query += '^' + field + '=' + value;
+        else
+            query = field + '=' + value;
+    });
+
+    if (record.u_incident_field && record.u_incident_field.value) {
+        query += '^u_change_field=' + record.u_incident_field.value;
+    }
+        
+    api.setState('additionalQuery', query);
+}
+\`\`\`
+
+This ensures the correct fields are populated in the Change Request.
+
+---
+
+### Final Result
+
+When clicking **Create Change from Incident**:
+
+- Task fields are copied automatically
+- Custom fields can be mapped
+- Additional logic can be applied
+
+This allows:
+
+- Faster Change creation
+- Consistent data transfer
+- Less manual work for Agents
+
+---
+
+© 2026 Rohan Aditya
+`,
+
+    }
 ];
 
 // Function to get articles (from localStorage or default data)
