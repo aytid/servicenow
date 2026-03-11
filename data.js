@@ -1410,7 +1410,7 @@ Big usability win.
     {
         id: '1007',
         title: 'Fetching Weather Data in ServiceNow Using REST APIs',
-        category: 'Tutorial',
+        category: 'Use Case',
         excerpt: 'Learn how to call a Weather API in ServiceNow using RESTMessageV2 and build a dynamic Weather Forecast Widget in Service Portal.',
         tags: ['REST API', 'Portal', 'Integration'],
         date: '2025-12-07',
@@ -2136,7 +2136,7 @@ Clicking the UI Action opens a modal showing:
     {
         id: '1011',
         title: 'Copying Incident Fields When Creating Change Request',
-        category: 'Tutorial',
+        category: 'Use Case',
         excerpt: 'Customize the Create Change process in UI Builder to automatically copy Incident fields into the new Change Request.',
         tags: ['Incident', 'Change Management', 'UI Builder', 'Incident to Change'],
         date: '2026-03-11',
