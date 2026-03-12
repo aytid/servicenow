@@ -1808,11 +1808,10 @@ This JSON object can then be used for further processing such as creating or upd
 ## High-Level Flow Design
 
 1. Catalog Item submitted with CSV attachment  
-2. Flow triggers on RITM creation  
-3. Attachment copied to a Data Source  
-4. Custom Action runs Import Set  
-5. Staged data converted to JSON  
-6. Attachment deleted from Data Source  
+2. Attachment copied to a Data Source  
+3. Custom Action runs Import Set  
+4. Staged data converted to JSON  
+5. Attachment deleted from Data Source  
 
 ---
 
