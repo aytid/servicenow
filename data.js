@@ -2411,6 +2411,304 @@ This allows:
 © 2026 Rohan Aditya
 `,
 
+    },
+    {
+        id: '1012',
+        title: 'Configure Sign in with Google in ServiceNow (OIDC Multi-SSO)',
+        category: 'Use Case',
+        excerpt: 'Enable Google authentication in ServiceNow using OpenID Connect and Multi-Provider SSO.',
+        tags: ['SSO', 'Google OAuth', 'OIDC', 'Authentication'],
+        date: '2026-03-24',
+        views: 120,
+        created: '2026-03-24T10:00:00Z',
+        content: `
+**Author: Rohan Aditya**
+
+### Use Case
+
+Organizations often want users to sign in to ServiceNow using their existing identity providers instead of creating separate ServiceNow credentials.
+
+One common scenario is allowing users to log in using their **Google account**.
+
+Instead of remembering another username and password, users can simply click **Sign in with Google** on the ServiceNow login page.
+
+This setup provides:
+
+- Faster login experience
+- Centralized authentication
+- Reduced password management
+- Improved security
+
+In this article, we configure **Google OAuth authentication in ServiceNow using OpenID Connect and Multi-Provider SSO**.
+
+---
+
+### Phase 1: Google Cloud Console Setup
+
+The first step is configuring Google so it trusts ServiceNow as an application.
+
+Navigate to **Google Cloud Console**.
+
+Create a new project that will be used for ServiceNow authentication.
+
+<div class="blog-image">
+<img src="images/b12img1.png" alt="Google Cloud Console Project Creation" />
+</div>
+
+---
+
+### Create a Project
+<div class="blog-image">
+<img src="images/b12img2.png" alt="OAuth Consent Screen Configuration" />
+</div>
+
+Inside the Google Cloud Console:
+
+1. Click **Select Project**
+2. Click **New Project**
+3. Provide a project name
+
+Example:
+
+\`\`\`
+ServiceNow Google Sign In
+\`\`\`
+
+Once created, select this project.
+
+---
+
+### Configure OAuth Consent Screen
+
+Next we configure the OAuth consent screen.
+
+Navigate to:
+
+**APIs & Services → OAuth Consent Screen**
+<div class="blog-image">
+<img src="images/b12img3.png" alt="OAuth Consent Screen Configuration" />
+</div>
+Provide the required details:
+
+- App Name
+- User Support Email
+- Developer Contact Email
+
+This screen is what users see when Google asks them to authorize the application.
+<div class="blog-image">
+<img src="images/b12img4.png" alt="OAuth Consent Screen Configuration" />
+</div>
+
+---
+
+### Generate OAuth Credentials
+
+Navigate to:
+
+**APIs & Services → Credentials**
+Click:
+
+**Create Credentials → OAuth Client ID**
+<div class="blog-image">
+<img src="images/b12img5.png" alt="OAuth Consent Screen Configuration" />
+</div>
+Select the application type as:
+
+\`\`\`
+Web Application
+\`\`\`
+
+This indicates that the client will authenticate through a browser.
+
+---
+
+### Configure Redirect URI
+
+This is the **most important configuration step**.
+
+Add the ServiceNow instance URL in the **Authorized Redirect URIs** section.
+
+<div class="blog-image">
+<img src="images/b12img6.png" alt="OAuth Consent Screen Configuration" />
+</div>
+
+Example:
+
+\`\`\`
+https://dev213354.service-now.com
+\`\`\`
+
+If this URL does not match exactly, authentication will fail.
+
+---
+
+### Capture Credentials
+
+Once the OAuth client is created, Google provides:
+
+- **Client ID**
+- **Client Secret**
+
+Save these credentials because they will be used in ServiceNow.
+
+<div class="blog-image">
+<img src="images/b12img7.png" alt="OAuth Consent Screen Configuration" />
+</div
+
+---
+
+### Phase 2: ServiceNow Plugin and Properties
+
+Now we prepare ServiceNow to accept external authentication providers.
+
+---
+
+### Enable Multi-Provider SSO Plugin
+
+Navigate to:
+
+**System Definition → Plugins**
+
+Activate the plugin:
+
+**Multiple Provider Single Sign-On**
+
+Plugin id :
+\`\`\`
+com.snc.integration.sso.multi.installer
+\`\`\`
+
+This plugin enables:
+
+- OpenID Connect authentication
+- External login providers
+- Multiple SSO options
+
+<div class="blog-image">
+<img src="images/b12img8.png" alt="Multi Provider SSO Plugin" />
+</div>
+
+---
+
+### Enable Multi-SSO Framework
+
+Next we enable the system property required for multi-provider authentication.
+
+Navigate to:
+
+\`\`\`
+sys_properties.list
+\`\`\`
+
+Search for:
+
+\`\`\`
+glide.authenticate.multisso.enabled
+\`\`\`
+
+Set the value to:
+
+\`\`\`
+true
+\`\`\`
+
+This allows ServiceNow to authenticate users through external identity providers.
+
+<div class="blog-image">
+<img src="images/b12img9.png" alt="Multi Provider SSO Plugin" />
+</div>
+
+### Phase 3: ServiceNow Identity Provider Configuration
+
+Now we configure Google as an **Identity Provider (IdP)** inside ServiceNow.
+
+Navigate to:
+
+**Multi-Provider SSO → Identity Providers**
+
+<div class="blog-image">
+<img src="images/b12img10.png" alt="Create OIDC Identity Provider" />
+</div>
+
+Create a new record and select:
+
+**OpenID Connect**
+
+<div class="blog-image">
+<img src="images/b12img11.png" alt="OIDC Client Credentials Configuration" />
+</div>
+
+Instead of manually entering endpoints, we can import Google's metadata.
+
+Use the **Well-Known Configuration URL**:
+
+\`\`\`
+https://accounts.google.com/.well-known/openid-configuration
+\`\`\`
+
+---
+
+### Fix Redirect URL Mismatch
+
+Another important configuration is ensuring the redirect URLs match between Google and ServiceNow.
+
+Update the **ServiceNow Homepage (service_url)** in the Identity Provider record to match the redirect URI configured in Google.
+
+Example:
+
+\`\`\`
+https://dev213354.service-now.com
+\`\`\`
+
+<div class="blog-image">
+<img src="images/b12img12.png" alt="Google Login Button on ServiceNow" />
+</div>
+
+
+If these values do not match, Google will return a redirect error.
+
+### Enable Google Login Button
+
+In the Identity Provider record, enable the following option:
+
+\`\`\`
+show_as_login_option = true
+\`\`\`
+
+This displays the **Google login button** on the ServiceNow login page.
+
+
+---
+
+### Final Verification
+
+Test authentication in an **Incognito browser window**.
+
+1. Open the ServiceNow login page
+2. Click **Sign in with Google**
+3. Authenticate with Google
+4. Google redirects back to ServiceNow
+5. ServiceNow validates the user and logs them in
+
+If everything is configured correctly, users will be able to log in using their Google accounts.
+
+---
+
+### Final Result
+
+After completing this configuration:
+
+- Users can authenticate using **Google OAuth**
+- Login becomes faster and more secure
+- Password management inside ServiceNow is reduced
+- Identity management remains centralized
+
+This setup is commonly used by organizations that rely on **Google Workspace for authentication**.
+
+---
+
+© 2026 Rohan Aditya
+`,
     }
 ];
 
