@@ -2696,6 +2696,19 @@ If everything is configured correctly, users will be able to log in using their 
 
 ### Final Result
 
+<div class="blog-image">
+<img src="images/b12img13.png" alt="Google Login Button on ServiceNow" />
+</div>
+
+<div class="blog-image">
+<img src="images/b12img14.png" alt="Google Login Button on ServiceNow" />
+</div>
+
+<div class="blog-image">
+<img src="images/b12img15.png" alt="Google Login Button on ServiceNow" />
+</div>
+
+
 After completing this configuration:
 
 - Users can authenticate using **Google OAuth**
