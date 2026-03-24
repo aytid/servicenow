@@ -6,7 +6,7 @@ const articleApp = {
         // Get article ID from URL
         const urlParams = new URLSearchParams(window.location.search);
         this.articleId = urlParams.get('id');
-        
+
         if (!this.articleId) {
             this.showNotFound();
             return;
@@ -16,13 +16,20 @@ const articleApp = {
     },
 
     loadArticle() {
-        const stored = localStorage.getItem('architecture_blog_articles');
-        if (!stored) {
-            this.showNotFound();
-            return;
+
+        let stored = localStorage.getItem('architecture_blog_articles');
+        let articles = [];
+
+        if (stored) {
+            articles = JSON.parse(stored);
+        } else {
+            // fallback to data.js
+            if (typeof articlesData !== "undefined") {
+                articles = articlesData;
+                localStorage.setItem('architecture_blog_articles', JSON.stringify(articles));
+            }
         }
 
-        const articles = JSON.parse(stored);
         this.article = articles.find(a => a.id === this.articleId);
 
         if (!this.article) {
@@ -92,7 +99,7 @@ const articleApp = {
         localStorage.setItem('architecture_blog_articles', JSON.stringify(articles));
 
         this.showToast('Article deleted', 'success');
-        
+
         // Redirect back to home after short delay
         setTimeout(() => {
             window.location.href = 'index.html';
@@ -118,10 +125,10 @@ const articleApp = {
 
     formatDate(dateStr) {
         const date = new Date(dateStr);
-        return date.toLocaleDateString('en-US', { 
-            month: 'long', 
-            day: 'numeric', 
-            year: 'numeric' 
+        return date.toLocaleDateString('en-US', {
+            month: 'long',
+            day: 'numeric',
+            year: 'numeric'
         });
     },
 
