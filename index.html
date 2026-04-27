@@ -19,26 +19,26 @@
 </head>
 
 <body>
-<header class="header">
-    <div class="header-content">
-        <a href="#" class="brand" onclick="app.showHome(); return false;">
-            <img src="images/rohannow-logo.png" alt="Rohan Aditya Logo" style="height:40px; width:auto;">
-        </a>
+    <header class="header">
+        <div class="header-content">
+            <a href="#" class="brand" onclick="app.showHome(); return false;">
+                <img src="images/rohannow-logo.png" alt="Rohan Aditya Logo" style="height:40px; width:auto;">
+            </a>
 
-        <nav class="header-nav">
-            <a href="#" class="nav-link" onclick="app.filterByCategory('All'); return false;">All</a>
-            <a href="#" class="nav-link" onclick="app.filterByCategory('Tutorial'); return false;">Tutorials</a>
-            <a href="#" class="nav-link" onclick="app.filterByCategory('Use Case'); return false;">Use Cases</a>
-            <a href="https://rohanaditya.vercel.app/" class="nav-link">About</a>
-        </nav>
+            <nav class="header-nav">
+                <a href="#" class="nav-link" onclick="app.filterByCategory('All'); return false;">All</a>
+                <a href="#" class="nav-link" onclick="app.filterByCategory('Tutorial'); return false;">Tutorials</a>
+                <a href="#" class="nav-link" onclick="app.filterByCategory('Use Case'); return false;">Use Cases</a>
+                <a href="https://rohanaditya.vercel.app/" class="nav-link">About</a>
+            </nav>
 
-        <div class="header-actions">
-            <button class="theme-toggle" onclick="app.toggleTheme()" title="Toggle theme">
-                <span id="theme-icon">◐</span>
-            </button>
+            <div class="header-actions">
+                <button class="theme-toggle" onclick="app.toggleTheme()" title="Toggle theme">
+                    <span id="theme-icon">◐</span>
+                </button>
+            </div>
         </div>
-    </div>
-</header>
+    </header>
 
     <main class="main" id="mainContent">
         <!-- Hero Section -->
@@ -49,8 +49,8 @@
                     <h3>by Rohan Aditya</h3>
                     <div class="hero-stats">
                         <div class="stat">
-                            <span class="stat-value" id="statArticles">0</span>
-                            <span class="stat-label">Articles</span>
+                            <span style="display: none;" class="stat-value" id="statArticles">0</span>
+                            <span style="display: none;" class="stat-label">Articles</span>
                         </div>
                         <div class="stat">
                             <span class="stat-value" id="statTutorials">0</span>
@@ -62,7 +62,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="hero-visual">
+                <!-- <div class="hero-visual">
                     <div class="code-preview">
                         <div class="code-line">
                             <span class="code-line-number">01</span>
@@ -97,7 +97,7 @@
                             <span>}</span>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </section>
 
@@ -122,10 +122,10 @@
         <section class="content">
             <div class="section-header">
                 <h2 class="section-title">Latest Articles</h2>
-                <div class="view-options">
+                <!-- <div class="view-options">
                     <button class="view-btn active" onclick="app.setView('grid')">Grid</button>
                     <button class="view-btn" onclick="app.setView('list')">List</button>
-                </div>
+                </div> -->
             </div>
 
             <div id="articlesContainer" class="articles-grid">

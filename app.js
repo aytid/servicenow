@@ -160,15 +160,6 @@ const app = {
         this.render();
     },
 
-    // viewArticle(id) {
-    //     const article = this.articles.find(a => a.id === id);
-    //     if (!article) return;
-
-    //     this.currentArticle = article;
-    //     article.views++;
-    //     this.saveArticles();
-    //     window.open(`article.html?id=${id}`, '_blank');
-    // },
     viewArticle(id, event) {
         const article = this.articles.find(a => a.id === id);
         if (!article) return;
@@ -243,18 +234,11 @@ const app = {
         if (this.currentView === 'grid') {
             container.innerHTML = filtered.map(article => `
                 <article class="article-card" onclick="app.viewArticle('${article.id}', event)">
-                    <div class="article-image">
-                        <div style="width: 100%; height: 100%; background: linear-gradient(135deg, var(--color-elevated) 0%, var(--color-surface) 100%); display: flex; align-items: center; justify-content: center; font-size: 3rem;">
-                            ${this.getCategoryIcon(article.category)}
-                        </div>
-                        <span class="article-category">${article.category}</span>
-                    </div>
                     <div class="article-content">
                         <div class="article-meta">
                             <span class="article-date">📅 ${this.formatDate(article.date)}</span>
                         </div>
                         <h3 class="article-title">${this.escapeHtml(article.title)}</h3>
-                        <p class="article-excerpt">${this.escapeHtml(article.excerpt)}</p>
                         <div class="article-footer">
                             <div class="article-tags">
                                 ${article.tags.slice(0, 6).map(t => `<span class="article-tag">#${t}</span>`).join('')}

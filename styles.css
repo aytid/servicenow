@@ -252,14 +252,13 @@ body {
 
 /* Hero Section */
 .hero {
-    padding: 4rem 2rem;
+    padding: 2rem 2rem;
     max-width: 1400px;
     margin: 0 auto;
 }
 
 .hero-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
     gap: 4rem;
     align-items: center;
 }
@@ -299,7 +298,6 @@ body {
 .hero-stats {
     display: flex;
     gap: 3rem;
-    padding-top: 2rem;
     border-top: 1px solid var(--color-border);
 }
 
@@ -507,7 +505,7 @@ body {
 /* Article Cards */
 .articles-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
 }
 
