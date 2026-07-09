@@ -2801,7 +2801,7 @@ This pattern also works as a lightweight control for security-sensitive referenc
 
 ## Takeaway
 
-If a reference field's Recent Selections list is doing more harm than good, you don't need to touch the global "Show Recent Selections" system property. Clear the existing rows for that table/field pair from the Recent Selection table, then add a scoped before insert/update Business Rule that aborts new writes for that same pair. Two small configuration changes, and the rest of the instance stays untouched.
+If a reference field's Recent Selections list is doing more harm than good, you don't need to touch the global "Show Recent Selections" system property. Clear the existing rows for that table/field pair from the Recent Selection [sys_ui_recent_selection] table, then add a scoped before insert/update Business Rule that aborts new writes for that same pair. Two small configuration changes, and the rest of the instance stays untouched.
 
 
 ---
