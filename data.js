@@ -2750,6 +2750,9 @@ ServiceNow reference fields automatically remember the last few values a user pi
 The good news: you don't need to disable the feature globally. You can scope it down to a single table/field pair.
 
 ---
+<div class="blog-image">
+  <img src="images/b13img1.jpg" alt="Quick Links Widget After Hover" />
+</div>
 
 ## Where the Data Lives
 
