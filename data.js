@@ -2722,7 +2722,90 @@ This setup is commonly used by organizations that rely on **Google Workspace for
 
 © 2026 Rohan Aditya
 `,
+    },
+    // New article entry — paste this object into the articlesData array in data.js
+// (add a comma after the closing brace of id '1012', then paste this block before the closing ])
+{
+    id: '1013',
+    title: 'Disabling Recent Selections on a Single Reference Field',
+    category: 'Tutorial',
+    excerpt: 'The Recent Selections dropdown is handy on most reference fields, but on a shared or sensitive field it can clutter the UI. Here is how to switch it off for just one field without touching the rest of the instance.',
+    tags: ['Reference Fields', 'Business Rules', 'Admin'],
+    date: '2026-07-09',
+    views: 0,
+    created: '2026-07-09T10:00:00Z',
+    content: `
+
+**Author: Rohan Aditya**
+
+### Key Points Covered
+- How the Recent Selection table drives the "recent picks" dropdown  
+- Clearing existing recent selection entries for one field  
+- Blocking future entries with a scoped Business Rule  
+
+---
+
+ServiceNow reference fields automatically remember the last few values a user picked, surfacing them at the top of the lookup as **Recent Selections**. Convenient most of the time — but not always welcome. On a field like a change number lookup on a custom exceptions table, showing someone else's recent picks isn't useful, and can even be a minor information-disclosure concern.
+
+The good news: you don't need to disable the feature globally. You can scope it down to a single table/field pair.
+
+---
+
+## Where the Data Lives
+
+Every time a user selects a value in a reference field, ServiceNow logs it to the **Recent Selection** table (found under System Definition). That table is what powers the dropdown suggestions — so controlling what gets written there, and cleaning out what's already there, is the whole trick.
+
+---
+
+## Step 1: Clear Out Existing Entries
+
+Navigation:  
+**System Definition > Recent Selection**
+
+1. Filter the list where **Table** equals your table name and **Field** equals your field name.
+2. Select the matching rows.
+3. Delete them.
+
+This immediately stops old values from showing up on the form. It only clears history though — new selections start repopulating the table unless you also block future writes, which is what the Business Rule below does.
+
+---
+
+## Step 2: Block Future Entries with a Business Rule
+
+Create a **before insert/update** Business Rule on the **Recent Selection** table, scoped to your specific table and field, and call \`setAbortAction()\` so the insert never completes for that combination.
+
+\`\`\`javascript
+(function executeRule(current, previous) {
+    if (current.table == 'your_table_name' && current.field == 'your_field_name') {
+        current.setAbortAction(true);
     }
+})(current, previous);
+\`\`\`
+
+Because the condition is scoped to one table/field pair, every other reference field on the instance keeps its normal Recent Selections behavior — you're only turning it off where you actually need to.
+
+---
+
+## Why This Approach Works Well
+
+- ✔ Non-invasive: no client scripts, no UI policies, no dictionary changes  
+- ✔ Reversible: deactivate the Business Rule and the field goes back to normal  
+- ✔ Precise: no need to disable a platform-wide feature to fix one field  
+
+This pattern also works as a lightweight control for security-sensitive reference fields, since it prevents any per-user selection history from being generated for that field at all.
+
+---
+
+## Takeaway
+
+If a reference field's Recent Selections list is doing more harm than good, you don't need to touch the global "Show Recent Selections" system property. Clear the existing rows for that table/field pair from the Recent Selection table, then add a scoped before insert/update Business Rule that aborts new writes for that same pair. Two small configuration changes, and the rest of the instance stays untouched.
+
+*Reference: ServiceNow Community Developer Forum — "Is it possible to disable the 'recent selections' function on a single field?"*
+
+---
+
+© 2026 Rohan Aditya`
+}
 ];
 
 // Function to get articles (from localStorage or default data)
