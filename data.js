@@ -2728,7 +2728,7 @@ This setup is commonly used by organizations that rely on **Google Workspace for
 {
     id: '1013',
     title: 'Disabling Recent Selections on a Single Reference Field',
-    category: 'Tutorial',
+    category: 'Use Case',
     excerpt: 'The Recent Selections dropdown is handy on most reference fields, but on a shared or sensitive field it can clutter the UI. Here is how to switch it off for just one field without touching the rest of the instance.',
     tags: ['Reference Fields', 'Business Rules', 'Admin'],
     date: '2026-07-09',
