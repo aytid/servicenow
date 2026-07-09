@@ -2745,7 +2745,7 @@ This setup is commonly used by organizations that rely on **Google Workspace for
 
 ---
 
-ServiceNow reference fields automatically remember the last few values a user picked, surfacing them at the top of the lookup as **Recent Selections**. Convenient most of the time — but not always welcome. On a field like a change number lookup on a custom exceptions table, showing someone else's recent picks isn't useful, and can even be a minor information-disclosure concern.
+ServiceNow reference fields automatically remember the last few values a user picked, surfacing them at the top of the lookup as **Recent Selections**. Convenient most of the time — but not always welcome. On a field like a change number on other tables, showing recent picks isn't useful.
 
 The good news: you don't need to disable the feature globally. You can scope it down to a single table/field pair.
 
@@ -2800,7 +2800,6 @@ This pattern also works as a lightweight control for security-sensitive referenc
 
 If a reference field's Recent Selections list is doing more harm than good, you don't need to touch the global "Show Recent Selections" system property. Clear the existing rows for that table/field pair from the Recent Selection table, then add a scoped before insert/update Business Rule that aborts new writes for that same pair. Two small configuration changes, and the rest of the instance stays untouched.
 
-*Reference: ServiceNow Community Developer Forum — "Is it possible to disable the 'recent selections' function on a single field?"*
 
 ---
 
