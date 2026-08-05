@@ -3081,7 +3081,7 @@ If another team member joins the conversation later, they have no indication of 
 They must manually search ServiceNow or ask another participant for the record number before they can begin working.
 
 <div class="blog-image">
-<img src="images/b15img1.png" alt="Out of Box Collaboration Chat" />
+<img src="images/b15img1.jpg" alt="Out of Box Collaboration Chat" />
 </div>
 
 ---
@@ -3102,7 +3102,7 @@ For other supported tables, an **Open in Agent Workspace** link is displayed.
 This enables every participant to access the record with a single click.
 
 <div class="blog-image">
-<img src="images/b15img2.png" alt="Customized Collaboration Chat" />
+<img src="images/b15img2.jpg" alt="Customized Collaboration Chat" />
 </div>
 
 ---
@@ -3162,7 +3162,7 @@ The resulting Teams message appears as:
 This gives users multiple navigation options depending on how they prefer to work.
 
 <div class="blog-image">
-<img src="images/b15img3.png" alt="Record Links Generated" />
+<img src="images/b15img3.jpg" alt="Record Links Generated" />
 </div>
 
 ---
@@ -3209,7 +3209,7 @@ Immediately afterwards, another message appears:
 Participants can simply click the appropriate link and continue working without searching for the record manually.
 
 <div class="blog-image">
-<img src="images/b15img4.png" alt="Final Microsoft Teams Collaboration Chat" />
+<img src="images/b15img4.jpg" alt="Final Microsoft Teams Collaboration Chat" />
 </div>
 
 ---
