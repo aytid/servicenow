@@ -3161,10 +3161,6 @@ The resulting Teams message appears as:
 
 This gives users multiple navigation options depending on how they prefer to work.
 
-<div class="blog-image">
-<img src="images/b15img3.jpg" alt="Record Links Generated" />
-</div>
-
 ---
 
 ## Sending the Custom Message
@@ -3209,7 +3205,7 @@ Immediately afterwards, another message appears:
 Participants can simply click the appropriate link and continue working without searching for the record manually.
 
 <div class="blog-image">
-<img src="images/b15img4.jpg" alt="Final Microsoft Teams Collaboration Chat" />
+<img src="images/b15img2.jpg" alt="Final Microsoft Teams Collaboration Chat" />
 </div>
 
 ---
