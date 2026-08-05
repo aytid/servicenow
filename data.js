@@ -3040,7 +3040,7 @@ This enhancement extends the native Provider Notification framework while giving
 
 © 2026 Rohan Aditya`
 },
-    {
+  {
     id: '1015',
     title: 'Customizing Microsoft Teams Collaboration Chat with Direct Record Links',
     category: 'Tutorial',
@@ -3054,27 +3054,17 @@ This enhancement extends the native Provider Notification framework while giving
 **Author: Rohan Aditya**
 
 ### Key Points Covered
-- Microsoft Teams Collaboration Chat
+- Microsoft Teams Collaboration Chat customization
+- Extending the MSTeamsChatUtilSNC Script Include
+- Generating dynamic record links for Agent Workspace and Employee Center
 
-ServiceNow's **Microsoft Teams Collaboration Chat** enables users to start a Microsoft Teams conversation directly from a ServiceNow record.
+ServiceNow's **Microsoft Teams Collaboration Chat** lets users launch a Teams conversation directly from a ServiceNow record. It's a great way to bring subject matter experts into a discussion without leaving the collaboration tool they already work in.
 
-Out of the box, every newly created collaboration chat begins with the following message:
+Out of the box, every new collaboration chat opens with a single compliance message:
 
 > **"This chat log may be saved to better serve you in the future."**
 
-While this satisfies the compliance requirement, it doesn't provide participants with any context about the conversation or an easy way to navigate back to the originating ServiceNow record.
-
-This customization enhances the collaboration experience by automatically posting direct links to the related record immediately after the standard welcome message.
-
----
-
-## The Problem
-
-Whenever a collaboration chat is created, users only see the default informational message.
-
-If another team member joins the conversation later, they have no indication of which record the discussion belongs to.
-
-They must manually search ServiceNow or ask another participant for the record number before they can begin working.
+This satisfies the compliance requirement but stops there — it gives participants no direct way to jump back into the ServiceNow record the conversation is about. This article walks through a lightweight customization that adds that context automatically.
 
 <div class="blog-image">
 <img src="images/b15img1.jpg" alt="Out of Box Collaboration Chat" />
@@ -3084,18 +3074,12 @@ They must manually search ServiceNow or ask another participant for the record n
 
 ## The Solution
 
-Instead of replacing the default message, this customization extends the existing functionality.
+Rather than replacing the default message, this customization extends it. Immediately after the standard Teams welcome message is sent, a second message is posted automatically with direct links back to the originating record.
 
-Immediately after the standard Teams welcome message is sent, another message is automatically posted containing direct links back to the originating record.
+- For **Incident** records, participants get both an **Open in Employee Center** link and an **Open in Agent Workspace** link.
+- For all other supported tables, an **Open in Agent Workspace** link is provided.
 
-For Incident records, users are provided with links to both:
-
-- **Open in Employee Center**
-- **Open in Agent Workspace**
-
-For other supported tables, an **Open in Agent Workspace** link is displayed.
-
-This enables every participant to access the record with a single click.
+This gives every participant one-click access to the record, regardless of which ServiceNow interface they use.
 
 <div class="blog-image">
 <img src="images/b15img2.jpg" alt="Customized Collaboration Chat" />
@@ -3105,11 +3089,9 @@ This enables every participant to access the record with a single click.
 
 ## Extending the Script Include
 
-To keep the customization upgrade-friendly, the out-of-the-box **MSTeamsChatUtilSNC** Script Include is extended rather than modified.
+To keep the customization upgrade-safe, the out-of-the-box **MSTeamsChatUtilSNC** Script Include is extended rather than modified directly.
 
-The custom Script Include overrides the **runSendCardToChatFlow()** method while still calling the parent implementation.
-
-This ensures the original Microsoft Teams welcome message continues to be sent before the custom message is added.
+The custom Script Include overrides **runSendCardToChatFlow()** but still calls the parent implementation first, so the original Teams welcome message continues to fire exactly as before:
 
 \`\`\`javascript
 var result = sn_tcm_collab_hook.MSTeamsChatUtilSNC.prototype.runSendCardToChatFlow.call(
@@ -3121,13 +3103,13 @@ var result = sn_tcm_collab_hook.MSTeamsChatUtilSNC.prototype.runSendCardToChatFl
 );
 \`\`\`
 
-After the standard message is delivered, the customization generates an additional HTML message containing record links.
+Once the standard message is delivered, the override builds and sends the additional HTML message containing the record links.
 
 ---
 
 ## Building Dynamic Record Links
 
-The current instance URL is retrieved dynamically so the customization works across every environment without requiring hardcoded URLs.
+The instance URL is pulled from the system property at runtime, so the customization works unchanged across every environment (dev, test, prod) without hardcoded URLs:
 
 \`\`\`javascript
 var instanceUrl = gs.getProperty('glide.servlet.uri');
@@ -3140,7 +3122,7 @@ var sowUrl =
     sourceSysId;
 \`\`\`
 
-For Incident records, an Employee Center URL is also generated.
+For Incident records specifically, an Employee Center URL is also constructed:
 
 \`\`\`javascript
 var portalUrl =
@@ -3149,19 +3131,16 @@ var portalUrl =
     sourceSysId;
 \`\`\`
 
-The resulting Teams message appears as:
+The resulting message renders as:
 
 **View this record here:**
-
 **Open in Employee Center** or **Open in Agent Workspace**
-
-This gives users multiple navigation options depending on how they prefer to work.
 
 ---
 
 ## Sending the Custom Message
 
-The customization formats the additional message as HTML before sending it to Microsoft Teams.
+The message body is formatted as HTML before being sent to Teams:
 
 \`\`\`javascript
 var customPayload = {
@@ -3172,7 +3151,7 @@ var customPayload = {
 };
 \`\`\`
 
-Instead of creating another integration, the existing Flow Designer Action is reused.
+Rather than building a new integration, the customization reuses the existing Flow Designer action that already handles Teams messaging:
 
 \`\`\`javascript
 sn_fd.FlowAPI.getRunner()
@@ -3182,23 +3161,22 @@ sn_fd.FlowAPI.getRunner()
     .run();
 \`\`\`
 
-By reusing the existing Teams integration, the implementation remains lightweight while fully leveraging ServiceNow's native collaboration capabilities.
+This keeps the implementation lightweight and fully aligned with ServiceNow's native Teams integration.
 
 ---
 
-## Microsoft Teams Result
+## Result
 
-After the collaboration chat is created, participants first see the standard Teams message:
+After the collaboration chat is created, participants see the standard Teams message first:
 
 > **"This chat log may be saved to better serve you in the future."**
 
-Immediately afterwards, another message appears:
+Followed immediately by:
 
 **View this record here:**
-
 **Open in Employee Center** or **Open in Agent Workspace**
 
-Participants can simply click the appropriate link and continue working without searching for the record manually.
+Participants can click straight through to the record instead of navigating ServiceNow manually.
 
 <div class="blog-image">
 <img src="images/b15img2.jpg" alt="Final Microsoft Teams Collaboration Chat" />
@@ -3210,20 +3188,18 @@ Participants can simply click the appropriate link and continue working without 
 
 - Preserves the out-of-the-box collaboration experience
 - Extends the default Teams welcome message instead of replacing it
-- Provides direct navigation back to ServiceNow records
+- Provides one-click navigation back to the ServiceNow record
 - Supports both Employee Center and Agent Workspace
-- Eliminates manual record searches
-- Improves collaboration between support teams
-- Reuses the existing Microsoft Teams integration
-- Upgrade-friendly by extending the OOB Script Include
+- Reuses the existing Microsoft Teams integration — no new connections to build
+- Upgrade-friendly, since the OOB Script Include is extended, not modified
 
 ---
 
 ## Use Cases
 
 - Incident Management
-- Change Management
 - Major Incident Collaboration
+- Change Management
 - Problem Management
 - Service Requests
 - CAB Discussions
@@ -3231,11 +3207,9 @@ Participants can simply click the appropriate link and continue working without 
 
 ---
 
-## Final Result
+## Summary
 
-By extending the **MSTeamsChatUtil** Script Include, every Microsoft Teams Collaboration Chat now provides participants with direct links back to the originating ServiceNow record.
-
-The enhancement preserves the standard compliance message while enriching the conversation with contextual navigation links, creating a faster and more intuitive collaboration experience for both end users and support engineers.
+By extending the **MSTeamsChatUtilSNC** Script Include, every Microsoft Teams Collaboration Chat now surfaces direct links back to the originating ServiceNow record — right alongside the standard compliance message. It's a small change that removes friction for anyone joining the conversation.
 
 © 2026 Rohan Aditya`
 }
