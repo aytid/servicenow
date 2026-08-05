@@ -3183,7 +3183,7 @@ After creating the collaboration chat, participants see the standard compliance 
 
 ## Complete Script Include Implementation
 
-Below is the complete child Script Include code overriding the \`runSendCardToChatFlow\` method from \`MSTeamsChatUtilSNC\`, in \`MSTeamsChatUtil\`:
+Below is the complete child Script Include \`MSTeamsChatUtil\` overriding the \`runSendCardToChatFlow\` method from \`MSTeamsChatUtilSNC\`:
 
 \`\`\`javascript
 var MSTeamsChatUtil = Class.create();
