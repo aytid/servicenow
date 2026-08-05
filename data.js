@@ -3055,10 +3055,6 @@ This enhancement extends the native Provider Notification framework while giving
 
 ### Key Points Covered
 - Microsoft Teams Collaboration Chat
-- Script Include Customization
-- Dynamic Record Links
-- Employee Center Integration
-- Agent Workspace Integration
 
 ServiceNow's **Microsoft Teams Collaboration Chat** enables users to start a Microsoft Teams conversation directly from a ServiceNow record.
 
