@@ -3183,7 +3183,7 @@ After creating the collaboration chat, participants see the standard compliance 
 
 ## Complete Script Include Implementation
 
-Below is the complete child Script Include code overriding `MSTeamsChatUtil`:
+Below is the complete child Script Include code overriding \`MSTeamsChatUtil\`:
 
 \`\`\`javascript
 var MSTeamsChatUtil = Class.create();
