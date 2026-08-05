@@ -2861,7 +2861,7 @@ Instead of sending a fixed notification, clicking the button opens a popup where
 Once submitted, the message is delivered to Microsoft Teams through a custom Provider Notification.
 
 <div class="blog-image">
-<img src="images/b14img1.png" alt="Notify TechOps UI Action" />
+<img src="images/b14img1.jpg" alt="Notify TechOps UI Action" />
 </div>
 
 ---
