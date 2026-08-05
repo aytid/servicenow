@@ -3058,13 +3058,13 @@ This enhancement extends the native Provider Notification framework while giving
 - Extending the MSTeamsChatUtilSNC Script Include
 - Generating dynamic record links for Agent Workspace and Employee Center
 
-ServiceNow's **Microsoft Teams Collaboration Chat** lets users launch a Teams conversation directly from a ServiceNow record. It's a great way to bring subject matter experts into a discussion without leaving the collaboration tool they already work in.
+ServiceNow's **Microsoft Teams Collaboration Chat** lets users launch a Teams conversation directly from a ServiceNow record. It brings subject matter experts into a discussion without forcing them out of their primary collaboration workspace.
 
-Out of the box, every new collaboration chat opens with a single compliance message:
+Out of the box, every new collaboration chat opens with a standard compliance message:
 
 > **"This chat log may be saved to better serve you in the future."**
 
-This satisfies the compliance requirement but stops there — it gives participants no direct way to jump back into the ServiceNow record the conversation is about. This article walks through a lightweight customization that adds that context automatically.
+While compliant, it does not provide direct links to jump straight into the originating ServiceNow record. This article demonstrates how to cleanly extend this functionality to post dynamic record navigation links automatically.
 
 <div class="blog-image">
 <img src="images/b15img1.jpg" alt="Out of Box Collaboration Chat" />
@@ -3074,12 +3074,12 @@ This satisfies the compliance requirement but stops there — it gives participa
 
 ## The Solution
 
-Rather than replacing the default message, this customization extends it. Immediately after the standard Teams welcome message is sent, a second message is posted automatically with direct links back to the originating record.
+Rather than replacing the default compliance message, this customization extends it. Immediately after the standard welcome message is sent, a second message is posted automatically with direct links back to the originating record.
 
-- For **Incident** records, participants get both an **Open in Employee Center** link and an **Open in Agent Workspace** link.
+- For **Incident** records, participants receive both **Open in Employee Center** and **Open in Agent Workspace** links.
 - For all other supported tables, an **Open in Agent Workspace** link is provided.
 
-This gives every participant one-click access to the record, regardless of which ServiceNow interface they use.
+This gives every participant one-click access to the record, regardless of which ServiceNow interface they prefer.
 
 <div class="blog-image">
 <img src="images/b15img2.jpg" alt="Customized Collaboration Chat" />
@@ -3089,9 +3089,9 @@ This gives every participant one-click access to the record, regardless of which
 
 ## Extending the Script Include
 
-To keep the customization upgrade-safe, the out-of-the-box **MSTeamsChatUtilSNC** Script Include is extended rather than modified directly.
+To ensure the solution remains upgrade-safe, the out-of-the-box **MSTeamsChatUtilSNC** Script Include is extended rather than modified directly.
 
-The custom Script Include overrides **runSendCardToChatFlow()** but still calls the parent implementation first, so the original Teams welcome message continues to fire exactly as before:
+The custom Script Include overrides **runSendCardToChatFlow()** while calling the parent implementation first, preserving native functionality before dispatching the custom message:
 
 \`\`\`javascript
 var result = sn_tcm_collab_hook.MSTeamsChatUtilSNC.prototype.runSendCardToChatFlow.call(
@@ -3103,13 +3103,11 @@ var result = sn_tcm_collab_hook.MSTeamsChatUtilSNC.prototype.runSendCardToChatFl
 );
 \`\`\`
 
-Once the standard message is delivered, the override builds and sends the additional HTML message containing the record links.
-
 ---
 
 ## Building Dynamic Record Links
 
-The instance URL is pulled from the system property at runtime, so the customization works unchanged across every environment (dev, test, prod) without hardcoded URLs:
+The instance URL is retrieved dynamically from system properties at runtime, ensuring smooth deployment across Dev, Test, and Production environments without hardcoding:
 
 \`\`\`javascript
 var instanceUrl = gs.getProperty('glide.servlet.uri');
@@ -3122,7 +3120,7 @@ var sowUrl =
     sourceSysId;
 \`\`\`
 
-For Incident records specifically, an Employee Center URL is also constructed:
+For Incident records specifically, an Employee Center portal URL is also generated:
 
 \`\`\`javascript
 var portalUrl =
@@ -3131,16 +3129,11 @@ var portalUrl =
     sourceSysId;
 \`\`\`
 
-The resulting message renders as:
-
-**View this record here:**
-**Open in Employee Center** or **Open in Agent Workspace**
-
 ---
 
 ## Sending the Custom Message
 
-The message body is formatted as HTML before being sent to Teams:
+The message body is formatted as HTML before being passed to Teams:
 
 \`\`\`javascript
 var customPayload = {
@@ -3151,7 +3144,7 @@ var customPayload = {
 };
 \`\`\`
 
-Rather than building a new integration, the customization reuses the existing Flow Designer action that already handles Teams messaging:
+Rather than creating a new integration, the customization reuses the native Flow Designer action:
 
 \`\`\`javascript
 sn_fd.FlowAPI.getRunner()
@@ -3161,22 +3154,16 @@ sn_fd.FlowAPI.getRunner()
     .run();
 \`\`\`
 
-This keeps the implementation lightweight and fully aligned with ServiceNow's native Teams integration.
-
 ---
 
 ## Result
 
-After the collaboration chat is created, participants see the standard Teams message first:
+After creating the collaboration chat, participants see the standard compliance banner followed immediately by the dynamic navigation links:
 
 > **"This chat log may be saved to better serve you in the future."**
 
-Followed immediately by:
-
-**View this record here:**
-**Open in Employee Center** or **Open in Agent Workspace**
-
-Participants can click straight through to the record instead of navigating ServiceNow manually.
+**View this record here:**  
+**Open in Employee Portal** or **Open in Agent View**
 
 <div class="blog-image">
 <img src="images/b15img2.jpg" alt="Final Microsoft Teams Collaboration Chat" />
@@ -3186,30 +3173,86 @@ Participants can click straight through to the record instead of navigating Serv
 
 ## Benefits
 
-- Preserves the out-of-the-box collaboration experience
-- Extends the default Teams welcome message instead of replacing it
-- Provides one-click navigation back to the ServiceNow record
+- Preserves native compliance workflows
+- Delivers one-click navigation directly to records
 - Supports both Employee Center and Agent Workspace
-- Reuses the existing Microsoft Teams integration — no new connections to build
-- Upgrade-friendly, since the OOB Script Include is extended, not modified
+- Reuses existing Microsoft Teams connections without extra webhooks
+- Upgrade-friendly through object extension
 
 ---
 
-## Use Cases
+## Complete Script Include Implementation
 
-- Incident Management
-- Major Incident Collaboration
-- Change Management
-- Problem Management
-- Service Requests
-- CAB Discussions
-- Cross-functional troubleshooting
+Below is the complete child Script Include code overriding `MSTeamsChatUtil`:
 
----
+\`\`\`javascript
+var MSTeamsChatUtil = Class.create();
+MSTeamsChatUtil.prototype = Object.extendsObject(sn_tcm_collab_hook.MSTeamsChatUtilSNC, {
+    initialize: function() {
+        sn_tcm_collab_hook.MSTeamsChatUtilSNC.prototype.initialize.call(this);
+    },
 
-## Summary
+    runSendCardToChatFlow: function(chatId, message, tableName, sourceSysId) {
 
-By extending the **MSTeamsChatUtilSNC** Script Include, every Microsoft Teams Collaboration Chat now surfaces direct links back to the originating ServiceNow record — right alongside the standard compliance message. It's a small change that removes friction for anyone joining the conversation.
+        // Send the standard OOB message first
+        var result = sn_tcm_collab_hook.MSTeamsChatUtilSNC.prototype.runSendCardToChatFlow.call(
+            this,
+            chatId,
+            message,
+            tableName,
+            sourceSysId
+        );
+
+        // Prevent loops and ensure valid record parameters
+        if (message && message.indexOf('now/sow/record') === -1 && tableName && sourceSysId) {
+
+            var instanceUrl = gs.getProperty('glide.servlet.uri');
+            var sowUrl = instanceUrl + "now/sow/record/" + tableName + "/" + sourceSysId;
+
+            var htmlMessage = "View this record here:<br><br>";
+
+            // Show Employee Portal link first for Incidents
+            if (tableName === 'incident') {
+                var portalUrl = instanceUrl + "esc?id=ticket&table=incident&sys_id=" + sourceSysId;
+
+                htmlMessage +=
+                    "<a href='" + portalUrl + "'><b>Open in Employee Portal</b></a>" +
+                    " or ";
+            }
+
+            // Show Agent View link
+            htmlMessage +=
+                "<a href='" + sowUrl + "'><b>Open in Agent View</b></a>";
+
+            var customPayload = {
+                body: {
+                    contentType: "html",
+                    content: htmlMessage
+                }
+            };
+
+            var inputs = {};
+            inputs.chat_id = chatId;
+            inputs.payload = JSON.stringify(customPayload);
+            inputs.credential_alias = this.getTeamsChatCredentialsAliasGr();
+
+            try {
+                sn_fd.FlowAPI.getRunner()
+                    .action('sn_tcm_collab_hook.send_message_to_microsoft_teams_chat')
+                    .inForeground()
+                    .withInputs(inputs)
+                    .run();
+            } catch (ex) {
+                gs.error("Failed to send custom HTML link to Teams: " + ex.getMessage());
+            }
+        }
+
+        return result;
+    },
+
+    type: 'MSTeamsChatUtil'
+});
+\`\`\`
 
 © 2026 Rohan Aditya`
 }
