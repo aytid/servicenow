@@ -3255,6 +3255,275 @@ MSTeamsChatUtil.prototype = Object.extendsObject(sn_tcm_collab_hook.MSTeamsChatU
 \`\`\`
 
 © 2026 Rohan Aditya`
+},
+    {
+    id: '1016',
+    title: 'Calling Flow Designer Flows from a Business Rule',
+    category: 'Tutorial',
+    excerpt: 'Learn how to invoke Flow Designer flows directly from a Business Rule using the generated code snippet, allowing you to reuse low-code automation from server-side scripts.',
+    tags: ['Flow Designer', 'Business Rule', 'ServiceNow', 'FlowAPI', 'Automation'],
+    date: '2026-08-06',
+    views: 132,
+    created: '2026-08-06T18:45:00Z',
+    content: `
+
+**Author: Rohan Aditya**
+
+### Key Points Covered
+- Calling Flow Designer from a Business Rule
+- Using the generated FlowAPI code snippet
+- Passing flow inputs
+- Finding the Flow Internal Name
+- Executing flows synchronously or asynchronously
+
+Flow Designer is an excellent low-code automation platform, but sometimes your automation needs to start only after custom server-side logic executes.
+
+Instead of duplicating Flow Designer logic inside a Business Rule, you can invoke the flow directly using **FlowAPI**.
+
+The best part? ServiceNow generates most of the required code for you.
+
+---
+
+## Problem Statement
+
+There are situations where a standard Flow trigger isn't enough.
+
+For example:
+
+- Perform complex validations before executing a flow.
+- Execute a flow only under specific Business Rule conditions.
+- Reuse existing Flow Designer logic.
+- Combine scripted logic with low-code automation.
+
+Rather than recreating the same automation in a Business Rule, you can simply call the Flow Designer flow.
+
+---
+
+## Solution Overview
+
+ServiceNow provides a built-in option to generate the code required to execute a flow.
+
+Simply copy the generated code, paste it into your Business Rule, populate the inputs, and you're done.
+
+<div class="blog-image">
+<img src="images/b16img1.png" alt="Create Code Snippet" />
+</div>
+
+---
+
+## Step 1 — Generate the Code Snippet
+
+Open your Flow Designer flow.
+
+Click the **three-dot menu** in the top-right corner and select:
+
+**Create Code Snippet**
+
+ServiceNow automatically generates the FlowAPI code required to invoke the flow.
+
+Example:
+
+\`\`\`javascript
+(function() {
+
+	try {
+
+		var inputs = {};
+
+		inputs['current'] = ; // GlideRecord
+		inputs['changed_fields'] = ; // Array.Object
+		inputs['table_name'] = 'change_request';
+
+		// Execute asynchronously
+		// sn_fd.FlowAPI.getRunner()
+		//     .flow('global.my_flow')
+		//     .inBackground()
+		//     .withInputs(inputs)
+		//     .run();
+
+		// Execute synchronously
+		sn_fd.FlowAPI.getRunner()
+		    .flow('global.my_flow')
+		    .inForeground()
+		    .withInputs(inputs)
+		    .run();
+
+	} catch (ex) {
+
+		gs.error(ex.getMessage());
+
+	}
+
+})();
+\`\`\`
+
+<div class="blog-image">
+<img src="images/b16img2.png" alt="Generated Code Snippet" />
+</div>
+
+---
+
+## Step 2 — Copy the Try/Catch Block
+
+Since the generated snippet wraps everything inside an anonymous function, you usually only need the **try/catch** block.
+
+Paste it directly into your Business Rule.
+
+\`\`\`javascript
+try {
+
+	var inputs = {};
+
+	inputs['current'] = current;
+	inputs['changed_fields'] = changedFields;
+	inputs['table_name'] = 'change_request';
+
+	sn_fd.FlowAPI.getRunner()
+		.flow('global.my_flow')
+		.inForeground()
+		.withInputs(inputs)
+		.run();
+
+} catch (ex) {
+
+	gs.error(ex.getMessage());
+
+}
+\`\`\`
+
+This keeps your Business Rule clean while reusing the generated FlowAPI code.
+
+<div class="blog-image">
+<img src="images/b16img3.png" alt="Business Rule Code" />
+</div>
+
+---
+
+## Step 3 — Populate the Flow Inputs
+
+Every input configured in the flow appears inside the **inputs** object.
+
+Simply assign the required values before executing the flow.
+
+Example:
+
+\`\`\`javascript
+inputs['current'] = current;
+inputs['changed_fields'] = changedFields;
+inputs['table_name'] = 'change_request';
+\`\`\`
+
+The input names must exactly match the Flow Designer input names.
+
+---
+
+## Step 4 — Find the Flow Internal Name
+
+The generated code references the flow using its **Internal Name**.
+
+Example:
+
+\`\`\`javascript
+.flow('global.afc__notify_tech_ops_team_about_implementation_status_and_implementation_notes_on_change')
+\`\`\`
+
+If you don't know the internal name, there are multiple ways to find it.
+
+### Method 1 — Update Set
+
+Navigate to:
+
+**System Update Sets → Local Update Sets → Captured Updates**
+
+Locate the Flow record and search for:
+
+**internal_name**
+
+Example:
+
+\`\`\`
+afc__notify_tech_ops_team_about_implementation_status_and_implementation_notes_on_change
+\`\`\`
+
+If the flow belongs to another application scope, prepend the scope name.
+
+Example:
+
+\`\`\`
+global.afc__notify_tech_ops_team_about_implementation_status_and_implementation_notes_on_change
+\`\`\`
+
+---
+
+### Method 2 — Using SN Utils
+
+If you're using the **SN Utils** browser extension, open the Flow Designer record and execute the following slash command:
+
+\`\`\`
+/xml
+\`\`\`
+
+The XML representation of the flow opens immediately.
+
+Simply search for:
+
+\`\`\`
+<internal_name>
+\`\`\`
+
+to locate the backend name used by FlowAPI.
+
+<div class="blog-image">
+<img src="images/b16img4.png" alt="Flow Internal Name" />
+</div>
+
+---
+
+## Foreground vs Background Execution
+
+ServiceNow allows flows to execute either synchronously or asynchronously.
+
+**Foreground**
+
+The Business Rule waits until the flow completes.
+
+\`\`\`javascript
+.inForeground()
+\`\`\`
+
+**Background**
+
+The Business Rule continues immediately while the flow executes in the background.
+
+\`\`\`javascript
+.inBackground()
+\`\`\`
+
+Choose the option that best suits your use case.
+
+---
+
+## Benefits
+
+- No need to recreate Flow Designer logic
+- Easy to integrate with Business Rules
+- Uses ServiceNow-generated code
+- Supports foreground and background execution
+- Keeps automation modular
+- Makes maintenance significantly easier
+- Reuses existing Flow Designer configurations
+
+---
+
+## Final Result
+
+Once the Business Rule conditions are met, the FlowAPI code executes and invokes the specified Flow Designer flow.
+
+The Business Rule controls **when** the flow starts, while the Flow Designer continues to handle **how** the automation is performed.
+
+This approach combines the flexibility of server-side scripting with the maintainability of Flow Designer, resulting in cleaner and more reusable ServiceNow solutions.
+
+© 2026 Rohan Aditya`
 }
 ];
 
