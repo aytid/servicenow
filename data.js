@@ -3042,7 +3042,7 @@ This enhancement extends the native Provider Notification framework while giving
 },
       {
     id: '1015',
-    title: 'Customizing Microsoft Teams Collaboration Chat with Record Links',
+    title: 'Customizing Microsoft Teams Collaboration Chat',
     category: 'Tutorial',
     excerpt: 'Enhance the default Microsoft Teams Collaboration Chat experience by adding direct links to ServiceNow records for both Employee Center and Agent Workspace.',
     tags: ['Microsoft Teams', 'Collaboration Chat', 'Script Include', 'ServiceNow', 'Employee Center', 'Agent Workspace'],
