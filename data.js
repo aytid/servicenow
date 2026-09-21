@@ -3529,8 +3529,8 @@ This approach combines the flexibility of server-side scripting with the maintai
     id: '1017',
     title: 'Make Group By Option Visible by Default',
     category: 'Tutorial',
-    excerpt: 'Make the Group By option visible by default in a ServiceNow Data Visualization by updating its JSON configuration.',
-    tags: ['Data Visualization', 'Group By', 'ServiceNow', 'Reporting', 'SN Utils'],
+    excerpt: 'Make the Group By option visible by default in a ServiceNow Data Visualization by updating the visualization JSON.',
+    tags: ['Data Visualization', 'Group By', 'ServiceNow', 'Reporting'],
     date: '2026-09-21',
     views: 0,
     created: '2026-09-21T11:00:00Z',
@@ -3540,309 +3540,89 @@ This approach combines the flexibility of server-side scripting with the maintai
 
 ### Key Points Covered
 - Making the Group By option visible by default
-- Opening the Data Visualization record directly in the platform
-- Using SN Utils and the record sys_id
-- Finding the visualization JSON in the Properties field
 - Updating the \`showAdditionalGroupBySelector\` property
 
-Here’s how you can make the **Group By** option visible by default in a ServiceNow Data Visualization.
+By default, the **Group By** option in a ServiceNow Data Visualization is hidden. Users need to select **Show change group by** from the More actions menu to display it.
 
-By default, the **Group By** selector may be hidden, requiring the user to open the **More actions** menu and select **Show change group by**.
-
-By making a small change to the visualization JSON, the Group By selector can be displayed automatically whenever the visualization is opened.
+You can make the **Group By** option visible by default by updating one property in the visualization JSON.
 
 ---
 
-## Steps to Make the Group By Option Visible by Default
+## Steps to Make Group By Visible by Default
 
-### 1. Open the Required Data Visualization
+### 1. Open the Visualization Record
 
-Open the required Data Visualization/report in ServiceNow.
+Open the required Data Visualization and copy its **sys_id** from the URL.
 
-For example, open the visualization where you want the **Group By** option to be displayed by default.
+Use **SN Utils** to open the record directly in the ServiceNow Platform.
 
----
-
-### 2. Get the Visualization Record sys_id
-
-From the visualization URL, identify and copy the **sys_id** of the corresponding record.
-
-You can use **SN Utils** to easily work with the sys_id and open the record directly in the ServiceNow platform.
+In the record, locate the **Properties** field. This field contains the JSON configuration of the visualization.
 
 <div class="blog-image">
-  <img src="images/1017img1.png" alt="Using SN Utils to get the Data Visualization sys_id" />
+  <img src="images/1017img1.png" alt="Data Visualization Properties field in Platform" />
 </div>
 
 ---
 
-### 3. Open the Record in Platform
+### 2. Update the JSON Property
 
-After getting the sys_id, open the corresponding Data Visualization record in the **ServiceNow Platform UI**.
-
-Once the record is opened, locate the **Properties** field.
-
-The **Properties** field contains the JSON configuration used by the Data Visualization.
-
-<div class="blog-image">
-  <img src="images/1017img2.png" alt="Data Visualization record opened in Platform" />
-</div>
-
----
-
-### 4. Find the Group By Configuration
-
-Inside the **Properties** field, search for:
+In the **Properties** field, search for:
 
 \`\`\`
 showAdditionalGroupBySelector
 \`\`\`
 
-You will find the following configuration:
+You will find:
 
 \`\`\`json
 "showAdditionalGroupBySelector": false
 \`\`\`
 
-This property controls whether the **Group By** selector is visible by default.
-
----
-
-### 5. Change the Value to true
-
-Change:
-
-\`\`\`json
-"showAdditionalGroupBySelector": false
-\`\`\`
-
-to:
+Change it to:
 
 \`\`\`json
 "showAdditionalGroupBySelector": true
 \`\`\`
 
+Save the record.
+
+This change makes the **Group By** option visible automatically when the visualization loads.
+
+---
+
+## Before
+
+\`\`\`json
+"showAdditionalGroupBySelector": false
+\`\`\`
+
+The Group By option is hidden by default.
+
+---
+
+## After
+
+\`\`\`json
+"showAdditionalGroupBySelector": true
+\`\`\`
+
+The Group By option is visible by default.
+
+---
+
+## Result
+
+After saving the record, reload the Data Visualization.
+
+The **Group By** option will now be displayed automatically without selecting **Show change group by** from the More actions menu.
+
 <div class="blog-image">
-  <img src="images/1017img3.png" alt="Changing showAdditionalGroupBySelector to true" />
+  <img src="images/1017img2.png" alt="Group By option visible by default" />
 </div>
 
 ---
 
-### 6. Save the Record
-
-Save the Data Visualization record after making the change.
-
-Reload the Data Visualization and check the result.
-
-The **Group By** selector will now be visible automatically when the visualization loads.
-
-You no longer need to go to:
-
-**More actions → Show change group by**
-
-to display the Group By selector.
-
----
-
-## Before the Change
-
-The configuration is:
-
-\`\`\`json
-"showAdditionalGroupBySelector": false
-\`\`\`
-
-With this configuration, the Group By selector is hidden by default.
-
-The user needs to manually select:
-
-**Show change group by**
-
-from the More actions menu.
-
----
-
-## After the Change
-
-Update the configuration to:
-
-\`\`\`json
-"showAdditionalGroupBySelector": true
-\`\`\`
-
-Now the Group By selector is displayed by default.
-
-The More actions menu will provide the option to:
-
-**Hide change group by**
-
----
-
-## Example
-
-For a visualization such as:
-
-**All Incidents - Grouped By Category**
-
-the configuration can contain:
-
-\`\`\`json
-{
-    "headerTitle": "All Incidents - Grouped By Category",
-    "showAdditionalGroupBySelector": true,
-    "groupBy": [
-        {
-            "groupBy": [
-                {
-                    "groupByField": "category",
-                    "isRange": false,
-                    "isChoice": true,
-                    "isPaBucket": false
-                }
-            ]
-        }
-    ]
-}
-\`\`\`
-
-The important change is:
-
-\`\`\`json
-"showAdditionalGroupBySelector": true
-\`\`\`
-
-The existing Group By field does not need to be changed.
-
-For example:
-
-\`\`\`json
-"groupByField": "category"
-\`\`\`
-
-will continue to group the visualization by **Category**.
-
----
-
-## If You Want to Control the Group By Options
-
-The visibility of the Group By selector and the available Group By fields are controlled separately.
-
-### Show or hide the Group By selector
-
-Use:
-
-\`\`\`json
-"showAdditionalGroupBySelector": true
-\`\`\`
-
-### Configure additional Group By options
-
-Use:
-
-\`\`\`json
-"additionalGroupByConfig"
-\`\`\`
-
-For example:
-
-\`\`\`json
-"additionalGroupByConfig": [
-    {
-        "id": "category",
-        "label": "Category"
-    },
-    {
-        "id": "subcategory",
-        "label": "Subcategory"
-    },
-    {
-        "id": "priority",
-        "label": "Priority"
-    }
-]
-\`\`\`
-
-If you want to remove the additional Group By options while keeping the Group By selector visible, you can use:
-
-\`\`\`json
-"showAdditionalGroupBySelector": true,
-"additionalGroupByConfig": []
-\`\`\`
-
-and retain your required Group By configuration, for example:
-
-\`\`\`json
-"groupByField": "category"
-\`\`\`
-
----
-
-## Drill-Down Visualizations
-
-If the Data Visualization contains drill-down configurations, check the JSON configurations inside the drill-down definitions as well.
-
-If you want the Group By selector to be visible by default in a drill-down visualization, make sure its configuration also contains:
-
-\`\`\`json
-"showAdditionalGroupBySelector": true
-\`\`\`
-
-If the drill-down configuration contains:
-
-\`\`\`json
-"showAdditionalGroupBySelector": false
-\`\`\`
-
-change it to:
-
-\`\`\`json
-"showAdditionalGroupBySelector": true
-\`\`\`
-
----
-
-## Final Result
-
-After changing:
-
-\`\`\`json
-"showAdditionalGroupBySelector": false
-\`\`\`
-
-to:
-
-\`\`\`json
-"showAdditionalGroupBySelector": true
-\`\`\`
-
-the **Group By** option will be visible by default whenever the Data Visualization loads.
-
-This means users can immediately see and use the Group By selector without having to open the **More actions** menu and select **Show change group by**.
-
----
-
-## Quick Summary
-
-\`\`\`text
-Open Data Visualization
-        ↓
-Get sys_id from URL
-        ↓
-Use SN Utils
-        ↓
-Open record in Platform
-        ↓
-Open Properties field
-        ↓
-Search for showAdditionalGroupBySelector
-        ↓
-Change false → true
-        ↓
-Save
-        ↓
-Group By visible by default
-\`\`\`
-
-That's it. A single JSON property controls whether the **Group By** selector is displayed by default.
+That's it. Changing \`showAdditionalGroupBySelector\` from \`false\` to \`true\` makes the **Group By** option visible by default.
 
 © 2026 Rohan Aditya`
 }
