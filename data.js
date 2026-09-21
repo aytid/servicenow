@@ -3559,7 +3559,7 @@ Use **SN Utils** to open the record directly in the ServiceNow Platform.
 In the record, locate the **Properties** field. This field contains the JSON configuration of the visualization.
 
 <div class="blog-image">
-  <img src="images/b17img1.png" alt="Data Visualization Properties field in Platform" />
+  <img src="images/b17img1.jpeg" alt="Data Visualization Properties field in Platform" />
 </div>
 
 ---
@@ -3597,7 +3597,7 @@ After saving the record, reload the Data Visualization.
 The **Group By** option will now be displayed automatically without selecting **Show change group by** from the More actions menu.
 
 <div class="blog-image">
-  <img src="images/b17img2.png" alt="Group By option visible by default" />
+  <img src="images/b17img2.jpeg" alt="Group By option visible by default" />
 </div>
 
 ---
