@@ -3046,9 +3046,9 @@ This enhancement extends the native Provider Notification framework while giving
     category: 'Tutorial',
     excerpt: 'Enhance the default Microsoft Teams Collaboration Chat experience by adding direct links to ServiceNow records for both Employee Center and Agent Workspace.',
     tags: ['Microsoft Teams', 'Collaboration Chat', 'Script Include', 'ServiceNow', 'Employee Center', 'Agent Workspace'],
-    date: '2026-08-05',
+    date: '2026-07-05',
     views: 168,
-    created: '2026-08-05T15:30:00Z',
+    created: '2026-07-05T15:30:00Z',
     content: `
 
 **Author: Rohan Aditya**
