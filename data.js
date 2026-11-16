@@ -3611,16 +3611,8 @@ That's it. Changing \`showAdditionalGroupBySelector\` from \`false\` to \`true\`
     id: '1018',
     title: 'Review Update Set: Find and Move Delete and Cross-Scope Captures',
     category: 'Tutorial',
-    excerpt: 'A ServiceNow utility to identify DELETE and cross-scope captures, review parent and child update sets, and safely move problematic captures to valid update sets from a single pop-up.',
-    tags: [
-        'ServiceNow',
-        'Update Sets',
-        'Cross-Scope',
-        'Customer Updates',
-        'GlideModal',
-        'UI Action',
-        'Script Include'
-    ],
+    excerpt: 'Identify DELETE and cross-scope captures in ServiceNow Update Sets and move them to valid update sets using a single pop-up.',
+    tags: ['ServiceNow', 'Update Sets', 'Cross-Scope', 'Customer Updates', 'GlideModal'],
     date: '2026-11-05',
     views: 0,
     created: '2026-11-05T11:00:00Z',
@@ -3629,343 +3621,140 @@ That's it. Changing \`showAdditionalGroupBySelector\` from \`false\` to \`true\`
 **Author: Rohan Aditya**
 
 ### Key Points Covered
-- Identifying DELETE and cross-scoped captures
+- Identifying DELETE and cross-scope captures
 - Reviewing parent and child update sets
-- Filtering and searching customer updates
-- Moving multiple captures to valid update sets
-- Creating new update sets directly from the review pop-up
-- Server-side validation and move restrictions
-- Installation, permissions and configuration
+- Moving captures to valid update sets
+- Creating new update sets directly from the pop-up
 
-# Review Update Set
+Every ServiceNow developer knows how difficult it can be to identify problematic customer updates when an update set contains hundreds of records.
 
-Find delete and cross-scoped captures in a ServiceNow update set, then move them to the right update set from one pop-up on the Update Set form.
+Two common issues are:
 
----
+- **DELETE captures:** Records that will be deleted when the update set is committed.
+- **Cross-scoped captures:** Records captured in an update set belonging to a different application scope.
 
-## 1. The Problem It Solves
-
-Before an update set is promoted, developers usually need to check it manually for two types of captures that can cause problems during preview and commit.
-
-**Delete Captures**
-
-A DELETE action in an update set removes the corresponding record in every instance where the update set is committed.
-
-Deletes are easy to capture accidentally and difficult to identify in a long list of customer updates.
-
-**Cross-Scoped Captures**
-
-A record from one application scope gets captured in an update set belonging to another scope, often in Default or a Global update set.
-
-These captures commonly lead to preview errors, failed commits or records being placed in the wrong scope.
-
-Review Update Set identifies both types of captures in one click and allows developers to move affected captures to valid update sets, with platform checks performed automatically.
+To simplify this process, I developed **Review Update Set**, a utility that identifies these captures and allows developers to move them to valid update sets from a single pop-up.
 
 ---
 
-## 2. Key Capabilities
+## 1. What Does It Do?
 
-| Capability | What it does |
-| :--- | :--- |
-| **One-click review** | A Review Update Set button on the Update Set form opens the review in a pop-up without navigating away from the record. |
-| **Child update sets** | Review the current update set or select any child at any depth. An Include child update sets option combines them into one review. |
-| **Deletes tab** | Displays every customer update with a DELETE action, along with the total count. |
-| **Cross Scoped tab** | Displays captures where the record scope differs from the scope of the update set holding it. |
-| **Record details** | Shows name, type, table, record scope, action, updated by, date and associated update set with its scope. |
-| **Quick links** | Opens the underlying record or its customer update (sys_update_xml) in a new tab. |
-| **Filter** | Searches across name, type, table, user, scope, action and update set. |
-| **Multi-select** | Provides a checkbox for every row and a Select All option for the currently displayed rows, respecting the active filter. |
-| **Move to** | Moves selected captures to another update set. Only valid targets can be selected, and every move is validated on the server. |
-| **Create target in place** | Creates a new update set in the record's scope when no In Progress update set exists. The newly created update set is selected automatically. |
-| **Result summary** | Refreshes the list after a move and displays the number of successfully moved captures and skipped captures with their reasons. |
-| **Fits the form** | Supports long names, internal scrolling and sticky column headers to prevent content from overflowing the pop-up. |
+Review Update Set adds a button to the Update Set form. Clicking it opens a pop-up with two tabs:
+
+- **Deletes:** Displays all customer updates with a DELETE action.
+- **Cross Scoped:** Displays captures where the record's application scope differs from the update set's scope.
+
+Each tab displays the total count and provides record details, including the record name, type, table, scope, action, updated by and update set.
+
+You can also open the original record or customer update directly using the provided links.
+
+<div class="blog-image">
+    <img src="images/b18img1.jpeg" alt="Review Update Set showing Deletes and Cross Scoped tabs" />
+</div>
 
 ---
 
-## 3. How to Use It
+## 2. Parent and Child Update Set Support
 
-Follow these steps to review and fix problematic captures.
+The utility supports parent and child update sets at any depth.
 
-### Step 1: Open an Update Set
+You can:
+- Review the parent update set along with all its children.
+- Select and review an individual child update set.
+- Enable or disable **Include child update sets** depending on your requirements.
 
-Navigate to:
-
-**System Update Sets > Local Update Sets**
-
-Open the update set you want to review.
-
-### Step 2: Click Review Update Set
-
-Click the **Review Update Set** button on the form.
-
-The review starts automatically for the current update set and its child update sets.
-
-### Step 3: Select the Update Set to Review
-
-To review an individual child update set:
-
-1. Select the required update set from the Update set list.
-2. Clear the **Include child update sets** option if you want to review only that update set.
-3. Click **Review now**.
-
-### Step 4: Review Captures
-
-Switch between the two available tabs:
-
-- **Deletes**
-- **Cross scoped**
-
-Use the filter option to narrow down the results and identify specific customer updates.
-
-### Step 5: Select Captures to Move
-
-Select the customer updates you want to move using the checkboxes.
-
-You can also use **Select All** to select all rows currently displayed, taking the active filter into account.
-
-Click **Move to...** to open the target update set selection panel.
-
-### Step 6: Choose a Target Update Set
-
-Select an update set from the **Valid** group.
-
-If no valid update set exists for the required scope, use:
-
-**+ Create a new update set in the record scope**
-
-Enter the update set name and click **Create**.
-
-The newly created update set is automatically selected as the target.
-
-### Step 7: Move and Review the Summary
-
-Click **Move** to process the selected captures.
-
-After processing, the list refreshes and displays a summary containing:
-
-- Number of successfully moved captures.
-- Captures that were skipped.
-- The reason each capture was skipped.
+<div class="blog-image">
+    <img src="images/b18img2.jpeg" alt="Reviewing parent and child update sets" />
+</div>
 
 ---
 
-## 4. Move Rules and Validations
+## 3. Move Captures to Valid Update Sets
 
-The Move to list displays all available In Progress update sets in two groups.
+Finding problematic captures is only half the job. Review Update Set also allows you to move selected captures directly from the pop-up.
 
-**Valid: Same Scope as Selection**
+Select the required captures and click **Move to...**.
 
-Displays update sets belonging to the same application scope as the selected captures.
+The target list displays two groups:
 
-These update sets are available for selection.
+- **Valid:** Update sets belonging to the same application scope as the selected captures.
+- **Other Scopes:** Update sets from different scopes, displayed but disabled.
 
-**Other Scopes (Not Valid for This Selection)**
+Every capture is validated on the server before being moved.
 
-Displays update sets belonging to different application scopes.
+<div class="blog-image">
+    <img src="images/b18img3.jpeg" alt="Selecting a valid target update set" />
+</div>
 
-These options are visible but disabled, making it clear why they cannot be selected.
+### Create a New Update Set
 
-### Server-Side Validations
+If no In Progress update set exists in the required scope, you can create one directly from the pop-up.
 
-The source update set can be in any state, including Complete. This allows developers to move captures out of closed update sets such as Default.
+Enter the update set name and click **Create**. The newly created update set is automatically selected as the target.
 
-However, every selected capture is individually validated on the server before being moved.
+<div class="blog-image">
+    <img src="images/b18img4.jpeg" alt="Creating a new update set in the required application scope" />
+</div>
 
-The following conditions can cause a capture to be skipped:
-
-| Skip Reason | Why |
-| :--- | :--- |
-| No write access to this customer update | The platform's own access check on sys_update_xml is applied. |
-| Not in the reviewed update set | Only captures belonging to the reviewed update set or its children can be moved from this pop-up. |
-| Already in the target update set | There is nothing to move. |
-| Record scope does not match the target update set scope | Prevents creating a new cross-scoped capture while fixing an existing one. |
-| Target already holds a capture of this record | Avoids having two versions of the same record in one update set. These cases must be resolved manually. |
-
-**Important:** The entire move operation stops without making any changes if the target update set does not exist or is not in the In Progress state.
+After clicking **Move**, the utility refreshes the list and displays the number of successfully moved captures and any skipped captures with their reasons.
 
 ---
 
-## 5. Components Used
+## 4. How It Is Built
 
-All components are developed within the **Global** application scope.
+All components are developed in the **Global** application scope using standard ServiceNow platform functionality.
 
-| Component Type | Name | Purpose |
+| Component | Name | Purpose |
 | :--- | :--- | :--- |
-| UI Action | Review Update Set | Form button on sys_update_set that opens the UI Page using GlideModal. |
-| UI Page | review_update_set | Provides the review interface, tabs, filters, selection options and Move to panel. |
-| Script Include | reviewUpdateSetAJAX | Client-callable Script Include responsible for backend operations. |
-| ACLs and Roles | reviewUpdateSetAJAX, review_update_set | Control access to the UI Page and Script Include. |
+| UI Action | Review Update Set | Opens the review pop-up using GlideModal. |
+| UI Page | review_update_set | Provides the review interface and move functionality. |
+| Script Include | reviewUpdateSetAJAX | Handles queries, validations, moving captures and creating update sets. |
+| ACLs | Access Controls | Control access to the review and update operations. |
 
-### Script Include Methods
-
-The client-callable Script Include, **reviewUpdateSetAJAX**, contains the following methods:
-
-- **getContext:** Retrieves the update set context and related information.
-- **getData:** Retrieves DELETE and cross-scoped capture details.
-- **getTargetUpdateSets:** Retrieves available target update sets.
-- **createUpdateSet:** Creates a new update set in the required application scope.
-- **moveRecords:** Validates and moves the selected customer updates.
+**Important:** No custom tables are created, and no out-of-the-box records are modified. Moving a capture only changes the Update set field on its customer update record. The original record remains untouched.
 
 ---
 
-## 6. Installation
+## 5. Installation
 
-Follow these steps to install Review Update Set in your ServiceNow instance.
+1. Download the update set XML from the ServiceNow Share listing.
+2. Navigate to **System Update Sets > Retrieved Update Sets**.
+3. Select **Import Update Set from XML** and upload the downloaded file.
+4. Open the retrieved update set and click **Preview Update Set**.
+5. Resolve any preview problems and click **Commit Update Set**.
+6. Open a local update set and verify that the **Review Update Set** button is available.
 
-### Step 1: Download the Update Set
-
-Download the update set XML file from the ServiceNow Share listing.
-
-### Step 2: Import the Update Set
-
-Navigate to:
-
-**System Update Sets > Retrieved Update Sets**
-
-Select **Import Update Set from XML** and upload the downloaded XML file.
-
-### Step 3: Preview the Update Set
-
-Open the retrieved update set and click **Preview Update Set**.
-
-Review and resolve any preview problems before proceeding.
-
-### Step 4: Commit the Update Set
-
-Once the preview is successful, click **Commit Update Set**.
-
-### Step 5: Verify the Installation
-
-Navigate to any record under:
-
-**System Update Sets > Local Update Sets**
-
-Open an update set and click **Review Update Set** to confirm that the utility is working correctly.
+**Permissions:** Review access is controlled through the included ACLs. Moving captures requires write access to sys_update_xml, while creating update sets requires create access to sys_update_set. By default, move access is restricted to administrators.
 
 ---
 
-## 7. Permissions and Access Control
+## 6. Important Notes
 
-The utility includes access controls for reviewing, moving and creating update sets.
-
-**Review Access**
-
-Users who pass the included ACL checks can access the review functionality.
-
-By default, the included configuration allows users with the **snc_internal** role to access the review.
-
-**Move Access**
-
-Moving customer updates requires write access to the **sys_update_xml** table.
-
-By default, this operation is restricted to administrators.
-
-**Create Update Set Access**
-
-Creating a new update set requires create access to the **sys_update_set** table.
-
-### Recommended Configuration
-
-If you want only administrators to see the Review Update Set button, add a role condition such as:
-
-\`\`\`javascript
-gs.hasRole('admin')
-\`\`\`
-
-You can also tighten the ACL role conditions to match your organization's security requirements.
+- Only captures belonging to the reviewed update set or its children can be moved.
+- The source update set can be in any state, including Complete.
+- The target update set must be In Progress and belong to the same application scope as the selected capture.
+- Duplicate captures already present in the target are skipped.
+- Mixed-scope selections are validated individually.
+- The target list displays up to 1,000 In Progress update sets.
+- The utility was tested on a Personal Developer Instance. Test in sub-production before using it in Production.
 
 ---
 
-## 8. Notes and Limitations
+## Try Review Update Set
 
-**Moving Within the Same Update Set Family**
+I'm publishing **Review Update Set** on ServiceNow Share so other ServiceNow developers can use it in their own instances.
 
-When **Include child update sets** is enabled, captures moved into a child of the update set being reviewed will continue to appear in the review list.
-
-The Update set column displays where each capture currently belongs.
-
-Clear the option if you want to review only the parent update set.
-
-**Duplicate Captures**
-
-If the target update set already contains a capture of the same record, the move is skipped to prevent overwriting an existing capture.
-
-These cases must be resolved manually.
-
-**Mixed-Scope Selections**
-
-If the selected captures belong to multiple application scopes, only captures matching the selected target update set's scope are moved.
-
-The remaining captures are listed as skipped, along with the corresponding reasons.
-
-**Large Update Sets**
-
-The target update set selection list displays up to 1,000 In Progress update sets.
-
-**Platform Footprint**
-
-- No out-of-the-box records are modified.
-- No custom tables are created.
-- Moving a capture only updates the associated Update set field on the customer update record.
-
-**Testing**
-
-The utility was built and tested on a ServiceNow Personal Developer Instance (PDI).
-
-I recommend testing it in a sub-production instance before deploying it to Production.
-
----
-
-## 9. Frequently Asked Questions
-
-**Does moving a capture change the original record?**
-
-No. Only the customer update's **Update set** field changes. The actual record in the instance remains untouched.
-
-**Can I move captures out of a Complete update set?**
-
-Yes. The source update set can be in any state. Only the target update set must be In Progress.
-
-However, if the source update set has already been exported or retrieved into another instance, that copy will no longer match the updated source.
-
-**Why can't I select certain update sets?**
-
-Those update sets belong to a different application scope from the selected captures. Moving captures into them would create new cross-scoped captures.
-
-**Why do I still see a capture after moving it?**
-
-If the capture was moved into a child update set of the update set currently being reviewed, it will continue to appear when **Include child update sets** is enabled.
-
-Check the **Update set** column to identify where the capture currently resides.
-
----
-
-## 10. Try Review Update Set
-
-I'm publishing **Review Update Set** on ServiceNow Share so that other ServiceNow developers can use it in their own instances.
-
-You can download the utility using the link below:
-
-[Review Update Set – Find and Move Delete and Cross-Scope Captures](https://developer.servicenow.com/connect.do#!/share/contents/8712577_review_update_set_find_and_move_delete_and_crossscope_captures?t=PRODUCT_DETAILS)
-
-As with any shared application or utility, test it in a sub-production instance first and adjust the role conditions according to your organization's requirements.
-
----
-
-## Conclusion
-
-Review Update Set simplifies the process of identifying and fixing DELETE and cross-scope captures before committing ServiceNow update sets.
-
-Instead of manually reviewing hundreds of customer updates, developers can identify problematic captures, inspect their details, validate target update sets and move selected captures from a single interface.
+[Download Review Update Set – Find and Move Delete and Cross-Scope Captures](https://developer.servicenow.com/connect.do#!/share/contents/8712577_review_update_set_find_and_move_delete_and_crossscope_captures?t=PRODUCT_DETAILS)
 
 The goal is simple: **Make update set reviews faster, safer and easier for ServiceNow developers.**
 
-How do you review update sets before committing them? I'd love to hear about your review checklist and any additional features you would like to see in this utility.
+How do you review update sets before committing them? I'd love to hear your suggestions and any additional features you would like to see.
 
 #ServiceNow #ServiceNowDeveloper #NowPlatform #UpdateSets
 
 © 2026 Rohan Aditya`
 }
+
 
 ];
 
