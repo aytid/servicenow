@@ -927,9 +927,9 @@ Upload Excel → Submit Catalog → Products & Sold Products Created Automatical
         category: 'Tutorial',
         excerpt: 'Complete configuration guide for updating UI Actions and Workspace components during SOW to CSM/FSM Configurable Workspace migration.',
         tags: ['Workspace Migration', 'SOW to CSM', 'UI Builder'],
-        date: '2025-10-07',
+        date: '2025-09-07',
         views: 200,
-        created: '2025-10-07T10:00:00Z',
+        created: '2025-09-07T10:00:00Z',
         content: `
 
 **Author: Rohan Aditya**
@@ -1250,9 +1250,9 @@ it's reconfiguring it properly.
         category: 'Tutorial',
         excerpt: 'Learn how to dynamically prefill fields in ServiceNow Agent Mobile using Mobile Callable Script Includes and scripted variables.',
         tags: ['Agent Mobile', 'Script Include', 'Automation'],
-        date: '2025-11-05',
+        date: '2025-10-05',
         views: 625,
-        created: '2025-11-05T10:00:00Z',
+        created: '2025-10-05T10:00:00Z',
         content: `
 
 **Author: Rohan Aditya**
@@ -1413,9 +1413,9 @@ Big usability win.
         category: 'Use Case',
         excerpt: 'Learn how to call a Weather API in ServiceNow using RESTMessageV2 and build a dynamic Weather Forecast Widget in Service Portal.',
         tags: ['REST API', 'Portal', 'Integration'],
-        date: '2025-12-07',
+        date: '2025-11-07',
         views: 300,
-        created: '2025-12-07T10:00:00Z',
+        created: '2025-11-07T10:00:00Z',
         content: `
 
 **Author: Rohan Aditya**
@@ -2418,9 +2418,9 @@ This allows:
         category: 'Use Case',
         excerpt: 'Enable Google authentication in ServiceNow using OpenID Connect and Multi-Provider SSO.',
         tags: ['SSO', 'Google OAuth', 'OIDC', 'Authentication'],
-        date: '2026-03-24',
+        date: '2026-04-24',
         views: 120,
-        created: '2026-03-24T10:00:00Z',
+        created: '2026-04-24T10:00:00Z',
         content: `
 **Author: Rohan Aditya**
 
@@ -2729,9 +2729,9 @@ This setup is commonly used by organizations that rely on **Google Workspace for
     category: 'Use Case',
     excerpt: 'The Recent Selections dropdown is handy on most reference fields, but on a shared or sensitive field it can clutter the UI. Here is how to switch it off for just one field without touching the rest of the instance.',
     tags: ['Reference Fields', 'Business Rules', 'Admin'],
-    date: '2026-07-09',
+    date: '2026-05-09',
     views: 0,
-    created: '2026-07-09T10:00:00Z',
+    created: '2026-05-09T10:00:00Z',
     content: `
 
 **Author: Rohan Aditya**
