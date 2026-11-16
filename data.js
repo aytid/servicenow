@@ -3262,9 +3262,9 @@ MSTeamsChatUtil.prototype = Object.extendsObject(sn_tcm_collab_hook.MSTeamsChatU
     category: 'Tutorial',
     excerpt: 'Learn how to invoke Flow Designer flows directly from a Business Rule using the generated code snippet, allowing you to reuse low-code automation from server-side scripts.',
     tags: ['Flow Designer', 'Business Rule', 'ServiceNow', 'FlowAPI', 'Automation'],
-    date: '2026-08-06',
+    date: '2026-09-06',
     views: 132,
-    created: '2026-08-06T18:45:00Z',
+    created: '2026-09-06T18:45:00Z',
     content: `
 
 **Author: Rohan Aditya**
