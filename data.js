@@ -3649,7 +3649,7 @@ Each tab displays the total count and provides record details, including the rec
 You can also open the original record or customer update directly using the provided links.
 
 <div class="blog-image">
-    <img src="images/b18img1.jpeg" alt="Review Update Set showing Deletes and Cross Scoped tabs" />
+    <img src="images/b18img1.png" alt="Review Update Set showing Deletes and Cross Scoped tabs" />
 </div>
 
 ---
@@ -3664,7 +3664,7 @@ You can:
 - Enable or disable **Include child update sets** depending on your requirements.
 
 <div class="blog-image">
-    <img src="images/b18img2.jpeg" alt="Reviewing parent and child update sets" />
+    <img src="images/b18img2.png" alt="Reviewing parent and child update sets" />
 </div>
 
 ---
@@ -3683,7 +3683,7 @@ The target list displays two groups:
 Every capture is validated on the server before being moved.
 
 <div class="blog-image">
-    <img src="images/b18img3.jpeg" alt="Selecting a valid target update set" />
+    <img src="images/b18img3.png" alt="Selecting a valid target update set" />
 </div>
 
 ### Create a New Update Set
@@ -3693,7 +3693,7 @@ If no In Progress update set exists in the required scope, you can create one di
 Enter the update set name and click **Create**. The newly created update set is automatically selected as the target.
 
 <div class="blog-image">
-    <img src="images/b18img4.jpeg" alt="Creating a new update set in the required application scope" />
+    <img src="images/b18img4.png" alt="Creating a new update set in the required application scope" />
 </div>
 
 After clicking **Move**, the utility refreshes the list and displays the number of successfully moved captures and any skipped captures with their reasons.
