@@ -3758,8 +3758,8 @@ How do you review update sets before committing them? I'd love to hear your sugg
     id: '1019',
     title: 'Widget Broadcasting and Emitting in ServiceNow',
     category: 'Tutorial',
-    excerpt: 'Learn how to communicate between ServiceNow Service Portal widgets using AngularJS $broadcast, $emit, and $on events with practical examples.',
-    tags: ['Widget Broadcasting', 'Widget Communication', 'AngularJS', 'Service Portal', 'Employee Center'],
+    excerpt: 'Learn how to communicate between ServiceNow Employee Center widgets using AngularJS $broadcast and $emit, with practical examples of sibling and parent-child widget communication.',
+    tags: ['ServiceNow', 'Widget Development', 'AngularJS', 'Widget Communication', 'Employee Center'],
     date: '2026-11-23',
     views: 0,
     created: '2026-11-23T11:00:00Z',
@@ -3768,114 +3768,95 @@ How do you review update sets before committing them? I'd love to hear your sugg
 **Author: Rohan Aditya**
 
 ### Key Points Covered
-- Understanding communication between ServiceNow widgets
-- Using $rootScope.$broadcast() to send events between widgets
-- Using $scope.$emit() to communicate from child widgets to parent widgets
-- Listening to events using $scope.$on()
-- Passing data between widgets using event payloads
-- Implementing real-time incident filtering using widget events
-- Understanding event propagation and common pitfalls
 
-Ever wondered how two independent ServiceNow widgets can communicate with each other without directly referencing one another?
+- Communicating between independent ServiceNow widgets
+- Using $rootScope.$broadcast() for sibling widget communication
+- Using $scope.$emit() for child-to-parent communication
+- Sending responses back using $scope.$broadcast()
+- Understanding AngularJS scope hierarchy
+- Common mistakes and best practices
 
-Imagine having an Incident Filter widget in one column and an Incident List widget in another. When a user selects a particular incident state, wouldn't it be great if the list automatically refreshed without reloading the entire page?
+ServiceNow widgets sometimes need to communicate with one another.
 
-That's exactly where **Widget Broadcasting and Emitting** come into the picture.
+For example, imagine an Employee Center homepage with an incident filter on the left and an incident list on the right. When a user selects a state in the filter widget, the incident list should automatically refresh.
 
-ServiceNow Service Portal widgets use AngularJS scopes, which provide a convenient way to communicate between widgets using events.
+But how can two independent widgets communicate without directly referencing each other?
 
-Let's understand how this works with practical examples.
+AngularJS provides two useful event methods:
 
----
+- **$broadcast()** – Sends an event downward through the scope hierarchy.
+- **$emit()** – Sends an event upward through the scope hierarchy.
 
-## 1. Understanding Widget Communication
-
-Every widget in Service Portal has its own AngularJS scope. These scopes are connected through a hierarchical structure, with a common parent called **$rootScope**.
-
-We can use this shared scope to communicate between widgets.
-
-There are two important methods:
-
-- **$broadcast()** – Sends an event downwards to child scopes.
-- **$emit()** – Sends an event upwards to parent scopes.
-
-To receive these events, we use:
-
-- **$scope.$on()** – Registers an event listener.
-
-The concept is simple:
-
-One widget sends an event, and another widget listens for that event and performs the required action.
+Let's understand both with two practical examples.
 
 ---
 
-## 2. Understanding Publisher and Subscriber
+## 1. Understanding Publisher and Subscriber
 
-Before implementing the functionality, let's understand two important concepts.
+Every Service Portal widget gets its own AngularJS scope. These widget scopes descend from a common **$rootScope**.
 
-### Publisher Widget
+This allows widgets to communicate using events.
 
-The publisher is the widget that triggers an event.
+We will implement two scenarios:
 
-For example, an Incident State Filter widget allows users to select:
+**Scenario 1 – Sibling Widget Communication**
 
-- All
-- New
-- In Progress
-- On Hold
-- Resolved
-- Closed
+An Incident State Filter broadcasts the selected state. An Incident List widget listens for that event and reloads the matching records.
 
-Whenever the user selects a state, the widget broadcasts an event containing the selected state.
+**Scenario 2 – Parent and Child Widget Communication**
 
-### Subscriber Widget
-
-The subscriber is the widget that listens for the event.
-
-For example, an Incident List widget listens for the state selection event. Once it receives the event, it retrieves the matching incidents from the server and updates its list.
-
-**The biggest advantage:** Both widgets work independently. The publisher doesn't need to know which widgets are listening to its events.
+A child widget sends a selected priority to its parent using $emit(). The parent retrieves matching incidents and sends the response back using $broadcast().
 
 ---
 
-## 3. Implementing $broadcast() Between Two Widgets
+## 2. Example 1 – Communicating Between Two Widgets Using $rootScope.$broadcast()
 
-Let's build a practical example using two ServiceNow widgets.
+### Requirement
 
-**Scenario:**
+Create two widgets on the Employee Center homepage:
 
-We have two widgets on an Employee Center homepage:
+1. **KAP Incident State Filter** – Allows users to select an incident state.
+2. **KAP Incident State List** – Displays incidents matching the selected state.
 
-1. Incident State Filter – Publisher widget.
-2. Incident State List – Subscriber widget.
+Both widgets are placed independently on the same page.
 
-When the user selects a state in the filter widget, the incident list should automatically display records matching that state.
+When the user selects a state, the filter widget broadcasts an event through $rootScope. The incident list widget subscribes to that event and reloads its data.
 
-### Step 1: Create the Publisher Widget
+### Expected Result
 
-Navigate to:
+The filter widget is placed in the 3-column layout, while the incident list occupies the 9-column layout.
 
-**All → Service Portal → Widgets → New**
+When the user selects **On Hold**, the incident list automatically displays matching incidents.
 
-Create a widget with the following details:
+<div class="blog-image">
+    <img src="images/b19img1.png" alt="Incident State Filter and Incident List communicating through rootScope broadcast" />
+</div>
 
-- Name: KAP Incident State Filter
-- ID: kap_incident_state_filter
+### How It Works
 
-### Client Script
+1. User selects an incident state.
+2. Filter widget broadcasts an event using $rootScope.$broadcast().
+3. Incident list widget receives the event using $scope.$on().
+4. The subscriber calls its server script using c.server.get().
+5. The server script retrieves matching incidents.
+6. The incident list refreshes with the returned records.
 
-Add the following code to the Client Script.
+### Publisher – KAP Incident State Filter
+
+The publisher widget is responsible for broadcasting the selected state.
+
+The important part is the $rootScope.$broadcast() call.
+
+**Client Controller**
 
 \`\`\`javascript
 api.controller = function($rootScope) {
     var c = this;
-
     var EVENT_NAME = 'kap.incident.stateSelected';
 
-    c.selected = '';
+    c.selected = ''; // '' means All
 
     c.select = function(state) {
-
         if (c.selected === state.value)
             return;
 
@@ -3885,279 +3866,157 @@ api.controller = function($rootScope) {
             value: state.value,
             label: state.label
         });
-
     };
 };
 \`\`\`
 
-### Understanding the Code
+Here:
 
-**1. Inject $rootScope**
+- **EVENT_NAME** identifies the event.
+- **value** contains the selected state value.
+- **label** contains the display value.
 
-\`\`\`javascript
-function($rootScope)
-\`\`\`
+The publisher does not need to know which widgets are listening.
 
-We inject $rootScope because it acts as a common communication channel between widgets on the same page.
+### Subscriber – KAP Incident State List
 
-**2. Define the Event Name**
+The subscriber listens for the same event using $scope.$on().
 
-\`\`\`javascript
-var EVENT_NAME = 'kap.incident.stateSelected';
-\`\`\`
+When the event is received, it calls its server script to retrieve the matching incidents.
 
-This is the unique event name that the subscriber will listen for.
-
-**3. Broadcast the Event**
-
-\`\`\`javascript
-$rootScope.$broadcast(EVENT_NAME, {
-    value: state.value,
-    label: state.label
-});
-\`\`\`
-
-When a user selects a state, the widget broadcasts the event along with its value and label.
-
-For example:
-
-\`\`\`javascript
-{
-    value: '3',
-    label: 'On Hold'
-}
-\`\`\`
-
-The event is sent downwards from $rootScope and can be received by widgets listening for the same event.
-
----
-
-## 4. Create the Subscriber Widget
-
-Now create another widget.
-
-- Name: KAP Incident State List
-- ID: kap_incident_state_list
-
-This widget will listen for the event triggered by the publisher.
-
-### Client Script
+**Client Controller**
 
 \`\`\`javascript
 api.controller = function($scope) {
     var c = this;
-
     var EVENT_NAME = 'kap.incident.stateSelected';
 
     c.loading = false;
 
     $scope.$on(EVENT_NAME, function(evt, p) {
-
         c.loading = true;
 
         c.server.get({
             state: p.value,
             label: p.label
         }).then(function(r) {
-
             c.data.incidents = r.data.incidents;
             c.data.stateLabel = r.data.stateLabel;
-
         })['finally'](function() {
-
             c.loading = false;
-
         });
-
     });
 };
 \`\`\`
 
-### Understanding the Code
+The subscriber receives the event payload and passes the selected state to its server script.
 
-**1. Register the Event Listener**
+**Important:** The server script reads the values from the input object and retrieves the matching incident records using GlideRecordSecure.
 
-\`\`\`javascript
-$scope.$on(EVENT_NAME, function(evt, p) {
-\`\`\`
+### Why Use $rootScope.$broadcast() Here?
 
-The subscriber registers a listener for the same event name used by the publisher.
+Both widgets are siblings. Neither widget is embedded inside the other.
 
-Whenever the event is received, the callback function executes.
+Using $scope.$emit() from the filter widget would not reach the incident list because the list is not an ancestor of the filter.
 
-**2. Receive the Event Payload**
-
-\`\`\`javascript
-p.value
-p.label
-\`\`\`
-
-The second argument contains the data passed by the publisher.
-
-**3. Call the Server Script**
-
-\`\`\`javascript
-c.server.get({
-    state: p.value,
-    label: p.label
-});
-\`\`\`
-
-This sends the selected state to the widget's server script.
-
-The server script executes again, and the selected state becomes available through the input object.
-
-**4. Update the Widget Data**
-
-\`\`\`javascript
-c.data.incidents = r.data.incidents;
-\`\`\`
-
-Once the server responds, the incident records are updated in the widget.
-
-AngularJS automatically refreshes the corresponding UI.
+By broadcasting from $rootScope, the event travels down through the scope hierarchy and can reach both widgets.
 
 ---
 
-## 5. Server Script for the Incident List
+## 3. Understanding $broadcast() vs $emit()
 
-The subscriber widget needs a Server Script to retrieve the matching incidents.
+Before moving to the second example, let's understand how these two methods work.
 
-\`\`\`javascript
-(function() {
+AngularJS scopes form a tree structure.
 
-    var state = input && input.state ? input.state : '';
+- **$broadcast()** travels downward from the scope where it is called.
+- **$emit()** travels upward through the parent scopes.
 
-    var gr = new GlideRecordSecure('incident');
+### $broadcast() – Downward Communication
 
-    if (state) {
-        gr.addQuery('state', state);
-    }
+When $broadcast() is called on $rootScope, the event travels down to its child scopes and their descendants.
 
-    gr.orderByDesc('sys_updated_on');
-    gr.setLimit(25);
-    gr.query();
+This makes it useful for sibling widgets that need to receive the same notification.
 
-    data.incidents = [];
+### $emit() – Upward Communication
 
-    while (gr.next()) {
+When $emit() is called from a child widget, the event travels through its parent scopes until it reaches $rootScope.
 
-        data.incidents.push({
-            number: gr.getValue('number'),
-            short_description: gr.getValue('short_description'),
-            state: gr.getDisplayValue('state')
-        });
-
-    }
-
-    data.stateLabel = input && input.label ? input.label : 'All';
-
-})();
-\`\`\`
-
-### How It Works
-
-- When the widget loads initially, it retrieves the latest 25 incidents.
-- When a user selects a state, the publisher broadcasts the selection.
-- The subscriber receives the event and calls c.server.get().
-- The server script receives the selected state through input.state.
-- GlideRecordSecure retrieves the matching records while respecting applicable ACLs.
-- The response is returned to the client, and the incident list is refreshed.
-
----
-
-## 6. Understanding $broadcast() vs $emit()
-
-Now that we have implemented broadcasting, let's understand the difference between $broadcast() and $emit().
-
-AngularJS scopes follow a hierarchical tree structure.
-
-Think of $rootScope as the parent of all widget scopes.
-
-### $broadcast() – Parent to Child
-
-The $broadcast() method sends an event from the current scope downwards to all its descendant scopes.
-
-Example:
-
-\`\`\`javascript
-$rootScope.$broadcast('myEvent', {
-    message: 'Hello from parent'
-});
-\`\`\`
-
-When called from $rootScope, all descendant widget scopes can receive the event if they have registered a listener.
-
-**Use cases:**
-- Communicating between sibling widgets.
-- Sending information from a parent widget to embedded child widgets.
-- Notifying multiple widgets about a user action.
-
-### $emit() – Child to Parent
-
-The $emit() method sends an event upwards through the scope hierarchy.
-
-Example:
-
-\`\`\`javascript
-$scope.$emit('myEvent', {
-    message: 'Hello from child'
-});
-\`\`\`
-
-The event travels from the current scope to its parent scopes and eventually to $rootScope.
-
-**Use cases:**
-- Sending information from an embedded child widget to its parent.
-- Notifying a parent widget about a selection made inside a child widget.
-- Communicating user actions upwards.
+It is useful when an embedded child widget needs to notify its parent.
 
 ### Key Differences
 
 | Feature | $broadcast() | $emit() |
 |---|---|---|
-| Direction | Downwards | Upwards |
-| Event starts from | Current scope | Current scope |
-| Reaches child scopes | Yes | No |
-| Reaches parent scopes | No | Yes |
-| Reaches sibling widgets | When broadcast from their common ancestor | No |
-| stopPropagation() | Not supported for stopping broadcast propagation | Supported |
-| Common use | Parent to child / sibling communication | Child to parent communication |
+| Direction | Downward | Upward |
+| Scope traversal | Current scope and descendants | Current scope and ancestors |
+| Typical use | Parent to child or sibling widgets through root | Child to parent |
+| Can stop propagation? | No | Yes, using event.stopPropagation() |
+| Sibling communication | Possible through $rootScope | Not directly |
 
-**Important:** Calling $scope.$emit() from one independent widget will not reach another sibling widget. They are not on each other's scope path.
+### A Common Shortcut – $rootScope.$emit()
+
+Calling $emit() on $rootScope means the event has no parent scopes to travel through.
+
+Only widgets listening through $rootScope.$on() will receive it.
+
+This can also be used as a page-level event bus, but root listeners must be deregistered when the widget is destroyed.
+
+\`\`\`javascript
+// Publisher
+$rootScope.$emit('kap.incident.stateSelected', payload);
+
+// Subscriber
+var off = $rootScope.$on(
+    'kap.incident.stateSelected',
+    handler
+);
+
+$scope.$on('$destroy', off);
+\`\`\`
 
 ---
 
-## 7. Practical Example Using $emit() and $broadcast()
+## 4. Example 2 – Child-to-Parent Communication Using $scope.$emit()
 
-Let's understand the opposite direction using another real-world scenario.
+Now let's look at the opposite direction.
 
-**Scenario:**
+### Requirement
 
-Imagine a parent widget that contains an embedded Priority Picker widget.
+Create a parent widget that embeds a child widget.
 
-When a user selects a priority inside the child widget:
+The child widget displays incident priority buttons. When a user selects a priority:
 
-1. The child widget sends the selected priority to the parent using $emit().
-2. The parent receives the event.
-3. The parent retrieves incidents matching that priority.
-4. The parent sends the result back to the child using $broadcast().
+1. Child widget sends the selected priority to its parent using $scope.$emit().
+2. Parent widget receives the event.
+3. Parent retrieves incidents matching the selected priority.
+4. Parent sends the response back to the child using $scope.$broadcast().
 
-### Step 1: Create the Child Widget
+### Expected Result – Before Selecting a Priority
 
-Widget Name: KAP Incident Priority Picker
+The parent widget contains an embedded priority picker.
 
-Widget ID: kap_incident_priority_picker
+The child widget displays five priority options.
 
-### Child Widget Client Script
+<div class="blog-image">
+    <img src="images/b19img2.png" alt="Embedded child priority picker before selecting a priority" />
+</div>
+
+### Step 1 – Create the Child Widget
+
+Create a widget named:
+
+**KAP Incident Priority Picker**
+
+This widget is responsible for displaying priority choices and sending the selected value to its parent.
+
+**Client Controller**
 
 \`\`\`javascript
 api.controller = function($scope) {
-
     var c = this;
 
     c.pick = function(p) {
-
         c.selected = p.value;
         c.ack = null;
 
@@ -4165,61 +4024,61 @@ api.controller = function($scope) {
             value: p.value,
             label: p.label
         });
-
     };
 
     // Listen for the parent's response
-
     $scope.$on('kap.priority.loaded', function(e, p) {
-
         c.ack = p;
-
     });
-
 };
 \`\`\`
 
-### Understanding the Code
+When the user selects a priority, the child emits the event upward.
 
-When a user selects a priority, the child widget uses:
+The child also registers a listener for the response from its parent.
+
+### Step 2 – Create the Parent Widget
+
+Create another widget named:
+
+**KAP Incident Emit Parent**
+
+The parent widget embeds the priority picker and listens for the event emitted by the child.
+
+**Server Script**
+
+The parent retrieves the child widget using $sp.getWidget().
 
 \`\`\`javascript
-$scope.$emit('kap.priority.picked', {
-    value: p.value,
-    label: p.label
-});
+(function() {
+    data.picker = $sp.getWidget(
+        'kap_incident_priority_picker',
+        {}
+    );
+})();
 \`\`\`
 
-This sends the selected priority upwards to its parent widget.
+**HTML Template**
 
-The child also listens for another event:
+Render the child widget inside the parent using the sp-widget directive.
 
-\`\`\`javascript
-$scope.$on('kap.priority.loaded', function(e, p) {
-    c.ack = p;
-});
+\`\`\`html
+<sp-widget widget="c.data.picker"></sp-widget>
 \`\`\`
 
-This allows the child widget to receive the parent's response.
+Because the child widget is embedded inside the parent, its scope becomes part of the parent's scope hierarchy.
 
----
+This is what allows the child to communicate upward using $emit().
 
-### Step 2: Create the Parent Widget
+### Step 3 – Listen for the Child Event
 
-Widget Name: KAP Incident Emit Parent
-
-Widget ID: kap_incident_emit_parent
-
-### Parent Widget Client Script
+In the parent widget's client controller, listen for the event emitted by the child.
 
 \`\`\`javascript
 api.controller = function($scope) {
-
     var c = this;
 
     $scope.$on('kap.priority.picked', function(e, p) {
-
-        // Stop the event from travelling further upwards
 
         e.stopPropagation();
 
@@ -4231,105 +4090,69 @@ api.controller = function($scope) {
 
             c.data.incidents = r.data.incidents;
 
-            // Send the response back to the child
-
             $scope.$broadcast('kap.priority.loaded', {
                 label: p.label,
                 count: r.data.incidents.length
             });
 
         })['finally'](function() {
-
             c.loading = false;
-
         });
-
     });
-
 };
 \`\`\`
 
-### Understanding the Code
+Here:
 
-**1. Listen for the Child Event**
+- The parent receives the event using $scope.$on().
+- stopPropagation() prevents the emitted event from continuing further upward.
+- c.server.get() retrieves incidents matching the selected priority.
+- $scope.$broadcast() sends the result back down to the child widget.
 
-\`\`\`javascript
-$scope.$on('kap.priority.picked', function(e, p) {
-\`\`\`
+### Step 4 – Child Receives the Parent Response
 
-The parent receives the event emitted by the child widget.
-
-**2. Stop Event Propagation**
-
-\`\`\`javascript
-e.stopPropagation();
-\`\`\`
-
-This prevents the emitted event from travelling further upwards.
-
-**3. Retrieve Matching Incidents**
+The child widget already has a listener registered for:
 
 \`\`\`javascript
-c.server.get({
-    priority: p.value
-});
+kap.priority.loaded
 \`\`\`
 
-The parent retrieves incidents matching the selected priority.
+When the parent broadcasts this event, the child receives the response and updates its UI.
 
-**4. Broadcast the Response**
+### Expected Result – After Selecting a Priority
 
-\`\`\`javascript
-$scope.$broadcast('kap.priority.loaded', {
-    label: p.label,
-    count: r.data.incidents.length
-});
-\`\`\`
+For example, when the user selects **5 - Planning**, the child sends the priority to the parent.
 
-The parent sends the result downwards so the embedded child widget can receive it.
+The parent retrieves matching incidents and sends the result back to the child.
 
-This completes the child-to-parent-to-child communication flow.
+<div class="blog-image">
+    <img src="images/b19img3.png" alt="Priority selected and parent responding with matching incidents through broadcast" />
+</div>
+
+### How It Works
+
+1. User selects a priority in the child widget.
+2. Child calls $scope.$emit('kap.priority.picked').
+3. Event travels upward through the scope hierarchy.
+4. Parent receives the event using $scope.$on().
+5. Parent calls its server script using c.server.get().
+6. Parent retrieves matching incidents.
+7. Parent calls $scope.$broadcast('kap.priority.loaded').
+8. Child receives the response and updates its UI.
+
+**Key takeaway:** $emit() sends information from child to parent, while $broadcast() sends the response from parent to child.
 
 ---
 
-## 8. How to Embed a Child Widget Inside a Parent Widget
-
-For the previous $emit() example to work, the Priority Picker must be embedded inside the parent widget.
-
-### Parent Widget Server Script
-
-\`\`\`javascript
-(function() {
-
-    data.picker = $sp.getWidget(
-        'kap_incident_priority_picker',
-        {}
-    );
-
-})();
-\`\`\`
-
-### Parent Widget HTML Template
-
-\`\`\`html
-<sp-widget widget="c.data.picker"></sp-widget>
-\`\`\`
-
-The child widget is now rendered inside the parent widget.
-
-Because the embedded widget has a child scope within the parent's scope hierarchy, the child can communicate with the parent using $emit().
-
-Similarly, the parent can communicate with the child using $broadcast().
-
----
-
-## 9. Common Mistakes and Best Practices
+## 5. Common Mistakes and Best Practices
 
 While implementing widget communication, there are a few important things to remember.
 
 **1. Event Timing**
 
-Broadcasting is fire-and-forget. If the publisher sends an event before the subscriber registers its listener, the event will be missed.
+Broadcasting is fire-and-forget.
+
+If the publisher sends an event before the subscriber registers its listener, the event will be missed.
 
 For this reason, broadcast events in response to user actions and make sure subscribers load sensible default data independently.
 
@@ -4393,6 +4216,7 @@ Always validate incoming values in the Server Script and use GlideRecordSecure w
 Widget events work within the current page's AngularJS scope hierarchy.
 
 They do not automatically communicate across:
+
 - Different browser tabs.
 - Different portal pages.
 - Page refreshes.
@@ -4413,19 +4237,19 @@ Always validate the interaction on the actual Employee Center portal page.
 
 ---
 
-## 10. Alternative Ways to Share Data Between Widgets
+## 6. Alternative Ways to Share Data Between Widgets
 
 Broadcasting and emitting are not the only ways to communicate between widgets.
 
 Depending on your requirement, you can consider the following approaches.
 
-| Approach | Best Use Case |
-|---|---|
-| $rootScope.$broadcast() | One-time notifications between widgets on the same page |
-| Shared AngularJS Service | Sharing reusable or persistent client-side state |
-| URL Parameters | Maintaining filters across refreshes and shareable URLs |
-| spUtil.recordWatch() | Reacting to record changes on the server |
-| Embedded Widgets | Communication between closely related parent and child widgets |
+| Approach | Good For | Trade-off |
+|---|---|---|
+| $rootScope.$broadcast() | One-time notifications between widgets on the same page | Late subscribers miss earlier events |
+| Shared Angular Service | Sharing reusable or persistent client-side state | Both widgets depend on the shared service |
+| URL Parameters | Maintaining filters across refreshes and shareable URLs | Requires URL and parameter handling |
+| spUtil.recordWatch() | Reacting to record changes on the server | Watches data changes, not user clicks |
+| Embedded Widgets | Communication between closely related parent and child widgets | Creates a parent-child dependency |
 
 ### Which Approach Should You Choose?
 
@@ -4434,6 +4258,44 @@ Depending on your requirement, you can consider the following approaches.
 - Use a **Shared AngularJS Service** when multiple widgets need access to shared state.
 - Use **URL Parameters** when the selected filter should survive page refreshes or be shareable.
 - Use **spUtil.recordWatch()** when you need to react to changes made to records on the server.
+
+---
+
+## 7. What Was Built in This Example?
+
+The implementation includes four custom widgets in the Employee Center application scope.
+
+| Component | Widget ID | Purpose |
+|---|---|---|
+| Incident State Filter | kap_incident_state_filter | Publishes selected incident state |
+| Incident State List | kap_incident_state_list | Subscribes to state selection and loads incidents |
+| Incident Emit Parent | kap_incident_emit_parent | Receives priority selection and sends the response |
+| Incident Priority Picker | kap_incident_priority_picker | Child widget that emits the selected priority |
+
+### Employee Center Page Placement
+
+- Incident State Filter is placed in the 3-column layout.
+- Incident State List is placed in the 9-column layout.
+- Emit Parent is placed below the incident list in the same 9-column layout.
+- Priority Picker is embedded inside the Emit Parent widget.
+
+The widgets are implemented on the Employee Center homepage:
+
+\`ec_standard_home\`
+
+---
+
+## 8. Download Update Set
+
+The complete implementation is available in the GitHub repository.
+
+⬇ **[Download KAP_WidgetBroadcasting_EC_RA_V1 Update Set](https://github.com/aytid/servicenow/blob/main/KAP_WidgetBroadcasting_EC_RA_V1.xml)**
+
+**Update Set:** KAP_WidgetBroadcasting_EC_RA_V1
+
+**Application Scope:** Employee Center
+
+Import the XML into your ServiceNow instance and review the captured records before committing the update set.
 
 ---
 
@@ -4453,9 +4315,11 @@ Priority Picker → $scope.$emit() → Parent Widget → Server Call → $scope.
 
 These techniques are particularly useful when building interactive dashboards, custom Employee Center pages, filters, reports, and reusable Service Portal components.
 
-The complete implementation is available in the update set:
+Remember the basic direction:
 
-**KAP_WidgetBroadcasting_EC_RA_V1**
+- **$emit() – Up:** Child to parent.
+- **$broadcast() – Down:** Parent to child.
+- **$rootScope.$broadcast() – Across:** Communicate between widgets through the page's root scope.
 
 © 2026 Rohan Aditya
 `
