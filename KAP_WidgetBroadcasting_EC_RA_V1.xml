@@ -1,0 +1,658 @@
+<?xml version="1.0" encoding="UTF-8"?><unload unload_date="2026-11-20 13:54:07">
+<sys_remote_update_set action="INSERT_OR_UPDATE">
+<application display_value="Employee Center">4249e63a28d54d61bb6fbf61fd86cccb</application>
+<application_name>Employee Center</application_name>
+<application_scope>sn_ex_sp</application_scope>
+<application_version>44.2.3</application_version>
+<collisions/>
+<commit_date/>
+<deleted/>
+<description/>
+<inserted/>
+<name>KAP_WidgetBroadcasting_EC_RA_V1</name>
+<origin_sys_id/>
+<parent display_value=""/>
+<release_date/>
+<remote_base_update_set display_value=""/>
+<remote_parent_id/>
+<remote_sys_id>fd76e5a71ba413104eefea45624bcb4a</remote_sys_id>
+<state>loaded</state>
+<summary/>
+<sys_class_name>sys_remote_update_set</sys_class_name>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2026-11-20 13:54:07</sys_created_on>
+<sys_id>7b27162f1be813104eefea45624bcb89</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2026-11-20 13:54:07</sys_updated_on>
+<update_set display_value=""/>
+<update_source display_value=""/>
+<updated/>
+</sys_remote_update_set>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Employee Center">4249e63a28d54d61bb6fbf61fd86cccb</application>
+<category>customer</category>
+<comments/>
+<name>sp_widget_83d416eb1be813104eefea45624bcb2e</name>
+<payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sp_widget"&gt;&lt;sp_widget action="INSERT_OR_UPDATE"&gt;&lt;category&gt;custom&lt;/category&gt;&lt;client_script&gt;&lt;![CDATA[api.controller = function($scope) {
+  /* Parent widget.
+     1. Catches the child's $emit on its own $scope (the event bubbles up through here).
+     2. Stops it bubbling further, so nothing above (e.g. $rootScope.$on listeners) sees it.
+        stopPropagation() exists only on $emit events, not $broadcast.
+     3. Loads the data, then replies DOWN to its children with $scope.$broadcast. */
+  var c = this;
+  c.loading = false;
+
+  $scope.$on('kap.priority.picked', function(event, payload) {
+    event.stopPropagation();
+    c.loading = true;
+    c.server.get({ priority: payload.value })
+      .then(function(response) {
+        c.data.incidents = response.data.incidents;
+        c.data.priority = response.data.priority;
+        $scope.$broadcast('kap.priority.loaded', {
+          label: payload.label,
+          count: response.data.incidents.length
+        });
+      })['finally'](function() {
+        c.loading = false;
+      });
+  });
+};]]&gt;&lt;/client_script&gt;&lt;controller_as&gt;c&lt;/controller_as&gt;&lt;css&gt;.kap-emit-parent .table &amp;gt; thead &amp;gt; tr &amp;gt; th { white-space: nowrap; }
+.kap-emit-parent td:first-child { white-space: nowrap; }&lt;/css&gt;&lt;data_table&gt;sp_instance&lt;/data_table&gt;&lt;demo_data/&gt;&lt;description&gt;Parent widget: embeds kap_incident_priority_picker, catches its $emit, loads incidents and replies with $scope.$broadcast.&lt;/description&gt;&lt;docs/&gt;&lt;field_list/&gt;&lt;has_preview&gt;false&lt;/has_preview&gt;&lt;id&gt;kap_incident_emit_parent&lt;/id&gt;&lt;internal&gt;false&lt;/internal&gt;&lt;link&gt;&lt;![CDATA[function link(scope, element, attrs, controller) {  }]]&gt;&lt;/link&gt;&lt;name&gt;KAP Incident Emit Parent&lt;/name&gt;&lt;option_schema/&gt;&lt;public&gt;false&lt;/public&gt;&lt;roles/&gt;&lt;script&gt;&lt;![CDATA[(function() {
+  /* Parent widget.
+     First load: embed the child picker widget and show no rows.
+     After the child emits: the client calls c.server.get({priority}) and this runs again with input. */
+  data.limit = 25;
+  data.incidents = [];
+  data.priority = '';
+
+  if (!input) {
+    data.picker = $sp.getWidget('kap_incident_priority_picker', {});
+    return;
+  }
+
+  data.priority = String(input.priority || '');
+  if (!data.priority)
+    return;
+
+  var gr = new GlideRecordSecure('incident'); // respects ACLs for the logged-in user
+  gr.addQuery('priority', data.priority);
+  gr.orderByDesc('sys_updated_on');
+  gr.setLimit(data.limit);
+  gr.query();
+  while (gr.next()) {
+    data.incidents.push({
+      sys_id: gr.getUniqueValue(),
+      number: gr.getValue('number'),
+      short_description: gr.getValue('short_description'),
+      priority: gr.getDisplayValue('priority'),
+      state: gr.getDisplayValue('state'),
+      updated: gr.getDisplayValue('sys_updated_on')
+    });
+  }
+})();]]&gt;&lt;/script&gt;&lt;servicenow&gt;false&lt;/servicenow&gt;&lt;sys_class_name&gt;sp_widget&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2026-11-20 13:43:58&lt;/sys_created_on&gt;&lt;sys_id&gt;83d416eb1be813104eefea45624bcb2e&lt;/sys_id&gt;&lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;&lt;sys_name&gt;KAP Incident Emit Parent&lt;/sys_name&gt;&lt;sys_package display_value="Employee Center" source="sn_ex_sp"&gt;4249e63a28d54d61bb6fbf61fd86cccb&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Employee Center"&gt;4249e63a28d54d61bb6fbf61fd86cccb&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_widget_83d416eb1be813104eefea45624bcb2e&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2026-11-20 13:43:58&lt;/sys_updated_on&gt;&lt;template&gt;&lt;![CDATA[&lt;div class="panel panel-default kap-emit-parent"&gt;
+  &lt;div class="panel-heading"&gt;
+    &lt;h3 class="panel-title"&gt;${Incidents by priority} &lt;small&gt;(${$emit up, $broadcast down})&lt;/small&gt;&lt;/h3&gt;
+  &lt;/div&gt;
+  &lt;div class="panel-body"&gt;
+    &lt;!-- Embedded child widget: its scope is a child of this widget's scope --&gt;
+    &lt;sp-widget widget="c.data.picker"&gt;&lt;/sp-widget&gt;
+  &lt;/div&gt;
+
+  &lt;div class="panel-body text-muted" ng-if="c.loading"&gt;
+    &lt;i class="fa fa-spinner fa-spin" aria-hidden="true"&gt;&lt;/i&gt; ${Loading incidents}
+  &lt;/div&gt;
+  &lt;div class="panel-body text-muted" ng-if="!c.loading &amp;&amp; !c.data.priority"&gt;
+    ${Pick a priority above.}
+  &lt;/div&gt;
+  &lt;div class="panel-body text-muted" ng-if="!c.loading &amp;&amp; c.data.priority &amp;&amp; !c.data.incidents.length"&gt;
+    ${No incidents found for this priority.}
+  &lt;/div&gt;
+
+  &lt;div class="table-responsive" ng-if="!c.loading &amp;&amp; c.data.incidents.length"&gt;
+    &lt;table class="table table-hover m-b-none"&gt;
+      &lt;thead&gt;
+        &lt;tr&gt;
+          &lt;th scope="col"&gt;${Number}&lt;/th&gt;
+          &lt;th scope="col"&gt;${Short description}&lt;/th&gt;
+          &lt;th scope="col"&gt;${Priority}&lt;/th&gt;
+          &lt;th scope="col"&gt;${State}&lt;/th&gt;
+          &lt;th scope="col"&gt;${Updated}&lt;/th&gt;
+        &lt;/tr&gt;
+      &lt;/thead&gt;
+      &lt;tbody&gt;
+        &lt;tr ng-repeat="i in c.data.incidents track by i.sys_id"&gt;
+          &lt;td&gt;&lt;a ng-href="?id=ticket&amp;table=incident&amp;sys_id={{i.sys_id}}"&gt;{{i.number}}&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;{{i.short_description}}&lt;/td&gt;
+          &lt;td&gt;{{i.priority}}&lt;/td&gt;
+          &lt;td&gt;{{i.state}}&lt;/td&gt;
+          &lt;td&gt;{{i.updated}}&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/div&gt;
+&lt;/div&gt;]]&gt;&lt;/template&gt;&lt;/sp_widget&gt;&lt;/record_update&gt;</payload>
+<payload_hash>2063865417</payload_hash>
+<remote_update_set display_value="KAP_WidgetBroadcasting_EC_RA_V1">7b27162f1be813104eefea45624bcb89</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2026-11-20 13:54:07</sys_created_on>
+<sys_id>3327deef1be813104eefea45624bcb32</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>1a1f93319db0000001</sys_recorded_at>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2026-11-20 13:54:07</sys_updated_on>
+<table/>
+<target_name>KAP Incident Emit Parent</target_name>
+<type>Widget</type>
+<update_domain>global</update_domain>
+<update_guid>0fd416ebeae81310dabfa21d7fe7e430</update_guid>
+<update_guid_history>0fd416ebeae81310dabfa21d7fe7e430:2063865417</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Employee Center">4249e63a28d54d61bb6fbf61fd86cccb</application>
+<category>customer</category>
+<comments/>
+<name>sp_instance_8ae7616b1ba413104eefea45624bcbe7</name>
+<payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sp_instance"&gt;&lt;sp_instance action="INSERT_OR_UPDATE"&gt;&lt;active&gt;true&lt;/active&gt;&lt;advanced_placeholder_dimensions&gt;false&lt;/advanced_placeholder_dimensions&gt;&lt;async_load&gt;false&lt;/async_load&gt;&lt;async_load_device_type&gt;desktop,tablet,mobile&lt;/async_load_device_type&gt;&lt;async_load_trigger&gt;viewport&lt;/async_load_trigger&gt;&lt;class_name/&gt;&lt;color&gt;default&lt;/color&gt;&lt;css/&gt;&lt;glyph/&gt;&lt;id/&gt;&lt;order&gt;1&lt;/order&gt;&lt;placeholder_dimensions&gt;{&amp;#13;	"mobile": {&amp;#13;		"height": "250px",&amp;#13;		"width": "100%"&amp;#13;	},&amp;#13;	"desktop": {&amp;#13;		"height": "250px",&amp;#13;		"width": "100%"&amp;#13;	},&amp;#13;	"tablet": {&amp;#13;		"height": "250px",&amp;#13;		"width": "100%"&amp;#13;	}&amp;#13;}&lt;/placeholder_dimensions&gt;&lt;placeholder_dimensions_script&gt;&lt;![CDATA[function evaluateConfig(options) { return {	"mobile": {		"height": "250px",		"width": "100%"	},	"desktop": {		"height": "250px",		"width": "100%"	},	"tablet": {		"height": "250px",		"width": "100%"	}}; }]]&gt;&lt;/placeholder_dimensions_script&gt;&lt;placeholder_template&gt;&amp;lt;!-- 
+	AngularJS template with configurable options.
+	Use the `options` object to control dynamic behavior.
+	Example: Display an element when max row count is 10:
+	&amp;lt;div ng-if="options.maxRowCount === 10"&amp;gt;&amp;lt;/div&amp;gt;
+	The `skeleton-container` class is used for loading placeholders.
+--&amp;gt;
+	&amp;lt;div class="skeleton-container"&amp;gt;
+	&amp;lt;!-- Header Skeleton --&amp;gt;
+	&amp;lt;div class="skeleton-box skeleton-header"&amp;gt;&amp;lt;/div&amp;gt;
+	&amp;lt;!-- Body Skeleton --&amp;gt;
+	&amp;lt;div class="skeleton-box skeleton-line"&amp;gt;&amp;lt;/div&amp;gt;
+	&amp;lt;div class="skeleton-box skeleton-line small"&amp;gt;&amp;lt;/div&amp;gt;
+	&amp;lt;div class="skeleton-box skeleton-line medium"&amp;gt;&amp;lt;/div&amp;gt;
+&amp;lt;/div&amp;gt;&lt;/placeholder_template&gt;&lt;preserve_placeholder_size&gt;false&lt;/preserve_placeholder_size&gt;&lt;roles/&gt;&lt;short_description/&gt;&lt;size&gt;md&lt;/size&gt;&lt;sp_column display_value="2"&gt;e68669a71ba413104eefea45624bcbc2&lt;/sp_column&gt;&lt;sp_widget display_value="KAP Incident State List"&gt;67d7216b1ba413104eefea45624bcb85&lt;/sp_widget&gt;&lt;sys_class_name&gt;sp_instance&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2026-11-20 10:27:33&lt;/sys_created_on&gt;&lt;sys_id&gt;8ae7616b1ba413104eefea45624bcbe7&lt;/sys_id&gt;&lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;&lt;sys_name&gt;Incidents by state&lt;/sys_name&gt;&lt;sys_package display_value="Employee Center" source="sn_ex_sp"&gt;4249e63a28d54d61bb6fbf61fd86cccb&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Employee Center"&gt;4249e63a28d54d61bb6fbf61fd86cccb&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_instance_8ae7616b1ba413104eefea45624bcbe7&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2026-11-20 10:27:33&lt;/sys_updated_on&gt;&lt;title&gt;Incidents by state&lt;/title&gt;&lt;url/&gt;&lt;widget_parameters/&gt;&lt;/sp_instance&gt;&lt;sys_translated_text action="delete_multiple" query="documentkey=8ae7616b1ba413104eefea45624bcbe7"/&gt;&lt;/record_update&gt;</payload>
+<payload_hash>-1447524424</payload_hash>
+<remote_update_set display_value="KAP_WidgetBroadcasting_EC_RA_V1">7b27162f1be813104eefea45624bcb89</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2026-11-20 13:54:07</sys_created_on>
+<sys_id>3f27162f1be813104eefea45624bcb8b</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>1a1f87f48de0000001</sys_recorded_at>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2026-11-20 13:54:07</sys_updated_on>
+<table/>
+<target_name>Incidents by state</target_name>
+<type>Instance</type>
+<update_domain>global</update_domain>
+<update_guid>8ae7616b16a4131071477f98859483ea</update_guid>
+<update_guid_history>8ae7616b16a4131071477f98859483ea:-1447524424</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Employee Center">4249e63a28d54d61bb6fbf61fd86cccb</application>
+<category>customer</category>
+<comments/>
+<name>sp_row_de8669a71ba413104eefea45624bcb9a</name>
+<payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_row"><sp_row action="INSERT_OR_UPDATE"><aria_label/><class_name/><order>1</order><semantic_tag/><sp_column/><sp_container display_value="Employee Center Homepage - Container 2">2d8711ea53331210b8f2ddeeff7b12b1</sp_container><sys_class_name>sp_row</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2026-11-20 10:21:34</sys_created_on><sys_id>de8669a71ba413104eefea45624bcb9a</sys_id><sys_mod_count>0</sys_mod_count><sys_name>1</sys_name><sys_package display_value="Employee Center" source="sn_ex_sp">4249e63a28d54d61bb6fbf61fd86cccb</sys_package><sys_policy/><sys_scope display_value="Employee Center">4249e63a28d54d61bb6fbf61fd86cccb</sys_scope><sys_update_name>sp_row_de8669a71ba413104eefea45624bcb9a</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2026-11-20 10:21:34</sys_updated_on></sp_row></record_update>]]></payload>
+<payload_hash>-182469019</payload_hash>
+<remote_update_set display_value="KAP_WidgetBroadcasting_EC_RA_V1">7b27162f1be813104eefea45624bcb89</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2026-11-20 13:54:07</sys_created_on>
+<sys_id>3f27deef1be813104eefea45624bcb30</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>1a1f879ce900000001</sys_recorded_at>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2026-11-20 13:54:07</sys_updated_on>
+<table/>
+<target_name>1</target_name>
+<type>Row</type>
+<update_domain>global</update_domain>
+<update_guid>9e8669a7d7a4131061f02de7611470a0</update_guid>
+<update_guid_history>9e8669a7d7a4131061f02de7611470a0:-182469019</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Employee Center">4249e63a28d54d61bb6fbf61fd86cccb</application>
+<category>customer</category>
+<comments/>
+<name>sp_widget_43d416ab1be813104eefea45624bcb5e</name>
+<payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sp_widget"&gt;&lt;sp_widget action="INSERT_OR_UPDATE"&gt;&lt;category&gt;custom&lt;/category&gt;&lt;client_script&gt;&lt;![CDATA[api.controller = function($scope) {
+  /* Child widget (embedded inside kap_incident_emit_parent).
+     $scope.$emit sends the event UP the scope tree: this scope, then the parent widget's scope,
+     then on up to $rootScope. Sibling widgets elsewhere on the page do NOT hear it. */
+  var c = this;
+  c.selected = null;
+  c.ack = null;
+
+  c.pick = function(p) {
+    c.selected = p.value;
+    c.ack = null;
+    $scope.$emit('kap.priority.picked', { value: p.value, label: p.label });
+  };
+
+  /* The parent answers with $scope.$broadcast, which travels DOWN into this child scope. */
+  $scope.$on('kap.priority.loaded', function(event, payload) {
+    c.ack = payload;
+  });
+};]]&gt;&lt;/client_script&gt;&lt;controller_as&gt;c&lt;/controller_as&gt;&lt;css&gt;.kap-priority-picker .btn-group { flex-wrap: wrap; }&lt;/css&gt;&lt;data_table&gt;sp_instance&lt;/data_table&gt;&lt;demo_data/&gt;&lt;description&gt;Child widget: $scope.$emit('kap.priority.picked') up to its parent; listens for the parent's $broadcast('kap.priority.loaded'). Embedded by kap_incident_emit_parent.&lt;/description&gt;&lt;docs/&gt;&lt;field_list/&gt;&lt;has_preview&gt;false&lt;/has_preview&gt;&lt;id&gt;kap_incident_priority_picker&lt;/id&gt;&lt;internal&gt;false&lt;/internal&gt;&lt;link&gt;&lt;![CDATA[function link(scope, element, attrs, controller) {  }]]&gt;&lt;/link&gt;&lt;name&gt;KAP Incident Priority Picker&lt;/name&gt;&lt;option_schema/&gt;&lt;public&gt;false&lt;/public&gt;&lt;roles/&gt;&lt;script&gt;&lt;![CDATA[(function() {
+  /* Child widget. Loads the active incident priority choices.
+     incident.priority is inherited from task, so its choices may be defined on 'incident' (override) or on 'task'. */
+  data.priorities = [];
+  function load(table, lang) {
+    var ch = new GlideRecord('sys_choice');
+    ch.addQuery('name', table);
+    ch.addQuery('element', 'priority');
+    ch.addQuery('inactive', false);
+    ch.addQuery('language', lang);
+    ch.orderBy('sequence');
+    ch.query();
+    while (ch.next())
+      data.priorities.push({ value: ch.getValue('value'), label: ch.getValue('label') });
+  }
+  var lang = gs.getSession().getLanguage();
+  var tables = ['incident', 'task'];
+  for (var i = 0; i &lt; tables.length &amp;&amp; !data.priorities.length; i++) {
+    load(tables[i], lang);
+    if (!data.priorities.length &amp;&amp; lang != 'en')
+      load(tables[i], 'en');
+  }
+})();]]&gt;&lt;/script&gt;&lt;servicenow&gt;false&lt;/servicenow&gt;&lt;sys_class_name&gt;sp_widget&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2026-11-20 13:43:57&lt;/sys_created_on&gt;&lt;sys_id&gt;43d416ab1be813104eefea45624bcb5e&lt;/sys_id&gt;&lt;sys_mod_count&gt;1&lt;/sys_mod_count&gt;&lt;sys_name&gt;KAP Incident Priority Picker&lt;/sys_name&gt;&lt;sys_package display_value="Employee Center" source="sn_ex_sp"&gt;4249e63a28d54d61bb6fbf61fd86cccb&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Employee Center"&gt;4249e63a28d54d61bb6fbf61fd86cccb&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_widget_43d416ab1be813104eefea45624bcb5e&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2026-11-20 13:44:56&lt;/sys_updated_on&gt;&lt;template&gt;&lt;![CDATA[&lt;div class="kap-priority-picker"&gt;
+  &lt;p class="text-muted m-b-sm"&gt;${Child widget: picks a priority and sends it UP with $scope.$emit}&lt;/p&gt;
+  &lt;div class="btn-group btn-group-sm" role="group" aria-label="${Incident priority}"&gt;
+    &lt;button type="button" class="btn btn-default"
+            ng-repeat="p in c.data.priorities track by p.value"
+            ng-class="{'btn-primary active': c.selected === p.value}"
+            aria-pressed="{{c.selected === p.value}}"
+            ng-click="c.pick(p)"&gt;{{p.label}}&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;p class="m-t-sm m-b-none" ng-if="c.ack" aria-live="polite"&gt;
+    &lt;i class="fa fa-arrow-down" aria-hidden="true"&gt;&lt;/i&gt;
+    ${Parent replied DOWN with $scope.$broadcast}: &lt;strong&gt;{{c.ack.count}}&lt;/strong&gt; ${incidents loaded for} {{c.ack.label}}
+  &lt;/p&gt;
+&lt;/div&gt;]]&gt;&lt;/template&gt;&lt;/sp_widget&gt;&lt;/record_update&gt;</payload>
+<payload_hash>572319593</payload_hash>
+<remote_update_set display_value="KAP_WidgetBroadcasting_EC_RA_V1">7b27162f1be813104eefea45624bcb89</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2026-11-20 13:54:07</sys_created_on>
+<sys_id>7327deef1be813104eefea45624bcb31</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>1a1f933fef80000001</sys_recorded_at>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2026-11-20 13:54:07</sys_updated_on>
+<table/>
+<target_name>KAP Incident Priority Picker</target_name>
+<type>Widget</type>
+<update_domain>global</update_domain>
+<update_guid>d1151eeb4ee81310b1260d7d96552118</update_guid>
+<update_guid_history>d1151eeb4ee81310b1260d7d96552118:572319593,cbd416ab41e81310fd04ad3a76423f60:-438103132</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Employee Center">4249e63a28d54d61bb6fbf61fd86cccb</application>
+<category>customer</category>
+<comments/>
+<name>sp_column_a68669a71ba413104eefea45624bcba4</name>
+<payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_column"><sp_column action="INSERT_OR_UPDATE"><aria_label/><class_name/><order>1</order><semantic_tag/><size>3</size><size_lg/><size_sm/><size_xs/><sp_row display_value="1">de8669a71ba413104eefea45624bcb9a</sp_row><sys_class_name>sp_column</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2026-11-20 10:21:34</sys_created_on><sys_id>a68669a71ba413104eefea45624bcba4</sys_id><sys_mod_count>0</sys_mod_count><sys_name>1</sys_name><sys_package display_value="Employee Center" source="sn_ex_sp">4249e63a28d54d61bb6fbf61fd86cccb</sys_package><sys_policy/><sys_scope display_value="Employee Center">4249e63a28d54d61bb6fbf61fd86cccb</sys_scope><sys_update_name>sp_column_a68669a71ba413104eefea45624bcba4</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2026-11-20 10:21:34</sys_updated_on></sp_column></record_update>]]></payload>
+<payload_hash>-1965292934</payload_hash>
+<remote_update_set display_value="KAP_WidgetBroadcasting_EC_RA_V1">7b27162f1be813104eefea45624bcb89</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2026-11-20 13:54:07</sys_created_on>
+<sys_id>b327162f1be813104eefea45624bcb8a</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>1a1f879cf280000001</sys_recorded_at>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2026-11-20 13:54:07</sys_updated_on>
+<table/>
+<target_name>1</target_name>
+<type>Column</type>
+<update_domain>global</update_domain>
+<update_guid>6a8669a713a41310f909dcc3164d95c0</update_guid>
+<update_guid_history>6a8669a713a41310f909dcc3164d95c0:-1965292934</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Employee Center">4249e63a28d54d61bb6fbf61fd86cccb</application>
+<category>customer</category>
+<comments/>
+<name>sp_column_e68669a71ba413104eefea45624bcbc2</name>
+<payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_column"><sp_column action="INSERT_OR_UPDATE"><aria_label/><class_name/><order>2</order><semantic_tag/><size>9</size><size_lg/><size_sm/><size_xs/><sp_row display_value="1">de8669a71ba413104eefea45624bcb9a</sp_row><sys_class_name>sp_column</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2026-11-20 10:21:34</sys_created_on><sys_id>e68669a71ba413104eefea45624bcbc2</sys_id><sys_mod_count>0</sys_mod_count><sys_name>2</sys_name><sys_package display_value="Employee Center" source="sn_ex_sp">4249e63a28d54d61bb6fbf61fd86cccb</sys_package><sys_policy/><sys_scope display_value="Employee Center">4249e63a28d54d61bb6fbf61fd86cccb</sys_scope><sys_update_name>sp_column_e68669a71ba413104eefea45624bcbc2</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2026-11-20 10:21:34</sys_updated_on></sp_column></record_update>]]></payload>
+<payload_hash>1078889760</payload_hash>
+<remote_update_set display_value="KAP_WidgetBroadcasting_EC_RA_V1">7b27162f1be813104eefea45624bcb89</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2026-11-20 13:54:07</sys_created_on>
+<sys_id>b327162f1be813104eefea45624bcb8b</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>1a1f879cf4d0000001</sys_recorded_at>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2026-11-20 13:54:07</sys_updated_on>
+<table/>
+<target_name>2</target_name>
+<type>Column</type>
+<update_domain>global</update_domain>
+<update_guid>2a8669a700a41310be8b875e77c655c4</update_guid>
+<update_guid_history>2a8669a700a41310be8b875e77c655c4:1078889760</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Employee Center">4249e63a28d54d61bb6fbf61fd86cccb</application>
+<category>customer</category>
+<comments/>
+<name>sp_instance_fde7216b1ba413104eefea45624bcb8e</name>
+<payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sp_instance"&gt;&lt;sp_instance action="INSERT_OR_UPDATE"&gt;&lt;active&gt;true&lt;/active&gt;&lt;advanced_placeholder_dimensions&gt;false&lt;/advanced_placeholder_dimensions&gt;&lt;async_load&gt;false&lt;/async_load&gt;&lt;async_load_device_type&gt;desktop,tablet,mobile&lt;/async_load_device_type&gt;&lt;async_load_trigger&gt;viewport&lt;/async_load_trigger&gt;&lt;class_name/&gt;&lt;color&gt;default&lt;/color&gt;&lt;css/&gt;&lt;glyph/&gt;&lt;id/&gt;&lt;order&gt;1&lt;/order&gt;&lt;placeholder_dimensions&gt;{&amp;#13;	"mobile": {&amp;#13;		"height": "250px",&amp;#13;		"width": "100%"&amp;#13;	},&amp;#13;	"desktop": {&amp;#13;		"height": "250px",&amp;#13;		"width": "100%"&amp;#13;	},&amp;#13;	"tablet": {&amp;#13;		"height": "250px",&amp;#13;		"width": "100%"&amp;#13;	}&amp;#13;}&lt;/placeholder_dimensions&gt;&lt;placeholder_dimensions_script&gt;&lt;![CDATA[function evaluateConfig(options) { return {	"mobile": {		"height": "250px",		"width": "100%"	},	"desktop": {		"height": "250px",		"width": "100%"	},	"tablet": {		"height": "250px",		"width": "100%"	}}; }]]&gt;&lt;/placeholder_dimensions_script&gt;&lt;placeholder_template&gt;&amp;lt;!-- 
+	AngularJS template with configurable options.
+	Use the `options` object to control dynamic behavior.
+	Example: Display an element when max row count is 10:
+	&amp;lt;div ng-if="options.maxRowCount === 10"&amp;gt;&amp;lt;/div&amp;gt;
+	The `skeleton-container` class is used for loading placeholders.
+--&amp;gt;
+	&amp;lt;div class="skeleton-container"&amp;gt;
+	&amp;lt;!-- Header Skeleton --&amp;gt;
+	&amp;lt;div class="skeleton-box skeleton-header"&amp;gt;&amp;lt;/div&amp;gt;
+	&amp;lt;!-- Body Skeleton --&amp;gt;
+	&amp;lt;div class="skeleton-box skeleton-line"&amp;gt;&amp;lt;/div&amp;gt;
+	&amp;lt;div class="skeleton-box skeleton-line small"&amp;gt;&amp;lt;/div&amp;gt;
+	&amp;lt;div class="skeleton-box skeleton-line medium"&amp;gt;&amp;lt;/div&amp;gt;
+&amp;lt;/div&amp;gt;&lt;/placeholder_template&gt;&lt;preserve_placeholder_size&gt;false&lt;/preserve_placeholder_size&gt;&lt;roles/&gt;&lt;short_description/&gt;&lt;size&gt;md&lt;/size&gt;&lt;sp_column display_value="1"&gt;a68669a71ba413104eefea45624bcba4&lt;/sp_column&gt;&lt;sp_widget display_value="KAP Incident State Filter"&gt;53d76d2b1ba413104eefea45624bcb3a&lt;/sp_widget&gt;&lt;sys_class_name&gt;sp_instance&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2026-11-20 10:27:32&lt;/sys_created_on&gt;&lt;sys_id&gt;fde7216b1ba413104eefea45624bcb8e&lt;/sys_id&gt;&lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;&lt;sys_name&gt;Incident state filter&lt;/sys_name&gt;&lt;sys_package display_value="Employee Center" source="sn_ex_sp"&gt;4249e63a28d54d61bb6fbf61fd86cccb&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Employee Center"&gt;4249e63a28d54d61bb6fbf61fd86cccb&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_instance_fde7216b1ba413104eefea45624bcb8e&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2026-11-20 10:27:32&lt;/sys_updated_on&gt;&lt;title&gt;Incident state filter&lt;/title&gt;&lt;url/&gt;&lt;widget_parameters/&gt;&lt;/sp_instance&gt;&lt;sys_translated_text action="delete_multiple" query="documentkey=fde7216b1ba413104eefea45624bcb8e"/&gt;&lt;/record_update&gt;</payload>
+<payload_hash>-671146150</payload_hash>
+<remote_update_set display_value="KAP_WidgetBroadcasting_EC_RA_V1">7b27162f1be813104eefea45624bcb89</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2026-11-20 13:54:07</sys_created_on>
+<sys_id>b327deef1be813104eefea45624bcb30</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>1a1f87f46be0000001</sys_recorded_at>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2026-11-20 13:54:07</sys_updated_on>
+<table/>
+<target_name>Incident state filter</target_name>
+<type>Instance</type>
+<update_domain>global</update_domain>
+<update_guid>75e7616be0a413106f6e9848d32925e4</update_guid>
+<update_guid_history>75e7616be0a413106f6e9848d32925e4:-671146150</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Employee Center">4249e63a28d54d61bb6fbf61fd86cccb</application>
+<category>customer</category>
+<comments/>
+<name>sp_widget_53d76d2b1ba413104eefea45624bcb3a</name>
+<payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sp_widget"&gt;&lt;sp_widget action="INSERT_OR_UPDATE"&gt;&lt;category&gt;custom&lt;/category&gt;&lt;client_script&gt;&lt;![CDATA[api.controller = function($rootScope) {
+  /* Filter widget (publisher).
+     It does not know the list widget exists. It only announces "a state was chosen"
+     on $rootScope. Any widget on the same page can listen for the event. */
+  var c = this;
+  var EVENT_NAME = 'kap.incident.stateSelected';
+
+  c.selected = ''; // '' means All
+
+  c.select = function(state) {
+    if (c.selected === state.value)
+      return; // no change, nothing to announce
+    c.selected = state.value;
+    $rootScope.$broadcast(EVENT_NAME, {
+      value: state.value,  // e.g. '2' for In Progress, '' for All
+      label: state.label
+    });
+  };
+};]]&gt;&lt;/client_script&gt;&lt;controller_as&gt;c&lt;/controller_as&gt;&lt;css&gt;.kap-state-filter .list-group-item { cursor: pointer; text-align: left; width: 100%; }
+.kap-state-filter .list-group-item:focus { outline: 2px solid $brand-primary; outline-offset: -2px; }&lt;/css&gt;&lt;data_table&gt;sp_instance&lt;/data_table&gt;&lt;demo_data/&gt;&lt;description&gt;Publisher: broadcasts the selected incident state on $rootScope (kap.incident.stateSelected).&lt;/description&gt;&lt;docs/&gt;&lt;field_list/&gt;&lt;has_preview&gt;false&lt;/has_preview&gt;&lt;id&gt;kap_incident_state_filter&lt;/id&gt;&lt;internal&gt;false&lt;/internal&gt;&lt;link&gt;&lt;![CDATA[function link(scope, element, attrs, controller) {  }]]&gt;&lt;/link&gt;&lt;name&gt;KAP Incident State Filter&lt;/name&gt;&lt;option_schema/&gt;&lt;public&gt;false&lt;/public&gt;&lt;roles/&gt;&lt;script&gt;&lt;![CDATA[(function() {
+  /* Filter widget (publisher).
+     Loads the active choices for incident.state so the buttons always match the instance's dictionary. */
+  data.allLabel = gs.getMessage('All');
+  data.states = [];
+
+  function loadChoices(lang) {
+    var ch = new GlideRecord('sys_choice');
+    ch.addQuery('name', 'incident');
+    ch.addQuery('element', 'state');
+    ch.addQuery('inactive', false);
+    ch.addQuery('language', lang);
+    ch.orderBy('sequence');
+    ch.query();
+    while (ch.next()) {
+      data.states.push({ value: ch.getValue('value'), label: ch.getValue('label') });
+    }
+  }
+
+  loadChoices(gs.getSession().getLanguage());
+  if (!data.states.length)
+    loadChoices('en'); // fall back to English if the user's language has no translated choices
+})();]]&gt;&lt;/script&gt;&lt;servicenow&gt;false&lt;/servicenow&gt;&lt;sys_class_name&gt;sp_widget&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2026-11-20 10:27:22&lt;/sys_created_on&gt;&lt;sys_id&gt;53d76d2b1ba413104eefea45624bcb3a&lt;/sys_id&gt;&lt;sys_mod_count&gt;1&lt;/sys_mod_count&gt;&lt;sys_name&gt;KAP Incident State Filter&lt;/sys_name&gt;&lt;sys_package display_value="Employee Center" source="sn_ex_sp"&gt;4249e63a28d54d61bb6fbf61fd86cccb&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Employee Center"&gt;4249e63a28d54d61bb6fbf61fd86cccb&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_widget_53d76d2b1ba413104eefea45624bcb3a&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2026-11-20 11:07:21&lt;/sys_updated_on&gt;&lt;template&gt;&lt;![CDATA[&lt;div class="panel panel-default kap-state-filter"&gt;
+  &lt;div class="panel-heading"&gt;
+    &lt;h3 class="panel-title"&gt;${Filter by incident state}&lt;/h3&gt;
+  &lt;/div&gt;
+  &lt;div class="list-group" role="group" aria-label="${Incident state}"&gt;
+    &lt;!--&lt;button type="button" class="list-group-item"
+            ng-class="{active: c.selected === ''}"
+            aria-pressed="{{c.selected === ''}}"
+            ng-click="c.select({value: '', label: c.data.allLabel})"&gt;
+      {{c.data.allLabel}}
+    &lt;/button&gt;--&gt;
+    &lt;button type="button" class="list-group-item"
+            ng-repeat="s in c.data.states track by s.value"
+            ng-class="{active: c.selected === s.value}"
+            aria-pressed="{{c.selected === s.value}}"
+            ng-click="c.select(s)"&gt;
+      {{s.label}}
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;]]&gt;&lt;/template&gt;&lt;/sp_widget&gt;&lt;/record_update&gt;</payload>
+<payload_hash>251481884</payload_hash>
+<remote_update_set display_value="KAP_WidgetBroadcasting_EC_RA_V1">7b27162f1be813104eefea45624bcb89</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2026-11-20 13:54:07</sys_created_on>
+<sys_id>b727deef1be813104eefea45624bcb31</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>1a1f8a3b8330000001</sys_recorded_at>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2026-11-20 13:54:07</sys_updated_on>
+<table/>
+<target_name>KAP Incident State Filter</target_name>
+<type>Widget</type>
+<update_domain>global</update_domain>
+<update_guid>8101f5ab16e413105cc7e1db7f924606</update_guid>
+<update_guid_history>8101f5ab16e413105cc7e1db7f924606:251481884,1bd76d2bf7a413102b8c4d3a6cbbf53f:-825229019</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Employee Center">4249e63a28d54d61bb6fbf61fd86cccb</application>
+<category>customer</category>
+<comments/>
+<name>sp_instance_2fd416eb1be813104eefea45624bcb37</name>
+<payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sp_instance"&gt;&lt;sp_instance action="INSERT_OR_UPDATE"&gt;&lt;active&gt;true&lt;/active&gt;&lt;advanced_placeholder_dimensions&gt;false&lt;/advanced_placeholder_dimensions&gt;&lt;async_load&gt;false&lt;/async_load&gt;&lt;async_load_device_type&gt;desktop,tablet,mobile&lt;/async_load_device_type&gt;&lt;async_load_trigger&gt;viewport&lt;/async_load_trigger&gt;&lt;class_name/&gt;&lt;color&gt;default&lt;/color&gt;&lt;css/&gt;&lt;glyph/&gt;&lt;id/&gt;&lt;order&gt;2&lt;/order&gt;&lt;placeholder_dimensions&gt;{&amp;#13;	"mobile": {&amp;#13;		"height": "250px",&amp;#13;		"width": "100%"&amp;#13;	},&amp;#13;	"desktop": {&amp;#13;		"height": "250px",&amp;#13;		"width": "100%"&amp;#13;	},&amp;#13;	"tablet": {&amp;#13;		"height": "250px",&amp;#13;		"width": "100%"&amp;#13;	}&amp;#13;}&lt;/placeholder_dimensions&gt;&lt;placeholder_dimensions_script&gt;&lt;![CDATA[function evaluateConfig(options) { return {	"mobile": {		"height": "250px",		"width": "100%"	},	"desktop": {		"height": "250px",		"width": "100%"	},	"tablet": {		"height": "250px",		"width": "100%"	}}; }]]&gt;&lt;/placeholder_dimensions_script&gt;&lt;placeholder_template&gt;&amp;lt;!-- 
+	AngularJS template with configurable options.
+	Use the `options` object to control dynamic behavior.
+	Example: Display an element when max row count is 10:
+	&amp;lt;div ng-if="options.maxRowCount === 10"&amp;gt;&amp;lt;/div&amp;gt;
+	The `skeleton-container` class is used for loading placeholders.
+--&amp;gt;
+	&amp;lt;div class="skeleton-container"&amp;gt;
+	&amp;lt;!-- Header Skeleton --&amp;gt;
+	&amp;lt;div class="skeleton-box skeleton-header"&amp;gt;&amp;lt;/div&amp;gt;
+	&amp;lt;!-- Body Skeleton --&amp;gt;
+	&amp;lt;div class="skeleton-box skeleton-line"&amp;gt;&amp;lt;/div&amp;gt;
+	&amp;lt;div class="skeleton-box skeleton-line small"&amp;gt;&amp;lt;/div&amp;gt;
+	&amp;lt;div class="skeleton-box skeleton-line medium"&amp;gt;&amp;lt;/div&amp;gt;
+&amp;lt;/div&amp;gt;&lt;/placeholder_template&gt;&lt;preserve_placeholder_size&gt;false&lt;/preserve_placeholder_size&gt;&lt;roles/&gt;&lt;short_description/&gt;&lt;size&gt;md&lt;/size&gt;&lt;sp_column display_value="2"&gt;e68669a71ba413104eefea45624bcbc2&lt;/sp_column&gt;&lt;sp_widget display_value="KAP Incident Emit Parent"&gt;83d416eb1be813104eefea45624bcb2e&lt;/sp_widget&gt;&lt;sys_class_name&gt;sp_instance&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2026-11-20 13:43:59&lt;/sys_created_on&gt;&lt;sys_id&gt;2fd416eb1be813104eefea45624bcb37&lt;/sys_id&gt;&lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;&lt;sys_name&gt;Incidents by priority (emit demo)&lt;/sys_name&gt;&lt;sys_package display_value="Employee Center" source="sn_ex_sp"&gt;4249e63a28d54d61bb6fbf61fd86cccb&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Employee Center"&gt;4249e63a28d54d61bb6fbf61fd86cccb&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_instance_2fd416eb1be813104eefea45624bcb37&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2026-11-20 13:43:59&lt;/sys_updated_on&gt;&lt;title&gt;Incidents by priority (emit demo)&lt;/title&gt;&lt;url/&gt;&lt;widget_parameters/&gt;&lt;/sp_instance&gt;&lt;sys_translated_text action="delete_multiple" query="documentkey=2fd416eb1be813104eefea45624bcb37"/&gt;&lt;/record_update&gt;</payload>
+<payload_hash>931141521</payload_hash>
+<remote_update_set display_value="KAP_WidgetBroadcasting_EC_RA_V1">7b27162f1be813104eefea45624bcb89</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2026-11-20 13:54:07</sys_created_on>
+<sys_id>f727162f1be813104eefea45624bcb8b</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>1a1f9331f510000001</sys_recorded_at>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2026-11-20 13:54:07</sys_updated_on>
+<table/>
+<target_name>Incidents by priority (emit demo)</target_name>
+<type>Instance</type>
+<update_domain>global</update_domain>
+<update_guid>63d416eb95e81310cab1bcbaabfabd60</update_guid>
+<update_guid_history>63d416eb95e81310cab1bcbaabfabd60:931141521</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Employee Center">4249e63a28d54d61bb6fbf61fd86cccb</application>
+<category>customer</category>
+<comments/>
+<name>sp_row_a98711ea53331210b8f2ddeeff7b12b4</name>
+<payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_row"><sp_row action="INSERT_OR_UPDATE"><aria_label/><class_name/><order>2</order><semantic_tag/><sp_column/><sp_container display_value="Employee Center Homepage - Container 2">2d8711ea53331210b8f2ddeeff7b12b1</sp_container><sys_class_name>sp_row</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2025-02-21 11:21:30</sys_created_on><sys_id>a98711ea53331210b8f2ddeeff7b12b4</sys_id><sys_mod_count>1</sys_mod_count><sys_name>2</sys_name><sys_package display_value="Employee Center" source="sn_ex_sp">4249e63a28d54d61bb6fbf61fd86cccb</sys_package><sys_policy/><sys_scope display_value="Employee Center">4249e63a28d54d61bb6fbf61fd86cccb</sys_scope><sys_update_name>sp_row_a98711ea53331210b8f2ddeeff7b12b4</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2026-11-20 10:21:34</sys_updated_on></sp_row></record_update>]]></payload>
+<payload_hash>1273145221</payload_hash>
+<remote_update_set display_value="KAP_WidgetBroadcasting_EC_RA_V1">7b27162f1be813104eefea45624bcb89</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2026-11-20 13:54:07</sys_created_on>
+<sys_id>f727deef1be813104eefea45624bcb30</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>1a1f879cf910000001</sys_recorded_at>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2026-11-20 13:54:07</sys_updated_on>
+<table/>
+<target_name>2</target_name>
+<type>Row</type>
+<update_domain>global</update_domain>
+<update_guid>228669a7afa413101e3677d8b8a475cb</update_guid>
+<update_guid_history>228669a7afa413101e3677d8b8a475cb:1273145221,2a8669a7e2a41310becbc5b89da54ec8:-182469019</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Employee Center">4249e63a28d54d61bb6fbf61fd86cccb</application>
+<category>customer</category>
+<comments/>
+<name>sp_widget_67d7216b1ba413104eefea45624bcb85</name>
+<payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sp_widget"&gt;&lt;sp_widget action="INSERT_OR_UPDATE"&gt;&lt;category&gt;custom&lt;/category&gt;&lt;client_script&gt;&lt;![CDATA[api.controller = function($scope) {
+  /* List widget (subscriber).
+     Listens on its own $scope. A $rootScope.$broadcast travels down to every child scope,
+     so this widget hears it, and the listener is removed automatically when the widget is destroyed. */
+  var c = this;
+  var EVENT_NAME = 'kap.incident.stateSelected';
+  c.loading = false;
+
+  $scope.$on(EVENT_NAME, function(event, payload) {
+    c.loading = true;
+    c.server.get({ state: payload.value, label: payload.label })
+      .then(function(response) {
+        c.data.incidents = response.data.incidents;
+        c.data.state = response.data.state;
+        c.data.stateLabel = response.data.stateLabel;
+      })['finally'](function() {
+        c.loading = false;
+      });
+  });
+};]]&gt;&lt;/client_script&gt;&lt;controller_as&gt;c&lt;/controller_as&gt;&lt;css&gt;.kap-state-list .table &amp;gt; thead &amp;gt; tr &amp;gt; th { white-space: nowrap; }
+.kap-state-list td:first-child { white-space: nowrap; }&lt;/css&gt;&lt;data_table&gt;sp_instance&lt;/data_table&gt;&lt;demo_data/&gt;&lt;description&gt;Subscriber: listens for kap.incident.stateSelected and reloads the incident list for that state.&lt;/description&gt;&lt;docs/&gt;&lt;field_list/&gt;&lt;has_preview&gt;false&lt;/has_preview&gt;&lt;id&gt;kap_incident_state_list&lt;/id&gt;&lt;internal&gt;false&lt;/internal&gt;&lt;link&gt;&lt;![CDATA[function link(scope, element, attrs, controller) {  }]]&gt;&lt;/link&gt;&lt;name&gt;KAP Incident State List&lt;/name&gt;&lt;option_schema/&gt;&lt;public&gt;false&lt;/public&gt;&lt;roles/&gt;&lt;script&gt;&lt;![CDATA[(function() {
+  /* List widget (subscriber).
+     First load: input is undefined, so all incidents are shown.
+     After a broadcast: the client calls c.server.get({state, label}) and this script runs again with that input. */
+  var state = (input &amp;&amp; input.state) ? String(input.state) : '';
+  data.state = state;
+  data.stateLabel = (input &amp;&amp; input.label) ? String(input.label) : gs.getMessage('All');
+  data.limit = 25;
+  data.incidents = [];
+
+  var gr = new GlideRecordSecure('incident'); // respects ACLs for the logged-in user
+  if (state)
+    gr.addQuery('state', state);
+  gr.orderByDesc('sys_updated_on');
+  gr.setLimit(data.limit);
+  gr.query();
+
+  while (gr.next()) {
+    data.incidents.push({
+      sys_id: gr.getUniqueValue(),
+      number: gr.getValue('number'),
+      short_description: gr.getValue('short_description'),
+      priority: gr.getDisplayValue('priority'),
+      state: gr.getDisplayValue('state'),
+      assigned_to: gr.getDisplayValue('assigned_to'),
+      updated: gr.getDisplayValue('sys_updated_on')
+    });
+  }
+})();]]&gt;&lt;/script&gt;&lt;servicenow&gt;false&lt;/servicenow&gt;&lt;sys_class_name&gt;sp_widget&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2026-11-20 10:27:23&lt;/sys_created_on&gt;&lt;sys_id&gt;67d7216b1ba413104eefea45624bcb85&lt;/sys_id&gt;&lt;sys_mod_count&gt;1&lt;/sys_mod_count&gt;&lt;sys_name&gt;KAP Incident State List&lt;/sys_name&gt;&lt;sys_package display_value="Employee Center" source="sn_ex_sp"&gt;4249e63a28d54d61bb6fbf61fd86cccb&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Employee Center"&gt;4249e63a28d54d61bb6fbf61fd86cccb&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_widget_67d7216b1ba413104eefea45624bcb85&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2026-11-20 10:27:34&lt;/sys_updated_on&gt;&lt;template&gt;&lt;![CDATA[&lt;div class="panel panel-default kap-state-list"&gt;
+  &lt;div class="panel-heading"&gt;
+    &lt;h3 class="panel-title"&gt;${Incidents}: {{c.data.stateLabel}}
+      &lt;small ng-if="!c.loading"&gt;({{c.data.incidents.length}}&lt;span ng-if="c.data.incidents.length &gt;= c.data.limit"&gt;+&lt;/span&gt;)&lt;/small&gt;
+    &lt;/h3&gt;
+  &lt;/div&gt;
+
+  &lt;div class="panel-body text-muted" ng-if="c.loading"&gt;
+    &lt;i class="fa fa-spinner fa-spin" aria-hidden="true"&gt;&lt;/i&gt; ${Loading incidents}
+  &lt;/div&gt;
+
+  &lt;div class="panel-body text-muted" ng-if="!c.loading &amp;&amp; !c.data.incidents.length"&gt;
+    ${No incidents found for this state.}
+  &lt;/div&gt;
+
+  &lt;div class="table-responsive" ng-if="!c.loading &amp;&amp; c.data.incidents.length"&gt;
+    &lt;table class="table table-hover m-b-none"&gt;
+      &lt;thead&gt;
+        &lt;tr&gt;
+          &lt;th scope="col"&gt;${Number}&lt;/th&gt;
+          &lt;th scope="col"&gt;${Short description}&lt;/th&gt;
+          &lt;th scope="col"&gt;${Priority}&lt;/th&gt;
+          &lt;th scope="col"&gt;${State}&lt;/th&gt;
+          &lt;th scope="col"&gt;${Assigned to}&lt;/th&gt;
+          &lt;th scope="col"&gt;${Updated}&lt;/th&gt;
+        &lt;/tr&gt;
+      &lt;/thead&gt;
+      &lt;tbody&gt;
+        &lt;tr ng-repeat="i in c.data.incidents track by i.sys_id"&gt;
+          &lt;td&gt;&lt;a ng-href="?id=ticket&amp;table=incident&amp;sys_id={{i.sys_id}}"&gt;{{i.number}}&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;{{i.short_description}}&lt;/td&gt;
+          &lt;td&gt;{{i.priority}}&lt;/td&gt;
+          &lt;td&gt;{{i.state}}&lt;/td&gt;
+          &lt;td&gt;{{i.assigned_to}}&lt;/td&gt;
+          &lt;td&gt;{{i.updated}}&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/div&gt;
+&lt;/div&gt;]]&gt;&lt;/template&gt;&lt;/sp_widget&gt;&lt;/record_update&gt;</payload>
+<payload_hash>1969784954</payload_hash>
+<remote_update_set display_value="KAP_WidgetBroadcasting_EC_RA_V1">7b27162f1be813104eefea45624bcb89</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2026-11-20 13:54:07</sys_created_on>
+<sys_id>fb27deef1be813104eefea45624bcb31</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>1a1f87f4a530000001</sys_recorded_at>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2026-11-20 13:54:07</sys_updated_on>
+<table/>
+<target_name>KAP Incident State List</target_name>
+<type>Widget</type>
+<update_domain>global</update_domain>
+<update_guid>0ee7616bb7a41310579dc9ac43186efe</update_guid>
+<update_guid_history>0ee7616bb7a41310579dc9ac43186efe:1969784954,efd7216bfaa4131082a3a272a9da5a87:1260520752</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+</unload>
