@@ -3829,7 +3829,7 @@ The filter widget is placed in the 3-column layout, while the incident list occu
 When the user selects **On Hold**, the incident list automatically displays matching incidents.
 
 <div class="blog-image">
-    <img src="images/b19img1.png" alt="Incident State Filter and Incident List communicating through rootScope broadcast" />
+    <img src="images/b19img1.jpeg" alt="Incident State Filter and Incident List communicating through rootScope broadcast" />
 </div>
 
 ### How It Works
@@ -3999,7 +3999,7 @@ The parent widget contains an embedded priority picker.
 The child widget displays five priority options.
 
 <div class="blog-image">
-    <img src="images/b19img2.png" alt="Embedded child priority picker before selecting a priority" />
+    <img src="images/b19img2.jpeg" alt="Embedded child priority picker before selecting a priority" />
 </div>
 
 ### Step 1 – Create the Child Widget
@@ -4126,7 +4126,7 @@ For example, when the user selects **5 - Planning**, the child sends the priorit
 The parent retrieves matching incidents and sends the result back to the child.
 
 <div class="blog-image">
-    <img src="images/b19img3.png" alt="Priority selected and parent responding with matching incidents through broadcast" />
+    <img src="images/b19img3.jpeg" alt="Priority selected and parent responding with matching incidents through broadcast" />
 </div>
 
 ### How It Works
