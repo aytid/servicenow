@@ -1,13 +1,13 @@
 const articlesData = [
     {
-        id: '1001',
-        title: 'Custom Quick Link Widget',
-        category: 'Tutorial',
-        excerpt: 'Built a custom ServiceNow Quick Link widget that transforms standard links into vibrant, center-aligned interactive cards.',
-        tags: ['Custom Widget', 'Quick Links', 'Employee Center'],
-        date: '2025-06-28',
+        id: "1001",
+        title: "Custom Quick Link Widget",
+        category: "Tutorial",
+        excerpt: "Built a custom ServiceNow Quick Link widget that transforms standard links into vibrant, center-aligned interactive cards.",
+        tags: ["Custom Widget","Quick Links","Employee Center"],
+        date: "2025-06-28",
         views: 920,
-        created: '2025-06-28T11:00:00Z',
+        created: "2025-06-28T11:00:00Z",
         content: `
 
 **Author: Rohan Aditya**
@@ -213,14 +213,14 @@ This widget works especially well on **Employee Center portals**.
 © 2026 Rohan Aditya`
     },
     {
-        id: '1002',
-        title: 'Show Table Data in Modal – Native UI',
-        category: 'Tutorial',
-        excerpt: 'Learn how to fetch dynamic table data and display it inside a GlideModal using UI Actions, UI Pages, and GlideAjax in ServiceNow.',
-        tags: ['GlideModal', 'UI Page', 'GlideAjax'],
-        date: '2025-07-02',
+        id: "1002",
+        title: "Show Table Data in Modal – Native UI",
+        category: "Tutorial",
+        excerpt: "Learn how to fetch dynamic table data and display it inside a GlideModal using UI Actions, UI Pages, and GlideAjax in ServiceNow.",
+        tags: ["GlideModal","UI Page","GlideAjax"],
+        date: "2025-07-02",
         views: 890,
-        created: '2025-07-02T10:30:00Z',
+        created: "2025-07-02T10:30:00Z",
         content: `
 
 **Author: Rohan Aditya**
@@ -427,14 +427,14 @@ Here’s how the final modal looks when you run it:
 © 2026 Rohan Aditya`
     },
     {
-        id: '1003',
-        title: 'Use Script Include in Condition Filter or Reports',
-        category: 'Tutorial',
-        excerpt: 'Break past Condition Builder limitations by using a Script Include to dynamically filter records in lists and reports.',
-        tags: ['Condition Builder', 'Reports', 'Sandbox enabled'],
-        date: '2025-07-17',
+        id: "1003",
+        title: "Use Script Include in Condition Filter or Reports",
+        category: "Tutorial",
+        excerpt: "Break past Condition Builder limitations by using a Script Include to dynamically filter records in lists and reports.",
+        tags: ["Condition Builder","Reports","Sandbox enabled"],
+        date: "2025-07-17",
         views: 922,
-        created: '2025-07-17T09:15:00Z',
+        created: "2025-07-17T09:15:00Z",
         content: `
 
 **Author: Rohan Aditya**
@@ -534,14 +534,14 @@ Clean. Dynamic. Powerful.
 © 2026 Rohan Aditya`
     },
     {
-        id: '1004',
-        title: 'Automate Creation of Product and Sold Product Records from Excel via Flow and Transform Map',
-        category: 'Use Case',
-        excerpt: 'A practical automation approach to creating Product and Sold Product records directly from Excel attachments using Flow Designer and Transform Maps.',
-        tags: ['Flow Designer', 'Transform Map', 'Import Set'],
-        date: '2025-08-08',
+        id: "1004",
+        title: "Automate Creation of Product and Sold Product Records from Excel via Flow and Transform Map",
+        category: "Use Case",
+        excerpt: "A practical automation approach to creating Product and Sold Product records directly from Excel attachments using Flow Designer and Transform Maps.",
+        tags: ["Flow Designer","Transform Map","Import Set"],
+        date: "2025-08-08",
         views: 430,
-        created: '2025-08-08T10:00:00Z',
+        created: "2025-08-08T10:00:00Z",
         content: `
 
 **Author: Rohan Aditya**
@@ -764,7 +764,7 @@ KapCreateProductUtils.prototype = {
     if (source.u_which_accoun_d_to_be_linked && source.u_which_accoun_d_to_be_linked.trim() !== '') {
 
 
-        var accountNames = source.u_which_accoun_d_to_be_linked.split(/\s*,\s*/);
+        var accountNames = source.u_which_accoun_d_to_be_linked.split(/s*,s*/);
         var validAccounts = [];
         for (var i = 0; i < accountNames.length; i++) {
             if (isValidAccount(accountNames[i])) {
@@ -874,7 +874,8 @@ KapCreateProductUtils.prototype = {
         var productListUrl = baseUrl + target.getTableName() + '_list.do?sysparm_query=sys_idIN' +
             productSysIds.join(',');
         commentText += 'Click <a href="' + productListUrl + '" target="_blank">here</a> to view the
-        created Products.\n ';
+        created Products.
+ ';
     }
 
     if (soldSysIds.length > 0) {
@@ -922,14 +923,14 @@ Upload Excel → Submit Catalog → Products & Sold Products Created Automatical
 © 2026 Rohan Aditya`
     },
     {
-        id: '1005',
-        title: 'SOW to CSM/FSM Workspace Migration',
-        category: 'Tutorial',
-        excerpt: 'Complete configuration guide for updating UI Actions and Workspace components during SOW to CSM/FSM Configurable Workspace migration.',
-        tags: ['Workspace Migration', 'SOW to CSM', 'UI Builder'],
-        date: '2025-09-07',
+        id: "1005",
+        title: "SOW to CSM/FSM Workspace Migration",
+        category: "Tutorial",
+        excerpt: "Complete configuration guide for updating UI Actions and Workspace components during SOW to CSM/FSM Configurable Workspace migration.",
+        tags: ["Workspace Migration","SOW to CSM","UI Builder"],
+        date: "2025-09-07",
         views: 200,
-        created: '2025-09-07T10:00:00Z',
+        created: "2025-09-07T10:00:00Z",
         content: `
 
 **Author: Rohan Aditya**
@@ -1245,14 +1246,14 @@ it's reconfiguring it properly.
 © 2026 Rohan Aditya`
     },
     {
-        id: '1006',
-        title: 'Autopopulate Fields in Mobile Input Form',
-        category: 'Tutorial',
-        excerpt: 'Learn how to dynamically prefill fields in ServiceNow Agent Mobile using Mobile Callable Script Includes and scripted variables.',
-        tags: ['Agent Mobile', 'Script Include', 'Automation'],
-        date: '2025-10-05',
+        id: "1006",
+        title: "Autopopulate Fields in Mobile Input Form",
+        category: "Tutorial",
+        excerpt: "Learn how to dynamically prefill fields in ServiceNow Agent Mobile using Mobile Callable Script Includes and scripted variables.",
+        tags: ["Agent Mobile","Script Include","Automation"],
+        date: "2025-10-05",
         views: 625,
-        created: '2025-10-05T10:00:00Z',
+        created: "2025-10-05T10:00:00Z",
         content: `
 
 **Author: Rohan Aditya**
@@ -1408,14 +1409,14 @@ Big usability win.
 © 2026 Rohan Aditya`
     },
     {
-        id: '1007',
-        title: 'Fetching Weather Data in ServiceNow Using REST APIs',
-        category: 'Use Case',
-        excerpt: 'Learn how to call a Weather API in ServiceNow using RESTMessageV2 and build a dynamic Weather Forecast Widget in Service Portal.',
-        tags: ['REST API', 'Portal', 'Integration'],
-        date: '2025-11-07',
+        id: "1007",
+        title: "Fetching Weather Data in ServiceNow Using REST APIs",
+        category: "Use Case",
+        excerpt: "Learn how to call a Weather API in ServiceNow using RESTMessageV2 and build a dynamic Weather Forecast Widget in Service Portal.",
+        tags: ["REST API","Portal","Integration"],
+        date: "2025-11-07",
         views: 300,
-        created: '2025-11-07T10:00:00Z',
+        created: "2025-11-07T10:00:00Z",
         content: `
 
 **Author: Rohan Aditya**
@@ -1627,14 +1628,14 @@ Reusable Widget architecture.
 © 2026 Rohan Aditya`
     },
     {
-        id: '1008',
-        title: 'ServiceNow Portal Video Widget',
-        category: 'Tutorial',
-        excerpt: 'Build a modern, interactive background video banner widget for ServiceNow Service Portal with overlay content and flexible instance options.',
-        tags: ['Portal', 'Video Widget', 'UI/UX'],
-        date: '2025-12-24',
+        id: "1008",
+        title: "ServiceNow Portal Video Widget",
+        category: "Tutorial",
+        excerpt: "Build a modern, interactive background video banner widget for ServiceNow Service Portal with overlay content and flexible instance options.",
+        tags: ["Portal","Video Widget","UI/UX"],
+        date: "2025-12-24",
         views: 250,
-        created: '2025-12-24T10:00:00Z',
+        created: "2025-12-24T10:00:00Z",
         content: `
 
 **Author: Rohan Aditya**
@@ -1785,14 +1786,14 @@ This is how the background video banner appears in Service Portal:
 © 2026 Rohan Aditya`
     },
     {
-        id: '1009',
-        title: 'Convert Data from CSV File to JSON',
-        category: 'Use Case',
-        excerpt: 'Automate CSV attachment processing in ServiceNow using Flow Designer and convert Import Set data into a structured JSON object.',
-        tags: ['Flow Designer', 'Import Set', 'CSV Processing', 'JSON Conversion'],
-        date: '2026-01-08',
+        id: "1009",
+        title: "Convert Data from CSV File to JSON",
+        category: "Use Case",
+        excerpt: "Automate CSV attachment processing in ServiceNow using Flow Designer and convert Import Set data into a structured JSON object.",
+        tags: ["Flow Designer","Import Set","CSV Processing","JSON Conversion"],
+        date: "2026-01-08",
         views: 280,
-        created: '2026-01-08T10:00:00Z',
+        created: "2026-01-08T10:00:00Z",
         content: `
 
 **Author: Rohan Aditya**
@@ -1926,14 +1927,14 @@ Clean. Automated. Integration-ready.
 © 2026 Rohan Aditya`
     },
     {
-        id: '1010',
-        title: 'Automation in Reviewing Update Sets',
-        category: 'Tutorial',
-        excerpt: 'Build a UI Action and dynamic review modal to automatically detect DELETE and Cross-Scoped records before promoting update sets.',
-        tags: ['Update Sets', 'Automation', 'UI Page'],
-        date: '2026-02-24',
+        id: "1010",
+        title: "Automation in Reviewing Update Sets",
+        category: "Tutorial",
+        excerpt: "Build a UI Action and dynamic review modal to automatically detect DELETE and Cross-Scoped records before promoting update sets.",
+        tags: ["Update Sets","Automation","UI Page"],
+        date: "2026-02-24",
         views: 240,
-        created: '2026-02-24T10:00:00Z',
+        created: "2026-02-24T10:00:00Z",
         content: `
 
 **Author: Rohan Aditya**
@@ -2130,17 +2131,17 @@ Clicking the UI Action opens a modal showing:
 ---
 
 © 2026 Rohan Aditya
-`,
+`
     },
     {
-        id: '1011',
-        title: 'Copying Incident Fields When Creating Change Request',
-        category: 'Use Case',
-        excerpt: 'Customize the Create Change process in UI Builder to automatically copy Incident fields into the new Change Request.',
-        tags: ['Incident', 'Change Management', 'UI Builder', 'Incident to Change'],
-        date: '2026-03-11',
+        id: "1011",
+        title: "Copying Incident Fields When Creating Change Request",
+        category: "Use Case",
+        excerpt: "Customize the Create Change process in UI Builder to automatically copy Incident fields into the new Change Request.",
+        tags: ["Incident","Change Management","UI Builder","Incident to Change"],
+        date: "2026-03-11",
         views: 210,
-        created: '2026-03-11T10:00:00Z',
+        created: "2026-03-11T10:00:00Z",
         content: `
 **Author: Rohan Aditya**
 
@@ -2300,7 +2301,7 @@ function handler({
     const record = results[0];
     let query = api.state.additionalQuery || '';
     const queryParams = [];
-    const matchedGroups = query.match(/(\w*)=/ig)
+    const matchedGroups = query.match(/(w*)=/ig)
     if (Array.isArray(matchedGroups))
         matchedGroups.map((param) => { queryParams.push(param.replace('=', '')); });
 
@@ -2363,7 +2364,7 @@ function handler({
     const record = results[0];
     let query = api.state.additionalQuery || '';
     const queryParams = [];
-    const matchedGroups = query.match(/(\w*)=/ig)
+    const matchedGroups = query.match(/(w*)=/ig)
     if (Array.isArray(matchedGroups))
         matchedGroups.map((param) => { queryParams.push(param.replace('=', '')); });
 
@@ -2409,18 +2410,17 @@ This allows:
 ---
 
 © 2026 Rohan Aditya
-`,
-
+`
     },
     {
-        id: '1012',
-        title: 'Configure Sign in with Google in ServiceNow (OIDC Multi-SSO)',
-        category: 'Use Case',
-        excerpt: 'Enable Google authentication in ServiceNow using OpenID Connect and Multi-Provider SSO.',
-        tags: ['SSO', 'Google OAuth', 'OIDC', 'Authentication'],
-        date: '2026-04-24',
+        id: "1012",
+        title: "Configure Sign in with Google in ServiceNow (OIDC Multi-SSO)",
+        category: "Use Case",
+        excerpt: "Enable Google authentication in ServiceNow using OpenID Connect and Multi-Provider SSO.",
+        tags: ["SSO","Google OAuth","OIDC","Authentication"],
+        date: "2026-04-24",
         views: 120,
-        created: '2026-04-24T10:00:00Z',
+        created: "2026-04-24T10:00:00Z",
         content: `
 **Author: Rohan Aditya**
 
@@ -2721,18 +2721,18 @@ This setup is commonly used by organizations that rely on **Google Workspace for
 ---
 
 © 2026 Rohan Aditya
-`,
+`
     },
-{
-    id: '1013',
-    title: 'Disabling Recent Selections on a Single Reference Field',
-    category: 'Use Case',
-    excerpt: 'The Recent Selections dropdown is handy on most reference fields, but on a shared or sensitive field it can clutter the UI. Here is how to switch it off for just one field without touching the rest of the instance.',
-    tags: ['Reference Fields', 'Business Rules', 'Admin'],
-    date: '2026-05-09',
-    views: 0,
-    created: '2026-05-09T10:00:00Z',
-    content: `
+    {
+        id: "1013",
+        title: "Disabling Recent Selections on a Single Reference Field",
+        category: "Use Case",
+        excerpt: "The Recent Selections dropdown is handy on most reference fields, but on a shared or sensitive field it can clutter the UI. Here is how to switch it off for just one field without touching the rest of the instance.",
+        tags: ["Reference Fields","Business Rules","Admin"],
+        date: "2026-05-09",
+        views: 0,
+        created: "2026-05-09T10:00:00Z",
+        content: `
 
 **Author: Rohan Aditya**
 
@@ -2805,17 +2805,17 @@ If a reference field's Recent Selections list is doing more harm than good, you 
 ---
 
 © 2026 Rohan Aditya`
-},
-        {
-    id: '1014',
-    title: 'Teams Provider Notifications with Agent-Defined Content',
-    category: 'Tutorial',
-    excerpt: 'Customize ServiceNow Teams Provider Notifications to allow agents to send personalized Microsoft Teams updates directly from a Change record.',
-    tags: ['Microsoft Teams', 'Provider Notification', 'Workspace', 'Change Management', 'GlideAjax'],
-    date: '2026-08-05',
-    views: 185,
-    created: '2026-08-05T12:45:00Z',
-    content: `
+    },
+    {
+        id: "1014",
+        title: "Teams Provider Notifications with Agent-Defined Content",
+        category: "Tutorial",
+        excerpt: "Customize ServiceNow Teams Provider Notifications to allow agents to send personalized Microsoft Teams updates directly from a Change record.",
+        tags: ["Microsoft Teams","Provider Notification","Workspace","Change Management","GlideAjax"],
+        date: "2026-08-05",
+        views: 185,
+        created: "2026-08-05T12:45:00Z",
+        content: `
 
 **Author: Rohan Aditya**
 
@@ -3039,17 +3039,17 @@ Teams users receive meaningful updates written directly by the support engineer,
 This enhancement extends the native Provider Notification framework while giving agents complete control over the content shared with Microsoft Teams.
 
 © 2026 Rohan Aditya`
-},
-      {
-    id: '1015',
-    title: 'Customizing Microsoft Teams Collaboration Chat',
-    category: 'Tutorial',
-    excerpt: 'Enhance the default Microsoft Teams Collaboration Chat experience by adding direct links to ServiceNow records for both Employee Center and Agent Workspace.',
-    tags: ['Microsoft Teams', 'Collaboration Chat', 'Script Include', 'ServiceNow', 'Employee Center', 'Agent Workspace'],
-    date: '2026-07-05',
-    views: 168,
-    created: '2026-07-05T15:30:00Z',
-    content: `
+    },
+    {
+        id: "1015",
+        title: "Customizing Microsoft Teams Collaboration Chat",
+        category: "Tutorial",
+        excerpt: "Enhance the default Microsoft Teams Collaboration Chat experience by adding direct links to ServiceNow records for both Employee Center and Agent Workspace.",
+        tags: ["Microsoft Teams","Collaboration Chat","Script Include","ServiceNow","Employee Center","Agent Workspace"],
+        date: "2026-07-05",
+        views: 168,
+        created: "2026-07-05T15:30:00Z",
+        content: `
 
 **Author: Rohan Aditya**
 
@@ -3255,17 +3255,17 @@ MSTeamsChatUtil.prototype = Object.extendsObject(sn_tcm_collab_hook.MSTeamsChatU
 \`\`\`
 
 © 2026 Rohan Aditya`
-},
+    },
     {
-    id: '1016',
-    title: 'Calling Flow Designer Flows from a Business Rule',
-    category: 'Tutorial',
-    excerpt: 'Learn how to invoke Flow Designer flows directly from a Business Rule using the generated code snippet, allowing you to reuse low-code automation from server-side scripts.',
-    tags: ['Flow Designer', 'Business Rule', 'ServiceNow', 'FlowAPI', 'Automation'],
-    date: '2026-09-06',
-    views: 132,
-    created: '2026-09-06T18:45:00Z',
-    content: `
+        id: "1016",
+        title: "Calling Flow Designer Flows from a Business Rule",
+        category: "Tutorial",
+        excerpt: "Learn how to invoke Flow Designer flows directly from a Business Rule using the generated code snippet, allowing you to reuse low-code automation from server-side scripts.",
+        tags: ["Flow Designer","Business Rule","ServiceNow","FlowAPI","Automation"],
+        date: "2026-09-06",
+        views: 132,
+        created: "2026-09-06T18:45:00Z",
+        content: `
 
 **Author: Rohan Aditya**
 
@@ -3524,17 +3524,17 @@ The Business Rule controls **when** the flow starts, while the Flow Designer con
 This approach combines the flexibility of server-side scripting with the maintainability of Flow Designer, resulting in cleaner and more reusable ServiceNow solutions.
 
 © 2026 Rohan Aditya`
-},
-{
-    id: '1017',
-    title: 'Make Group By Option Visible by Default',
-    category: 'Tutorial',
-    excerpt: 'Make the Group By option visible by default in a ServiceNow Data Visualization by updating the visualization JSON.',
-    tags: ['Data Visualization', 'Group By', 'ServiceNow', 'Reporting'],
-    date: '2026-10-21',
-    views: 0,
-    created: '2026-10-21T11:00:00Z',
-    content: `
+    },
+    {
+        id: "1017",
+        title: "Make Group By Option Visible by Default",
+        category: "Tutorial",
+        excerpt: "Make the Group By option visible by default in a ServiceNow Data Visualization by updating the visualization JSON.",
+        tags: ["Data Visualization","Group By","ServiceNow","Reporting"],
+        date: "2026-10-21",
+        views: 0,
+        created: "2026-10-21T11:00:00Z",
+        content: `
 
 **Author: Rohan Aditya**
 
@@ -3605,18 +3605,17 @@ The **Group By** option will now be displayed automatically without selecting **
 That's it. Changing \`showAdditionalGroupBySelector\` from \`false\` to \`true\` makes the **Group By** option visible by default.
 
 © 2026 Rohan Aditya`
-},
-	
-{
-    id: '1018',
-    title: 'Review Update Set: Find and Move Delete and Cross-Scope Captures',
-    category: 'Tutorial',
-    excerpt: 'Identify DELETE and cross-scope captures in ServiceNow Update Sets and move them to valid update sets using a single pop-up.',
-    tags: ['ServiceNow', 'Update Sets', 'Cross-Scope', 'Customer Updates', 'GlideModal'],
-    date: '2026-11-05',
-    views: 0,
-    created: '2026-11-05T11:00:00Z',
-    content: `
+    },
+    {
+        id: "1018",
+        title: "Review Update Set: Find and Move Delete and Cross-Scope Captures",
+        category: "Tutorial",
+        excerpt: "Identify DELETE and cross-scope captures in ServiceNow Update Sets and move them to valid update sets using a single pop-up.",
+        tags: ["ServiceNow","Update Sets","Cross-Scope","Customer Updates","GlideModal"],
+        date: "2026-11-05",
+        views: 0,
+        created: "2026-11-05T11:00:00Z",
+        content: `
 
 **Author: Rohan Aditya**
 
@@ -3753,17 +3752,17 @@ How do you review update sets before committing them? I'd love to hear your sugg
 #ServiceNow #ServiceNowDeveloper #NowPlatform #UpdateSets
 
 © 2026 Rohan Aditya`
-},
-{
-    id: '1019',
-    title: 'Widget Broadcasting and Emitting in ServiceNow',
-    category: 'Tutorial',
-    excerpt: 'Learn how to communicate between ServiceNow Employee Center widgets using AngularJS $broadcast and $emit, with practical examples of sibling and parent-child widget communication.',
-    tags: ['ServiceNow', 'Widget Development', 'AngularJS', 'Widget Communication', 'Employee Center'],
-    date: '2026-11-23',
-    views: 0,
-    created: '2026-11-23T11:00:00Z',
-    content: `
+    },
+    {
+        id: "1019",
+        title: "Widget Broadcasting and Emitting in ServiceNow",
+        category: "Tutorial",
+        excerpt: "Learn how to communicate between ServiceNow Employee Center widgets using AngularJS $broadcast and $emit, with practical examples of sibling and parent-child widget communication.",
+        tags: ["ServiceNow","Widget Development","AngularJS","Widget Communication","Employee Center"],
+        date: "2026-11-23",
+        views: 0,
+        created: "2026-11-23T11:00:00Z",
+        content: `
 
 **Author: Rohan Aditya**
 
@@ -4323,34 +4322,53 @@ Remember the basic direction:
 
 © 2026 Rohan Aditya
 `
-}
-
-
+    },
+    {
+        id: "1795504483693",
+        title: "Test",
+        category: "Tutorial",
+        excerpt: "https://rohanaditya-servicenow.vercel.app/admin",
+        tags: [],
+        date: "2026-11-24",
+        views: 0,
+        created: "2026-11-24T07:14:43.693Z",
+        readTime: "1 min",
+        updated: "2026-11-24T07:14:43.693Z",
+        content: `https://rohanaditya-servicenow.vercel.app/admin`
+    },
+    {
+        id: "1795504493971",
+        title: "https://rohanaditya-servicenow.vercel.app/admin",
+        category: "Tutorial",
+        excerpt: "https://rohanaditya-servicenow.vercel.app/admin",
+        tags: [],
+        date: "2026-11-24",
+        views: 0,
+        created: "2026-11-24T07:14:53.971Z",
+        readTime: "1 min",
+        updated: "2026-11-24T07:14:53.971Z",
+        content: `https://rohanaditya-servicenow.vercel.app/admin`
+    }
 ];
 
-// Function to get articles (from localStorage or default data)
 function getArticles() {
     const stored = localStorage.getItem('blog_articles');
     if (stored) {
         return JSON.parse(stored);
     }
-    // First time - save default data to localStorage
     localStorage.setItem('blog_articles', JSON.stringify(articlesData));
     return articlesData;
 }
 
-// Function to save articles
 function saveArticles(articles) {
     localStorage.setItem('blog_articles', JSON.stringify(articles));
 }
 
-// Function to get single article by ID
 function getArticleById(id) {
     const articles = getArticles();
     return articles.find(a => a.id === id);
 }
 
-// Function to update article views
 function incrementViews(id) {
     const articles = getArticles();
     const article = articles.find(a => a.id === id);
@@ -4358,18 +4376,4 @@ function incrementViews(id) {
         article.views = (article.views || 0) + 1;
         saveArticles(articles);
     }
-}
-function forceDownload() {
-    const url = "https://raw.githubusercontent.com/aytid/servicenow/main/Weather-API-Widget.xml";
-    fetch(url)
-        .then(res => res.blob())
-        .then(blob => {
-            const a = document.createElement("a");
-            a.href = URL.createObjectURL(blob);
-            a.download = "Weather-API-Widget.xml";
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-        })
-        .catch(() => alert("Download failed. Please check the file URL."));
 }
