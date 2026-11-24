@@ -4322,32 +4322,6 @@ Remember the basic direction:
 
 © 2026 Rohan Aditya
 `
-    },
-    {
-        id: "1795504483693",
-        title: "Test",
-        category: "Tutorial",
-        excerpt: "https://rohanaditya-servicenow.vercel.app/admin",
-        tags: [],
-        date: "2026-11-24",
-        views: 0,
-        created: "2026-11-24T07:14:43.693Z",
-        readTime: "1 min",
-        updated: "2026-11-24T07:14:43.693Z",
-        content: `https://rohanaditya-servicenow.vercel.app/admin`
-    },
-    {
-        id: "1795504493971",
-        title: "https://rohanaditya-servicenow.vercel.app/admin",
-        category: "Tutorial",
-        excerpt: "https://rohanaditya-servicenow.vercel.app/admin",
-        tags: [],
-        date: "2026-11-24",
-        views: 0,
-        created: "2026-11-24T07:14:53.971Z",
-        readTime: "1 min",
-        updated: "2026-11-24T07:14:53.971Z",
-        content: `https://rohanaditya-servicenow.vercel.app/admin`
     }
 ];
 
