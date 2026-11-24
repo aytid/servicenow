@@ -1,9 +1,10 @@
 const articleApp = {
     article: null,
     articleId: null,
+    allArticles: [],
 
     init() {
-        // Get article ID from URL
+        this.applySavedTheme();
         const urlParams = new URLSearchParams(window.location.search);
         this.articleId = urlParams.get('id');
 
@@ -13,23 +14,29 @@ const articleApp = {
         }
 
         this.loadArticle();
+        this.setupScrollProgress();
+    },
+
+    applySavedTheme() {
+        const saved = localStorage.getItem('sn_blog_theme') || 'nowpulse';
+        this.setTheme(saved, false);
+    },
+
+    setTheme(themeName, persist = true) {
+        document.documentElement.setAttribute('data-theme', themeName);
+        if (persist) {
+            localStorage.setItem('sn_blog_theme', themeName);
+        }
+        document.querySelectorAll('.theme-pill').forEach(btn => {
+            btn.classList.toggle('active', btn.getAttribute('data-set-theme') === themeName);
+        });
     },
 
     loadArticle() {
+        const defaultArticles = typeof articlesData !== 'undefined' ? articlesData : [];
+        const articles = defaultArticles;
 
-        let stored = localStorage.getItem('architecture_blog_articles');
-        let articles = [];
-
-        if (stored) {
-            articles = JSON.parse(stored);
-        } else {
-            // fallback to data.js
-            if (typeof articlesData !== "undefined") {
-                articles = articlesData;
-                localStorage.setItem('architecture_blog_articles', JSON.stringify(articles));
-            }
-        }
-
+        this.allArticles = articles;
         this.article = articles.find(a => a.id === this.articleId);
 
         if (!this.article) {
@@ -38,89 +45,130 @@ const articleApp = {
         }
 
         this.renderArticle();
-        this.renderActions();
-        this.applyTheme();
+        this.renderRelated();
+    },
+
+    estimateReadTime(content) {
+        const words = (content || '').trim().split(/\s+/).length;
+        return Math.max(2, Math.ceil(words / 220)) + ' min read';
     },
 
     renderArticle() {
         const container = document.getElementById('articleContainer');
         const htmlContent = marked.parse(this.article.content);
+        const isUseCase = this.article.category === 'Use Case';
 
         container.innerHTML = `
-            <article class="article-view">
+            <article class="article-main-card">
                 <header class="article-view-header">
-                    <span class="article-view-category">${this.article.category}</span>
+                    <span class="category-pill ${isUseCase ? 'use-case' : ''}">${this.escapeHtml(this.article.category)}</span>
                     <h1 class="article-view-title">${this.escapeHtml(this.article.title)}</h1>
                     <div class="article-view-meta">
-                        <span>${this.formatDate(this.article.date)}</span>
+                        <span>📅 ${this.formatDate(this.article.date)}</span>
+                        <span>⏱ ${this.estimateReadTime(this.article.content)}</span>
+                        <span>✍️ Rohan Aditya</span>
                     </div>
                 </header>
-                <div class="article-view-content">${htmlContent}</div>
-                <div class="article-tags" style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--color-border);">
-                    ${this.article.tags.map(tag => `<span class="chip" style="margin-right: 0.5rem;">${tag}</span>`).join('')}
+                <div class="article-view-content" id="renderedMarkdown">${htmlContent}</div>
+                <div class="article-tags" style="margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border);">
+                    ${(this.article.tags || []).map(tag => `<span class="article-tag">#${this.escapeHtml(tag)}</span>`).join('')}
                 </div>
             </article>
         `;
 
-        // Highlight code blocks
-        container.querySelectorAll('pre code').forEach((block) => {
-            hljs.highlightElement(block);
-        });
-
-        // Update page title
+        this.enhanceCodeBlocks();
+        this.buildTableOfContents();
         document.title = `${this.article.title} — Rohan Aditya`;
     },
 
-    renderActions() {
-        const container = document.getElementById('articleActions');
-        container.innerHTML = `
-            <button class="btn btn-ghost" onclick="articleApp.editArticle()">Edit</button>
-            <button class="btn btn-ghost" onclick="articleApp.deleteArticle()" style="color: #ef4444;">Delete</button>
-        `;
+    enhanceCodeBlocks() {
+        const contentEl = document.getElementById('renderedMarkdown');
+        if (!contentEl) return;
+
+        contentEl.querySelectorAll('pre').forEach((pre, index) => {
+            const code = pre.querySelector('code');
+            if (!code) return;
+
+            if (window.hljs) {
+                hljs.highlightElement(code);
+            }
+
+            const langClass = Array.from(code.classList).find(c => c.startsWith('language-'));
+            const langLabel = langClass ? langClass.replace('language-', '').toUpperCase() : 'SNIPPET';
+
+            const wrapper = document.createElement('div');
+            wrapper.className = 'code-block-wrapper';
+
+            const header = document.createElement('div');
+            header.className = 'code-block-header';
+            header.innerHTML = `
+                <span>${this.escapeHtml(langLabel)}</span>
+                <button type="button" class="copy-code-btn" data-copy-idx="${index}">Copy</button>
+            `;
+
+            pre.parentNode.insertBefore(wrapper, pre);
+            wrapper.appendChild(header);
+            wrapper.appendChild(pre);
+
+            header.querySelector('.copy-code-btn').addEventListener('click', (e) => {
+                navigator.clipboard.writeText(code.innerText).then(() => {
+                    e.target.textContent = 'Copied ✓';
+                    setTimeout(() => (e.target.textContent = 'Copy'), 1800);
+                });
+            });
+        });
     },
 
-    editArticle() {
-        // Store article ID for editing
-        localStorage.setItem('editing_article_id', this.articleId);
-        // Open index.html in same window
-        window.location.href = 'index.html?edit=' + this.articleId;
-    },
+    buildTableOfContents() {
+        const contentEl = document.getElementById('renderedMarkdown');
+        const tocList = document.getElementById('tocList');
+        if (!contentEl || !tocList) return;
 
-    deleteArticle() {
-        if (!confirm('Are you sure you want to delete this article? This cannot be undone.')) {
+        const headings = Array.from(contentEl.querySelectorAll('h2, h3'));
+        if (headings.length === 0) {
+            tocList.innerHTML = '<li style="font-size:0.8rem; color:var(--text-muted);">No subsections</li>';
             return;
         }
 
-        const stored = localStorage.getItem('architecture_blog_articles');
-        if (!stored) return;
+        tocList.innerHTML = headings.map((h, i) => {
+            const id = 'section-' + i;
+            h.id = id;
+            const cls = h.tagName === 'H3' ? 'toc-h3' : 'toc-h2';
+            return `<li><a href="#${id}" class="${cls}">${this.escapeHtml(h.textContent)}</a></li>`;
+        }).join('');
+    },
 
-        let articles = JSON.parse(stored);
-        articles = articles.filter(a => a.id !== this.articleId);
-        localStorage.setItem('architecture_blog_articles', JSON.stringify(articles));
+    renderRelated() {
+        const rail = document.getElementById('relatedArticlesList');
+        if (!rail) return;
 
-        this.showToast('Article deleted', 'success');
+        const sorted = [...this.allArticles].sort((a, b) => new Date(b.date) - new Date(a.date));
+        rail.innerHTML = sorted.map(item => `
+            <a href="article.html?id=${item.id}" class="sidebar-tag-btn ${item.id === this.articleId ? 'active' : ''}" style="display:block; line-height:1.35; padding:0.5rem 0.6rem;">
+                ${this.escapeHtml(item.title)}
+            </a>
+        `).join('');
+    },
 
-        // Redirect back to home after short delay
-        setTimeout(() => {
-            window.location.href = 'index.html';
-        }, 1500);
+    setupScrollProgress() {
+        window.addEventListener('scroll', () => {
+            const bar = document.getElementById('readingProgress');
+            if (!bar) return;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const pct = docHeight > 0 ? Math.min(100, (window.scrollY / docHeight) * 100) : 0;
+            bar.style.width = pct + '%';
+        });
     },
 
     showNotFound() {
         const container = document.getElementById('articleContainer');
         container.innerHTML = `
-            <div class="not-found">
+            <div class="article-main-card" style="text-align:center; padding:4rem 2rem;">
                 <h2>Article Not Found</h2>
-                <p>The article you're looking for doesn't exist or has been removed.</p>
-                <a href="index.html" class="btn btn-primary">Back to Home</a>
+                <p style="color:var(--text-muted); margin:0.75rem 0 1.5rem;">The article you're looking for doesn't exist.</p>
+                <a href="index.html" class="download-btn">← Back to Articles</a>
             </div>
         `;
-        document.title = 'Not Found — Rohan Aditya';
-    },
-
-    applyTheme() {
-        const savedTheme = localStorage.getItem('architecture_theme') || 'light';
-        document.documentElement.setAttribute('data-theme', savedTheme);
     },
 
     formatDate(dateStr) {
@@ -134,22 +182,9 @@ const articleApp = {
 
     escapeHtml(text) {
         const div = document.createElement('div');
-        div.textContent = text;
+        div.textContent = text || '';
         return div.innerHTML;
-    },
-
-    showToast(message, type = 'info') {
-        const container = document.getElementById('toastContainer');
-        const toast = document.createElement('div');
-        toast.className = 'toast';
-        toast.textContent = message;
-        container.appendChild(toast);
-        setTimeout(() => {
-            toast.style.opacity = '0';
-            setTimeout(() => toast.remove(), 300);
-        }, 3000);
     }
 };
 
-// Initialize
 document.addEventListener('DOMContentLoaded', () => articleApp.init());

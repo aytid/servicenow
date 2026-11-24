@@ -1,229 +1,231 @@
+const HERO_SNIPPETS = [
+    {
+        articleId: '1016',
+        label: 'Calling Flow Designer from a Business Rule',
+        code: `try {
+  var inputs = {};
+  inputs['current'] = current;
+  inputs['table_name'] = 'change_request';
+
+  sn_fd.FlowAPI.getRunner()
+    .flow('global.my_flow')
+    .inForeground()
+    .withInputs(inputs)
+    .run();
+} catch (ex) {
+  gs.error(ex.getMessage());
+}`
+    },
+    {
+        articleId: '1019',
+        label: 'Widget Broadcasting and Emitting in ServiceNow',
+        code: `api.controller = function($rootScope) {
+  var c = this;
+  var EVENT_NAME = 'kap.incident.stateSelected';
+
+  c.select = function(state) {
+    $rootScope.$broadcast(EVENT_NAME, {
+      value: state.value,
+      label: state.label
+    });
+  };
+};`
+    },
+    {
+        articleId: '1002',
+        label: 'Show Table Data in Modal – Native UI',
+        code: `var ga = new GlideAjax('GetTableRecordsAJAX');
+ga.addParam('sysparm_name', 'getRecords');
+ga.addParam('sysparm_table_sysid', sysId);
+
+ga.getXMLAnswer(function(response) {
+  $j('#listContainer').html(response);
+});`
+    }
+];
+
 const app = {
     articles: [],
     currentView: 'grid',
-    currentArticle: null,
     currentFilter: 'All',
-    editorTags: [],
+    currentTag: '',
     searchQuery: '',
 
     init() {
+        this.applySavedTheme();
         this.loadArticles();
-        this.setupEventListeners();
-        this.setupTagInput();
+        this.selectSnippet(0);
+        this.renderSidebarTags();
         this.render();
         this.updateStats();
     },
 
-    loadArticles() {
+    applySavedTheme() {
+        const saved = localStorage.getItem('sn_blog_theme') || 'nowpulse';
+        this.setTheme(saved, false);
+    },
 
-        // Call getSampleArticles which uses data.js
-        this.articles = this.getSampleArticles();
+    setTheme(themeName, persist = true) {
+        document.documentElement.setAttribute('data-theme', themeName);
+        if (persist) {
+            localStorage.setItem('sn_blog_theme', themeName);
+        }
+        document.querySelectorAll('.theme-pill').forEach(btn => {
+            btn.classList.toggle('active', btn.getAttribute('data-set-theme') === themeName);
+        });
+    },
+
+    loadArticles() {
+        // Always show the published articles from data.js, so edits pushed
+        // from /admin reach every visitor (no per-browser cached copy).
+        this.articles = typeof articlesData !== 'undefined' ? [...articlesData] : [];
         this.saveArticles();
     },
 
     saveArticles() {
-        localStorage.setItem('architecture_blog_articles', JSON.stringify(this.articles));
         this.updateStats();
     },
 
-    getSampleArticles() {
-        return articlesData || [];
+    selectSnippet(index) {
+        const snippet = HERO_SNIPPETS[index] || HERO_SNIPPETS[0];
+        const codeEl = document.getElementById('heroSnippetCode');
+        const labelEl = document.getElementById('heroSnippetLabel');
+        const linkEl = document.getElementById('heroSnippetLink');
+
+        if (codeEl) {
+            codeEl.textContent = snippet.code;
+            codeEl.removeAttribute('data-highlighted');
+            if (window.hljs) hljs.highlightElement(codeEl);
+        }
+        if (labelEl) labelEl.textContent = snippet.label;
+        if (linkEl) linkEl.href = `article.html?id=${snippet.articleId}`;
+
+        document.querySelectorAll('.snippet-tab').forEach((tab, idx) => {
+            tab.classList.toggle('active', idx === index);
+        });
     },
 
-    setupEventListeners() {
-        document.querySelectorAll('.modal-overlay').forEach(overlay => {
-            overlay.addEventListener('click', (e) => {
-                if (e.target === overlay) {
-                    if (overlay.id === 'editorModal') this.closeEditor();
-                    if (overlay.id === 'articleModal') this.closeArticle();
-                }
+    estimateReadTime(content) {
+        const words = (content || '').trim().split(/\s+/).length;
+        return Math.max(2, Math.ceil(words / 220)) + ' min read';
+    },
+
+    renderSidebarTags() {
+        const container = document.getElementById('sidebarTagList');
+        if (!container) return;
+
+        const counts = {};
+        this.articles.forEach(a => {
+            (a.tags || []).forEach(tag => {
+                counts[tag] = (counts[tag] || 0) + 1;
             });
         });
 
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                this.closeEditor();
-                this.closeArticle();
-            }
-        });
+        const topTags = Object.entries(counts)
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, 14);
+
+        container.innerHTML = `
+            <button class="sidebar-tag-btn ${!this.currentTag ? 'active' : ''}" onclick="app.filterByTag('')">
+                <span>All Topics</span><span>${this.articles.length}</span>
+            </button>
+            ${topTags.map(([tag, count]) => `
+                <button class="sidebar-tag-btn ${this.currentTag === tag ? 'active' : ''}" onclick="app.filterByTag('${this.escapeHtml(tag)}')">
+                    <span>${this.escapeHtml(tag)}</span><span>${count}</span>
+                </button>
+            `).join('')}
+        `;
     },
 
-    setupTagInput() {
-        const input = document.getElementById('tagInput');
-        input.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                const tag = input.value.trim();
-                if (tag && !this.editorTags.includes(tag)) {
-                    this.editorTags.push(tag);
-                    this.renderEditorTags();
-                    input.value = '';
-                }
-            } else if (e.key === 'Backspace' && !input.value && this.editorTags.length > 0) {
-                this.editorTags.pop();
-                this.renderEditorTags();
-            }
-        });
-    },
-
-    renderEditorTags() {
-        const container = document.getElementById('tagList');
-        container.innerHTML = this.editorTags.map(tag => `
-            <span class="input-tag">
-                ${tag}
-                <button onclick="app.removeEditorTag('${tag}')" type="button">×</button>
-            </span>
-        `).join('');
-    },
-
-    removeEditorTag(tag) {
-        this.editorTags = this.editorTags.filter(t => t !== tag);
-        this.renderEditorTags();
-    },
-
-    openEditor(articleId = null) {
-        const modal = document.getElementById('editorModal');
-        const form = document.getElementById('articleForm');
-
-        if (articleId) {
-            const article = this.articles.find(a => a.id === articleId);
-            if (!article) return;
-
-            document.getElementById('articleId').value = article.id;
-            document.getElementById('articleTitle').value = article.title;
-            document.getElementById('articleCategory').value = article.category;
-            document.getElementById('articleDate').value = article.date;
-            document.getElementById('articleExcerpt').value = article.excerpt;
-            document.getElementById('articleContent').value = article.content;
-            this.editorTags = [...article.tags];
-        } else {
-            form.reset();
-            document.getElementById('articleId').value = '';
-            document.getElementById('articleDate').value = new Date().toISOString().split('T')[0];
-            this.editorTags = [];
-        }
-
-        this.renderEditorTags();
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    },
-
-    closeEditor() {
-        document.getElementById('editorModal').classList.remove('active');
-        document.body.style.overflow = '';
-        this.editorTags = [];
-    },
-
-    saveArticle() {
-        const id = document.getElementById('articleId').value;
-        const title = document.getElementById('articleTitle').value.trim();
-        const category = document.getElementById('articleCategory').value;
-        const date = document.getElementById('articleDate').value;
-        const excerpt = document.getElementById('articleExcerpt').value.trim();
-        const content = document.getElementById('articleContent').value.trim();
-
-        if (!title || !excerpt || !content || !date) {
-            this.showToast('Please fill in all required fields', 'error');
-            return;
-        }
-
-        const readTime = Math.ceil(content.split(' ').length / 200) + ' min';
-
-        const articleData = {
-            id: id || Date.now().toString(),
-            title,
-            category,
-            date,
-            excerpt,
-            content,
-            tags: [...this.editorTags],
-            readTime,
-            views: id ? (this.articles.find(a => a.id === id)?.views || 0) : 0,
-            updated: new Date().toISOString()
-        };
-
-        if (id) {
-            const index = this.articles.findIndex(a => a.id === id);
-            if (index !== -1) {
-                articleData.created = this.articles[index].created;
-                this.articles[index] = articleData;
-                this.showToast('Article updated', 'success');
-            }
-        } else {
-            articleData.created = new Date().toISOString();
-            this.articles.unshift(articleData);
-            this.showToast('Article published', 'success');
-        }
-
-        this.saveArticles();
-        this.closeEditor();
+    filterByTag(tag) {
+        this.currentTag = tag;
+        this.renderSidebarTags();
         this.render();
+    },
+
+    filterByCategory(category) {
+        this.currentFilter = category;
+        this.currentTag = '';
+
+        document.querySelectorAll('#filterChips .chip').forEach(chip => {
+            chip.classList.toggle('active', chip.getAttribute('data-cat') === category);
+        });
+
+        document.querySelectorAll('.header-nav .nav-link[data-nav-cat]').forEach(link => {
+            link.classList.toggle('active', link.getAttribute('data-nav-cat') === category);
+        });
+
+        this.renderSidebarTags();
+        this.render();
+    },
+
+    handleSearch() {
+        this.searchQuery = document.getElementById('searchInput').value.trim().toLowerCase();
+        this.render();
+    },
+
+    getFilteredArticles() {
+        return this.articles
+            .filter(article => {
+                const matchesSearch = !this.searchQuery ||
+                    article.title.toLowerCase().includes(this.searchQuery) ||
+                    article.excerpt.toLowerCase().includes(this.searchQuery) ||
+                    article.content.toLowerCase().includes(this.searchQuery) ||
+                    (article.tags || []).some(t => t.toLowerCase().includes(this.searchQuery));
+
+                const matchesCategory = this.currentFilter === 'All' || article.category === this.currentFilter;
+                const matchesTag = !this.currentTag || (article.tags || []).includes(this.currentTag);
+
+                return matchesSearch && matchesCategory && matchesTag;
+            })
+            .sort((a, b) => new Date(b.date) - new Date(a.date));
     },
 
     viewArticle(id, event) {
         const article = this.articles.find(a => a.id === id);
         if (!article) return;
 
-        this.currentArticle = article;
-        article.views++;
+        article.views = (article.views || 0) + 1;
         this.saveArticles();
 
         const url = `article.html?id=${id}`;
-
-        if (event.ctrlKey || event.metaKey) {
+        if (event && (event.ctrlKey || event.metaKey)) {
             window.open(url, '_blank');
         } else {
             window.location.href = url;
         }
     },
 
-    handleSearch() {
-        this.searchQuery = document.getElementById('searchInput').value.toLowerCase();
-        this.render();
-    },
-
-    filterByCategory(category) {
-        this.currentFilter = category;
-
-        document.querySelectorAll('.chip').forEach(chip => {
-            chip.classList.toggle('active',
-                (category === 'All' && chip.textContent === 'All') ||
-                chip.textContent === category
-            );
+    setView(view) {
+        this.currentView = view;
+        document.querySelectorAll('.view-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.getAttribute('data-view') === view);
         });
-
         this.render();
-
-        const articles = document.getElementById('articlesContainer');
-        if (articles) {
-            articles.scrollIntoView({ behavior: 'smooth' });
-        }
-    },
-
-    getFilteredArticles() {
-        return this.articles.filter(article => {
-            const matchesSearch = !this.searchQuery ||
-                article.title.toLowerCase().includes(this.searchQuery) ||
-                article.excerpt.toLowerCase().includes(this.searchQuery) ||
-                article.content.toLowerCase().includes(this.searchQuery) ||
-                article.tags.some(t => t.toLowerCase().includes(this.searchQuery));
-
-            const matchesCategory = this.currentFilter === 'All' || article.category === this.currentFilter;
-
-            return matchesSearch && matchesCategory;
-        }).sort((a, b) => new Date(b.date) - new Date(a.date));
     },
 
     render() {
         const container = document.getElementById('articlesContainer');
+        const heading = document.getElementById('sectionHeading');
+        const countEl = document.getElementById('resultsCount');
         const filtered = this.getFilteredArticles();
+
+        if (heading) {
+            heading.textContent = this.currentTag
+                ? `Topic: ${this.currentTag}`
+                : this.currentFilter === 'All'
+                    ? 'Latest Articles'
+                    : `${this.currentFilter}s`;
+        }
+        if (countEl) {
+            countEl.textContent = `(${filtered.length} ${filtered.length === 1 ? 'article' : 'articles'})`;
+        }
 
         if (filtered.length === 0) {
             container.innerHTML = `
                 <div class="empty-state" style="grid-column: 1/-1;">
-                    <div class="empty-state-icon">⚡</div>
-                    <h3>No articles found</h3>
-                    <p>Try adjusting your search or filters</p>
+                    <h3>No matching articles found</h3>
+                    <p style="color: var(--text-muted); margin-top: 0.4rem;">Try clearing your search or switching category filters.</p>
                 </div>
             `;
             return;
@@ -232,70 +234,59 @@ const app = {
         container.className = this.currentView === 'grid' ? 'articles-grid' : 'articles-list';
 
         if (this.currentView === 'grid') {
-            container.innerHTML = filtered.map(article => `
+            container.innerHTML = filtered.map(article => {
+                const isUseCase = article.category === 'Use Case';
+                return `
                 <article class="article-card" onclick="app.viewArticle('${article.id}', event)">
-                    <div class="article-content">
-                        <div class="article-meta">
-                            <span class="article-date">📅 ${this.formatDate(article.date)}</span>
+                    <div>
+                        <div class="article-card-top">
+                            <span class="category-pill ${isUseCase ? 'use-case' : ''}">${this.escapeHtml(article.category)}</span>
+                            <span class="article-date">${this.formatDate(article.date)}</span>
                         </div>
                         <h3 class="article-title">${this.escapeHtml(article.title)}</h3>
-                        <div class="article-footer">
-                            <div class="article-tags">
-                                ${article.tags.slice(0, 6).map(t => `<span class="article-tag">#${t}</span>`).join('')}
-                            </div>
+                        <p class="article-excerpt">${this.escapeHtml(article.excerpt)}</p>
+                    </div>
+                    <div class="article-footer">
+                        <div class="article-tags">
+                            ${(article.tags || []).slice(0, 4).map(t => `<span class="article-tag">#${this.escapeHtml(t)}</span>`).join('')}
+                        </div>
+                        <div class="article-card-meta-bottom">
+                            <span>${this.estimateReadTime(article.content)}</span>
+                            <span class="read-cta">Read article →</span>
                         </div>
                     </div>
-                </article>
-            `).join('');
+                </article>`;
+            }).join('');
         } else {
             container.innerHTML = filtered.map(article => `
-                <article class="article-list-item" onclick="app.viewArticle('${article.id}')">
-                    <div class="list-date">
-                        <div class="list-day">${new Date(article.date).getDate()}</div>
-                        <div class="list-month">${new Date(article.date).toLocaleString('default', { month: 'short' })}</div>
+                <article class="article-list-item" onclick="app.viewArticle('${article.id}', event)">
+                    <div>
+                        <div style="display:flex; align-items:center; gap:0.65rem; margin-bottom:0.35rem;">
+                            <span class="category-pill ${article.category === 'Use Case' ? 'use-case' : ''}">${this.escapeHtml(article.category)}</span>
+                            <span class="article-date">${this.formatDate(article.date)} · ${this.estimateReadTime(article.content)}</span>
+                        </div>
+                        <h3 class="article-title" style="margin-bottom:0.25rem;">${this.escapeHtml(article.title)}</h3>
+                        <p style="font-size:0.88rem; color:var(--text-secondary);">${this.escapeHtml(article.excerpt)}</p>
                     </div>
-                    <div class="list-content">
-                        <h3>${this.escapeHtml(article.title)}</h3>
-                    </div>
-                    <div class="list-arrow">→</div>
+                    <span class="read-cta" style="white-space:nowrap;">Read →</span>
                 </article>
             `).join('');
         }
     },
 
-    setView(view) {
-        this.currentView = view;
-        document.querySelectorAll('.view-btn').forEach(btn => {
-            btn.classList.toggle('active', btn.textContent.toLowerCase() === view);
-        });
-        this.render();
-    },
-
     updateStats() {
-        document.getElementById('statArticles').textContent = this.articles.length;
-        document.getElementById('statTutorials').textContent =
-            this.articles.filter(a => a.category === 'Tutorial').length;
-        document.getElementById('statUseCases').textContent =
-            this.articles.filter(a => a.category === 'Use Case').length;
-        //document.getElementById('statReads').textContent =
-        //this.articles.reduce((sum, a) => sum + a.views, 0).toLocaleString();
-    },
-
-    getCategoryIcon(category) {
-        const icons = {
-            'Architecture': '🏛',
-            'Performance': '⚡',
-            'Integration': '🔌',
-            'Tutorial': '📚',
-            'Use Case': '📝',
-        };
-        return icons[category] || '💼';
+        const totalEl = document.getElementById('statArticles');
+        const tutEl = document.getElementById('statTutorials');
+        const ucEl = document.getElementById('statUseCases');
+        if (totalEl) totalEl.textContent = this.articles.length;
+        if (tutEl) tutEl.textContent = this.articles.filter(a => a.category === 'Tutorial').length;
+        if (ucEl) ucEl.textContent = this.articles.filter(a => a.category === 'Use Case').length;
     },
 
     formatDate(dateStr) {
         const date = new Date(dateStr);
         return date.toLocaleDateString('en-US', {
-            month: 'long',
+            month: 'short',
             day: 'numeric',
             year: 'numeric'
         });
@@ -303,47 +294,19 @@ const app = {
 
     escapeHtml(text) {
         const div = document.createElement('div');
-        div.textContent = text;
+        div.textContent = text || '';
         return div.innerHTML;
-    },
-
-    toggleTheme() {
-        const html = document.documentElement;
-        const current = html.getAttribute('data-theme');
-        const next = current === 'dark' ? 'light' : 'dark';
-        html.setAttribute('data-theme', next);
-        localStorage.setItem('architecture_theme', next);
-        document.getElementById('theme-icon').textContent = next === 'dark' ? '◑' : '◐';
-    },
-
-    showToast(message, type = 'info') {
-        const container = document.getElementById('toastContainer');
-        const toast = document.createElement('div');
-        toast.className = 'toast';
-        toast.textContent = message;
-        container.appendChild(toast);
-        setTimeout(() => {
-            toast.style.opacity = '0';
-            setTimeout(() => toast.remove(), 300);
-        }, 3000);
     },
 
     showHome() {
         this.currentFilter = 'All';
+        this.currentTag = '';
         this.searchQuery = '';
-        document.getElementById('searchInput').value = '';
+        const input = document.getElementById('searchInput');
+        if (input) input.value = '';
         this.filterByCategory('All');
         window.scrollTo({ top: 0, behavior: 'smooth' });
-    },
-
-    showAbout() {
-        this.showToast('About page coming soon', 'info');
     }
 };
-
-// Initialize theme
-const savedTheme = localStorage.getItem('architecture_theme') || 'light';
-document.documentElement.setAttribute('data-theme', savedTheme);
-document.getElementById('theme-icon').textContent = savedTheme === 'dark' ? '◑' : '◐';
 
 document.addEventListener('DOMContentLoaded', () => app.init());
