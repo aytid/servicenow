@@ -24,7 +24,9 @@ function serializeArticlesToDataJs(articles) {
         tags: ${tagsStr},
         date: ${JSON.stringify(a.date || '')},
         views: ${Number(a.views || 0)},
-        created: ${JSON.stringify(a.created || new Date().toISOString())},
+        created: ${JSON.stringify(a.created || new Date().toISOString())},${a.readTime ? `
+        readTime: ${JSON.stringify(String(a.readTime))},` : ''}${a.updated ? `
+        updated: ${JSON.stringify(String(a.updated))},` : ''}
         content: \`${escapeTemplateBackticks(a.content || '')}\`
     }`;
   }).join(',\n');

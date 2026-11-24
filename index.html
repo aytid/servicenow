@@ -1,17 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="nowpulse">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rohan Aditya</title>
+    <title>Rohan Aditya — ServiceNow Playground Series</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="shortcut icon" href="images/r-letter-logo.png" type="image/x-icon">
-    <link rel="stylesheet" href="/images/r-letter-logo.png">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
@@ -19,38 +16,61 @@
 </head>
 
 <body>
+    <!-- Top 3-Theme Switcher Bar -->
+    <div class="theme-ribbon">
+        <div class="theme-ribbon-inner">
+            <div class="ribbon-label">
+                <span class="ribbon-dot"></span>
+                <span>NOWPLATFORM DEV NOTES</span>
+            </div>
+            <div class="theme-pills" role="group" aria-label="Theme Switcher">
+                <button class="theme-pill active" data-set-theme="nowpulse" onclick="app.setTheme('nowpulse')">
+                    <span class="theme-swatch" style="background:#62d84e;"></span>NowPulse
+                </button>
+                <button class="theme-pill" data-set-theme="glidedocs" onclick="app.setTheme('glidedocs')">
+                    <span class="theme-swatch" style="background:#0066cc;"></span>GlideDocs
+                </button>
+                <button class="theme-pill" data-set-theme="darkdev" onclick="app.setTheme('darkdev')">
+                    <span class="theme-swatch" style="background:#58a6ff;"></span>DarkDev Terminal
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Header -->
     <header class="header">
         <div class="header-content">
             <a href="#" class="brand" onclick="app.showHome(); return false;">
-                <img src="images/rohannow-logo.png" alt="Rohan Aditya Logo" style="height:40px; width:auto;">
+                <img src="images/rohannow-logo.png" alt="Rohan Aditya Logo">
+                <span class="brand-badge">CSA · CAD · CIS-ITSM</span>
             </a>
 
             <nav class="header-nav">
-                <a href="#" class="nav-link" onclick="app.filterByCategory('All'); return false;">All</a>
-                <a href="#" class="nav-link" onclick="app.filterByCategory('Tutorial'); return false;">Tutorials</a>
-                <a href="#" class="nav-link" onclick="app.filterByCategory('Use Case'); return false;">Use Cases</a>
-                <a href="https://rohanaditya.vercel.app/" class="nav-link">About</a>
+                <a href="#" class="nav-link active" data-nav-cat="All" onclick="app.filterByCategory('All'); return false;">All</a>
+                <a href="#" class="nav-link" data-nav-cat="Tutorial" onclick="app.filterByCategory('Tutorial'); return false;">Tutorials</a>
+                <a href="#" class="nav-link" data-nav-cat="Use Case" onclick="app.filterByCategory('Use Case'); return false;">Use Cases</a>
+                <a href="https://rohanaditya.vercel.app/" target="_blank" class="nav-link">About ↗</a>
             </nav>
 
             <div class="header-actions">
-                <button class="theme-toggle" onclick="app.toggleTheme()" title="Toggle theme">
-                    <span id="theme-icon">◐</span>
-                </button>
             </div>
         </div>
     </header>
 
-    <main class="main" id="mainContent">
+    <main id="mainContent">
         <!-- Hero Section -->
         <section class="hero">
             <div class="hero-grid">
                 <div class="hero-content">
-                    <h1>ServiceNow playground Series</h1>
-                    <h3>by Rohan Aditya</h3>
+                    <div class="hero-eyebrow">⚡ ServiceNow Engineering &amp; Architecture</div>
+                    <h1>ServiceNow Playground Series</h1>
+                    <p class="hero-subtitle">
+                        Practical implementation guides, Flow Designer patterns, Service Portal widgets, and Workspace customizations by <strong>Rohan Aditya</strong>.
+                    </p>
                     <div class="hero-stats">
                         <div class="stat">
-                            <span style="display: none;" class="stat-value" id="statArticles">0</span>
-                            <span style="display: none;" class="stat-label">Articles</span>
+                            <span class="stat-value" id="statArticles">0</span>
+                            <span class="stat-label">Total Posts</span>
                         </div>
                         <div class="stat">
                             <span class="stat-value" id="statTutorials">0</span>
@@ -62,164 +82,71 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="hero-visual">
-                    <div class="code-preview">
-                        <div class="code-line">
-                            <span class="code-line-number">01</span>
-                            <span><span class="code-keyword">class</span> <span class="code-function">RohanAditya</span>
-                                {</span>
-                        </div>
 
-                        <div class="code-line">
-                            <span class="code-line-number">02</span>
-                            <span style="margin-left: 2rem;"><span class="code-keyword">initialize</span>() {</span>
+                <!-- Live Code Snippet Previewer (NowPulse & DarkDev) -->
+                <div class="hero-visual">
+                    <div class="code-window-bar">
+                        <div class="window-dots">
+                            <span></span><span></span><span></span>
                         </div>
-
-                        <div class="code-line">
-                            <span class="code-line-number">03</span>
-                            <span style="margin-left: 4rem;">this.<span class="code-function">role</span> = <span
-                                    class="code-string">'ServiceNow Platform Developer'</span>;</span>
-                        </div>
-
-                        <div class="code-line">
-                            <span class="code-line-number">04</span>
-                            <span style="margin-left: 4rem;">this.<span class="code-function">specialization</span> =
-                                <span class="code-string">'CSA, CAD, CIS-ITSM'</span>;</span>
-                        </div>
-
-                        <div class="code-line">
-                            <span class="code-line-number">05</span>
-                            <span style="margin-left: 2rem;">}</span>
-                        </div>
-
-                        <div class="code-line">
-                            <span class="code-line-number">06</span>
-                            <span>}</span>
+                        <div class="code-window-tabs">
+                            <button class="snippet-tab active" onclick="app.selectSnippet(0)">FlowAPI</button>
+                            <button class="snippet-tab" onclick="app.selectSnippet(1)">Widget $broadcast</button>
+                            <button class="snippet-tab" onclick="app.selectSnippet(2)">GlideAjax</button>
                         </div>
                     </div>
-                </div> -->
+                    <pre class="hero-code-body"><code id="heroSnippetCode" class="language-javascript"></code></pre>
+                    <div class="hero-code-footer">
+                        <span id="heroSnippetLabel">Calling Flow Designer from a Business Rule</span>
+                        <a id="heroSnippetLink" class="hero-code-link" href="article.html?id=1016">Read Guide →</a>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- Search Section -->
+        <!-- Search & Category Filter Bar -->
         <section class="search-section">
             <div class="search-container">
                 <div class="search-box">
                     <span class="search-icon">⌕</span>
                     <input type="text" class="search-input" id="searchInput"
-                        placeholder="Search articles, topics, or code..." oninput="app.handleSearch()">
+                        placeholder="Search articles, FlowAPI, UI Builder, GlideModal, tags..."
+                        oninput="app.handleSearch()">
                 </div>
                 <div class="filter-chips" id="filterChips">
-                    <button class="chip active" onclick="app.filterByCategory('All')">All</button>
-                    <button class="chip" onclick="app.filterByCategory('Tutorial')">Tutorials</button>
-                    <button class="chip" onclick="app.filterByCategory('Use Case')">Use Cases</button>
-                    <!-- <button class="chip" onclick="app.filterByCategory('Performance')">Performance</button> -->
+                    <button class="chip active" data-cat="All" onclick="app.filterByCategory('All')">All</button>
+                    <button class="chip" data-cat="Tutorial" onclick="app.filterByCategory('Tutorial')">Tutorials</button>
+                    <button class="chip" data-cat="Use Case" onclick="app.filterByCategory('Use Case')">Use Cases</button>
                 </div>
             </div>
         </section>
 
-        <!-- Content -->
+        <!-- Main Articles Section -->
         <section class="content">
-            <div class="section-header">
-                <h2 class="section-title">Latest Articles</h2>
-                <!-- <div class="view-options">
-                    <button class="view-btn active" onclick="app.setView('grid')">Grid</button>
-                    <button class="view-btn" onclick="app.setView('list')">List</button>
-                </div> -->
-            </div>
+            <div class="workspace-layout">
+                <!-- GlideDocs Sidebar (visible in GlideDocs theme) -->
+                <aside class="docs-sidebar">
+                    <div class="sidebar-heading">Filter by Topic</div>
+                    <div class="sidebar-tag-list" id="sidebarTagList"></div>
+                </aside>
 
-            <div id="articlesContainer" class="articles-grid">
-                <!-- Articles injected here -->
+                <div>
+                    <div class="section-header">
+                        <div style="display:flex; align-items:baseline; gap:0.75rem;">
+                            <h2 class="section-title" id="sectionHeading">Latest Articles</h2>
+                            <span class="results-count" id="resultsCount"></span>
+                        </div>
+                        <div class="view-options">
+                            <button class="view-btn active" data-view="grid" onclick="app.setView('grid')">Grid</button>
+                            <button class="view-btn" data-view="list" onclick="app.setView('list')">List</button>
+                        </div>
+                    </div>
+
+                    <div id="articlesContainer" class="articles-grid"></div>
+                </div>
             </div>
         </section>
     </main>
-
-    <!-- Editor Modal -->
-    <div class="modal-overlay" id="editorModal">
-        <div class="modal">
-            <div class="modal-header">
-                <h2 class="modal-title">New Article</h2>
-                <button class="modal-close" onclick="app.closeEditor()">×</button>
-            </div>
-            <div class="modal-body">
-                <form id="articleForm">
-                    <input type="hidden" id="articleId">
-
-                    <div class="form-group">
-                        <label class="form-label">Title</label>
-                        <input type="text" class="form-input" id="articleTitle" required
-                            placeholder="Enter article title...">
-                    </div>
-
-                    <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                        <div>
-                            <label class="form-label">Category</label>
-                            <select class="form-select" id="articleCategory">
-                                <option value="Tutorial">Tutorial</option>
-                                <option value="Case Study">Case Study</option>
-                                <option value="Integration">Integration</option>
-                                <option value="Performance">Performance</option>
-                                <option value="Architecture">Architecture</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="form-label">Publish Date</label>
-                            <input type="date" class="form-input" id="articleDate" required>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Excerpt</label>
-                        <input type="text" class="form-input" id="articleExcerpt" required
-                            placeholder="Brief description of the article...">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Content (Markdown)</label>
-                        <textarea class="form-textarea" id="articleContent" required placeholder="# Introduction
-
-Write your article in Markdown...
-
-## Code Example
-```javascript
-// Your code here
-```"></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Tags (Press Enter)</label>
-                        <div class="tag-input-container" onclick="document.getElementById('tagInput').focus()">
-                            <div id="tagList"></div>
-                            <input type="text" class="tag-input" id="tagInput" placeholder="Add tag...">
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-ghost" onclick="app.closeEditor()">Cancel</button>
-                <button class="btn btn-primary" onclick="app.saveArticle()">Publish Article</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Article View Modal -->
-    <div class="modal-overlay" id="articleModal">
-        <div class="modal" style="max-width: 900px;">
-            <div class="modal-header">
-                <div></div>
-                <div style="display: flex; gap: 0.5rem;">
-                    <button class="btn btn-ghost" onclick="app.editCurrentArticle()">Edit</button>
-                    <button class="btn btn-ghost" onclick="app.exportArticle()" style="color: #ef4444;">Delete</button>
-                    <button class="modal-close" onclick="app.closeArticle()">×</button>
-                </div>
-            </div>
-            <div class="modal-body" style="padding: 0;">
-                <article class="article-view" id="articleViewContent">
-                    <!-- Article content injected here -->
-                </article>
-            </div>
-        </div>
-    </div>
 
     <div class="toast-container" id="toastContainer"></div>
     <script src="data.js"></script>
